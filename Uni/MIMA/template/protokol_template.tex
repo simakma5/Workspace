@@ -1,0 +1,132 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[a4paper,hmargin=1in,vmargin=1in]{geometry}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{stddoc}
+\usepackage{lipsum}
+\usepackage{subcaption}
+
+\newcommand{\plus}{{\texttt{+}}}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\fourier}[3]{\mathcal{F}_{#1}\!\left[#2\right]\!\left(#3\right)}
+\newcommand{\ifourier}[3]{\mathcal{F}^{-1}_{#1}\!\left[#2\right]\!\left(#3\right)}
+
+
+\begin{document}
+
+\pagenumbering{arabic}
+
+% Header
+\begin{center}
+    {\LARGE\textbf{Laboratorní úloha č.}}\\[3mm]
+    \begin{minipage}{0.4\textwidth}
+        \begin{flushleft}
+            \textsc{\today}
+        \end{flushleft}
+    \end{minipage}
+    ~
+    \begin{minipage}{0.4\textwidth}
+        \begin{flushright}
+            \textsc{Martin Šimák}
+        \end{flushright}
+    \end{minipage}
+    \noindent\rule{14.5cm}{0.4pt}
+\end{center}
+
+\paragraph*{Téma} \lipsum[5]
+
+\subsection*{Úkoly měření}
+\begin{enumerate}
+    \item 
+\end{enumerate}
+
+\subsection*{Použité přístroje a komponenty}
+\begin{itemize}
+    \item 
+\end{itemize}
+
+\subsection*{Popis měření}
+\lipsum[1]
+
+% Task 1
+\paragraph*{Úloha 1} \lipsum[5]
+
+% \begin{table}[!ht]
+% \begin{center}
+% \begin{tabular}{| l || c | c | c | c | c | c | c | c | c |}
+%     \hline
+%     $f$ [GHz] & 8 & 8,5 & 9 & 9,5 & 10 & 10,5 & 11 & 11,5 & 12 \\
+%     \hline
+%     $P_G$ [dBm] & 0 & -0,15 & -0,58 & -0,8 & -0,43 & -0,15 & -0,07 & 0,06 & -0,2 \\
+%     \hline
+% \end{tabular}
+% \caption{Hodnoty výkonu generátoru HP 86250D na různých frekvencích}
+% \label{table:stability-HP}
+% \end{center}
+% \end{table}
+
+% Task 2
+\paragraph*{Úloha 2} \lipsum[3]
+
+% \begin{table}[!ht]
+% \begin{center}
+% \begin{tabular}{| l || c | c | c | c | c |}
+%     \hline
+%     $f_{\mathrm{off}}$ [kHz] & 1 & 10 & 100 & 1000 & 10000 \\
+%     \hline
+%     $\mathcal L_{\mathrm{HP}}$ [dBc/Hz] & -34,5 & -92,93 & -116,18 & -139,4 & -149,18 \\
+%     \hline
+%     $\mathcal L_{\mathrm{R\&S}}$ [dBc/Hz] & -103,4 & -111,83 & -117,06 & -131,64 & -143,58 \\
+%     \hline
+% \end{tabular}
+% \caption{Hodnoty fázového šumu generátorů HP 86250D a R\&S SMF 100A}
+% \label{table:phase-noise-HP-and-RS}
+% \end{center}
+% \end{table}
+
+\subparagraph*{Úkol} Zadání
+\lipsum[1]
+
+% \begin{figure}[!ht]
+% \begin{center}
+%     \includegraphics[width=0.8\textwidth]{src/}
+% \end{center}
+% \caption{Blokové schéma zapojení generátoru ELSY SG2000}
+% \label{fig:elsy-sg2000-connection-scheme}
+% \end{figure}
+
+% Task 3
+\paragraph*{Úloha 3} \lipsum[5]
+
+% \begin{figure}[!ht]
+%     \centering
+% \begin{subfigure}{0.45\textwidth}
+%     \centering
+%     \includegraphics[width=\textwidth]{src/
+%     \caption{ELSY SG2000}
+%     \label{fig:elsy-sg2000-intermodulation}
+% \end{subfigure}
+% \begin{subfigure}{0.45\textwidth}
+%     \centering
+%     \includegraphics[width=\textwidth]{src/}
+%     \caption{R\&S SMF 100A}
+%     \label{fig:rs-smf-100a-intermodulation}
+% \end{subfigure}
+% \caption{Grafické zpracování dat pro ilustraci zahrazení IM2 a IM3}
+% \end{figure}
+
+\subparagraph*{Úkol} Zadání
+
+\lipsum[5]
+
+\subsection*{Závěr}
+\lipsum[5]
+
+
+\end{document}

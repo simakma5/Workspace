@@ -1,0 +1,8 @@
+CADA seminar 1
+======
+(a) frequency domain
+	- unknowns: \vec E, \vec H
+	- methods: FD, FEM
+(b) time domains
+	- unknowns: \rho, \vec J
+	- methods: MoM
