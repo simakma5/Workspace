@@ -1,0 +1,1 @@
+This is just a folder which is empty by default and serves the purpose of storing undergrad materials I might have some use for. The full archive of my undergrad materials is on my external SSD.
