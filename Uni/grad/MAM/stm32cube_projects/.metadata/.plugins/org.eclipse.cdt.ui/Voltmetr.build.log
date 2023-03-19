@@ -1,0 +1,10 @@
+18:41:14 **** Incremental Build of configuration Debug for project Voltmetr ****
+make -j16 all 
+arm-none-eabi-size   Voltmetr.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4624	     28	   1580	   6232	   1858	Voltmetr.elf
+Finished building: default.size.stdout
+ 
+
+18:41:14 Build Finished. 0 errors, 0 warnings. (took 185ms)
+

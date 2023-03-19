@@ -1,0 +1,230 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{physics-package}[2017/04/22 MathPhys LaTeX package]
+
+% Čeština
+\RequirePackage[czech]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[utf8]{inputenc}
+
+
+% Základní matematická a fzyikální sazba
+\RequirePackage{amsmath,amssymb,amsfonts,amsthm,mathtools}
+\RequirePackage{physics,xfrac,commath,icomma,upgreek}
+
+% Kreslení obrázků z TikZ a grafy v pgfplots
+\RequirePackage{tikz,tikz-3dplot,tikz-feynman}	% TikZ prostředí
+\RequirePackage{pgfplots,bm}					% PgfPlots a hezčí fonty
+
+% Zdrojové kódy
+\RequirePackage{listings}
+
+% Další balíčky
+\RequirePackage{tabularx}						% Lepší tabulky
+\RequirePackage{indentfirst}					% Odsazení prvního odstavce kapitoly
+\RequirePackage{paralist}						% Lepší seznamy
+\RequirePackage{multicol}
+\RequirePackage{natbib}							% Odkazy na literaturu
+\RequirePackage{graphicx}						% Vkládání obrázků
+\RequirePackage{xcolor} 						% Barevná sazba
+\RequirePackage{color}
+\RequirePackage[nottoc]{tocbibind}				% Seznamy, literatura -> obsah
+\RequirePackage[font={small,it,sf}]{caption}		% Nastavení caption
+
+
+\RequirePackage[pdftex,pdfa,unicode]{hyperref}		% Musí se nacházet za všemi ostatními balíčky
+
+
+% Nastavení TikZ
+\usetikzlibrary{shapes.geometric,3d,shadings,shadows}
+\usetikzlibrary{calc,arrows,arrows.meta,fadings}
+\usetikzlibrary{snakes,shapes}
+\newcommand{\legenda}[1]{\addlegendentry{#1}}
+
+
+%% NASTAVENÍ PŘÍKAZŮ
+
+% Diferenciální operátory
+\renewcommand{\d}{{\mathrm d}}
+\newcommand{\p}{\partial}
+
+\DeclareMathOperator{\Grad}{\nabla}
+\DeclareMathOperator{\Div}{\nabla\cdot}
+\DeclareMathOperator{\Rot}{\nabla\times}
+\DeclareMathOperator{\Lap}{\Delta\,}
+\DeclareMathOperator{\Dal}{\square\,}
+
+\newcommand{\pder}[2]{\frac{\p #1}{\p #2}}
+\newcommand{\psder}[3]{\frac{\p^2 #1}{\p #2 \,\p #3}}
+\newcommand{\voidpder}[1]{\frac{\p}{\p #1}}
+\newcommand{\pnder}[3]{\frac{\p^#1 #2}{\p #3^{#1}}}
+\newcommand{\pdder}[2]{\pnder{2}{#1}{#2}}
+\newcommand{\der}[2]{\frac{\d #1}{\d #2}}
+\newcommand{\dder}[2]{\nder{2}{#1}{#2}}
+\newcommand{\nder}[3]{\frac{\d^#1 #2}{\d #3^{#1}}}
+
+% Maticové a vektorové zápisy
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+\newcommand{\lvec}[1]{{\overset{\to}{#1}}}
+\newcommand{\lmat}[1]{{\mathsf #1}}
+\newcommand{\lD}[1]{\lmat D_{#1}}
+\newcommand{\lT}[1]{\lmat T_{#1}}
+\newcommand{\lN}[1]{\lmat N_{#1}}
+\newcommand{\bb}[1]{{\mathbb #1}}
+\newcommand{\T}[1]{#1^\top}
+
+
+
+\DeclareMathOperator{\Wr}{\textrm{Wr}}
+
+\newcommand{\vektor}[1]{
+	\begin{pmatrix}
+		#1
+	\end{pmatrix}
+}
+
+% Statistická fyzika
+\newcommand{\stred}[1]{\langle #1 \rangle}
+
+% Závorky
+\def\({\left(} \def\){\right)}
+\def\[{\left[} \def\]{\right]}
+
+% Definice a věty
+\theoremstyle{plain}
+\newtheorem{veta}{Věta}
+\newtheorem{lemma}[veta]{Lemma}
+\newtheorem{tvrz}[veta]{Tvrzení}
+
+\theoremstyle{plain}
+\newtheorem{definice}{Definice}
+
+\theoremstyle{remark}
+\newtheorem*{dusl}{Důsledek}
+\newtheorem*{pozn}{Poznámka}
+\newtheorem{prikl}{Příklad}
+\newtheorem*{konv}{Konvence}
+
+\newenvironment{dukaz}{
+	\par\medskip\noindent
+	\textit{Komentář}.
+}{
+	\newline
+	\rightline{$\blacksquare$}  % nebo \SquareCastShadowBottomRight z balíčku bbding
+}
+
+\newenvironment{reseni}{
+	\par\medskip\noindent
+	\textit{Řešení}.
+}{
+	\newline
+	\rightline{$\blacksquare$}  % nebo \SquareCastShadowBottomRight z balíčku bbding
+}
+
+% Speciální funkce
+\newcommand{\hankel}[2]{{h^{(#1)}_{#2}}}
+\newcommand{\hankelhat}[2]{ {\hat{h}^{(#1)}_{#2}}  }
+\newcommand{\hankeltilde}[2]{ {\tilde{h}^{(#1)}_{#2}} }
+\newcommand{\Hankel}[2]{{H^{(#1)}_{#2}}}
+\newcommand{\Hankelhat}[2]{ {\hat{H}^{(#1)}_{#2}}  }
+\newcommand{\Hankeltilde}[2]{ {\tilde{H}^{(#1)}_{#2}} }
+
+\newcommand{\Ymag}{\vec Y^{\mathrm{(mag)}}}
+\newcommand{\Yel}{\vec Y^{\mathrm{(el)}}}
+\newcommand{\Yrad}{\vec Y^{\mathrm{(rad)}}}
+
+
+
+
+
+
+
+
+
+
+%% STRUKTURA DOKUMENTU
+
+% Nastavení kapitol a sekcí
+\def\chapwithtoc#1{
+	\chapter*{#1}
+	\addcontentsline{toc}{chapter}{#1}
+}
+
+% Prvky zvýraznění
+\newcommand{\petbox}[2]{
+	\noindent
+	\colorbox{black!7!white}{\hfil\begin{minipage}{0.975\textwidth}
+			\footnotesize
+			\sffamily
+			{\bfseries #1:} #2
+	\end{minipage}}
+}
+
+
+
+
+
+\newcommand{\poznamka}[1]{{\noindent\color{blue} #1}}
+
+
+%% TIKZ KRESLENÍ
+
+% Styly
+\tikzstyle{vektor} = [-{>[angle=20:10pt, ]}, line width=1pt]
+\tikzstyle{tamazpatky} = [{<[angle=20:10pt]}-{>[angle=20:10pt, ]}, line width=0.7pt]
+\tikzstyle{osa} = [-{>[angle=30:10pt, ]}, line width=0.5pt]
+\tikzstyle{uhel} = [-{>[angle=30:5pt, ]}, line width=1pt]
+
+\newcommand{\proton}[1]{%
+	\shade[ball color=blue!50!white] (#1) circle (.25);
+}
+\newcommand{\vlnka}[4]{
+	\draw [decorate,decoration={snake,amplitude=#3cm,segment length=#4cm}] #1 -- #2;
+}
+\newcommand{\vlnkas}[5]{
+	\draw [osa,line width=1pt,decorate,decoration={snake,ampliutde=#3cm,segment length=#4cm},color=#5] #2 -- #1;
+}
+
+
+
+%% NÁZVY A DALŠÍ DOPLŇKY
+
+% Názvy a konstanty
+\def\apj{The Astrophysical Journal}
+\newcommand{\TE}{\mathrm{TE}}
+\newcommand{\TM}{\mathrm{TM}}
+\newcommand{\ALP}{{\sf ALP}}
+\newcommand{\SSH}{{\sf SSH}}
+\newcommand{\VSH}{{\sf VSH}}
+
+\renewcommand{\l}{\ell}
+\newcommand{\h}{\hbar}
+
+
+
+% Blokové komentáře
+\long\def\/*#1*/{}
+
+
+% Tabulky
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

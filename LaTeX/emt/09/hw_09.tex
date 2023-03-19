@@ -1,0 +1,129 @@
+\documentclass[12pt,a4paper]{report}
+
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{15mm}
+\setlength\evensidemargin{15mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+\let\openright=\clearpage
+
+\usepackage[czech]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{stddoc}
+\usepackage{mathtools}
+
+\renewcommand{\vec}{\boldsymbol}
+\def\endl{\\[3mm]}
+
+\begin{document}
+	\pagenumbering{gobble}
+	
+	\begin{center}
+		\section*{Příklady pro týden 9 - Martin Šimák}
+		\noindent\rule{13cm}{1.6pt} \\[5mm]
+	\end{center}
+	
+	\subsection*{Zadání}
+		Vně  a  uvnitř  myšlené  koule  o  poloměru $R$  je  umístěna  stacionární  proudová  hustota $\vec J_{\mathrm{ext}}(\vec r)$ a $\vec J_{\mathrm{int}}(\vec r)$. Vše je umístěno ve vakuu. Určete obecný vztah pro průměr magnetického pole přes objem této koule, tedy hodnotu
+		\begin{align*}
+			\stred{\vec B} = \frac 1V \int_V \vec B(\vec r) \, \d^3 \vec r
+		\end{align*}
+	\noindent\rule{8cm}{0.4pt}
+	
+	\subsubsection*{Značení}
+		V přůběhu výpočtu budeme používat následující značení:
+		\begin{itemize}
+			\item $\d^3 \vec r$ (resp. $\d^3 \vec r'$) $ = \d V$ (resp. $\d V'$),
+			\item $\Sigma = \p V$.
+		\end{itemize}
+	
+	\subsection*{Řešení}
+	
+%% initial deconstruction of the problem
+		Nejprve započneme s úpravou celého vztahu pro $\stred{\vec B}$, se kterým budeme dále pracovat
+		\begin{align*}
+			\stred {\vec B} &= \frac 1V \int_V \vec B(\vec r) \, \d^3 \vec r = \frac 1V \int_V \rot \vec A \, \d^3\vec r = -\frac 1V \oint_\Sigma \vec A \times \d \vec S =
+			\endl
+			&= -\frac{\mu_0}{4\pi V}\oint_\Sigma \int_V \frac{\vec J(\vec r')}{\| \vec r - \vec r'\|} \d^3 \vec r' \times \d \vec S = - \frac{\mu_0}{4\pi V}\int_V \vec J(\vec r') \times \oint_\Sigma \frac{\d \vec S}{\| \vec r - \vec r' \|} \, \d^3\vec r' .
+		\end{align*}
+		
+%% multipole expansion
+		Pro výpočet magnetického pole uvnitř koule se nám bude hodit multipólový rozvoj
+		\begin{align*}
+		\frac{1}{\| \vec r - \vec r' \|} = \sum_n \frac{\min^n \{r, r'\}}{\max^{n+1} \{r, r'\}} P_n(\cos(\alpha)) ,
+		\end{align*}
+		kde $\alpha$ je úhel svíraný vektory $\vec r$ a $\vec r'$, jehož roli v našem symetrickém případě (kouli centrujeme v počátku\footnote{Vlastně se nejedná o žádný specifický případ, pouze jsme si úlohu zjednodušili kvůli výpočtu, což můžeme udělat vždy vhodnou transformací souřadnic tak, aby byla koule centrována v počátku.}, kvůli zjednodušení výpočtu) zastupuje azimutální sférická souřadnice $\theta$, a $P_n(\cos(\theta))$ jsou Legendreovy polynomy. Zároveň jelikož v plošném integrálu integrujeme přes nečárkované souřadnice po kouli, můžeme položit $r = R$, kde $R$ je poloměr uvažované koule.
+\newpage
+		
+%% solving for the inside of the ball
+		\subsubsection*{Řešení uvnitř koule}
+			Aplikujeme-li tedy multipólový rozvoj na náš výpočet (uvnitř koule platí $r \geq r'$), dostaneme
+			\begin{align*}
+			\stred{\vec B_{\mathrm{int}}} &= - \frac{\mu_0}{4\pi V}\int_V \vec J(\vec r') \times \oint_\Sigma \frac 1R \sum_n \(  \frac{r'}{R} \)^n P_n(\cos(\theta))   R^2\sin(\theta) \, \d \theta \, \d \phi \, \d^3\vec r' \, \vec e_r =
+		\endl
+			&= - \frac{\mu_0}{4\pi V} \int_V \d^3 \vec r' \, \vec J(\vec r') \times \sum_n \frac{(r')^n}{R^{n-1}} \int_0^\pi \d \theta \int_0^{2\pi} \d \phi \, \sin(\theta) P_n(\cos(\theta)) \, \vec e_r =
+		\endl
+			&= - \frac{\mu_0}{4\pi V} \int_V \d^3 \vec r' \, \vec J(\vec r') \times \sum_n \frac{(r')^n}{R^{n-1}} \int_0^\pi \d \theta \, P_n(\cos(\theta))\int_0^{2\pi} \d \phi \, \vektor{ \sin^2(\theta)\cos(\phi) \\ \sin^2(\theta)\sin(\phi) \\ \sin(\theta)\cos(\theta) } =
+		\endl
+			&= - \frac{\mu_0}{4\pi V} \int_V \d^3 \vec r' \, \vec J(\vec r') \times \sum_n \frac{(r')^n}{R^{n-1}} \int_0^\pi \d \theta \vektor{ 0 \\ 0 \\ \pi \sin(2\theta) P_n(\cos(\theta)) } .
+			\end{align*}
+			
+			Dále aplikujeme skutečnost, že $\sin(2\theta) P_n(\cos(\theta))$ jsou ortogonální funkce na intervalu $I = [0,\pi]$ pro všechna $n \neq 1$, tj. jediný polynom, který zůstane po integraci je $P_1$, jehož integrál přes $I$ je 4/3.
+			\begin{align*}
+			\stred{\vec B_{\mathrm{int}}} &= - \frac{\mu_0}{4\pi V} \int_V \d^3 \vec r' \, \vec J(\vec r') \times \sum_n \frac{(r')^n}{R^{n-1}} \frac 43 \pi \delta_{1n} \, \vec e_z =
+		\endl
+			&= -\frac{\mu_0}{3 V}\int_V \d^3 \vec r' \, \vec J(\vec r') \times r' \vec e_z .
+			\end{align*}
+			
+			Výsledek získáme využitím definičního vztahu pro magnetický dipólový moment
+			\begin{align*}
+				\vec m_{\mathrm{int}} = \frac 12 \int_V \vec r \times \vec J(\vec r) \, \d^3 \vec r ,
+			\end{align*}
+			který se našemu vztahu příliš nepodobá ($\vec r' \neq r' \vec e_z$), ale tato drobná odlišnost je způsobena tím, že jsme již dříve tuto polovinu vektorového součinu integrovali přes polární souřadnici $\phi$, čímž jsme odstranili $x$-ovou a $y$-ovou složku vektoru $\vec r'$, s nímž bychom zde chtěli pracovat. V našem integrálu tedy hraje $r' \vec e_z$ stejnou roli jako $\vec r'$. Můžeme tedy rovnou přistoupit k výslednému vztahu pro střední hodnotu magnetického pole přes objem koule způsobeného vnitřní stacionární proudovou hustotou $\vec J_{\mathrm{int}}(\vec r)$ jako
+			\begin{align*}
+			\Aboxed{\stred{\vec B_{\mathrm{int}}} &= \frac{2\mu_0}{3V} \vec m_\mathrm{int} .}
+			\end{align*}
+\newpage
+		
+%% outside
+		\subsubsection*{Řešení vně koule}
+			I v tomto případě aplikujeme multipólový rozvoj, musíme však pamatovat na to, že situace je zde opačná ($r' \geq r$). Píšeme v tomto případě tedy
+			\begin{align*}
+				\stred{\vec B_{\mathrm{ext}}} &= - \frac{\mu_0}{4 \pi V} \int_V \vec J(\vec r') \times \oint_\Sigma \frac{1}{r'} \sum_n \( \frac{r}{r'} \)^n P_n(\cos(\theta)) R^2 \sin(\theta) \, \d \theta \, \d \phi \, \d^3 \vec r' \, \vec e_r =
+			\endl
+				&= - \frac{\mu_0}{4 \pi V} \int_V \d^3 \vec r' \, \vec J(\vec r') \times \sum_n \frac{R^{n+2}}{(r')^{n+1}} \int_0^\pi \d \theta \int_0^{2 \pi} \d \phi \, \sin(\theta) P_n(\cos(\theta)) \, \vec e_r =
+			\endl
+				&= - \frac{\mu_0}{4\pi V} \int_V \d^3 \vec r' \, \vec J(\vec r') \times \sum_n \frac{R^{n+2}}{(r')^{n+1}} \int_0^\pi \d \theta \, P_n(\cos(\theta))\int_0^{2\pi} \d \phi \, \vektor{ \sin^2(\theta)\cos(\phi) \\ \sin^2(\theta)\sin(\phi) \\ \sin(\theta)\cos(\theta) } =
+			\endl
+				&= - \frac{\mu_0}{4\pi V} \int_V \d^3 \vec r' \, \vec J(\vec r') \times \sum_n \frac{R^{n+2}}{(r')^{n+1}} \int_0^\pi \d \theta \vektor{ 0 \\ 0 \\ \pi \sin(2\theta) P_n(\cos(\theta)) } .
+			\end{align*}
+			
+			Jak vidíme, postup je velice analogický, proto ho není již potřeba tolik komentovat. Stejně jako v případě řešení uvnitř koule, se na základě ortogonality eliminují všechny Legendreovy polynomy kromě polynomu $P_1$ (vizme předchozí argumentace).
+			\begin{align*}
+				\stred{\vec B_{\mathrm{ext}}} &= - \frac{\mu_0}{4 \pi V} \int_V \d^3 \vec r' \, \vec J(\vec r') \times \sum_n \frac{R^{n+2}}{(r')^{n+1}} \frac 43 \pi \delta_{1n} \, \vec e_z =
+			\endl
+				&= - \frac{\mu_0}{4 \pi V} \int_V \d^3 \vec r' \, \vec J(\vec r') \times \frac{R^3}{(r')^2} \frac{4}{3} \pi \, \vec e_z = - \frac{\mu_0}{4 \pi} \int_V \d^3 \vec r' \vec J(\vec r') \times \frac{\vec e_z}{(r')^2} =
+			\endl
+				&= \frac{\mu_0}{4 \pi} \int_V \d^3 \vec r' \vec J(\vec r') \times \frac{- \vec e_z}{(r')^2}
+			\end{align*}
+			
+			Nyní je řešení ve tvaru Biot-Savartova zákona vyjádřeného v pozorovacím bodě $\vec o$ (počátek souřadné soustavy), což odpovídá našemu přepokladu během výpočtu, že koule je centrována v počátku (úhel $\alpha$ svíraný vektory $\vec r$ a $\vec r'$ byl roven azimutální sférické souřadnici $\theta$). Pokud chceme finální vztah pro obecné centrum koule $\vec r_{\mathrm{center}}$, můžeme vztah ještě generalizovat do finální podoby ($\vec e_z$ znovu jako i v případě řešení unvitř koule hraje roli jednotkového vektoru $\vec e_{r'}$) jako
+			\begin{align*}	
+				\Aboxed{\stred{\vec B_{\mathrm{ext}}} = \frac{\mu_0}{4 \pi} \int_V \d^3 \vec r' \vec J(\vec r') \times \frac{(\vec r_{\mathrm{center}} - \vec e_z)}{(r')^2} = \vec B_{\mathrm{ext}}(\vec r_{\mathrm{center}}) .}
+			\end{align*}
+		
+		\subsubsection{Závěr}
+			Nyní, když jsme spočítali kontribuce k magnetickému poli od obou proudových hustot $\vec J_{\mathrm{int}}(\vec r)$, $\vec J_{\mathrm{ext}}(\vec r)$, můžeme řešení shrnout do jednoho vztahu pomocí principu superposice, čímž získáváme již finální obecný vztah
+			\begin{align*}
+				\Aboxed{\stred{\vec B} = \frac{2\mu_0}{3V} \vec m_\mathrm{int} + \vec B_{\mathrm{ext}}(\vec r_{\mathrm{center}}) .}
+			\end{align*}
+	
+	
+\end{document}

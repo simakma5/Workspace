@@ -1,0 +1,3 @@
+ATF36077_1P5v_10mA	transistor from lecture
+EPB025A70_2V_15mA		transistor OK for f0 > 12 GHz
+NESG2031M05_2V_15mA	transistor OK for f0 < 16 GHz (too stable for oscillator design for f > 16 GHz)

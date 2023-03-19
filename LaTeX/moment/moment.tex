@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage[a4paper,hmargin=1in,vmargin=1in]{geometry}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{stddoc}
+
+
+
+
+\begin{document}
+	
+	\section*{Moment setrvačnosti}
+		
+		\subsection*{Teoretické odvození}
+			
+			Motivací k zavedení a zkoumání momentu setrvačnosti je dynamická úloha tuhého tělesa rotujícího kolem osy. Připodobněme na začátek tuhé těleso soustavě $N$ hmotných bodů neměnících vzájemnou vzdálenost (tuhé těleso se nedeformuje).%
+				\footnote{Tato úvaha není příliš v rozporu se skutečností, přihlédneme-li k tomu, že každá látka (tudíž i naše tuhé těleso) je složena z obrovské spousty atomů pro nás zanedbatelně malých velikostí.}
+			Celkovou kinetickou energii soustavy hmotných bodů vypočteme jednoduše jako součet kinetických energií všech částic. Můžeme tedy v našem přiblížení psát
+			\begin{align*}
+				E = \sum_{k=1}^{N} \frac 12 m_k v_k^2.
+			\end{align*}
+			
+			Dále budeme předpokládat, že těleso vykonává rotační pohyb podle osy procházající těžištěm. Můžeme proto psát $\vec v = \vec r \times \vec \omega$. Z lineární algebry víme, že máme-li ve vektorovém prostoru nějaký podprostor, můžeme libovolný vektor rozložit na projekci do podprostoru a jeho rejekci podprostorem. V našem specifickém případě euklidovského prostoru to znamená, že můžeme libovolný polohový vektor rozložit na složku rovnoběžnou s osou rotace a na složku k ní kolmou, tj. $\vec r = \vec r_\parallel + \vec r_\perp$. Této skutečnosti můžeme pomocí vlastností vektorového součinu využít v následující úvaze.
+			\begin{align*}
+				v = \norm{\vec v} = \norm{\vec r \times \vec \omega} = \norm{(\vec r_\parallel + \vec r_\perp) \times \vec \omega}  = \norm{\vec r_\parallel \times \vec \omega + \vec r_\perp \times \vec \omega} = \norm{\vec r_\perp \times \vec \omega} = r_\perp \omega
+			\end{align*}
+			Z toho však pro kinetickou energii vyplývá, že
+			\begin{align*}
+				E = \sum_{k=1}^{N} \frac 12 m_k v_k^2 = \sum_{k=1}^{N} \frac 12 m_k r_{k\perp}^2 \omega^2.
+			\end{align*}
+			Dále si uvědomme, že sumační index se vyskytuje pouze ve veličinách $m$ a $r_\perp$, můžeme tudíž ostatní činitele vytknout ze sumy. Pokud tak učiníme, stojíme před vzorcem, který je jakousi obdobou vzorce pro kinetickou energii hmotného bodu v případě rotace tělesa kolem osy. Suma je navíc pouhou strukturní charakteristikou rotujícího tělesa. S pohybem samotným nemá co dočinění. Jsme tedy pouze krok od toho si ujasnit co je vlastně moment setrvačnosti, a to tedy veličina popisující setrvačnost tělesa při rotaci kolem osy procházející těžištěm. Matematicky
+			\begin{align*}
+				E &= \frac 12 \sum_{k=1}^{N} m_k r_{k\perp}^2 \omega^2 \equiv \frac 12 J \omega^2,
+			&
+				J &\coloneqq \sum_{k=1}^{N} r_{k\perp}^2 m_k.
+			\end{align*}
+			Nakonec můžeme učinit krok zpět ke spojité struktuře tuhého tělesa pomocí limity diference hmotnosti podle níž sčítáme a dostaneme tak definiční vztah
+			\begin{align}
+				\Aboxed{J \coloneqq \int_m r_\perp^2 (\vec r) \: \d m \equiv \int_V r_\perp^2 (\vec r) \rho (\vec r) \: \d V.}
+			\end{align}
+			V případě homogenního tělesa ($\rho(\vec r) = \rho =$ const.) přejde vztah do tvaru
+			\begin{align}
+				\Aboxed{J = \rho \int_V r_\perp^2 (\vec r) \: \d V.}
+			\end{align}
+		\newpage
+		
+		\paragraph*{Příklad.} Vypočtěte moment setrvačnosti $J$ kužele homogenní hustoty $\rho$ a výšky $h$ rotujícího kolem osy rovnoběžné s podstavou o průměru $d$ procházející těžištěm.
+		
+		\paragraph*{Řešení.}
+		\begin{align*}
+			V &= \frac 13 \pi r^2 h
+		&
+			r_S &= \frac{\int_m r \: \d m}{\int_m \: \d m}
+		&
+			J &= \rho \int_V r_\perp^2 (\vec r) \: \d V
+		\end{align*}
+		\begin{align*}
+			\d V = \d x \d y \d z = 
+		\end{align*}
+	
+	
+\end{document}

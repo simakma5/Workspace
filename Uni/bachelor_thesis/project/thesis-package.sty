@@ -1,0 +1,274 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+
+\RequirePackage{amsmath}            	% rozšíření pro sazbu matematiky
+\RequirePackage{amssymb}            	% rozšíření zásoby symbolů v matematice
+\RequirePackage{amsfonts}           	% matematické fonty
+\RequirePackage{amsthm}             	% sazba vět, definic apod.
+\RequirePackage{bbding}             	% balíček s nejrůznějšími symboly
+\RequirePackage{mathtools}          	% doplňkový package pro matematiku
+
+\RequirePackage{fancyvrb}           	% vylepšené prostředí pro strojové písmo
+\RequirePackage{indentfirst}        	% zavede odsazení 1. odstavce kapitoly
+
+\RequirePackage{dcolumn}        	    % lepší zarovnání sloupců v tabulkách
+\RequirePackage{booktabs}       	    % lepší vodorovné linky v tabulkách
+\RequirePackage{paralist}       	    % lepší enumerate a itemize
+\RequirePackage{enumitem}       	    % umožňuje customizaci enumerate
+%% 3 prikazy pro zmenozneni italiky ve slanted text amsthm prostredich
+%\renewcommand{\labelenumi}{{\rm (\arabic{enumi})}}
+%\renewcommand{\labelenumii}{{\rm (\alph{enumii})}}
+%\renewcommand{\labelenumiii}{{\rm (\theenumii\arabic{enumiii})}}
+\RequirePackage{xcolor}     	        % barevná sazba
+\RequirePackage{tcolorbox}				% nastavitelný colorbox
+
+\RequirePackage{graphicx}           	% vkládání obrázků
+
+\RequirePackage[square,numbers]{natbib}	% zajištuje možnost odkazovat na literaturu
+\RequirePackage[nottoc]{tocbibind}  	% zajistí přidání seznamu literatury,
+
+
+\RequirePackage{wasysym}            	% balíček s nejrůznějšími symboly
+\RequirePackage{imakeidx}				% index cuh --- MUST BE PUT BEFORE HYPERREF IN ORDER TO WORK
+\RequirePackage[pagebackref]{hyperref}
+\hypersetup{
+	hyperindex=true,
+	colorlinks=true,
+	citecolor=red,
+	filecolor=red,
+	linkcolor=red,
+	urlcolor=red
+}
+
+%% ==================================================================
+%% ======================== NASTAVENÍ DÉLEK =========================
+%% ==================================================================
+\setlength\parskip{0.5em}
+
+
+%% ==================================================================
+%% ====================== NASTAVENÍ HLAVIČEK ========================
+%% ==================================================================
+\makeatletter
+\def\@makechapterhead#1{
+	{\parindent \z@ \raggedright \normalfont
+		\Huge\bfseries \thechapter. #1
+		\par\nobreak
+		\vskip 20\p@
+}}
+\def\@makeschapterhead#1{
+	{\parindent \z@ \raggedright \normalfont
+		\Huge\bfseries #1
+		\par\nobreak
+		\vskip 20\p@
+}}
+\makeatother
+
+
+%\RequirePackage{epigraph}					% Citáty na začátku kapitoly
+%\setlength{\epigraphwidth}{0.8\textwidth}	% Nastavení širší pole citátů
+%\renewcommand{\textflush}{flushright}
+%\renewcommand{\sourceflush}{flushright}
+%\let\originalepigraph\epigraph 
+%\renewcommand\epigraph[2]{\originalepigraph{\textit{#1}}{\textsc{#2}}}
+
+
+
+%% ==================================================================
+%% ====================== VEKTOROVÉ KRESLENÍ ========================
+%% ==================================================================
+\RequirePackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
+\RequirePackage{pgfplots}
+\usepgfplotslibrary{polar}
+\usepgfplotslibrary{fillbetween}
+\pgfplotsset{compat=1.10}
+\pgfdeclarelayer{bg}
+\pgfsetlayers{bg,main}
+
+
+%% ==================================================================
+%% ==================== DEFINICE A NOVÉ PŘÍKAZY =====================
+%% ==================================================================
+
+% Efektivnější psaní
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\C}{{\mathbb C}}
+\newcommand{\Q}{{\mathbb Q}}
+\newcommand{\F}{{\mathbb F}}
+\newcommand{\E}{{\mathbb E}}
+
+% Kombinační číslo
+\newcommand{\comb}[2]{
+	\left( \begin{matrix}
+		#1 \\
+		#2
+	\end{matrix} \right)
+}
+
+% Hezké symboly
+\renewcommand{\l}{\ell}
+\newcommand{\e}{\mathrm e}
+\renewcommand{\iff}{\Leftrightarrow}
+\renewcommand{\tilde}{\widetilde}
+
+% Vektory
+\renewcommand{\vec}{\boldsymbol}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+
+%% ---- Totální a parciální derivace ----
+\renewcommand{\d}{{\mathrm d}}
+\newcommand{\p}{\partial}
+\newcommand{\Cov}{\nabla}
+
+\newcommand{\nder}[3]{ \frac{\d^{#1} #2}{\d #3^{#1}} }
+\newcommand{\dder}[2]{ \nder{2}{#1}{#2} }
+\newcommand{\der} [2]{ \nder{}{#1}{#2}  }
+\newcommand{\vnder}[2]{ \frac{\d^{#1}}{\d #2^{#1}} }
+\newcommand{\vdder}[1]{ \vnder {2}{#1} }
+\newcommand{\vder}[1]{ \vnder {}{#1} }
+
+\newcommand{\npder}[3]{\frac{\p^{#1} #2}{\p #3^{#1}}}
+\newcommand{\pder}[2]{\npder{}{#1}{#2}}
+\newcommand{\pdder}[2]{\npder{2}{#1}{#2}}
+\newcommand{\ppder}[3]{\frac{\p^2 #1}{\p #2 \, \p #3}}
+
+%--------------------------------------------------------------------
+% Language settings
+%--------------------------------------------------------------------
+\RequirePackage[czech,main=british]{babel}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+
+%--------------------------------------------------------------------
+% Change equation counter to reset with a new section
+%--------------------------------------------------------------------
+
+\RequirePackage{chngcntr}
+\counterwithin{equation}{section}
+
+
+%--------------------------------------------------------------------
+% Addition custom commands
+%--------------------------------------------------------------------
+\RequirePackage{xypic}
+
+\newcommand{\restr}{\!\!\upharpoonright}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\zero}{\operatorname{zero}}
+\newcommand{\plus}{\operatorname{plus}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\defect}{{\operatorname{def}}}
+\newcommand{\rank}{{\operatorname{rank}}}
+\newcommand{\Lin}{{\operatorname{Lin}}}
+\newcommand{\Iso}{{\operatorname{Iso}}}
+
+\newcount\colveccount
+\newcommand*\colvec[1]{
+	\global\colveccount#1
+	\begin{pmatrix}
+		\colvecnext
+	}
+	\def\colvecnext#1{
+		#1
+		\global\advance\colveccount-1
+		\ifnum\colveccount>0
+		\\
+		\expandafter\colvecnext
+		\else
+	\end{pmatrix}
+	\fi
+}
+
+
+\RequirePackage{dashrule}
+\RequirePackage{multirow}
+\RequirePackage{pdfpages}	% for insertion of the project's assignment
+\RequirePackage{datetime}	% for custom \today
+\newdateformat{monthyeardate}{%
+	\monthname[\THEMONTH] \THEYEAR}
+
+\newcommand\blankpage{%
+	\clearpage
+	\vspace*{\fill}
+	\begin{center}
+		\begin{minipage}{.6\textwidth}
+			\center
+			\textsc{[This page intentionally left blank.]}
+		\end{minipage}
+	\end{center}
+	\vfill % equivalent to \vspace{\fill}
+	\clearpage
+}
+
+\newcommand\declarationpage{%
+	\clearpage
+	\vspace*{\fill}
+	\noindent\textbf{Declaration}\\[0.25cm]
+	I declare that I completed the presented thesis independently and that all used sources are quoted in accordance with the Methodological instructions that cover the ethical principles for writing an academic thesis.\\
+	\hrule\vspace*{1cm}
+	
+	\noindent\textbf{Prohlášení}\\[0.25cm]
+	\foreignlanguage{czech}{Prohlašuji, že jsem předloženou práci vypracoval samostatně a že jsem uvedl veškeré použité informační zdroje v souladu s Metodickým pokynem o dodržování etických principů při přípravě vysokoškolských závěrečných prací.}\\
+	\begin{center}
+		\begin{minipage}{0.45\textwidth}
+			\begin{flushleft}
+				V Praze, \hdashrule{3cm}{0.5pt}{2pt}
+			\end{flushleft}
+		\end{minipage}
+		~
+		\begin{minipage}{0.45\textwidth}
+			\begin{flushright}
+				\noindent\begin{tabular}{c}
+					\\
+					\hdashrule{4cm}{0.5pt}{2pt}\\
+					Martin Šimák
+				\end{tabular}
+			\end{flushright}
+		\end{minipage}
+	\end{center}
+	\clearpage
+}
+
+\newcommand\acknowledgementspage{%
+	\clearpage
+	\vspace*{\fill}
+	\noindent\textbf{Acknowledgements}\\[0.25cm]
+	First and foremost, I would like to thank my supervisor, Jiří Velebil, for his outstanding guidance and his zeal throughout the creation of this thesis. Further, I would like to thank my family and my colleagues, namely Erik Rapp and Karolína Veselá, for their invaluable support.\\
+	\hrule\vspace*{1cm}
+	
+	\noindent\textbf{Poděkování}\\[0.25cm]
+	\foreignlanguage{czech}{Především bych rád poděkoval svému vedoucímu, Jiřímu Velebilovi, za jeho vynikající vedení a za jeho zapálenost a vstřícnost během tvorby této práce. Dále bych rád poděkoval své rodině a svým kolegům, zejména Eriku Rappovi a Karolíně Veselé, za jejich neocenitelnou podporu.}
+	\clearpage
+}
+
+\newcommand\abstractpage{%
+	\clearpage
+	\noindent\textit{Title:}\\
+	\textbf{Connections on Differentiable Manifolds}\\[0.25cm]
+	\textit{Author:} Martin Šimák\\[0.25cm]
+	\textit{Study programme:} Open Electronic Systems\\[0.25cm]
+	\textit{Supervisor:} doc. RNDr. Jiří Velebil, Ph.D., Department of Mathematics FEE\\[0.25cm]
+	\textit{Abstract:}\\
+	One of the aims of this thesis is to fully introduce a comprehensive differentiable structure on a smooth manifold. To achieve that, we first inspect various aspects of its definition. Further, we introduce a tangent structure on said manifolds, allowing us to locally speak of derivatives and vector fields. This construction naturally results in definitions of a covariant derivative and a connection form, where the former serves as a generalisation of a derivative in a direction and the latter as a tool for ``glueing'' tangent spaces together. As a climax of the thesis, we show that the two previously mentioned additional structures on the ambient manifold are equivalent.\\[0.25cm]
+	\textit{Keywords:} smooth manifolds, tangent structure, covariant derivative, connection\\[0.5cm]
+	\noindent\textit{Název práce:}\\
+	\textbf{Konexe na diferencovatelných varietách}\\[0.25cm]
+	\textit{Autor:} Martin Šimák\\[0.25cm]
+	\textit{Studijní program:} Otevřené elektronické systémy\\[0.25cm]
+	\textit{Vedoucí:} doc. RNDr. Jiří Velebil, Ph.D., katedra matematiky FEL\\[0.25cm]
+	\textit{Abstrakt:}\\
+	\foreignlanguage{czech}{Jedním z cílů této práce je v plném měřítku uvést rozsáhlou diferenciální strukturu na hladké varietě. Abychom toho dosáhli, prozkoumáme nejprve jednotlivé aspekty její definice. Dále na varietách uvedeme tečnou strukturu, jenž nám umožňuje lokálně hovořit o derivacích a vektorových polích. Tato konstrukce přirozeně vyúsťuje v definice kovariantní derivace a konexe, přičemž první z pojmů slouží jakožto zobecnění derivace ve směru a druhý jakožto nástroj pro \uv{slepování} tečných prostorů. Jako vyvrcholení práce ukážeme, že tyto dvě dodatečné struktury na varietě jsou ekvivalentní.}\\[0.25cm]
+	\textit{Klíčová slova:} hladké variety, tečná struktura, kovariantní derivace, konexe\\[0.5cm]
+	\clearpage
+}

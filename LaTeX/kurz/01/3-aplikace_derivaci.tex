@@ -1,0 +1,151 @@
+\documentclass[11pt,a4paper]{report}
+
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{15mm}
+\setlength\evensidemargin{15mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+\let\openright=\clearpage
+
+\usepackage[czech]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{stddoc}
+
+
+\renewcommand{\vec}{\boldsymbol}
+\def\endl{\\[3mm]}
+\newcommand*\colvec[3][]{
+	\begin{pmatrix}
+		\ifx \relax#1 \relax
+		\else #1\\
+		\fi
+		#2 \\ #3
+	\end{pmatrix}
+}
+
+
+
+\begin{document}
+	
+	\pagenumbering{gobble}
+	
+	\section*{Aplikace derivace v kinematice}
+	
+	\noindent
+	Minule jsme se dozvěděli o Větě o aritmetice derivací (zkráceně VoAD, vizme \eqref{eq:voad}) a o Větě od derivaci složené funkce (zkráceně VoDSF, vizme \eqref{eq:vodsf})
+	\begin{equation}
+		\label{eq:voad}
+		\begin{aligned}
+			(f \pm g)' &= f' + g',
+		\\
+			\Aboxed{(f \cdot g)' &= f' \cdot g + f \cdot g',}
+		\\
+			\( \frac{1}{g} \)' &= \frac{-g'}{g^2},
+		\end{aligned}
+	\end{equation}
+	\begin{align}
+		\label{eq:vodsf}
+		\Aboxed{(f(g(x)))' &= f'(g(x)) \cdot g'(x).}
+	\end{align}
+	a také jak počítat derivace podle definice. Ačkoli se jedná o jednu z náročnějších elementárních funkcí na derivování, odvodíme funkci sinus, protože se nám bude dnes hodit (celý postup je uveden pouze pro zajímavost, o podobných výpočtech limit se budete učit v rámci prvního kursu Matematické analýzy)
+	\begin{align*}
+		(\sin(x))' &= \lim_{y \to x} \frac{\sin(y) - \sin(x)}{y-x} = \lim_{y \to x} \frac{2 \sin\(\frac{y-x}{2}\)\cos\(\frac{y+x}{2}\)}{y-x} =
+	\\
+		&= \lim_{y \to x} \( \frac{\sin\(\frac{y-x}{2}\)}{\frac{y-x}{2}} \) \cdot \lim_{y \to x} \( \cos\(\frac{y+x}{2}\) \) = 1 \cos\( \frac{2x}{2} \) =
+	\\
+		&=\cos(x).
+	\end{align*}
+	Funkce kosinus má odvození podobné, proto ho již neuvádíme. Každopádně výsledek této práce, který se dnes ukáže dobrým nástrojem, je
+	\begin{align}
+		\label{eq:sinder}
+		(\sin(x))' &= \cos(x),
+	\\
+		\label{eq:cosder}
+		(\cos(x))' &= - \sin(x).
+	\end{align}
+	
+	Dnes se tedy pokusíme o určitou aplikaci nově nabitých znalostí (zarámečkovaných rovností obzvlášť) do oblasti mechaniky. Začneme tedy přirozeně s rychlostí. Vzorec pro rychlost je základním kamenem kinematiky, partie mechaniky, která se zabývá popisem pohybu bez toho, abychom se příliš starali o jeho příčinu. Vztah rychlosti a polohy znám ze středoškolské fyziky i jeho vyjádření v jazyce nám již známých derivací je tedy
+	\begin{align*}
+		\overline v(t) &= \frac{\Delta s}{\Delta t} = \frac{s_B - s_A}{t_B-t_A},
+	\\
+		v(t) &= \lim\limits_{\Delta t \to 0} \frac{\Delta s}{\Delta t} = \frac{\d s}{\d t}(t) = s'(t),
+	\\
+		a(t) &= \lim\limits_{\Delta t \to 0} \frac{\Delta v}{\Delta t} = \frac{\d v}{\d t}(t) = v'(t) = s''(t),
+	\end{align*}
+	kde $\overline v(t)$ (středoškolsky definovaná rychlost) je tedy pouze rychlostí průměrnou za daný časový interval, kdežto rychlost $v(t)$ zadefinována pomocí derivace je rychlost okamžitá pro daný čas $t$.
+	
+	\noindent
+	\textit{Připomínka.} \quad \underline{Polární souřadnice} kartézsky vyjádřeného bodu $[x,y]$ můžeme určit dle obrázku níže jako
+	\begin{align*}
+	x = r \cos(\varphi),
+	\\
+	y = r \sin(\varphi).
+	\end{align*}
+	
+	\begin{figure}[h!] \begin{center}
+			\begin{tikzpicture}
+			
+			%% iniciace: nakres souradnicoveho krize
+			\draw[black,thick,->] (-3.5,0)--(3.5,0) node[black] at(3.15,-0.35){$x$};
+			\draw[black,thick,->] (0,-2.5)--(0,2.5) node[black] at(-0.35,2.15){$y$};
+			%\filldraw[black] (0,0) circle(1pt)
+			\node[black] at(0.25,-0.3){0};
+			
+			%% bod P a jeho souradnice (kartezsky i polarni)
+			\filldraw[gray] (2,1) circle(2pt) node[black] at(2.4,0.6){P};
+			\draw[gray,thin] (0,0)--(2,1) node[black] at(0.85,0.65){$r$};
+			\draw[gray,dashed] (2,0)--(2,1) node[black] at(2,-0.35){$x_P$};
+			\draw[gray,dashed] (0,1)--(2,1) node[black] at(-0.35,1){$y_P$};
+			\draw[black,thin,->] (1.5,0) arc(0:25:1.5) node[black] at(1.15,0.25){$\varphi$};
+			
+			\end{tikzpicture}
+			\caption{Ilustrace polárních souřadnic v kartézské souřadné soustavě}
+	\end{center} \end{figure}
+	
+	Takto tedy můžeme určit polohu bodu stojícího v prostoru. My se však zabýváme obecně pohybem, který nemusí být vůči nám (pozorovateli) v klidu, ale jeho poloha bude záviset na čase. V případě polohy budou tedy obě souřadnice funkcemi času
+	\begin{align*}
+		x(t) = r(t) \cos(\varphi(t)),
+	\\
+		y(t) = r(t) \sin(\varphi(t))
+	\end{align*}
+	Rychlost tedy, jak jsme si ukázali již dříve, je časovou derivací právě funkce polohy, můžeme tedy psát
+	\begin{align*}
+		v_x(t) &= (r(t) \cos(\varphi(t)))',
+	\\
+		v_y(t) &= (r(t) \sin(\varphi(t)))'.
+	\end{align*}
+	Nasasdíme-li tedy na takto obecně vyjádřený pohyb nám již známé věty o derivacích \eqref{eq:voad}, \eqref{eq:vodsf} a znalost derivace funkce kosinus \eqref{eq:cosder}, x-ová složka rychlosti bude vypadat
+	\begin{align*}
+		v_x(t) &= (s_x(t))' = (r(t) \cdot \cos(\varphi(t)))' = (r(t))' \cdot \cos(\varphi(t)) + r(t) \cdot (\cos(\varphi(t)))' =
+	\\
+		&= r'(t) \cos(\varphi(t)) + r(t) ((-\sin(\varphi(t)) \varphi'(t)) = r'(t) \cos(\varphi(t)) - r(t) \sin(\varphi(t)) \varphi'(t),
+	\end{align*}
+	
+	\noindent
+	y-ová složka rychlosti pak zase s pomocí \eqref{eq:voad}, \eqref{eq:vodsf}, akorát tentokrát se nám vyskytne ve vyjádření sinus, takže použijeme \eqref{eq:sinder}
+	\begin{align*}
+		v_y(t) &= (r(t) \sin(\varphi(t)))' = r'(t) \sin(\varphi(t)) + r(t) (\sin(\varphi(t)))' =
+	\\
+		&= r'(t) \sin(\varphi(t)) + r(t) \cos(\varphi(t)) \varphi'(t).
+	\end{align*}
+	Celkovou rychlost v polárních souřadnicích pak můžeme vyjádřit jako (na universitě již sloupcový) vektor a dostáváme tak ucelený výsledek
+	\begin{align*}
+		\Aboxed{\vec v(t) = \begin{pmatrix}
+			v_x(t) \\
+			v_y(t)
+		\end{pmatrix} = \begin{pmatrix}
+			r'(t) \cos(\varphi(t)) - r(t) \sin(\varphi(t)) \varphi'(t) \\
+			r'(t) \sin(\varphi(t)) + r(t) \cos(\varphi(t)) \varphi'(t)
+		\end{pmatrix}.}
+	\end{align*}
+	
+		
+	
+\end{document}

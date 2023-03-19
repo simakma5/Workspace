@@ -1,0 +1,470 @@
+\documentclass[a4paper,11pt]{report}
+\usepackage[a4paper,hmargin=1in,vmargin=1in]{geometry}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{stddoc}
+
+\title{Multilineární algebra}
+\author{Poznámkový text vyšší algebry pro teoretickou fyziku}
+\date{}
+\usepackage{titling}
+\pretitle{\begin{center}\Huge\bfseries}
+	\posttitle{\par\end{center}\vskip 0.5em}
+\preauthor{\begin{center}\Large\ttfamily}
+	\postauthor{\end{center}}
+\predate{\par\large\centering}
+\postdate{\par}
+
+
+\makeatletter
+\def\thmheadbrackets#1#2#3{%
+	\thmname{#1}\thmnumber{\@ifnotempty{#1}{ }\@upn{#2}}%
+	\thmnote{{\;\;\the\thm@notefont[#3]}}}
+\makeatother
+
+\newtheoremstyle{theorem}		% name
+{\topsep}						% Space above
+{\topsep}						% Space below
+{\normalfont}					% Body font
+{}								% Indent amount
+{\bfseries}						% Theorem head font
+{.}								% Punctuation after theorem head
+{.5em}							% Space after theorem head
+{\thmheadbrackets{#1}{#2}{#3}}	% theorem head spec
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Věta}[section]
+% The additional parameter [section] restarts the theorem counter at every new section.
+\newtheorem{corollary}{Corollary}[theorem]
+% An environment called corollary is created, the counter of this new environment will be reset every time a new theorem environment is used.
+\newtheorem{lemma}[theorem]{Lemma}
+% In this case, the even though a new environment called lemma is created, it will use the same counter as the theorem environment.
+\theoremstyle{remark}
+\newtheorem*{remark}{Poznámka}
+\newtheorem*{convention}{Konvence}
+% The syntax of the command \newtheorem* is the same as the non-starred version, except for the counter parameters. In this example a new unnumbered environment called remark is created.
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definice}[section]
+\newtheorem*{example}{Příklad}
+\newtheorem*{recap}{Opakování}
+
+%\renewcommand\qedsymbol{$\blacksquare$}
+
+
+\newcommand{\Span}{{\mathrm{Span}\,}}
+\newcommand{\Ker}{{\mathrm{Ker}\,}}
+%\newcommand{\Im}{{\mathrm{Im}\,}}
+
+
+\begin{document}
+	
+	\pagenumbering{gobble}
+	\maketitle
+	\newpage
+	\tableofcontents
+	\newpage
+	\pagenumbering{arabic}
+	
+	\chapter{Duální prostor a tensory}
+	\epigraph{
+	\uv{Tenser, said the Tensor. Tension, apprehension, and dissension have begun.}
+	}{Alfred Bester}
+		
+			
+		V první kapitole se budeme zabývat duálními prostory (nebo zkráceně duály) k vektorovým prostorům. Základními poznatky, na kterých budeme stavět tedy budou pojmy jako \textit{vektorový prostor, báze, dimense a matice přechodu}. Některé ze základních pojmů si tedy zopakujme.
+		\begin{convention}
+			V tomto textu se budeme držet standardu, tedy že v případě vektorů%
+				\footnote{V případě kovektorů je konvence přesně opačná.}
+			budeme zapisovat souřadnice indexy nahoře, kdežto u bázových vektorů budeme psát indexy dolů. Dále budeme dodržovat Einsteinovu sumační konvenci: V takovéto representaci vektoru - jakožto lineární kombinace bázových vektorů - dále vynecháváme sumační znak $\Sigma$.
+		\end{convention}
+		\begin{recap}
+			Lineárně nezávislé množině generátorů $\{e_i\}$ vektorového prostoru $V$ říkáme \textit{báze} prostoru $V$. Pokud bázi $\{e_i\}$ vektorového prostoru $V$ napíšeme jako seznam $(e_i)$, mluvíme o \textit{uspořádané bázi}.\\
+			Dále lze ukázat, že báze prostoru není dána jednoznačně, ale její počet prvků ano. Každá báze prostoru $V$ má tedy vždy stejný počet prvků, jenž nazýváme \textit{dimense} prostoru $V$ a značíme jej $\mathrm{dim} \, V$.\\
+			To znamená, že libovolný vektor $v$ z vektorového prostoru $V$ s bází $M=\{e_1, \dots, e_n\}$ můžeme napsat jako
+			\begin{align*}
+				v = \sum_{i=1}^{\dim V} v^i e_i = v^i e_i,
+			\end{align*}
+			kde v poslední rovnosti využíváme Einsteinovy sumační konvence v indexu $i$.\\
+			Nechť máme dvě báze $M = \{e_1, \dots, e_n\}, \, M' = \{e'_1, \dots, e'_n\}$ vektorového prostoru $V$ dimense $n$. \textit{Matice přechodu} od $M$ k $M'$, pro kterou platí%
+				\footnote{První rovnost pochází z definice, kdežto druhá je triviálním tvrzením o maticích přechodu a třetí je ekvivalentní druhé, neboť $(A^{-1})^j_{\; i} v^i = (A^{-1})^j_{\; i} A^i_{\; k} v'^k = \delta^j_{\; k} v'^k = v'^j$.}
+			\begin{align*}
+				e'_j &= \sum_{i=1}^{n} e_i (A)_{ij} \eqqcolon A^{i}_{\; j} e_i,
+			\\
+				v^j &= \sum_{i=1}^{n} (A)_{ji} v'^i \equiv A^j_{\; i} v'^i,
+			\\
+				v'^j &= (A^{-1})^j_{\; i} v^i.
+			\end{align*}
+		\end{recap}
+		
+		\section{Lineární formy}
+			
+			\begin{definition}
+				Nechť $V$ je vektorový prostHomor nad tělesem $\F$. Definujme prostor $V^* \coloneqq \text{Hom}(V,\F)$ všech lineárních forem (také lineárních funkcionálů, kovektorů) na $V$. Tento prostor se nazývá \textit{duální prostor} k prostoru~$V$.
+			\end{definition}
+			
+			\begin{remark}
+				Podle věty o dimensi prostoru homomorfismů%
+					\footnote{Věta říká, že dimense prostoru $\mathrm{Hom}(V,W)$ všech homomorfismů mezi prostory $V,W$ dimense $n,m$ v uvedeném pořadí, je $\mathrm{dim}\(\mathrm{Hom}(V,W)\) = n \cdot m$.}
+				víme, že $\mathrm{dim} \, V^* = \mathrm{dim} \, V$.
+			\end{remark}
+			
+			\begin{definition}
+				Necht jsou dány báze $M = \{e_1, \dots, e_n\} \subseteq V$ a $M^* = \{e^1, \dots, e^n\} \subseteq V^*$. Potom tyto báze nazveme \textit{vzájemně duální}, pokud platí, že $\forall i \in \{1, \dots, n\} : e^i(e_j)=\delta^i_j$.
+			\end{definition}
+			\begin{remark}
+				Zajímá-li nás, jak vypadá, když nějaká $i$-tá forma působí na nějaký vektor $v$, odpověď je vcelku snadná:
+				\begin{align}
+					e^i(v) = e^i(v^j e_j) = v^j e^i(e_j) = v^i.
+				\end{align}
+			\end{remark}
+			
+			\begin{lemma}
+				Nechť $M = \{e_1, \dots, e_n\}$ je báze $V$, $\alpha \in V^*$. Pak čísla
+				\begin{align*}
+					(\alpha_1, \dots, \alpha_n) \equiv (\alpha(e_1), \dots, \alpha(e_n))
+				\end{align*}
+				jsou rovny souřadnicím kovektoru $\alpha$ vzhledem k $M^*$.
+			\end{lemma}
+			\begin{proof}
+				Pokud $\alpha \in V^*$ je kovektor, pak pro libovolný vektor $v \in V$ a $i \in \{1, \dots, n\}$ platí
+				\begin{align}
+					\alpha(v) = \alpha(v^i e_i) = \alpha(e_i) v^i = \alpha(e_i) e^i(v) = (\alpha(e_i) e^i)(v) \eqqcolon (\alpha_i e^i)(v).
+				\end{align}
+				Díky větě o zadání homomorfismu hodnotami na bázi%
+					\footnote{V plném znění: Nechť $V \, W$ jsou vektorové prostory nad $\F$, $N = \{e_1, \dots, e_n\}$ je báze $V$ a $w_1, \dots, w_n$ je $n$-tice vektorů z $W$. Pak existuje právě jedno zobrazení $f : V \to W$, pro které $\forall i \in \{1, \dots, n\} : f(v_i) = w_i$.}
+				je kovektor $\alpha$ čísly $(\alpha_1, \dots, \alpha_n)$ jednoznačně zadán, tedy zobrazení $\alpha$ a $\alpha_i e^i$ z Hom$(V,\F)$ jsou si rovna.
+			\end{proof}
+			
+			\begin{example}
+				Nechť $V=\R^2$ s bází $B=\{e_1,e_2\}$, kde $e_1=(3,2)$ a $e_2=(4,3)$. Najděme bázi duáního prostoru $V^*$.
+			\end{example}
+			\begin{proof}[Řešení]
+				Prvky duálního prostoru vždy můžeme vyjádřit ve tvar $e^1 = a \epsilon^1 + b \epsilon^2, e^2 = c \epsilon^1 + d \epsilon^2$, kde $\epsilon^k(v) = v^k$ vzhledem ke kanonické bázi. Potom musí ale platit
+				\begin{align*}
+					e^1(e_1) &= 3a + 2b = 1,
+				\\
+					e^1(e_2) &= 4a + 3b = 0,
+				\\
+					e^2(e_1) &= 3c + 2d = 0,
+				\\
+					e^2(e_2) &= 4c + 3d = 1.
+				\end{align*}
+				Abychom uspokojili platnost nutného vztahu, stačí vyřešit systém čtyř rovnic o čtyřech neznámých. Toto řešení je
+				\begin{align*}
+					e^1 &= 3\epsilon^1 - 4\epsilon^2,
+				\\
+					e^2 &= 3\epsilon^2 - 2\epsilon^1.
+				\end{align*}
+			\end{proof}
+			
+			\begin{lemma}
+				Nechť $M^* = \{e^1, \dots, e^n\}, M'^* = \{e'^1, \dots, e'^n\}$ jsou báze $V$* duální k bázím $M, M'$, $A$ je matice přechodu od $M$ k $M', \alpha \in V*$. Potom
+				\begin{align}
+					e'^i &= (A^{-1})^i_{\; j} e^j, & \alpha'_i = A^j_{\; i} \alpha_j.
+				\end{align}
+			\end{lemma}
+			\begin{proof}
+				Ať $v\in V$ je libovolný vektor. Pro prvky bází platí $e'_i = A^j_{\; i} e_j$. Jelikož vektor se transformací báze nemění, můžeme psát%
+					\footnote{Během důkazu mnohokrát zaměňuji indexy, abych došel ke kýženým vztahům ve stejném tvaru. Písmeno indexu je samozřejmě otevřené volbě.}
+				\begin{align*}
+					v = v^j e_j = v'^j e'_j = v'^j A^p_{\; j} e_p = v'^p A^j_{\; p} e_j.
+				\end{align*}
+				Aby byla rovnost dodržena, musí platit $v^j = v'^p A^j_{\; p}$. Jelikož matice přechodu je vždy regulární (existuje inverse), můžeme ekvivalentně psát
+				\begin{align*}
+					v^j (A^{-1})^i_{\; j} = v'^p A^j_{\; p} (A^{-1})^i_{\; j} = v'^p \delta^i_p = v'^i.
+				\end{align*}
+				Pro každý vektor $v \in V$ platí $v^i = e^i(v)$ a $v'^i = e'^i(v)$, speciálně $e^i(e_j) = \delta^i_j$. Výše ukázanou rovnost lze tedy přepsat jako $e'^i(v) = (A^{-1})^i_{\; j} e^j(v)$ neboli rovnost zobrazení
+				\begin{align*}
+					e'^i = (A^{-1})^i_{\; j} e^j.
+				\end{align*}
+				Podobně pro libovolné $\alpha \in V^*$ platí
+				\begin{align*}
+					\alpha(v) = \alpha_j e^j(v) = \alpha'_j e'^j(v) = \alpha'_j (A^{-1})^j_{\; i} e^i(v) = \alpha'_p (A^{-1})^p_{\; j} e^j(v),
+				\end{align*}
+				platí tedy nutně $\alpha_j = (A^{-1})^p_{\; j} \alpha'_p$, tudíž ekvivalentně $A^j_{\; i} \alpha_j = A^j_{\; i} (A^{-1})^p_{\; j} \alpha'_p = \delta^p_i \alpha'_p = \alpha'_i$. Závěrem tedy
+				\begin{align*}
+					\alpha'_i = A^j_{\; i} \alpha_j.
+				\end{align*}
+			\end{proof}
+			
+			\begin{remark}
+				Doposud odvozené vztahy pro transformace můžeme shrnout do tabulky:
+				\begin{center}
+					\begin{tabular}{m{4cm} m{4cm} m{4cm}}
+						\textbf{transformace} & \textbf{maticově} & \textbf{tensorově} \\
+						prvky báze $V$ & $e'_r = \sum_b e_b (A)_{br}$ & $e'_r = A^b_{\; r} e_b$ \\
+						prvky báze $V^*$ & $e'^r = \sum_b (A^{-1})_{rb} e^b$ & $e'^r = (A^{-1})^r_{\; b} e^b$ \\
+						souřadnice vektoru & $(v)^T_{M'} = (v)^T_M (A^{-1})^T$ & $v'^r = (A^{-1})^r_{\; b} v^b$ \\
+						souřadnice kovektoru & $(\alpha)^T_{M'} = (\alpha)^T_M A$ & $\alpha'_r = A^b_{\; r} \alpha_b$
+					\end{tabular}.
+				\end{center}
+				Z tabulky je vidět, že bjekty s indexem dole se transformují pomocí matice $A$, tzn. \textit{kovariantně}, kdežto objekty s indexy nahoře se transformují pomocí matice $A^{-1}$, tzn. \textit{kontravariantně}.
+			\end{remark}
+			
+			\begin{definition}
+				Nechť $V, W$ jsou dva vektorové prostory a $\phi: V \to W$ je homomorfismus. Potom zobrazení $\phi^*: W^* \to V^*$, definované vztahem
+				\begin{align}
+					\phi^*(\alpha) = \alpha \circ \phi,
+				\end{align}
+				nazveme \textit{duální homomorfismus} k homomorfismu $\phi$.
+			\end{definition}
+			
+			
+			\begin{lemma}
+				Nechť $\phi: V \to W$ je homomorfimus, $M \subseteq V, N \subseteq W$ jsou báze, $B=(\phi)_{NM}$ je matice homomorfismu. Potom $(\phi^*)_{M^*N^*} = B^T$, a tudíž hodnosti $\phi$ a $\phi^*$ jsou stejné.
+			\end{lemma}
+			\begin{proof}
+				Označme $M = \{e_i\}, \, N = \{f_a\}$. Matice $B$ je definována předpisem
+				\begin{align*}
+					\phi(e_i) = \sum_{a=1}^{n} (B)_{ai} f_a \equiv B^a_{\; i} f_a.
+				\end{align*}
+				Z definice duálního homomorfismu dále plyne
+				\begin{align*}
+					\[\phi^*(f^j)\](e_i) = f^j(\phi(e_i)) = B_i^{\; a} f^j(f_a) = B_i^{\; a} \delta^j_a = B_i^{\; j},
+				\end{align*}
+				ale zároveň platí
+				\begin{align*}
+					(B_k^{\; j} e^k)(e_i) = B_{k}^{\; j} e^k(e_i) = B_{k}^{\; j} \delta^k_i = B_{i}^{\; j}.
+				\end{align*}
+				Kovektory $\phi^*(f^j)$ a $B_k^{\; j} e^k$ mají stejné hodnoty na bázi $M$ a tudíž jsou si rovny (opět využíváme věty o zadání homomorfismů hodnotami na bázi). V tradiční formě tedy přepis
+				\begin{align*}
+					\phi^*(f^j) = B_k^{\; j} e^k \equiv \sum_{k=1}^{n} (B^T)_{kj} e^k
+				\end{align*}
+				jasně udává rovnost $(\phi^*)_{M^*N^*} = B^T$.
+			\end{proof}
+		
+		\section{Tensorový součin}
+			
+			\begin{definition}
+				Nechť $X, \, Y$ jsou množiny a $f : X \to \F, \, g : Y \to \F$ dvě funkce na těchto množinách. Jejich \textit{tensorovým součinem} rozumíme funkci
+				\begin{align*}
+					f \otimes g &: X \times Y \to \F;
+				\\
+					&: (x,y) \mapsto f(x)g(y).
+				\end{align*}
+			\end{definition}
+			\begin{remark}
+				Tensorový součin není komutativní, tedy $f(x)g(y) \not= f(y)g(x)$ (dokonce opačná operace ani nemusí být definována, pokud $X \not= Y$).\\
+				Tensorový součin je komutativní, platí tedy $((f \otimes g) \otimes h)(x,y,z) = (f \otimes (g \otimes h))(x,y,z)$, tudíž má smysl psát  $f \otimes g \otimes h$.\\
+				Pro tensorový součin platí
+				\begin{align*}
+					((r_1 f_1 + r_2 f_2) \otimes g)(x,y) = r_1 f_1(x)g(y) + r_2 f_2(x)g(y) = r_1 (f_1 \otimes g)(x,y) + r_2 (f_2 \otimes g)(x,y),
+				\end{align*}
+				tedy že je bilineární%
+					\footnote{V obecném případě (rozšíření na více činitelů) je tensorový součin multilineární}
+				(v druhé složce zcela analogicky).
+			\end{remark}
+			
+			\begin{example}
+				Tensorový součin dvou lineárních forem $\phi : V \to \F$ a $\psi : V \to \F$ je bilineární forma $\phi \otimes \psi$ splňující
+				\begin{align*}
+					(\phi \otimes \psi)(v,w) = \phi(v) \psi(w).
+				\end{align*}
+				Jsou-li $\phi = e^i$ a $\psi = e^j$ prvky báze $M^*$, pak
+				\begin{align*}
+					(e^i \otimes e^j)(v,w) = v^i w^j.
+				\end{align*}
+			\end{example}
+			\begin{example}
+				Je-li $A \in M_n(\F)$ matice, pak
+				\begin{align*}
+					(a_{ij}e^i \otimes e^j)(v,w) = a_{ij} v^i w^j
+				\end{align*}
+				je bilineární forma, jejíž matice vzhledem k bázi $M$ je $A$. Jak si můžeme povšimnout, poprvé se setkáváme s výrazem, kde jsou dvojice indexů, přes které se sčítá. Narozdíl od matice přechodu, u níž nás konvence \uv{donutila} psát řádkový index jako horní a sloupcový jako dolní, u matice bilineární formy musíme psát oba indexy dole.
+			\end{example}
+			
+			Tensorový součin $k$ lineárních forem je $k$-lineární forma. Množinu všech $k$-lineárích forem na vektorovém prostoru $V$ označme symbolem $T_k(V)$. Pak tensorový součin definuje také zobrazení
+			\begin{align*}
+				\otimes : T_p(V) \times T_q(V) \to T_{p+q}(V).
+			\end{align*}
+			
+			\begin{lemma}
+				Něchť $M = \{e_1, \dots, e_n\}$ je báze $V$. Označme
+				\begin{align*}
+					e^{a \dots b} \coloneqq \underbrace{e^a \otimes \dots \otimes e^b}_{q} \in T_q(V).
+				\end{align*}
+				Množina
+				\begin{align*}
+					(M^*)^q \coloneqq \{ e^{a \dots b} \, | \, a, \dots, b \in \{1, \dots, n\} \}
+				\end{align*}
+				tvoří bázi prostoru $T_q(V)$ a $\forall T \in T_q(V)$ platí
+				\begin{align*}
+					T = T_{a \dots b} e^{a \dots b},
+				\end{align*}
+				kde
+				\begin{align*}
+					T_{a \dots b} = T(e_a, \dots, e_b)
+				\end{align*}
+				jsou souřadnice $T$ vzhledem k $(M^*)^q$. Pokud $M' = \{e'_1, \dots, e'_n\}$ a $A$ je matice přechodu od $M$ k $M'$, pak
+				\begin{align*}
+					e'^{a \dots b} &= (A^{-1})^a_{\; r} \dots (A^{-1})^b_{\; s} e^{r \dots s},
+				\\
+					T'_{a \dots b} &= A^r_{\; a} \dots A^s_{\; b} T_{r \dots s}.
+				\end{align*}
+			\end{lemma}
+			\begin{proof}
+				Dle definice tensorového součinu
+				\begin{align*}
+					e^{a \dots b}(v, \dots, w) = v^a \dots w^b.
+				\end{align*}
+				Pak ale
+				\begin{align*}
+					T(v, \dots, w) = T(v^a e_a, \dots, w^b e_b) = T_{a \dots b} v^a \dots w^b = (T_{a \dots b} e^{a \dots b})(v, \dots, w).
+				\end{align*}
+				Vztah platí pro libovolnou $q$-tici vektorů $v, \dots, w$ z $V$, takže $T = T_{a \dots b} e^{a \dots b}$. Odtud zároveň plyne, že $(M^*)^q$ generuje $T_q(V)$. Pokud by existovala čísla $S_{a \dots b}$, pro něž by platilo $S_{a \dots b} e^{a \dots b} = 0$, pak po dosazení vektorů $e_r, \dots, e_s$ od levé strany plyne
+				\begin{align*}
+					S_{a \dots b} e^{a \dots b}(e_r. \dots, e_s) = S_{a \dots b} \delta^a_r \dots \delta^b_s = 0,
+				\end{align*}
+				čili všechny koeficienty musí být nulové a $(M^*)^q$ je také lineárně nezávislá.\\
+				Z multilinearity tensorového součinu plyne
+				\begin{align*}
+					e'^{a \dots b} \equiv e'^a \otimes \dots \otimes e'^b = (A^{-1})^a_{\; r} e^r \otimes \dots \otimes (A^{-1})^b_{\; s} e^s = (A^{-1})^a_{\; r} \dots (A^{-1})^b_{\; s} e^{r \dots s}
+				\end{align*}
+				a poslední tvrzení plyne z
+				\begin{align*}
+					T'_{a \dots b} = T(e'_a, \dots, e'_b) = T(A_a^{\; r} e_r, \dots, A_b^{\; s} e_s) = A_a^{\; r} \dots A_b^{\; s} T_{r \dots s}.
+				\end{align*}
+			\end{proof}
+			
+			\begin{remark}
+				Pokud $T_{ab \dots k}$ a $S_{li \dots t}$ jsou souřadnice $T \in T_p(V)$ a $S \in T_q(V)$ vůči $M$, pak
+				\begin{align*}
+					(T \otimes S)_{ab \dots t} = T_{ab \dots k} S_{li \dots t}
+				\end{align*}
+				jsou souřadnice $T \otimes S \in T_{p+q}(V)$ vůči stejné bázi.
+			\end{remark}
+			
+			\begin{example}
+				Pokud $\alpha$ je kovektor, pak se jeho souřadnice transformují jako $\alpha'_a = A^r_{\; a} \alpha_r$, neboli maticově $(\alpha)^T_{M'} = (\alpha)^T_M A$, kde $(\alpha)^T_M$ je \textit{řádkový} vektor souřadnic $\alpha$ vůči $M$.\\
+				Srovnejme s transformací souřadnic vektorů $(v)_M = A (v)_{M'}$, tedy $(v)^T_{M'} = (v)^T_M (A^{-1})^T.$ Matici $(A^{-1})^T$ se říká \underline{\textit{matice kontragradientní}} k $A$.
+			\end{example}
+			
+			\begin{example}
+				Pokud $g$ je bilineární forma, pak se její souřadnice transformují podle vztahu
+				\begin{align*}
+					g'_{ab} = A^r_{\; a} A^s_{\; b} g_{rs}
+				\end{align*}
+				neboli maticově
+				\begin{align*}
+					G' = A^T G A,
+				\end{align*}
+				kde interpretujeme souřadnice $G = (g_{ab})$ jako matici bilineární formy vzhledem k $M$.
+			\end{example}
+			
+			\begin{example}
+				Souřadnice $T_{abc}$ trilineární formy $T$ můžeme interpretovat buď jako $n \times n \times n$ krychličku čísel, nebo jako řádkový vektor matic
+				\begin{align*}
+					(T_{1bc}, T_{2bc}, \dots, T_{nbc}) \eqqcolon (((T_1)_{bc}), ((T_2)_{bc}), \dots, ((T_n)_{bc})).
+				\end{align*}
+				Transformační vztah $T'_{abc} = A^r_a A^s_b A^t_c T_{rst}$ se pak dá přepsat jako
+				\begin{align*}
+					(T'_1, \dots, T'_n) = \( \sum_{i=1}^n a_{i1} A^T T_i A, \sum_{i=1}^n a_{i2} A^T T_i A, \dots, \sum_{i=1}^n a_{in} A^T T_i A \).
+				\end{align*}
+				Volba toho, který bude mít \uv{vektorový} index (ostatní dva mají indexy \uv{maticové}), je samozřejmě volná a záleží pouze na nás, který zvolíme. Zavedení matic $T_i$ je jenom početní a notační pomůcka, což je zdůrazeněno i tím, že jsme v posledním vztahu nepoužili sumační konvenci a zapsali elementy $a_{ij}$ matice $A$ tak, jak jsme zvyklí z dřívějška.
+			\end{example}
+		
+		\section{Kovariantní a kontravariantní tensory}
+			
+			\begin{theorem}[Duál duálu]
+				Nechť $V$ je vektorový prostor konečné dimense nad $\F$. Pak existuje isomorfismus $V$ a $(V^*)^*$, který nezávisí na volbě báze $V$.
+			\end{theorem}
+			\begin{proof}
+				Nechť $v \in V$. Dále definujme homomorfismus $f_v : V^* \to \F$ tak, že pro všechna $\alpha \in V^*$ platí $f_v(\alpha) = \alpha(v)$. Platí, že $f_v$ je lineární forma na $V^*$, protože pro všechna $\alpha, \, \beta \in V^*$ a pro všechna $r, \, s \in \F$ platí
+				\begin{align*}
+					f_v(r\alpha + s\beta) = (r\alpha + s\beta)(v) = r \alpha(v) + s \beta(v) = r f_v(\alpha) + s f_v(\beta).
+				\end{align*}
+				Můžeme tedy také definovat zobrazení
+				\begin{align*}
+					\Phi &: V \to (V^*)^*;
+				\\
+					&: v \mapsto f_v,
+				\end{align*}
+				které je též homomorfismem, neboť pro všechny $v, \, w \in V$, pro všechna $r, \, s \in \F$ a pro libovolné $\alpha \in V^*$ platí
+				\begin{align*}
+					\[ \Phi(rv+sw) \](\alpha) &= f_{rv+sw}(\alpha) = \alpha(rv+sw)
+				\\
+					&= r\alpha(v) + s\alpha(w) = r f_v(\alpha) + s f_w(\alpha)
+				\\
+					&= r [\Phi(v)](\alpha) + s [\Phi(w)](\alpha).	
+				\end{align*}
+				Hodnoty zobrazení $\Phi(rv+sw)$ a $r \Phi(v) + s \Phi(w)$ se rovnají pro všechna $\alpha \in V^*$, musí tedy být totožná.
+			\\
+				Dále ověříme, že zobrazení $\Phi$ je prosté. Podle definic
+				\begin{align*}
+					\Ker \Phi = \{ v \in V \, | \, \Phi(v) = 0 \} = \{ v \in V \, | \, \forall \alpha \in V^* : f_v(\alpha) = 0 \} = \{ v \in V \, | \, \forall \alpha \in V^* : \alpha(v) = 0 \}.
+				\end{align*}
+				Pro každý nenulový vektor $v$ ale existuje lineární forma $\alpha$, pro kterou $\alpha(v) \not= 0$. Definujme zobrazení $\alpha : V \to \F$ tak, že $u+rv \mapsto r$, kde $u \in V \textbackslash \{v\}_l$ a $r \in \F$, tedy $rv \in \{v\}_l$. Pro tuto formu pro každá $(u+rv), \, (w+rv) \in V \textbackslash \{v\}_l$ a $s, \, t \in \F$ platí
+				\begin{align*}
+					\alpha(s[u+rv] + t[w+rv]) &= \alpha([su + tw] + r(s+t)v) = r(s+t),
+				\\
+					s\alpha(u+rv) + t\alpha(w+rv) &= sr+tr = r(s+t),
+				\\
+					\therefore \alpha(s[u+rv] + t[w+rv]) &= s\alpha(u+rv) + t\alpha(w+rv).
+				\end{align*}
+				Tato identita platí pro všechny hodnoty $\alpha$, tudíž $\alpha$ je homomorfismus z $V$ do $\F$, tj. lineární forma. Ověřili jsme tedy, že pro každý nenulový vektor $v$ ale existuje lineární forma $\alpha$, pro kterou $\alpha(v) \not= 0$. Proto $\Ker \Phi$ musí být nulový podprostor.
+			\\
+				Díky věte o dimensi jádra a obrazu $\Phi$ víme, že $\dim V = \dim V^* = \dim (V^*)^*$. To znamená, že zobrazení $\Phi$ je isomorfismus. Zobrazení bylo definováno bez výběru báze, čímž je tvrzení dokázáno.
+			\end{proof}
+			
+			\begin{remark}
+				Zobrazení $\Phi$ použité v důkazu předchozí věty se nazývá \textit{kanonický isomorfismus} $V$ a $V^*$. Umožňuje ztotožnit vektory (prvky $V$) a \uv{ko-kovektory} (prvky $(V^*)^*$) a v jistém smyslu vyhlásit rovnoprávnost vektorů a kovektorů: kovektor je forma na vektorech, vektor je forma na kovektorech. To lze vidět zavedením zobrazení
+				\begin{align*}
+					\langle \cdot , \cdot \rangle &: V \times V^* \to \F;
+				\\
+					&: (v,\alpha) \mapsto \langle v,\alpha \rangle \coloneqq \alpha(v) = [\Phi(v)](\alpha) \equiv v(\alpha),
+				\end{align*}
+				kterému se obvykle říká \textit{párovaní} vektorů a kovektorů. Přirozená báze $(M^*)^*$ ve $(V^*)^*$ je ztotožněná přímo s bází $M = \{e_1, \dots, e_n\}$ a definici duální báze můžeme pomocí párování zapsat jako
+				\begin{align*}
+					\langle e_j, e^i \rangle = \delta^i_j.
+				\end{align*}
+				V souřadnicích se pak párování vektoru $v$ a kovektoru $\alpha$ vyjádří vztahem
+				\begin{align*}
+					\langle v,\alpha \rangle = \langle v^i e_i, \alpha_j e^j \rangle = v^i \alpha_j \langle e_i, e^j \rangle = v^i \alpha_j \delta^j_i = \alpha^i \alpha_i.
+				\end{align*}
+			\end{remark}
+			
+			\begin{remark}
+				Prostory $V$ a $V^*$ jsou také isomorfní, protože mají stejnou dimensi. Jeden takový isomorfismus by mohl být: zvolme ve $V$ bází $M$ a vektoru $v \in V$ přiřaďme kovektor $\alpha \in V^*$, jehož souřadnice $(\alpha)_M$ jsou rovny $(v)_M$. Takový isomorfismus je však pro každou volbu báze různý, a proto neexistuje žádný kanonický isomorfismus mezi $V$ a $V^*$.
+			\end{remark}
+			
+			\begin{remark}
+				V nekonečné dimensi není obecně zobrazení $\Phi$ surjektivní, máme tedy pouze \textit{kanonické vnoření} $V$ do $V^*$.
+			\end{remark}
+			
+			Chápeme-li vektory jako lineární formy na kovektorech, můžeme definovat prostor $T^q(V)$ všech $q$-lineárních forem na kovektorech, tzv. \textit{multivektorů}. Lze tedy vyřknout obdobu lemmatu 1.2.1 pro případ $k$-lineárních forem.
+			\begin{lemma}
+				Nechť $M=\{e_1, \dots, e_n\}$ je báze $V$. Označme
+				\begin{align*}
+					e_{a \dots b} \coloneqq \underbrace{e_a \otimes \dots \otimes e_b}_q \in T^q(V).
+				\end{align*}
+				Množina
+				\begin{align*}
+					M^q \coloneqq \{ e_{a \dots b} \, | \, a, \dots, b \in \{1,\dots,n\} \}
+				\end{align*}
+				tvoří bázi prostoru $T^q(V)$ a $\forall T \in T^q(V)$ platí
+				\begin{align*}
+					T = T^{a \dots b} e_{a \dots b},
+				\end{align*}
+				kde
+				\begin{align*}
+					T^{a \dots b} = T(e^a, \dots, e^b)
+				\end{align*}
+				jsou souřadnice $T$ vzhledem k $M^q(V)$. Pokud $M' = \{e'_1, \dots, e'_n\}$ a $A$ je matice přechodu od $M$ k $M'$, pak
+				\begin{align*}
+					e'_{a \dots b} &= A^r_{\; a} \dots A^s_{\; b} e_{r \dots s},
+				\\
+					T'^{a \dots b} &= ((A)^{-1})^a_{\; r} \dots ((A)^{-1})^b_{\; s} T^{r \dots s}.
+				\end{align*}
+			\end{lemma}
+			
+			\begin{example}
+				To be continued
+			\end{example}
+			
+			
+	
+\end{document}

@@ -1,0 +1,307 @@
+|hw01_simakma5
+LED0 <= counter:inst7.Y0
+CLK => divider:inst4.CLK
+KEY1 => divider:inst4.CLR
+KEY1 => counter:inst7.CLR
+SW1 => 74153:inst.B
+SW0 => 74153:inst.A
+KEY0 => inst5.CLK
+LED1 <= counter:inst7.Y1
+LED2 <= counter:inst7.Y2
+LED3 <= counter:inst7.Y3
+LED4 <= counter:inst7.Y4
+LED5 <= counter:inst7.Y5
+LED6 <= counter:inst7.Y6
+LED7 <= counter:inst7.Y7
+
+
+|hw01_simakma5|counter:inst7
+Y0 <= inst19.DB_MAX_OUTPUT_PORT_TYPE
+VCC => inst19.IN0
+VCC => inst1.IN0
+VCC => inst4.IN0
+VCC => inst5.IN0
+VCC => inst7.IN0
+VCC => inst9.IN0
+VCC => inst11.IN0
+VCC => inst13.IN0
+CLR => inst1.ACLR
+CLR => inst3.ACLR
+CLR => inst6.ACLR
+CLR => inst8.ACLR
+CLR => inst10.ACLR
+CLR => inst12.ACLR
+CLR => inst14.ACLR
+CLR => inst16.ACLR
+CLK => inst1.CLK
+CLK => inst3.CLK
+CLK => inst6.CLK
+CLK => inst8.CLK
+CLK => inst10.CLK
+CLK => inst12.CLK
+CLK => inst14.CLK
+CLK => inst16.CLK
+Y1 <= inst3.DB_MAX_OUTPUT_PORT_TYPE
+Y2 <= inst6.DB_MAX_OUTPUT_PORT_TYPE
+Y3 <= inst8.DB_MAX_OUTPUT_PORT_TYPE
+Y4 <= inst10.DB_MAX_OUTPUT_PORT_TYPE
+Y5 <= inst12.DB_MAX_OUTPUT_PORT_TYPE
+Y6 <= inst14.DB_MAX_OUTPUT_PORT_TYPE
+Y7 <= inst16.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|hw01_simakma5|74153:inst
+1Y <= 9.DB_MAX_OUTPUT_PORT_TYPE
+1GN => 26.IN0
+B => 27.IN0
+A => 29.IN0
+1C0 => 1.IN3
+1C1 => 2.IN3
+1C2 => 3.IN3
+1C3 => 4.IN3
+2Y <= 10.DB_MAX_OUTPUT_PORT_TYPE
+2C0 => 5.IN0
+2GN => 25.IN0
+2C1 => 6.IN0
+2C2 => 7.IN0
+2C3 => 8.IN0
+
+
+|hw01_simakma5|divider:inst4
+10ms <= div10:inst14.div10
+CLK => div5:inst1.CLK
+CLR => div5:inst1.CLR
+CLR => div10:inst10.CLR
+CLR => div10:inst11.CLR
+CLR => div10:inst12.CLR
+CLR => div10:inst13.CLR
+CLR => div10:inst14.CLR
+CLR => div10:inst7.CLR
+CLR => div10:inst8.CLR
+CLR => div10:inst9.CLR
+100ms <= div10:inst7.div10
+1s <= div10:inst8.div10
+10s <= div10:inst9.div10
+
+
+|hw01_simakma5|divider:inst4|div10:inst14
+div10 <= div5:inst2.div5
+CLK => div2:inst.CLK
+CLR => div2:inst.CLR
+CLR => div5:inst2.CLR
+
+
+|hw01_simakma5|divider:inst4|div10:inst14|div5:inst2
+div5 <= inst15.DB_MAX_OUTPUT_PORT_TYPE
+CLR => inst16.ACLR
+CLR => inst10.ACLR
+CLR => inst12.ACLR
+CLR => inst11.ACLR
+CLK => inst14.IN0
+CLK => inst14.IN1
+CLK => inst10.CLK
+CLK => inst12.CLK
+CLK => inst11.CLK
+
+
+|hw01_simakma5|divider:inst4|div10:inst14|div2:inst
+div2 <= inst.DB_MAX_OUTPUT_PORT_TYPE
+CLR => inst.ACLR
+CLK => inst.CLK
+
+
+|hw01_simakma5|divider:inst4|div10:inst13
+div10 <= div5:inst2.div5
+CLK => div2:inst.CLK
+CLR => div2:inst.CLR
+CLR => div5:inst2.CLR
+
+
+|hw01_simakma5|divider:inst4|div10:inst13|div5:inst2
+div5 <= inst15.DB_MAX_OUTPUT_PORT_TYPE
+CLR => inst16.ACLR
+CLR => inst10.ACLR
+CLR => inst12.ACLR
+CLR => inst11.ACLR
+CLK => inst14.IN0
+CLK => inst14.IN1
+CLK => inst10.CLK
+CLK => inst12.CLK
+CLK => inst11.CLK
+
+
+|hw01_simakma5|divider:inst4|div10:inst13|div2:inst
+div2 <= inst.DB_MAX_OUTPUT_PORT_TYPE
+CLR => inst.ACLR
+CLK => inst.CLK
+
+
+|hw01_simakma5|divider:inst4|div10:inst12
+div10 <= div5:inst2.div5
+CLK => div2:inst.CLK
+CLR => div2:inst.CLR
+CLR => div5:inst2.CLR
+
+
+|hw01_simakma5|divider:inst4|div10:inst12|div5:inst2
+div5 <= inst15.DB_MAX_OUTPUT_PORT_TYPE
+CLR => inst16.ACLR
+CLR => inst10.ACLR
+CLR => inst12.ACLR
+CLR => inst11.ACLR
+CLK => inst14.IN0
+CLK => inst14.IN1
+CLK => inst10.CLK
+CLK => inst12.CLK
+CLK => inst11.CLK
+
+
+|hw01_simakma5|divider:inst4|div10:inst12|div2:inst
+div2 <= inst.DB_MAX_OUTPUT_PORT_TYPE
+CLR => inst.ACLR
+CLK => inst.CLK
+
+
+|hw01_simakma5|divider:inst4|div10:inst11
+div10 <= div5:inst2.div5
+CLK => div2:inst.CLK
+CLR => div2:inst.CLR
+CLR => div5:inst2.CLR
+
+
+|hw01_simakma5|divider:inst4|div10:inst11|div5:inst2
+div5 <= inst15.DB_MAX_OUTPUT_PORT_TYPE
+CLR => inst16.ACLR
+CLR => inst10.ACLR
+CLR => inst12.ACLR
+CLR => inst11.ACLR
+CLK => inst14.IN0
+CLK => inst14.IN1
+CLK => inst10.CLK
+CLK => inst12.CLK
+CLK => inst11.CLK
+
+
+|hw01_simakma5|divider:inst4|div10:inst11|div2:inst
+div2 <= inst.DB_MAX_OUTPUT_PORT_TYPE
+CLR => inst.ACLR
+CLK => inst.CLK
+
+
+|hw01_simakma5|divider:inst4|div10:inst10
+div10 <= div5:inst2.div5
+CLK => div2:inst.CLK
+CLR => div2:inst.CLR
+CLR => div5:inst2.CLR
+
+
+|hw01_simakma5|divider:inst4|div10:inst10|div5:inst2
+div5 <= inst15.DB_MAX_OUTPUT_PORT_TYPE
+CLR => inst16.ACLR
+CLR => inst10.ACLR
+CLR => inst12.ACLR
+CLR => inst11.ACLR
+CLK => inst14.IN0
+CLK => inst14.IN1
+CLK => inst10.CLK
+CLK => inst12.CLK
+CLK => inst11.CLK
+
+
+|hw01_simakma5|divider:inst4|div10:inst10|div2:inst
+div2 <= inst.DB_MAX_OUTPUT_PORT_TYPE
+CLR => inst.ACLR
+CLK => inst.CLK
+
+
+|hw01_simakma5|divider:inst4|div5:inst1
+div5 <= inst15.DB_MAX_OUTPUT_PORT_TYPE
+CLR => inst16.ACLR
+CLR => inst10.ACLR
+CLR => inst12.ACLR
+CLR => inst11.ACLR
+CLK => inst14.IN0
+CLK => inst14.IN1
+CLK => inst10.CLK
+CLK => inst12.CLK
+CLK => inst11.CLK
+
+
+|hw01_simakma5|divider:inst4|div10:inst7
+div10 <= div5:inst2.div5
+CLK => div2:inst.CLK
+CLR => div2:inst.CLR
+CLR => div5:inst2.CLR
+
+
+|hw01_simakma5|divider:inst4|div10:inst7|div5:inst2
+div5 <= inst15.DB_MAX_OUTPUT_PORT_TYPE
+CLR => inst16.ACLR
+CLR => inst10.ACLR
+CLR => inst12.ACLR
+CLR => inst11.ACLR
+CLK => inst14.IN0
+CLK => inst14.IN1
+CLK => inst10.CLK
+CLK => inst12.CLK
+CLK => inst11.CLK
+
+
+|hw01_simakma5|divider:inst4|div10:inst7|div2:inst
+div2 <= inst.DB_MAX_OUTPUT_PORT_TYPE
+CLR => inst.ACLR
+CLK => inst.CLK
+
+
+|hw01_simakma5|divider:inst4|div10:inst8
+div10 <= div5:inst2.div5
+CLK => div2:inst.CLK
+CLR => div2:inst.CLR
+CLR => div5:inst2.CLR
+
+
+|hw01_simakma5|divider:inst4|div10:inst8|div5:inst2
+div5 <= inst15.DB_MAX_OUTPUT_PORT_TYPE
+CLR => inst16.ACLR
+CLR => inst10.ACLR
+CLR => inst12.ACLR
+CLR => inst11.ACLR
+CLK => inst14.IN0
+CLK => inst14.IN1
+CLK => inst10.CLK
+CLK => inst12.CLK
+CLK => inst11.CLK
+
+
+|hw01_simakma5|divider:inst4|div10:inst8|div2:inst
+div2 <= inst.DB_MAX_OUTPUT_PORT_TYPE
+CLR => inst.ACLR
+CLK => inst.CLK
+
+
+|hw01_simakma5|divider:inst4|div10:inst9
+div10 <= div5:inst2.div5
+CLK => div2:inst.CLK
+CLR => div2:inst.CLR
+CLR => div5:inst2.CLR
+
+
+|hw01_simakma5|divider:inst4|div10:inst9|div5:inst2
+div5 <= inst15.DB_MAX_OUTPUT_PORT_TYPE
+CLR => inst16.ACLR
+CLR => inst10.ACLR
+CLR => inst12.ACLR
+CLR => inst11.ACLR
+CLK => inst14.IN0
+CLK => inst14.IN1
+CLK => inst10.CLK
+CLK => inst12.CLK
+CLK => inst11.CLK
+
+
+|hw01_simakma5|divider:inst4|div10:inst9|div2:inst
+div2 <= inst.DB_MAX_OUTPUT_PORT_TYPE
+CLR => inst.ACLR
+CLK => inst.CLK
+
+

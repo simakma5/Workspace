@@ -1,0 +1,191 @@
+/*
+ * mylib.hpp
+ *
+ *  Created on: Nov 25, 2022
+ *      Author: Matthew
+ */
+
+#ifndef LIB_HPP_
+#define LIB_HPP_
+
+
+
+///////////////////
+//	QOL:
+//
+#define uint unsigned int
+#define setbit(reg, bit)      ((reg) |= (1U << (bit)))
+#define clearbit(reg, bit)    ((reg) &= (~(1U << (bit))))
+#define togglebit(reg, bit)   ((reg) ^= (1U << (bit)))
+#define getbit(reg, bit)      (((reg) & (1U << (bit))) >> (bit))
+
+
+///////////////////
+//	pro void pinMode()
+//
+//	input:		(floating, PU, PD)
+//	output:		(push-pull, open drain) * (PU, PD)
+//	alternate:	(push-pull, open drain) * (floating, PU, PD)
+//	analog:		(floating)
+//	bity[3:2]	-> MODER
+//		00:	INPUT
+//		01:	OUTPUT
+//		10:	ALTERNATE
+//		11:	ANALOG
+//	bity[1:0]	-> PUPDR
+//		00:	FLOATING
+//		01:	PULL-UP
+//		10:	PULL-DOWN
+#define	INPUT			0b0000
+#define	INPUT_PU		0b0001
+#define	INPUT_PD		0b0010
+#define	OUTPUT			0b0100
+#define	OUTPUT_PU		0b0101
+#define	OUTPUT_PD		0b0110
+#define	ALTERNATE		0b1000
+#define	ALTERNATE_PU	0b1001
+#define	ALTERNATE_PD	0b1010
+#define	ANALOG			0b1100
+
+//	bity[0:0]	-> OTYPER
+//		0:	PUSH-PULL
+//		1:	OPEN DRAIN
+#define	PUSH_PULL		0b0
+#define	OPEN_DRAIN		0b1
+
+//	bity[0:1]	-> OSPEEDR
+//		00:	LOW SPEED
+//		01:	MEDIUM SPEED
+//		10:	FAST SPEED
+//		11:	HIGH SPEED
+#define	LOW				0b00
+#define	MEDIUM			0b01
+#define	FAST			0b10
+#define	HIGH			0b11
+
+
+// funkce:
+void clockSetup();	// nastavení clocků uC
+void pinMode(GPIO_TypeDef *GPIOx, uint8_t PIN, uint8_t MODE, uint8_t SPEED /*default: LOW*/, uint8_t TYPE /*default:PUSH_PULL*/);	// nastavení módu PINu
+void setAF(GPIO_TypeDef *GPIOx, uint8_t PIN, uint8_t AF);
+void writeBit(GPIO_TypeDef *GPIOx, uint8_t PIN, uint8_t bit);	// atomicky zapíše 0/1 na PIN
+uint32_t readBit(GPIO_TypeDef *GPIOx, uint8_t PIN);	// přečte bit (a vrátí ho na pozici 0)
+
+void writeBit(GPIO_TypeDef *GPIOx, uint8_t PIN, uint8_t bit) {
+	if(bit == 0) {
+		// atomicky zapiš 0
+		GPIOx->BSRR |= (0b1 << (16+PIN));
+	} else {
+		// atomicky zapiš 1
+		GPIOx->BSRR |= (0b1 << PIN);
+	}
+}
+
+uint32_t readBit(GPIO_TypeDef *GPIOx, uint8_t PIN) {
+	return ((GPIOx->ODR >> PIN) & 0b1);
+}
+
+void setAF(GPIO_TypeDef *GPIOx, uint8_t PIN, uint8_t AF) {
+	if(PIN < 8) {
+		// nastav GPIOx->AFRL, piny 0-7
+		GPIOx->AFR[0] &= ~(0b1111 << 4*PIN);	// nulování minulého stavu
+		GPIOx->AFR[0] |= (AF << 4*PIN);		// nastavení nového AFRL
+	} else {
+		// nastav GPIOx->AFRH, piny 8-15
+		GPIOx->AFR[1] &= ~(0b1111 << 4*(PIN-8));	// nulování minulého stavu
+		GPIOx->AFR[1] |= (AF << 4*(PIN-8));	// nastavení nového AFRH
+	}
+}
+
+void pinMode(GPIO_TypeDef *GPIOx, uint8_t PIN, uint8_t MODE, uint8_t SPEED = LOW, uint8_t TYPE = PUSH_PULL) {
+	GPIOx->MODER &= ~(0b11 << (2*PIN));					// nulování minulého stavu
+	GPIOx->MODER |= ( ((MODE>>2)&0b11) << (2*PIN) );	// nastavení nového MODER
+
+	GPIOx->PUPDR &= ~(0b11 << (2*PIN));			// nulování minulého stavu
+	GPIOx->PUPDR |= ( (MODE&0b11) << (2*PIN) );	// nastavení nového PUPDR
+
+	GPIOx->OSPEEDR &= ~(0b11 << (2*PIN));	// nulování minulého stavu
+	GPIOx->OSPEEDR |= (SPEED << (2*PIN));	// nastavení nového OSPEEDR
+
+	GPIOx->OTYPER &= ~(0b1 << PIN);	// nulování minulého stavu
+	GPIOx->OTYPER |= (TYPE << PIN);	// nastavení nového OTYPER
+}
+
+
+void clockSetup() {	// nastavení clock-ů
+	//
+	//	HSI (16 MHz) -> PLL (84 MHz) -> SYSCLK (84 MHz)
+	//	Nastavení FLASH na rychlejší takt
+	//	HCLK = 84 MHz
+	//	Cortex System Timer	= 84 MHz
+	//	FCLK Cortex clock = 84 MHz
+	//	APB1 Peripherals = 42 MHz
+	//	APB1 Timers = 84 MHz
+	//	APB2 Peripherals = 84 MHz
+	//	APB2 Timers = 84 MHz
+	//
+
+
+	// zapnout HSI oscilátor
+	RCC->CR |= (0b1 << 0);
+	// čekej na HSI READY
+	while(!getbit(RCC->CR, 1)) __NOP();
+
+	// nastavit zdroj SYSCLK na HSI
+	RCC->CFGR &= (0b11 << 0);
+	// čekej na nastavení SYSCLK na HSI
+	while( (RCC->CFGR & 0b11) != 0b00 ) __NOP();
+
+
+	// připrav FLASH na rychlejší clock
+	// zapni instruction prefetch
+	FLASH->ACR |= (0b1 << 8);
+	// zapni instruction cache
+	FLASH->ACR |= (0b1 << 9);
+	// zapni data cache
+	FLASH->ACR |= (0b1 << 10);
+	// nuluj nastavení latence
+	FLASH->ACR &= ~(0b1111 << 0);
+	// nastav 2 WAIT STATES (latence)
+	FLASH->ACR |= (0b0010 << 0);
+
+
+	// nastav předděličky taktů
+	RCC->CFGR &= ~(0b1111 << 4); // AHB prescaler /1
+	RCC->CFGR &= ~(0b111 << 10); // APB1 prescaler nulování
+	RCC->CFGR |= (0b100 << 10); // APB1 prescaler /2
+	RCC->CFGR &= ~(0b111 << 13); // APB2 prescaler /1
+
+
+	// nastavení PLL
+	RCC->CR &= ~(0b1 << 24); // vypni PLL
+	// nastav poměr PLL
+	RCC->PLLCFGR &= ~(0b1 << 22);			// PLL_SRC	= HSI
+	RCC->PLLCFGR &= ~(0b111111 << 1);		// PLL_M nulování
+	RCC->PLLCFGR |= (16);					// PLL_M	= 16
+	RCC->PLLCFGR &= ~(0b111111111 << 6);	// PLL_N nulování
+	RCC->PLLCFGR |= (336 << 6);				// PLL_N	= 336
+	RCC->PLLCFGR &= ~(0b11 << 16);			// PLL_P nulování
+	RCC->PLLCFGR |= (0b01 << 16);			// PLL_P	= 4
+	RCC->PLLCFGR &= ~(0b1111 << 24);		// PLL_Q nulování
+	RCC->PLLCFGR |= (7 << 24);				// PLL_Q	= 7
+	// zapni PLL
+	RCC->CR |= (0b1 << 24);
+	// čekej na PLL READY
+	while( !getbit(RCC->CR, 25) ) __NOP();
+
+
+	// nastavit zdroj SYSCLK na PLL
+	RCC->CFGR |= (0b10 << 0);
+	// čekej na nastavení SYSCLK na PLL
+	while( (RCC->CFGR & 0b11) != 0b10 ) __NOP();
+}
+
+
+
+
+
+
+
+
+#endif /* MYLIB_HPP_ */

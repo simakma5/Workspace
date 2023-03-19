@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="TIM5"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="true"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="TIM5"/>
+			<item value="toggleBit"/>
+			<item value="mV"/>
+			<item value="mV_f"/>
+			<item value="level"/>
+			<item value="USART2_Init("/>
+			<item value="USART2_Init()"/>
+			<item value="USART2_Init"/>
+			<item value="bsrr"/>
+			<item value="huart2"/>
+			<item value="bonus"/>
+			<item value="#ifndef BONUS"/>
+			<item value="mylib"/>
+			<item value="EXTI4"/>
+			<item value="delay"/>
+		</list>
+		<list key="replacehistory">
+			<item value="toggler"/>
+			<item value="level"/>
+			<item value="Level"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="1002"/>
+		<item key="DIALOG_Y_ORIGIN" value="352"/>
+		<item key="DIALOG_WIDTH" value="414"/>
+		<item key="DIALOG_HEIGHT" value="454"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|5|0|Segoe UI"/>
+	</section>
+</section>

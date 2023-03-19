@@ -1,0 +1,41 @@
+1. jak rychle vydělit 8bit číslo 16?
+>>4
+2. lze can sběrnici používat v zašumělém prostředí? jaké má vodiče?
+ano, datovy
+3. převod čísla dvojkový doplněk => desítková
+4. kolik potřebuju vodičů pro připojení dvou spi zařízení
+5. jak měnit intenzitu ledky
+6. jak měřit proud pomocí mikroprocesoru v rozmezí 0-5A, co má vliv na rozlišení změřené hodnoty
+7. jak realizovat lko obvod (aspoň 4 způsoby)
+and, or, not; nand; nor; multiplexory; dekoder+and
+8. jakou pamět použiješ na uložení dat, 2 důvody proč
+9. k čemu použiješ paměť RAM a FRAM
+10. kolikrát řádově můžu zapisovat do RAM
+11. jaké jsou části procesoru
+řadič, alu, registry
+12. k čemu je nám více úrovní přerušení
+nested interrupt
+13. co je watchdog
+vynuluje procesor, kdyz neni vcas sam vynulovan, brani zacykleni
+14. jak snížíme spotřebu mikroprocesoru
+uspani jadra, snizeni kmitoctu..
+15. zak zvýšíme výkon procesoru
+pipeline, VLIW, multicore..
+16. jaké jsou podmínky pro spuštění mikroprocesoru
+napajeci napeti v definovane urovni, stabilni oscilator
+17. co bude v PSR, když výsledek operace je 0
+snad Z
+18. nakresli, nebo popiš multiplexer 1 z 10
+19. z čeho se skládá dekodér
+20. jak zařídit zápis dat bez použití instrukce
+pomoci DMA
+21. jak připojit relé na pin
+22. jak se připojuje klávesnice, když chci mít možný stisk více tlačítek najednou
+23. pres kolik vodičů probíhá komunikace 1-wire
+1
+24. napiš příklad multiplatformního jazyka
+Java
+25. co je metastabilní stav
+nedefinovana napetova uroven (pro 0/1)
+26. něco na RS485 BUS
+27. něco na RS422 BUS

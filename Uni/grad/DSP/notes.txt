@@ -1,0 +1,10 @@
+Realne kepstrum (diky abs. hodnote)
+====
+Co to je?
+	x[n] -[DFT]-> X[k] -[abs]-> |X[k]| -[ln]-> ln(|X[k]|) -[IDFT]-> C_x[n]
+K cemu to je?
+	Kdyz mame dva signaly, ktery jsou v kanale konvolvovany (x = s*h), kepstrum nam umozni s nimi pracovat oddelene.
+	s[n]*h[s] --> S[k]H[k] --> ln(|S[k]|) + ln(|H[k]|) -> C_s[n] + C_h[n]
+Dnes na cviceni (5. tyden) se budeme ve zpetnem chodu vracet pouze k abs. hodnote.
+Nulty koeficient kepstra reflektuje energii/vykon puvodniho signalu.
+Koeficienty kepstra jsou tvoreny dvemi ortogonalnimi transformacemi -> jsou velmi dekorelovane. To se v aplikaci kepstra da vyuzit napriklad pri zpracovani reci. Vychazi nam pak pekne kovariancni matice atd.

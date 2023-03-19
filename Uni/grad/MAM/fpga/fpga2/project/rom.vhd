@@ -1,0 +1,29 @@
+LIBRARY IEEE;
+USE IEEE.std_logic_1164.all;
+
+ENTITY ROM64x3 IS
+	PORT (
+		address : IN INTEGER RANGE 0 TO 63;
+		STROBE : OUT STD_LOGIC;
+		CLK_OUT: OUT STD_LOGIC;
+		LATCH: OUT STD_LOGIC
+	);
+END ENTITY ROM64x3;
+
+ARCHITECTURE BEHAVIOR OF ROM64x3 IS
+	TYPE rom_array IS ARRAY(0 TO 63) OF STD_LOGIC_VECTOR(2 DOWNTO 0);
+	CONSTANT rom : rom_array := (
+	 "000","000","100","110","100","000","010","000",
+	 "010","000","010","000","010","000","010","000",
+	 "010","000","010","000","010","000","010","000",
+	 "010","000","010","000","010","000","010","000",
+	 "010","000","010","000","010","000","001","001",
+	 "001","001","001","000","000","000","000","000",
+	 "000","000","000","000","000","000","000","000",
+	 "000","000","000","000","000","000","000","000"
+	);
+	BEGIN
+		STROBE <= rom(address)(0);
+		CLK_OUT <= rom(address)(1);
+		LATCH <= rom(address)(2);
+END ARCHITECTURE BEHAVIOR;

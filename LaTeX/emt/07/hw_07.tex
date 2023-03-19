@@ -1,0 +1,114 @@
+\documentclass[12pt,a4paper]{report}
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{15mm}
+\setlength\evensidemargin{15mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+\let\openright=\clearpage
+
+\usepackage[czech]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{stddoc}
+\usepackage{mathtools}
+
+
+\renewcommand{\vec}{\boldsymbol}
+\def\endl{\\[3mm]}
+\newcommand*\colvec[3][]{
+	\begin{pmatrix}
+		\ifx \relax#1 \relax
+		\else #1\\
+		\fi
+		#2 \\ #3
+	\end{pmatrix}
+}
+
+\begin{document}
+	\pagenumbering{gobble}
+	
+	\begin{center}
+		\section*{Příklady pro týden 7 - Martin Šimák}
+		\noindent\rule{13cm}{1.6pt} \\[5mm]
+	\end{center}
+	
+	\subsection*{Zadání}
+		Dvě kruhové nekonečně tenké smyčky o poloměru a jsou protékány stacionárním proudem I (proud teče v obou ve stejném směru). Smyčky jsou souosé a vzdálené d od sebe. Určete magnetické pole na ose systému. Určete Taylorův rozvoj pole v okolí geometrického středu systému. Nastavte poměr poloměru a vzdálenosti smyček tak, aby průběh magnetického pole v okolí středu systému byl co neplošší (snažte se   popořadě   vynulovat   co   největší   počet   vyšších   členů   Taylorova   rozvoje).   Určete   velikost magnetického pole ve středu systému pro tento ideální případ. \\
+	\noindent\rule{8cm}{0.4pt}
+	
+	\subsection*{Řešení}
+		Nejprve začneme s výpočtem jednodušší (kanonické)  úlohy, která spočívá ve výpočtu intenzity magnetického pole $B$ na ose jedné smyčky položené v ose $x,y$.
+		
+		\subsubsection*{Část první - kanonická paralela}
+			Vektor $B$ určitě nebude záviset na $\varphi$, jelikož je v této souřadnici invariantní, bude tedy velice výhodné přejít při výpočtu do cylindrické souřadnicové soustavy. Měříme $B$ na ose smyčky (cylindrická vzdálenost od osy $\rho$ je nulová), můžeme tedy položit
+			\begin{align*}
+				\vec r = (0,0,z), \, \vec r' = (a \cos(\varphi), a \sin(\varphi), 0) \implies (\vec r - \vec r') = (-a \cos(\varphi), -a \sin(\varphi), z).
+			\end{align*}
+			Při výpočtu vyjdeme ze základního vztahu magnetostatiky, tedy z Biot-Savartova zákona
+			\begin{align*}
+				\vec B(\rho = 0, z) = \vec B_0(z) = \frac{\mu_0}{4 \pi} \int\limits_{V} \frac{\vec J(\vec r') \times (\vec r - \vec r') }{|| \vec r - \vec r' ||^3} \d V',
+			\end{align*}
+			který v našem případě můžeme upravit na
+			\begin{align*}
+				\vec B_0(z) &= \frac{\mu_0}{4 \pi} \int\limits_0^{2 \pi} \frac{I}{(a^2 + z^2)^{3/2}} \, \vec e_\varphi \times \colvec[-a \cos(\varphi)]{-a \sin(\varphi)}{z} a \, \d \varphi ,
+				&	
+				\vec e_\varphi &= \colvec[-\sin(\varphi)]{\cos(\varphi)}{0}.
+			\end{align*}
+			Známe-li tedy složky vektorů $(\vec r - \vec r'), \vec e_\varphi$, můžeme vypočítat jejich vektorový součin jako
+			\begin{align*}
+				\vec e_\varphi \times (\vec r - \vec r')
+				&= \colvec[- \sin(\varphi)]{\cos(\varphi)}{0} \times \colvec[-a \cos(\varphi)]{-a \sin(\varphi)}{z} = \colvec[z \cos(\varphi)]{z \sin(\varphi)}{a}.
+			\end{align*}
+			Dosadíme-li do vztahu, dostaneme dále již lehce řešitelný výraz
+			\begin{align*}
+				\vec B_0(z) = \frac{\mu_0 I}{4 \pi} \int\limits_0^{2 \pi} \frac{a}{\( a^2 + z^2 \)^{3/2}} \colvec[z \cos(\varphi)]{z \sin(\varphi)}{a} \d \varphi,
+			\end{align*}
+			u kterého, využijeme-li vlastností trigonometrických funckí, které (stejně jako všechny periodické funkce) mají nulový integrál přes celou periodu, tak se naše řešení zredukuje jen na složku ve směru osy $z$. Výsledné řešení kanonického případu je tedy
+			\begin{align*}
+				\Aboxed{\vec B_0(z) = \frac{\mu_0 I}{2} \frac{a^2}{\( a^2 + z^2 \)^{3/2}} \, \vec e_z.}
+			\end{align*}
+			
+		\subsubsection*{Část druhá - přechod k řešení zadaného příkladu}
+			Při řešení celého příkladu můžeme vyjít z vyřešené úlohy kanonické, kdy výsledný vztah z předchozí části se tentokrát ve vztahu pro magnetickou intenzitu objeví dvakrát (pro každou ze smyček jednou), přičemž jsou vzájemně posunuté na ose $z$ o vzdálenost $d$, můžeme tedy pro vektor magnetické intenzity na ose smyček psát
+			\footnote{Budeme dále počítat pouze s velikostí $B$, směr se totiž derivacemi nijak nezmení}
+			\begin{align*}
+				B(\rho = 0, z) = B_0(z) = \frac{\mu_0 I a^2}{2} \( \frac{1}{(a^2 + (z + d/2)^2)^{3/2}} + \frac{1}{(a^2 + (z - d/2)^2)^{3/2}} \) \vec e_z .
+			\end{align*}
+			Jelikož jsme si takto zvolili souřadnou soustavu, je geometrický střed naší dvojice smyček přesně v počátku $\vec o$. Pro Taylorův rozvoj v tomto geometrickém středu tedy můžeme psát
+			\begin{align*}
+				B_0(z) = B_0(0) + B'_0(0) z + \frac{1}{2} B''_0(0) z^2 + \cdots ,
+			\end{align*}
+			kde $B'_0(0), B''_0(0)$ značí první a druhou derivaci (další členy Taylorovy řady v zájmu přehlednosti dokumentu neuvádíme) podle $z$, které jsou určeny jako
+			\begin{align*}
+				B'_0(0) &= \left. \frac{\mu_0 I a^2}{2} \( \frac{-3 (z + d/2)}{(a^2 + (z + d/2)^2)^{5/2}} + \frac{-3 (z - d/2)}{(a^2 + (z - d/2)^2)^{5/2}} \) \right|_{z=0} = 0, \endl
+				B''_0(0) &= \frac{\mu_0 I a^2}{2} \( \frac{-3}{(a^2 + (z + d/2)^2)^{5/2}} + \frac{15(z + d/2)^2}{(a^2 + (z + d/2)^2)^{7/2}} \right. + \\
+				&\left. \left. \quad + \frac{-3}{(a^2 + (z - d/2)^2)^{5/2}} + \frac{15(z - d/2)^2}{(a^2 + (z - d/2)^2)^{7/2}} \) \right|_{z=0} = \endl
+				&= \frac{\mu_0 I a^2}{2} \( \frac{-6 (a^2 + (d/2)^2) + 30(d/2)^2)}{(a^2 + (d/2)^2)^{7/2}} \) = \endl
+				&= 3 \mu_0 I a^2 \( \frac{4(d/2)^2 - a^2}{(a^2 + (d/2)^2)^{7/2}} \) .
+			\end{align*}
+			Jelikož se snažíme o co nejplošší průběh intenzity magnetického pole uvnitř soustavy, snažíme se tak vlastně o eliminaci (vynulování) co největšího počtu členů Taylorova rozvoje v okolí geometrického středu dvojice smyček (pouze tak dochází totiž k nejmenším (ideálně nulovým) fluktuacím zmíněného pole). Z této úvahy tak plyne další postup, který nám umožní určit vzdálenost smyček tak, aby vyšla i druhá derivace nulová. Tento požadavek lze uspokojit pouze pokud bude nulový čitatel zlomku, tedy
+			\begin{align*}
+				B''_0(0) = 3 \mu_0 I a^2 \( \frac{4(d/2)^2 - a^2}{(a^2 + (d/2)^2)^{7/2}} \) = 0 \iff 4 (d/2)^2 - a^2 = 0 .
+			\end{align*}
+			Jelikož obě veličiny $a$ i $d$ jsou z fyzikálního hlediska vzdálenosti, víme tak, že $a, d \geq 0$, proto je poslední podmínka splněna právě tehdy, když
+			\begin{align}
+				\tag{H}
+				\label{eq:helmholtz}
+				\Aboxed{a = d.}
+			\end{align}
+			
+	\subsection*{Závěr}
+			Pokud tedy dále budeme předpokládat rovnost \ref{eq:helmholtz}, intenzita magnetického pole v geometrickém středu dvojice smyček\footnote{V tomto případě můžeme hovořit o Helmholtzových cívkách (s jedním závitem), proto výslednou intenzitu magnetického pole značíme $\vec B_H$} bude
+			\begin{align*}
+				\vec B_H(0) = \frac{\mu_0 I a^2}{2} \( \frac{2}{(a^2 + (a/2)^2)^{3/2}} \) \vec e_z = \frac{\mu_0 I}{a} \( \frac{1}{(1 + 1/4)^{3/2}} \) \vec e_z ,
+			\end{align*}
+			\begin{align*}
+				\Aboxed{\vec B_H(0) = \frac{8 \mu_0 I}{5 \sqrt{5} a} \vec e_z . }
+			\end{align*}
+\end{document}

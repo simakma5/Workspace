@@ -1,0 +1,107 @@
+/*
+ * lib.hpp
+ *
+ *  Created on: Feb 12, 2023
+ *      Author: marti
+ */
+
+#ifndef SRC_LIB_HPP_
+#define SRC_LIB_HPP_
+
+///////////////////
+//	QoL defines
+#define uint unsigned int
+#define setbit(reg, bit)      ((reg) |= (1U << (bit)))
+#define clearbit(reg, bit)    ((reg) &= (~(1U << (bit))))
+#define togglebit(reg, bit)   ((reg) ^= (1U << (bit)))
+#define getbit(reg, bit)      (((reg) & (1U << (bit))) >> (bit))
+
+
+///////////////////
+//	for setPinMode function
+//
+//	input:		(floating, PU, PD)
+//	output:		(push-pull, open drain) * (PU, PD)
+//	alternate:	(push-pull, open drain) * (floating, PU, PD)
+//	analog:		(floating)
+
+/* GPIOx->MODER and GPIOx->PUPDR abbreviations */
+//	bity[3:2]	-> MODER
+//		00:	INPUT
+//		01:	OUTPUT
+//		10:	ALTERNATE
+//		11:	ANALOG
+//	bity[1:0]	-> PUPDR
+//		00:	FLOATING
+//		01:	PULL-UP
+//		10:	PULL-DOWN
+#define	INPUT			0b0000
+#define	INPUT_PU		0b0001
+#define	INPUT_PD		0b0010
+#define	OUTPUT			0b0100
+#define	OUTPUT_PU		0b0101
+#define	OUTPUT_PD		0b0110
+#define	ALTERNATE		0b1000
+#define	ALTERNATE_PU	0b1001
+#define	ALTERNATE_PD	0b1010
+#define	ANALOG			0b1100
+/* GPIOx->OTYPER abbreviations */
+//		0:	PUSH-PULL
+//		1:	OPEN DRAIN
+#define	PUSH_PULL		0b0
+#define	OPEN_DRAIN		0b1
+/* GPIOx->OSPEEDR abbreviations */
+//		00:	LOW SPEED
+//		01:	MEDIUM SPEED
+//		10:	FAST SPEED
+//		11:	HIGH SPEED
+#define	LOW				0b00
+#define	MEDIUM			0b01
+#define	FAST			0b10
+#define	HIGH			0b11
+
+// set pin mode with default values: low speed, push-pull type
+void setPinMode(GPIO_TypeDef *GPIOx, uint8_t PIN, uint8_t MODE, uint8_t SPEED = LOW, uint8_t TYPE = PUSH_PULL) {
+	GPIOx->MODER &= ~(0b11 << (2*PIN));					// nulování minulého stavu
+	GPIOx->MODER |= ( ((MODE>>2)&0b11) << (2*PIN) );	// nastavení nového MODER
+
+	GPIOx->PUPDR &= ~(0b11 << (2*PIN));			// nulování minulého stavu
+	GPIOx->PUPDR |= ( (MODE&0b11) << (2*PIN) );	// nastavení nového PUPDR
+
+	GPIOx->OSPEEDR &= ~(0b11 << (2*PIN));	// nulování minulého stavu
+	GPIOx->OSPEEDR |= (SPEED << (2*PIN));	// nastavení nového OSPEEDR
+
+	GPIOx->OTYPER &= ~(0b1 << PIN);	// nulování minulého stavu
+	GPIOx->OTYPER |= (TYPE << PIN);	// nastavení nového OTYPER
+}
+
+// assign alternate function AF to PIN
+void setAlternateFunction(GPIO_TypeDef *GPIOx, uint8_t PIN, uint8_t AF) {
+	if(PIN < 8) {		// set GPIOx->AFRL, pins 0-7
+		// clear previous state
+		GPIOx->AFR[0] &= ~(0b1111 << 4*PIN);
+		// set new AFRL
+		GPIOx->AFR[0] |= (AF << 4*PIN);
+	} else {			// set GPIOx->AFRH, pins 8-15
+		// clear previous state
+		GPIOx->AFR[1] &= ~(0b1111 << 4*(PIN-8));
+		// set new AFRH
+		GPIOx->AFR[1] |= (AF << 4*(PIN-8));
+	}
+}
+
+// write (atomically) 0 or 1 to PIN
+void writeBit(GPIO_TypeDef *GPIOx, uint8_t PIN, uint8_t bit) {
+	if(bit == 0) {		// write 0
+		GPIOx->BSRR |= (0b1 << (16+PIN));
+	} else {			// write 1
+		GPIOx->BSRR |= (0b1 << PIN);
+	}
+}
+
+// read bit on PIN
+uint32_t readBit(GPIO_TypeDef *GPIOx, uint8_t PIN) {
+	return ((GPIOx->ODR >> PIN) & 0b1);
+}
+
+#endif /* SRC_LIB_HPP_ */

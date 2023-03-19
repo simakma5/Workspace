@@ -1,0 +1,1032 @@
+\documentclass[xcolor=dvipsnames, aspectratio=169, handout, intlimits]{beamer} 
+% 1610, 169, 149, 54, 43, 32 ratios are available
+% [eulervm] / [eulervm] / [eulervm] / [eulervm]
+% [draft]              - no figures, no footlines, no media...
+% [handout]            - no overlays
+% [10pt,11pt,12pt,...] - font size
+
+% optimal video resolution [mm]: (1/4)*[CamtasiaX(pt) CamtasiaY(pt)]*0.3528
+
+%================================================================================
+% TITLE PAGE:
+%================================================================================
+\newcommand{\myEmail}{\texttt{\href{mailto:miloslav.capek@fel.cvut.cz}{miloslav.capek@fel.cvut.cz}}}
+\newcommand{\myTitleMain}{ % SHORT TITLE FOR BOTTOM LINE
+Mathematical Nomenclature and \LaTeX
+}
+\newcommand{\myTitleBottom}{ % MAIN TITLE OF THE PRESENTATION
+Mathematical Nomenclature and \LaTeX
+}
+\newcommand{\mySubtitle}{ % SUBTITLE
+}
+\newcommand{\myAuthorsShort}{ % SHORT AUTHORS
+\v{C}apek, M.
+}
+\newcommand{\myAuthors}{ % AUTHORS
+{
+  \textcolor{elmagLight}{Miloslav~\v{C}apek}
+}}
+\newcommand{\myInstituteShort}{ % SHORT AFFILIATION
+CTU in Prague
+}
+\newcommand{\myInstitute}{ % FULL AFFILIATION
+{
+Department of Electromagnetic Field \\
+Czech Technical University in Prague, Czech Republic \\
+\fontsize{8}{5}{\myEmail} 
+}
+}
+\newcommand{\myPlace}{ % PLACE OF EVENT
+Seminar \\
+Prague, Czech Republic \\
+November 6, 2018}
+\newcommand{\myDate}{ % THE DATA
+\today}
+\newcommand{\myVersion}{ % VERSION OF THE PRESENTATION
+v1.1
+}
+
+\usepackage{ragged2e}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage{calc}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{verbatim}
+\usepackage{eurosym}
+
+\newcommand{\myData}{data/}
+
+\usepackage{capekBeamerClass} % \usepackage{\myLaTeX capekBeamerClass}
+\usepackage{capekCommands} % \usepackage{\myLaTeX capekCommands}
+\usepackage{plotGraphics}
+
+\providecommand{\Cmat}{\ensuremath{\M{C}}}
+\providecommand{\setB}{\ensuremath{\OP{B}}}
+
+\graphicspath{{\myData}} % WHERE ARE THE FIGURES...
+%\addbibresource{references/references_LIST_UpToDate} % WHERE ARE THE REFERENCES... \myLaTeX
+\addbibresource{d:/Work/Projekty/GIT/capek-CMtext/references}
+
+\newcommand{\finalVersion}{0}
+
+\begin{document}
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OUTLINE:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Outline}
+
+\begin{columns}
+	\begin{column}{0.6\textwidth}
+\hfill
+\vspace{1cm}
+\hspace{2cm}		
+
+\parbox[c]{.88\textwidth}{
+	\small\tableofcontents}
+
+\vspace{2cm}  
+\noindent\makebox[\linewidth]{\rule{0.9\textwidth}{0.2pt}} \\
+\scriptsize
+Disclaimer:
+\begin{itemize}
+	\item I am not an expert in the topic, just a fan.
+	\item Often just a best practice or personal experience is presented.
+\end{itemize}
+
+	\end{column}
+	\begin{column}{0.35\textwidth}
+		
+	\pgfmathsetmacro{\svec}{0.6}	
+	\pgfmathsetmacro{\rvec}{.8}
+	\pgfmathsetmacro{\thetavec}{35}
+	\pgfmathsetmacro{\phivec}{70}
+	\def\mFrameRate{10}
+	\begin{animateinline}[autoplay, loop]{\mFrameRate}
+		\multiframe{72}{rt=1+5}{%
+			\tdplotsetmaincoords{50}{120+\rt}
+			\begin{tikzpicture}[scale=3,tdplot_main_coords]
+			% plot spheres
+			\shade[tdplot_screen_coords,ball color = white] (0,0) circle (\svec); 
+			\shade[tdplot_screen_coords,ball color=blue,opacity=0] (0,0) circle (1.2*\rvec); % bounding box
+			% center of the coordinate system and arrows
+			\coordinate (O) at (0,0,0) node[anchor=east, yshift=5pt]{$\mathbf{0}$};
+			\draw[thick,->] (0,0,0) -- (3/4,0,0) node[anchor=north east]{$x$};
+			\draw[thick,->] (0,0,0) -- (0,3/4,0) node[anchor=north west]{$y$};
+			\draw[thick,->] (0,0,0) -- (0,0,7/8) node[anchor=south]{$z$};
+			% point of observation
+			\tdplotsetcoord{P}{\rvec}{\thetavec}{\phivec}
+			\draw[-stealth,color=red,line width=1pt] (O) -- (P) node[above right] {$\boldsymbol{r}$};
+			\draw[dashed, color=red] (O) -- (Pxy);
+			\draw[dashed, color=red] (P) -- (Pxy);
+			% phi and theta planes (lines and tags)
+			\tdplotdrawarc{(O)}{0.2}{0}{\phivec}{anchor=north}{$\varphi$}
+			\tdplotsetthetaplanecoords{\phivec}
+			\tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{0.5}{0}%
+			{\thetavec}{anchor=south west}{$\vartheta$}
+			% plot planes
+			\fill[fill=blue,opacity=0.15] (O) -- (0.2,0,0) arc (0:\phivec:0.2);
+			\tdplotsetrotatedcoords{-20}{-90}{0}
+			\fill[fill=blue,opacity=0.15,tdplot_rotated_coords] (O) -- (0.5,0,0) arc (0:\thetavec:0.5);    
+			\end{tikzpicture}
+			
+		}%
+	\end{animateinline}
+	\end{column}		
+\end{columns}
+	
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{About the Talk}
+
+\vspace{-0.5cm}
+\begin{itemize}
+	\item Extremely wide topic. Here: \textcolor{elmagLight}{overview only!}
+	\begin{itemize}
+		\item From pure aesthetics, through typography, typesettings, graphics, towards colors, proportions, data processing and DTP (\small{desktop publishing}).
+		\item High-level (style, stylistic, templates) to low-level (figures, tables, lists, headings),
+		\item Appropriate number of seminars would span an entire semester.
+		\item Instead of being complete, let's build some interest in the topic.
+	\end{itemize}
+	\item<2-> \textcolor{elmagLight}{what?} $\times$ \textcolor{elmagLight}{how?}
+	\item<3-> Mainly for technical writing.
+	\item<4-> \LaTeX{} emphasized.	
+\end{itemize}
+
+\vspace{0.25cm}
+\uncover<5->{
+\begin{columns}
+	\begin{column}{0.1\textwidth}	
+		
+	\end{column}
+	\begin{column}{0.8\textwidth}
+		\begin{block}{}
+			\centering
+			Be prepared for a slow going learning curve.
+		\end{block}			
+	\end{column}
+	\begin{column}{0.1\textwidth}
+		
+	\end{column}		
+\end{columns}
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Structure of the Talk}
+
+\vspace{-0.5cm}
+\begin{columns}
+	\begin{column}{0.25\textwidth}	
+		
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{block}{}
+			\centering
+			Why?
+		\end{block}			
+	\end{column}
+	\begin{column}{0.25\textwidth}
+		
+	\end{column}		
+\end{columns}
+
+\vspace{0.25cm}
+\begin{itemize}
+	\item Because \Quot{good enough} is not your way\dots
+	\item Because you respect standards and good practice.
+	\item Because quality of your work and its presentation goes hand-in-hand.
+\end{itemize}
+
+\vspace{0.25cm}
+\uncover<2->{
+\textcolor{elmagLight}{Only}
+\begin{enumerate}
+	\item nomenclature and
+	\item \LaTeX.
+\end{enumerate}
+All other topics from writing solid paper, formatting, etc. are skipped for time reasons.
+}
+
+\end{frame}
+
+\section{Mathematical Nomenclature}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Mathematical Nomenclature}
+
+Serves
+\begin{itemize}
+	\item clarity,
+	\item standardization.
+\end{itemize}
+
+\vspace{0.25cm}
+\uncover<2->{
+Known standards:
+\begin{itemize}
+	\item \textcolor{elmagLight}{ISO} (\small{International Organization for Standardization}),
+	\item ANSI (\small{American National Standards Institute}),
+	\item IEEE  (\small{Institute of Electrical and Electronics Engineers}),
+	\item IUPAP (\small{International Union of Pure and Applied Physics}),
+	\item \v{C}SN.
+\end{itemize}
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{ISO 80000}
+
+\vspace{-0.75cm}
+\begin{table}
+	\caption{International standards for physical quantities and units, part 1.}
+	%\vspace{-0.1cm}
+	\begin{tabular}{lcp{66mm}p{37mm}}
+		Part & Year & Name & Replaces \\ 
+		\toprule
+		ISO 80000-1 & 2009 & \small{\textcolor{elmagLight}{General}} & \small{ISO 31-0, IEC 60027-1, and IEC 60027-3} \\ 
+		ISO 80000-2 & 2009 & \small{\textcolor{elmagLight}{Mathematical signs and symbols to be used \newline in the natural sciences and technology}} & \small{ISO 31-11, IEC 60027-1} \\ 
+		ISO 80000-3 & 2006 & \small{\textcolor{elmagLight}{Space and time}} & \small{ISO 31-1 and ISO 31-2} \\ 
+		ISO 80000-4 & 2006 & \small{Mechanics} & \small{ISO 31-3} \\ 
+		ISO 80000-5 & 2007 & \small{Thermodynamics} & \small{ISO 31-4} \\ 
+		ISO 80000-6 & 2008 & \small{\textcolor{elmagLight}{Electromagnetism}} & \small{ISO 31-5 and \mbox{IEC 60027-1}} \\ 
+		ISO 80000-7 & 2008 & \small{Light} & \small{ISO 31-6} \\ 
+		ISO 80000-8 & 2007 & \small{Acoustics} & \small{ISO 31-7} \\ 
+		\bottomrule
+	\end{tabular} 
+\end{table}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{ISO 80000}
+
+\vspace{-0.75cm}
+\begin{table}
+	\caption{International standards for physical quantities and units, part 2.}
+	\vspace{-0.1cm}
+	\begin{tabular}{lcp{66mm}p{37mm}}
+		Part & Year & Name & Replaces \\ 
+		\toprule
+		ISO 80000-9 & 2008 & \small{Physical chemistry and molecular physics} & \small{ISO 31-8} \\ 
+		ISO 80000-10 & 2009 & \small{Atomic and nuclear physics} & \small{ISO 31-9 and ISO 31-10} \\ 
+		ISO 80000-11 & 2008 & \small{Characteristic numbers} & \small{ISO 31-12} \\ 
+		ISO 80000-12 & 2009 & \small{Solid state physics} & \small{ISO 31-13} \\ 
+		ISO 80000-13 & 2008 & \small{Information science and technology} & \small{IEC 60027-2:2005 and IEC 60027-3} \\ 
+		ISO 80000-14 & 2008 & \small{Telebiometrics related to human physiology} & \small{IEC 60027-7} \\ 
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{itemize}
+	\item SI units (not only) used.
+	\item One unit is \EUR{138}.
+\end{itemize}
+
+\end{frame}
+
+\section{Nomenclature -- Rules}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Variables and Units}
+
+\vspace{-0.5cm}
+\begin{equation*}
+f_0 = \left\{f_\T{quantity} \right\} \left[f_\T{unit} \right] = 12\,345(67)\,\T{Hz}
+\end{equation*}
+
+\vspace{-0.25cm}
+\begin{itemize}
+	\item<2-> Quantity always in \textbf{italic}.
+	\begin{itemize}
+		\item<3-> Note that $12\,345 \pm 67\,\T{Hz}$ is incorrect from mathematical point of view.
+	\end{itemize}
+	\item<4-> Unit always in \textbf{roman}.
+	\begin{itemize}
+		\item<5-> A short space (\texttt{\textbackslash ,} in \LaTeX) placed between the quantity and the unit symbol (except the units of degree, minute, and second).
+		\item<6-> Units are always in lowercase (meter, second), except those derived from a proper name of a person (Tesla, Volt) and symbols containing signs in exponent position (\degree C).
+		\item<7-> Different units are separated by a space (N\,m not Nm) or a c-dot ($1\,\T{N}\cdot\T{m}$).
+		\item<8-> Prefixes are written in roman with no space between symbol and prefix ($1\,\T{THz}$ vs. $1\,\T{T\,Hz}$ vs. 1 T Hz vs. 1 THz).
+		\item<9-> $l = 1.31 \times 10^3\,\T{m}$, $l = 1.31 \cdot 10^3\,\T{m}$, $S = 20\,\T{m} \times 30\,\T{m}$.
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Decimal Sign and Exponents}
+
+\begin{itemize}
+	\item Decimal sign is either a comma or a point ($1,234$ or $1.234$).
+	\item<2-> Numbers can be grouped from the decimal sign or from left (12\,345.678\,9 or 1\,234), use small space then.
+	\item<3-> Negative exponents should be avoided when the numbers are used, except when the base 10 is used ($10^{-5}$ not $4^{-8}$, type $1/4^8$ instead).
+	\item<4-> Multiplication with $\cdot$ or $\times$. Do not use any symbol for products like $ab$, $\M{A}\M{x}$, etc. Use when multiplication operation has to be highlighted, \ie{}, multi-line equation or $2.125 \cdot 10^8$.
+	\item<5-> Number of significant digits ($410\,008$ vs $410\,000$ vs $4.1\cdot 10^5$).
+\end{itemize}
+
+\vspace{0.25cm}
+\uncover<6->{
+\begin{columns}
+	\begin{column}{0.33\textwidth}	
+		\centering		
+		\href{https://en.wikipedia.org/wiki/Unit_prefix}{\beamergotobutton{\texttt{Unit prefixes}}}		
+	\end{column}
+	\begin{column}{0.33\textwidth}	
+		\centering		
+		\href{https://en.wikipedia.org/wiki/List_of_mathematical_symbols}{\beamergotobutton{\texttt{Mathematical symbols}}}	
+	\end{column}
+	\begin{column}{0.33\textwidth}
+		\centering		
+		\href{https://physics.nist.gov/cuu/pdf/sp811.pdf}{\beamergotobutton{\texttt{Guide for the use of SI units}}}	
+	\end{column}		
+\end{columns}
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Constants}
+
+\vspace{-0.5cm}
+\begin{description}[mathematical]
+	\item[mathematical] Dimensionless with fixed numerical value of no direct physical meaning or necessity of a physical measurement.
+	\begin{itemize}
+		\item<2-> Examples: Archimedes' constant ($\pi$), Euler's number ($\T{e}$), imaginary unit ($\J$).
+	\end{itemize}
+	\item[physical] Often carry dimensions, they are universal and constant in time.
+	\begin{itemize}
+		\item<2-> Examples: speed of light in vacuum ($c_0$), electron charge ($e$), permittivity of vacuum ($\EPS$), impedance of vacuum ($\ZVAC$).
+	\end{itemize}
+\end{description}
+
+\vspace{0.25cm}
+\uncover<3->{
+\begin{description}[mathematical]
+	\item[mathematical] always in \textcolor{elmagLight}{roman} type, \ie{}, $\T{e}^{\J \pi} + 1 = 0$
+	\item[physical] always in \textcolor{elmagLight}{italic} type, \ie{}, $2c_0$, \cf{} $\T{e}^2$ vs. $e^2$
+\end{description}
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Functions}
+
+\vspace{-0.5cm}
+Functions always in \textcolor{elmagLight}{roman}, they are not variables!
+
+\vspace{0.25cm}
+$\sin \left(xy\right)$, $y \sin x$
+
+$\T{j}_1 \left(x\right)$, $-\J \T{j}_1 \left(x\right)$
+
+$\lim_{x\rightarrow \infty} f \left(x\right)$
+
+\vspace{0.5cm}
+\begin{columns}
+	\begin{column}{0.1\textwidth}	
+		
+	\end{column}
+	\begin{column}{0.8\textwidth}
+		\begin{block}{}
+			\centering
+			Use parentheses whenever clarity is in question.
+		\end{block}			
+	\end{column}
+	\begin{column}{0.1\textwidth}
+		
+	\end{column}		
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Sub- and Superscripts}
+
+\vspace{-0.5cm}
+\begin{itemize}
+	\item \textcolor{elmagLight}{Italic}: index represents an unknown variable or a running number/index/counter:
+	\begin{itemize}
+		\item $\sum_n \alpha_n f_n \left(x\right)$, $c_i$, $z_{mn}$, $\M{u}_{\tau \rho m l}^{\left(p\right)} \left(kr\right)$.
+	\end{itemize}
+	\item \textcolor{elmagLight}{Roman}: index represents a number or an abbreviation:
+	\begin{itemize}
+		\item $\varepsilon_\T{r}$, $c_0$, $\Prad$, $Q_\T{lb}$.
+	\end{itemize}
+	\item Should not be overused ($n^{m^{k^{l}}}_0$).
+\end{itemize}
+
+\vspace{0.25cm}
+\uncover<2->{
+\begin{enumerate}
+	\item Whenever possible, simplify and shorten, \ie{}, $\V{n}_0 \rightarrow \UV{n}$, $P_\T{radiated} \rightarrow \Prad$.
+	\item Prioritize clarity, consistence.
+\end{enumerate}
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{In-line and Full Equations}
+
+\vspace{-0.5cm}
+Different approach needed, \cf{}
+
+\begin{columns}
+	\begin{column}{0.5\textwidth}	
+\begin{equation*}
+\frac{a}{b}
+\end{equation*}
+	\end{column}
+	\begin{column}{0.5\textwidth}	
+$a/b$
+	\end{column}
+\end{columns}
+
+\begin{columns}
+\begin{column}{0.5\textwidth}	
+	\begin{equation*}
+	\lim\limits_{x\rightarrow \infty} f \left(x\right)
+	\end{equation*}
+\end{column}
+\begin{column}{0.5\textwidth}	
+	$\lim_{x\rightarrow \infty} f \left(x\right)$
+\end{column}
+\end{columns}
+
+\begin{columns}
+\begin{column}{0.5\textwidth}	
+	\begin{equation*}
+	\T{e}^{-\J\omega t}
+	\end{equation*}
+\end{column}
+\begin{column}{0.5\textwidth}	
+	$\exp\left\{-\J\omega t\right\}$
+\end{column}
+\end{columns}
+
+\begin{columns}
+	\begin{column}{0.5\textwidth}	
+		\begin{equation*}
+		\int\limits_0^{2 \pi} \frac{x}{x + a} \D{x}
+		\end{equation*}
+	\end{column}
+	\begin{column}{0.5\textwidth}	
+		$\int_0^{2\pi} x / \left(x + a\right) \D{x}$
+	\end{column}
+\end{columns}
+
+\vspace{0.25cm}
+\uncover<2->{
+\begin{itemize}
+	\item In-line equations prioritize space-saving strategy.
+	\item Equations are always a part of the text.
+\end{itemize}
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Integration}
+
+\vspace{-0.5cm}
+A small space between integrand and differential, differential roman typed:
+\begin{equation*}
+\frac{1}{T} \int\limits_{t}^{t+T} \int\limits_\srcRegion f \left(\V{r}, t \right) \D{\T{V}} \D{t}, \quad \V{r} \in \srcRegion.
+\end{equation*}
+
+\begin{itemize}
+	\item Be careful about in-line and full equations, \ie{}, usage of $\int$ and $\displaystyle \int$.
+	\item Limits of integral are written over and under the symbol, unless spatial requirements prevents it (in-line eq.).
+	\item The variable of integration shall be written in italics if it relates to a coordinate system or if the integration domain has explicitly defined limits, roman otherwise.
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Differentiation}
+
+\begin{equation*}
+\frac{\T{d} f\left(x\right)}{\T{d}x}
+\end{equation*}
+
+\begin{equation*}
+\nabla \cdot \V{J} \left(\V{r}\right) = - \frac{\partial \rho \left(\V{r}\right)}{\partial t}
+\end{equation*}
+
+\uncover<2->{
+For fans: partial derivative should be rotated to be typed roman.
+
+\vspace{0.5cm}
+\href{https://www.tug.org/TUGboat/tb18-1/tb54becc.pdf}{\beamergotobutton{\texttt{Typesetting mathematics for science, Beccari C., 1997}}}
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Usage of Equations, Part 1}
+
+\vspace{-0.5cm}
+Be careful about the details
+\begin{equation*}
+f = \frac{1}{1 + \frac{\pi}{2}n} \quad \T{vs.} \quad f = \frac{1}{1 + \displaystyle\frac{\pi}{2}n}.
+\end{equation*}
+
+\vspace{0.25cm}
+Keep in mind that equation is always a part of the text, \ie{},
+\begin{equation*}
+g = x \left(\frac{n}{2} + \left(k^2 - 2 \left(x - 3\right)\right)\right) \quad \T{vs.} \quad g = x (\frac{n}{2} + (k^2 - 2 (x - 3))),
+\end{equation*}
+and no matter if properly typed (left) or not (right).
+
+\vspace{0.25cm}
+$\V{r}_1 \cdot \V{r}_2$, $\V{r}_1 \times \V{r}_2$, $\pm 5$, $f'$, $f''$
+
+\begin{itemize}
+	\item MathType can be used for initial code generation.
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Usage of Equations, Part 2}
+
+\vspace{-0.5cm}
+Complex numbers:
+\begin{equation*}
+z = \overbrace{
+	\underbrace{x}_\T{real} + \J
+	\underbrace{y}_\T{imaginary}
+}^\T{complex\,\,number} = \RE \left\{z\right\} + \J \IM \left\{z\right\},
+\end{equation*}
+not $\Re\left\{z\right\} + \J \Im\left\{z\right\}$ (this is obsolete).
+
+\vspace{0.25cm}
+\begin{itemize}
+	\item<2-> Transpose $\M{A}^\trans$, complex conjugate $z^\ast$, Hermitian conjugate $\left(\M{A}^\ast\right)^\trans \equiv \M{A}^\herm$.
+	\item<3-> More equations are always separated (\eg{}, by a comma).
+	\item<4-> Physical units always on the same line as the equation.
+	\item<5-> Prepositions and conjunctions should not be alone at the end of the line.
+\end{itemize}
+
+\uncover<6->{
+\vspace{0.25cm}
+\href{http://tug.ctan.org/info/symbols/comprehensive/symbols-a4.pdf}{\beamergotobutton{\texttt{The comprehensive \LaTeX symbol list}}}
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Vectors and Matrices}
+
+\vspace{-1cm}
+\begin{table}
+\begin{center}
+\caption{Scalars, vectors, dyads, matrices, and unit vectors.}
+\begin{tabular}{lc}
+\toprule 
+$a$ & a scalar number \\ 
+$a_m$ & an element of a vector~$\M{a}$ \\
+$a_{mn}$ & an element of a matrix~$\M{A}$ \\
+$\M{a}$	& a vector \\
+$\V{a}$	& a vector function \\
+$\M{a}_n$& a column of a matrix \\
+$\UV{a}$ & unit vector \\ 
+$\M{A}$	& a matrix \\ 
+$\V{A}$	& a (time-harmonic) vector function, phasor \\ 
+$\OP{A}$ & a functional or a time-dependent function \\ 
+$\V{\OP{A}}$ & a vector time-dependent function \\ 
+$\mathbb{A}$ & a field, a domain \\
+\bottomrule
+\end{tabular} 
+\end{center}
+\end{table}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Brackets}
+
+\vspace{-1.25cm}
+\begin{table}
+\begin{center}
+\caption{Brackets and their usage (personal preference).}
+\begin{tabular}{lcc}
+\toprule 
+$\left(\,\right)$ & $x \left(x + 2 \right)$ & structuring of an equation \\ 
+& $f \left(x\right)$ & arguments of a function \\
+& $x \in \left(0,1\right)$ & an open interval \\ \midrule
+$\left[\,\right]$ & $\left[x_1 \,\,\, x_2 \,\,\, \cdots \,\,\, x_n\right]^\trans$ & a vector, a matrix \\
+ & $x \in \left[0, 5\right]$ & a closed interval \\ \midrule
+$\left\{\,\right\}$ & $n \in \left\{1, \dots, N\right\}$ & set operations \\
+& $\OP{L} \left\{ \V{J}_1 \left(\V{r} \right), \V{J}_2 \left(\V{r} \right)\right\}$ & arguments of operators and transformations \\ \midrule
+$\left\langle\,\right\rangle$ & $\left\langle \V{x}, \OP{L} \left\{ \V{x} \right\} \right\rangle$ & inner product \\
+&  $\left\langle \phi | \psi \right\rangle$ & bra--ket \\ \midrule
+$|\,|$ & $| \V{x} |$ & absolute value, modulus \\ \midrule
+$\lceil\,\rceil$, $\lfloor\,\rfloor$ & $\lceil x \rceil$, $\lfloor x \rfloor$ & ceiling, floor \\
+\bottomrule
+\end{tabular} 
+\end{center}
+\end{table}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Matrix Typesetting}
+
+\vspace{-0.5cm}
+Linear system $\M{y} = \M{A} \M{x}$, quadratic form $y = \M{x}^\herm \M{A} \M{x}$.
+
+\begin{equation*}
+\Cmat_\setB =
+\left[ {\begin{array}{ccccc}
+	1 & 0 & 0 & \cdots & 0\\
+	\end{array} } \right]^\trans
+\end{equation*}
+
+\begin{equation*}
+\Cmat_\setB R_\infty \Cmat_\setB^\trans =
+\left[ {\begin{array}{ccccc}
+	R_\infty & 0 & 0 & \cdots & 0\\
+	0 & 0 & 0 & \cdots & 0\\		
+	0 & 0 & R_\infty & \cdots & 0\\
+	\vdots & \vdots & \vdots & \ddots & \vdots \\
+	0 & 0 & 0 & \cdots & 0\\		
+\end{array} } \right]
+\end{equation*}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{System of Equations, Complicated Equations}
+
+\vspace{-0.75cm}
+\begin{align}
+f(x) &= x^4 + 7x^3 + 2x^2 \nonumber \\
+&\qquad {} + 10x + 12
+\end{align}
+
+\vspace{-0.5cm}
+\begin{align}
+f(x)  &= a x^2+b x +c \\
+f'(x) &= 2 a x +b
+\end{align}
+
+\vspace{-0.2cm}
+\begin{equation*}
+C_{\setB,nn} = \left\{
+\begin{array}{lll}
+0 & \Leftrightarrow & n \not\in \setB \\
+1 & \Leftrightarrow & \mathrm{otherwise} \\
+\end{array}
+\right.
+\end{equation*}
+
+\begin{columns}
+\begin{column}{0.1\textwidth}	
+	
+\end{column}
+\begin{column}{0.8\textwidth}
+	\begin{block}{}
+		\centering
+		When you are not sure, google it out! (\texttt{tex.stackexchange.com})
+	\end{block}			
+\end{column}
+\begin{column}{0.1\textwidth}
+	
+\end{column}		
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Some Hints}{Leslie's Corner}
+
+\vspace{-0.5cm}
+\begin{enumerate}
+\item \Quot{the free space} (not \Quot{free space})
+\item \Quot{wave-number} (not \Quot{wavenumber} or \Quot{wave number})
+\item \Quot{the speed of light} (not \Quot{speed of light})
+\item \Quot{Poynting's theorem} (not \Quot{Poynting theorem})
+\item \Quot{Maxwell's equations} (not \Quot{Maxwell equations})
+\item \Quot{energy in a vacuum} (not \Quot{energy in vacuum})
+\item \Quot{state-of-the-art} (not \Quot{state of the art})
+\item and many, many others\dots
+\end{enumerate}
+
+\end{frame}
+
+\section{\LaTeX}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{About \LaTeX}
+
+\vspace{-0.5cm}
+Document preparation system, opened, for free
+\begin{itemize}
+	\item To allow anybody to produce high-quality books using minimal effort,
+	\item to provide a system that would give exactly the same results on all computers.
+\end{itemize}
+	
+\vspace{0.5cm}
+\LaTeX = Lamport \TeX
+\begin{description}
+	\item[\TeX] Donald Knuth, 1st release: 1978
+	\begin{itemize}
+		\item \TeX = $\tau \epsilon \chi$ $\rightarrow$ \Quot{t$\varepsilon$x} or \Quot{t$\varepsilon$k}
+	\end{itemize}
+	\item[\LaTeX] Leslie Lamport, 1st release: 1984
+	\begin{itemize}
+		\item \Quot{la:t$\varepsilon$x} or \Quot{leit$\varepsilon$x}
+	\end{itemize}
+\end{description}
+
+%\vspace{0.25}
+%Personal experience: all teaching/scientific documents in Lund written in \LaTeX.
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{MS Office \textit{Contra} \LaTeX}
+
+\vspace{-0.5cm}
+Matter of taste (and professional honor).
+
+\begin{columns}[t]
+\begin{column}{0.475\textwidth}
+	\begin{block}{Features favoring MS Office}
+		\begin{itemize}
+			\item Requires almost no skills and knowledge.
+			\item Linear learning curve.
+			\item May be \Quot{good enough} approach if one is not concerned about quality.
+		\end{itemize}
+	\end{block}
+\end{column}
+\begin{column}{0.475\textwidth}
+	\begin{block}{Features favoring \LaTeX}
+		\begin{itemize}
+			\item Open-source (for free).
+			\item Typesetting (fonts, kerning, math).
+			\item Well documented.
+			\item All (text, math, figures) in the same environment.
+			\item 100\,\% controllability.
+			\item Can be heavily automated.
+			\item Movable and inter-media content.
+			\item Superb outputs.
+		\end{itemize}
+	\end{block}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conception}
+
+\vspace{-0.5cm}
+Distribution (\eg{}, MikTeX) + Packages (\eg{}, Amsmath) + Style/template files (sty, cls)
+
+\vspace{0.5cm}
+To learn: \\
+\LaTeX, Overleaf, data processing, Beamer, PGFplot and Ti$k$Z.
+
+\vspace{0.25cm}
+To start with:
+\begin{columns}
+	\begin{column}{0.33\textwidth}	
+		\centering
+		\href{https://en.wikibooks.org/wiki/LaTeX/Basics}{\beamergotobutton{\texttt{\LaTeX basics}}}		
+	\end{column}
+	\begin{column}{0.33\textwidth}	
+		\centering		
+		\href{https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes}{\beamergotobutton{\texttt{\LaTeX in 30 minutes}}}	
+	\end{column}
+	\begin{column}{0.33\textwidth}
+		\centering		
+		\href{https://www.latex4technics.com/}{\beamergotobutton{\texttt{On-line equations}}}	
+	\end{column}		
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Packages to Get}
+
+\vspace{-0.5cm}
+\begin{columns}[t]
+	\begin{column}{0.475\textwidth}
+		\begin{block}{Must have}
+	\begin{enumerate}
+		\item \LaTeX{} distribution \href{http://miktex.org/download}{\beamergotobutton{\texttt{MikTeX}}}
+		\item \LaTeX{} editor \href{http://www.texstudio.org/}{\beamergotobutton{\texttt{TeXstudio}}}
+		\item \LaTeX{} packaged (can be installed on the fly)
+		\item Spell-checker \href{http://www.rohitfarmer.in/computing/linux-and-open-source/how-to-make-dictionary-work-in-texstudio/}{\beamergotobutton{\texttt{How to install}}}
+		\item Reference database editor \href{http://www.jabref.org/}{\beamergotobutton{\texttt{JabRef}}}											
+	\end{enumerate}
+		\end{block}
+	\end{column}
+	\begin{column}{0.475\textwidth}
+		\begin{block}{Optional}
+	\begin{enumerate}	
+		\item GhostScript \href{http://www.ghostscript.com/download/}{\beamergotobutton{\texttt{GhostScript}}}
+		\item GhostViewer \href{http://pages.cs.wisc.edu/~ghost/gsview/}{\beamergotobutton{\texttt{GhostViewer}}}
+		\item GNUplot \href{http://www.gnuplot.info/download.html}{\beamergotobutton{\texttt{GNUplot}}}
+		\item Matlab2Ti$k$Z \href{https://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz}{\beamergotobutton{\texttt{Matlab2Ti$k$Z}}}
+		\item GeoZebra \href{https://www.geogebra.org/}{\beamergotobutton{\texttt{GeoZebra}}}
+		\item MeshLab \href{http://www.meshlab.net/}{\beamergotobutton{\texttt{MeshLab}}}
+		\item ParaView \href{https://www.paraview.org/}{\beamergotobutton{\texttt{ParaView}}}
+		\item Asymptote \href{http://asymptote.sourceforge.net/}{\beamergotobutton{\texttt{Asymptote}}}
+	\end{enumerate}
+		\end{block}
+	\end{column}
+\end{columns}
+
+\vspace{0.25cm}
+Codes from MATLAB fileexchange (\texttt{mcode}, \texttt{cbrewer}, \texttt{fig2u3d}, \texttt{vrml}, \texttt{export\_fig}).
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{A Few Highlights}
+
+\vspace{-0.5cm}
+
+\begin{itemize}
+	\item citations
+	\item math
+	\item acronyms
+	\item internal references (equations, figures, tables)
+	\item index
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Lists}
+
+\vspace{-0.5cm}
+A list can be either
+\begin{itemize}
+\item a long sentence
+\item or a set of independent bullets.
+\end{itemize}
+
+\vspace{0.5cm}
+\begin{columns}[t]
+\begin{column}{0.33\textwidth}	
+	itemization 
+	\begin{itemize}
+		\item no numbering
+		\item most common
+		\item[{\includegraphics[height=0.4cm]{ElmaglogoComplete.png}}] user-defined bullet symbols
+	\end{itemize}
+\end{column}
+\begin{column}{0.33\textwidth}	
+	enumeration
+	\begin{enumerate}
+		\item numbered
+		\item different numbering possible (A,B,\dots)
+		\item when order or amount is of interest
+	\end{enumerate}
+\end{column}
+\begin{column}{0.33\textwidth}	
+	description
+	\begin{description}
+		\item[difference] bullet symbol is a word or a sentence
+		\item[usage] for descriptive lists
+	\end{description}
+\end{column}
+\end{columns}
+
+\vspace{0.25cm}
+Ellipsis: \dots (not ...); a space before and/or after is a matter of used style.
+
+Notice that for math we have $\cdots$, $\vdots$, $\ddots$.
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t]{Capitalization}
+
+\vspace{-0.5cm}
+\begin{columns}[t]
+	\begin{column}{0.5\textwidth}	
+		We \textcolor{elmagLight}{do} capitalize
+		\begin{itemize}
+			\item nouns (man, bus, book),
+			\item adjectives (angry, lovely, small),
+			\item verbs (run, eat, sleep),
+			\item adverbs (slowly, quickly, quietly),
+			\item pronouns (he, she, it),
+			\item subordinating conjunctions (as, because, that).
+		\end{itemize}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		We \textcolor{elmagLight}{do not} capitalize	
+		\begin{itemize}
+			\item articles: a, an, the,
+			\item coordinating conjunctions: and, but, or, for, nor, etc.,
+			\item prepositions (fewer than five letters): on, at, to, from, by, etc.
+		\end{itemize}
+	\end{column}		
+\end{columns}
+
+If you capitalize, then no full stop.
+
+\vspace{0.25cm}
+\href{https://capitalizemytitle.com/}{\beamergotobutton{\texttt{Title capitalization}}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dash $\times$ Hyphen}
+
+\vspace{-0.5cm}
+We differentiate between
+\begin{description}[em dash \Quot{---}]
+\item[em dash \Quot{---}] punctuation (yes---or no?),
+\item[en dash \Quot{--}] range (6--10 days, pp. 40--42),
+\item[hyphen \Quot{-}] connects two words (front-end),
+\item[minus \Quot{$-$}] math ($a-b$).
+\end{description}
+
+\vspace{0.25cm}
+Quotation is \Quot{this}, not "this" or 'this'.
+
+``Nested `quotation'{}'' or ``nested `quotation'\thinspace'', but not ``nested `quotation'''.
+
+\end{frame}
+
+\section{Style}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Stylistic and Style}
+
+gutter
+
+panchart
+
+hyphenation
+
+kerning
+
+fonts
+
+\ie{}, \eg{}, \cf{}, etc.
+
+viz = see
+
+vs. $\times$ vs (vs. possible as well)
+
+\begin{itemize}
+	\item Self-study of books, forums, personal interest needed.
+\end{itemize}
+
+\end{frame}
+
+\section{Next Week}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Next week(s)}
+
+\begin{itemize}
+	\item \LaTeX and Overleaf (on-line collaborative \LaTeX writing).
+	\item Elements of data processing and Ti$k$Z (graphics, colors and color maps, figures,\dots).
+	\item How to get data from MATLAB to Tik$k$Z, how to externalize data.
+\end{itemize}
+
+\vspace{0.5cm}
+In the following weeks:
+\begin{itemize}
+	\item Graphical and stylistic manual of the department (math commands?).
+	\item Beamer (a \LaTeX class for creating presentations, Beamer template?).
+\end{itemize}
+
+\end{frame}
+
+% CLOSING SECTIONS:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%\printbibliography % to enumerate all references
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{}
+\begin{frame}
+	%\vfill
+	\vspace{12mm}
+	\begin{center}
+		\huge{\textcolor{elmagDark}{Questions?}} \\
+		\vspace{15mm} 
+		\small{For a complete PDF presentation see \href{www.capek.elmag.org}{\beamergotobutton{\texttt{capek.elmag.org}}}} \\
+		\vspace{15mm}
+		\normalsize{Miloslav \v{C}apek \\
+			% \fontsize{8}{5}{\myEmail} \\
+			\myEmail \\
+			\vspace{3mm}
+			\myDate, \myVersion}
+	\end{center}
+	\vfill
+\end{frame}
+\end{document}

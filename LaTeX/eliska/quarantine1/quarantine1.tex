@@ -1,0 +1,236 @@
+\documentclass[11pt,a4paper]{report}
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{15mm}
+\setlength\evensidemargin{15mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+% \openright zařídí, aby následující text začínal na pravé straně knihy
+\let\openright=\clearpage
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{array}
+\usepackage{mathtools}
+\usepackage{stddoc}
+
+
+
+\begin{document}
+	
+	\pagenumbering{gobble}
+	
+	\section*{Zásilka matematiky do karantény č. 1}
+	\noindent\rule{12cm}{0.2pt}
+	
+	\begin{itemize}
+		
+		\item 34/22
+			\begin{enumerate}
+				
+				\item $\log_8(x) > 0$ \\
+					Jelikož vim, že platí $\log_8(1) = 0$ (protože $a^0 = 1$ pro každý číslo $a$), tak můžu rovnici přepsat jako
+					\begin{align*}
+						\log_8(x) > \log_8(1).
+					\end{align*}
+					Dál vím, že logaritmus je funkce prostá, proto můžu bez problémů zavolat inversi (odlogaritmovat) a rovnou vychází výsledek
+					\begin{align*}
+						x &> 1,
+					\\
+						\Aboxed{x &\in (1, \infty).}
+					\end{align*}
+				
+				\item $\log_{\frac 54}(x) \leq 0$ \\
+					Stejný proces:
+					\begin{align*}
+						\log_{\frac 54}(x) &\leq \log_{\frac 54}(1),
+					\\
+						x &\leq 1,
+					\\
+						\Aboxed{x &\in (0, 1 \rangle.}
+					\end{align*}
+					Stále platí $x > 0$ z definičního oboru, proto interval $(0, 1 \rangle.$ a ne $(-\infty, 1 \rangle.$
+				
+				\item $\log_{0.8}(x) > 0$ \\
+					Tady pozor, základ je menší než jedna ($0.8 < 1$), takže graf funkce není ten rostoucí, ale klesající, což způsobí to, že při odlogaritmování musíme přehodit znaménko nerovnosti.
+					\begin{align*}
+						\log_{0.8}(x) &> \log_{0.8}(1),
+					\\
+						x &< 1,
+					\\
+						\Aboxed{x &\in (0, 1).}
+					\end{align*}
+					
+				\item $\log_{\sqrt{2}}(x) \leq 0$ \\
+					\begin{align*}
+						\log_{\sqrt{2}}(x) &\leq \log_{\sqrt{2}}(1),
+					\\
+						x &\leq 1,
+					\\
+						\Aboxed{x &\in (0, 1 \rangle.}
+					\end{align*}
+				
+			\end{enumerate}
+		
+		\item 35/23 je v pracovním sešitě řešený, to asi nemusim dělat.
+		
+		\item 35/24
+			Celá myšlenka tohoto cvičení (a 35/23 taky) je, aby sis zvykla na to, jak vypadá graf logaritmický funkce a to i v případě, že základ bude menší než jedna (vždycky ale větší než 0! ...logaritmus se záporným základem je divná funkce). Z těch grafů pak na základě toho, jestli roste (základ větší než 1) nebo klesá (základ mezi nulou a jedničkou), můžeme vyvodit porovnání hodnot. Pro rostoucí přece platí, že čím větší je x (číslo v závorce za log), tím větší je hodnota. U záporných funkcí je tomu však naopak.
+			\begin{enumerate}
+				\item $\boxed{\log_2(5) > \log_2(1)}$, protože $5 > 1$ a $\log_2(x)$ je rostoucí,
+				\item $\boxed{\log_{\frac 12}(5) < 1} = \log_{\frac 12}\(\frac 12\)$, protože $5 > \frac 12$ a $\log_{\frac 12}(x)$ je klesající,
+				\item $0 = \boxed{\log_2(1) = \log_{\frac 12}(1)} = 0$,
+				\item $\boxed{\log_2 \( \frac 32 \) > \log_2 \( \frac 23 \)}$,
+				\item $\boxed{\log_{\frac 13}(9) < 0}$, protože logaritmus se základem menším než 0 je vždy záporný, \\ \\  když $x > 1$ (zde $x = 9$),
+				\item $\boxed{\log_2 \( \sqrt 2 \) > \log_2(1)}$, protože $\sqrt 2 > 1$,
+				\item $\boxed{\log_{\frac 12} \( \sqrt 2 \) < 0} = \log_{\frac 12}(1)$, protože $\sqrt 2 > 1$,
+				\item $\boxed{\log_{\frac 12} \( 2^{-4} \) > \log_{\frac 12} \( 2^{-3} \)}$,
+				\item $\log_{\mathrm e}(\mathrm e) = \boxed{\ln(\mathrm e) = 1}$,
+				\item $\log_{\mathrm e}(\mathrm e) = 1 = \boxed{\ln(\mathrm e) < \log_2(\mathrm e)}$,
+				\item $0 = \log_{\mathrm e}(1) = \boxed{\ln(1) = \log(1)} = \log_{10}(1) = 0$.
+			\end{enumerate}
+		
+		\item 38/30 řešený.
+		
+		\item 38/31 graf na Desmosu.
+		
+		\item 38/32 $f: x \mapsto \log_3(x-9)$ (to je trochu víc fancy napsaný $f: y = \log_3(x-9)$)
+			\begin{enumerate}
+				\item ANO, je roustoucí,
+				\item NE, není omezená,
+				\item ANO, je prostá,
+				\item NE, není sudá,
+				\item NE, není lichá,
+				\item NE, je rovna 0,
+				\item NE, jejím definičním oborem je interval $D(f) = (9, \infty)$.
+			\end{enumerate}
+		
+		\item 39/33 graf na Desmosu.
+		
+		\item 39/34 graf na Desmosu + c) $D(f) = (-3, \infty)$, $H(f) = \mathbb R$.
+		
+		\item 39/35 c).
+		
+		\item 36/26
+			\begin{enumerate}
+				
+				\item $f(x) = \log_{0.2}(2x-4)$
+					\begin{align*}
+						2x - 4 &> 0,
+					\\
+						2x &> 4,
+					\\
+						x &> 2,
+					\\
+						\Aboxed{x &\in (2, \infty).}
+					\end{align*}
+				
+				\item $f(x) = \log_3 \( \sqrt{3 - x} \)$
+					\begin{align*}
+						\sqrt{3-x} &> 0,
+					\\
+						3-x &> 0,
+					\\
+						x & < 3,
+					\\
+						\Aboxed{x &\in (-\infty, 3).}
+					\end{align*}
+				
+				\item $f(x) = \ln \( \frac{4}{x+5} \)$
+					\begin{align*}
+						\frac{4}{x+5} &> 0,
+						& x \not= -5,
+					\\
+						x+5 &> 0,
+					\\
+						x &> -5,
+					\end{align*}
+					\begin{align*}
+						\Aboxed{x \in (-5, \infty).}
+					\end{align*}
+				
+				\item $f(x) = \log \( \frac{x+3}{1-0.2x} \)$
+					\begin{align*}
+						\frac{x+3}{1-0.2x} &> 0
+					\end{align*}
+					Tato podmínka je splněna pouze pokud čitatel i jmenovatel jsou kladní (první odrážka) nebo oba záporní (druhá odrážka)
+					
+					\begin{itemize}
+						
+						\item čitatel i jmenovatel kladní
+							\begin{align*}
+								x+3 &> 0,
+							&	1-0.2x &> 0,
+							\\
+								x &> -3,
+							&	\frac 15 x &< 1,
+							\\
+								& 
+							&	x &< 5,
+							\\
+								x &\in (-3, \infty),
+							&	x &\in (-\infty, 5),
+							\end{align*}
+							\begin{align*}
+								x &\in (-3, \infty) \cap (-\infty, 5),
+							\\
+								x &\in (-3, 5).
+							\end{align*}
+						
+						\item čitatel i jmenovatel záporní
+							\begin{align*}
+								x+3 &< 0,
+								&	1-0.2x &< 0,
+								\\
+								x &< -3,
+								&	\frac 15 x &> 1,
+								\\
+								& 
+								&	x &> 5,
+								\\
+								x &\in (-\infty, -3),
+								&	x &\in (5, \infty),
+							\end{align*}
+							\begin{align*}
+								x &\in (-\infty, -3) \cap (5, \infty),
+								\\
+								x &\in \emptyset.
+							\end{align*}
+						
+					\end{itemize}
+					
+					Z jednoho řešení nám vyšel interval, z druhého prázdná množina. Finální řešení je ale sjednocení dílčích mezivýsledků (protože nám stačilo jedno z řešení, buď to nebo to), takže můžeme psát
+					\begin{align*}
+						x &\in (-3, 5) \cap \emptyset,
+					\\
+						\Aboxed{x &\in (-3, 5).}
+					\end{align*}
+				
+			\end{enumerate}
+		
+		\item 42/2
+			\begin{enumerate}
+				\item $\log_2(64) = 6$,
+				\item $\log_2(1) = 0$,
+				\item $\log_4(4) = 1$,
+				\item $\log_3 \( \frac 13 \) = -1$,
+				\item $\log_{\frac 12}(2) = -1$,
+				\item $\log_{\frac 12} \( \frac 18 \) = 3$,
+				\item $\log_3 \( \frac{1}{27} \) = -3$,
+				\item $\log_2 \( 2^{14} \) = 14$,
+				\item $\ln(e) = 1$,
+				\item $e^{\ln(e)} = e^1 = e$,
+				\item $10^{\log(1)} = 10^0 = 1$,
+				\item $\log(\log_2(2)) = \log(1) = 0$.
+			\end{enumerate}
+						
+	\end{itemize}
+	
+	
+	
+	
+	
+\end{document}

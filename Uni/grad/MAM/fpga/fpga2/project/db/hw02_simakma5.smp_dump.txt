@@ -1,0 +1,7 @@
+
+State Machine - |hw02_simakma5|control_unit:inst8|digit_switch:inst4|state
+Name state.digit3 state.digit2 state.digit1 state.digit0 
+state.digit0 0 0 0 0 
+state.digit1 0 0 1 1 
+state.digit2 0 1 0 1 
+state.digit3 1 0 0 1 

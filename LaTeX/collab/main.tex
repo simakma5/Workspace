@@ -1,0 +1,98 @@
+%% Verze pro jednostranný tisk:
+% Okraje: levý 40mm, pravý 25mm, horní a dolní 25mm
+% (ale pozor, LaTeX si sám přidává 1in)
+%\documentclass[12pt,a4paper]{report}
+%\setlength\textwidth{145mm}
+%\setlength\textheight{247mm}
+%\setlength\oddsidemargin{15mm}
+%\setlength\evensidemargin{15mm}
+%\setlength\topmargin{0mm}
+%\setlength\headsep{0mm}
+%\setlength\headheight{0mm}
+% \openright zařídí, aby následující text začínal na pravé straně knihy
+%\let\openright=\clearpage
+
+%% Pokud tiskneme oboustranně:
+\documentclass[12pt,a4paper,twoside,openright]{report}
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{14.2mm}
+\setlength\evensidemargin{0mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+\let\openright=\cleardoublepage
+
+
+%% Vytváříme PDF/A-2u
+%\usepackage[a-2u]{pdfx}
+
+%% Přepneme na českou sazbu a fonty Latin Modern
+\usepackage[czech]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+%% Použité kódování znaků: obvykle latin2, cp1250 nebo utf8:
+\usepackage[utf8]{inputenc}
+
+%% centrální chábr-package
+\usepackage{stddoc}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\usepackage{lipsum}
+
+\title{Template}
+\author{Kemmy Round a Mertine Křivák}
+\date{November 2019}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+
+\lipsum[1]
+
+\begin{align*}
+    \nder 3 f x \qquad \dder g y \qquad \der hz
+\\ 
+    \vnder 3 x \qquad \vdder y \qquad \vder z
+\\
+    \ppder f x y
+\\
+    \ket v \qquad \bra v \qquad \bracket u v \qquad \braopket u A v
+\end{align*}
+
+
+
+
+
+\end{document}

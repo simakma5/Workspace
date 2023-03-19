@@ -1,0 +1,101 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb}
+\usepackage{physics}
+\usepackage{setspace}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\let\oldhat\hat
+\renewcommand{\hat}[1]{\oldhat{\mathbf{#1}}}
+\newcommand{\vecvar}[1]{\boldsymbol{#1}}
+\newcommand{\vecconst}[1]{\mathbf{#1}}
+
+\title{Příklady pro týden 2}
+\author{Martin Šimák}
+\date{}
+
+\onehalfspacing
+
+\begin{document}
+	\pagenumbering{gobble}
+	\maketitle
+	
+	\paragraph{Příklad 1:}
+		Tři bodové náboje jsou umístěny v bodech $\vecvar{r_1} = [0, 0, 0]$, $\vecvar{r_2} = [a,0,0]$ a $\vecvar{r_3} = [b,0,0],$ kde $b > a > 0.$ Náboje mají popořadě velikosti $Q_1, Q_2$ a $4Q_1.$ Určete náboj $Q_2$ a jeho pozici tak, aby celková elektrostatická síla působící na každý z nábojů byla nulová.
+	
+	\subparagraph{Řešení:}
+		Podmínky silové rovnováhy můžeme matematicky zapsat jako
+		\begin{align*}
+			\vecvar{F_1} &= \vecvar{F_{12}} + \vecvar{F_{13}} = \frac{1}{4 \pi \epsilon_0} \frac{Q_1 Q_2 \, (\vecvar{r_1} - \vecvar{r_2})}{|\vecvar{r_1} - \vecvar{r_2}|^3} + \frac{1}{4 \pi \epsilon_0} \frac{Q_1 4 Q_1 \, (\vecvar{r_1} - \vecvar{r_3})}{|\vecvar{r_1} - \vecvar{r_3}|^3} = 0 , \\ \\
+			\vecvar{F_2} &= \vecvar{F_{21}} + \vecvar{F_{23}} = \frac{1}{4 \pi \epsilon_0} \frac{Q_2 Q_1 \, (\vecvar{r_2} - \vecvar{r_1})}{|\vecvar{r_2} - \vecvar{r_1}|^3} + \frac{1}{4 \pi \epsilon_0} \frac{Q_2 4 Q_1 \, (\vecvar{r_2} - \vecvar{r_3})}{|\vecvar{r_2} - \vecvar{r_3}|^3} = 0 , \\ \\
+			\vecvar{F_3} &= \vecvar{F_{31}} + \vecvar{F_{32}} = \frac{1}{4 \pi \epsilon_0} \frac{4 Q_1 Q_1 \, (\vecvar{r_3} - \vecvar{r_1})}{|\vecvar{r_3} - \vecvar{r_1}|^3} + \frac{1}{4 \pi \epsilon_0} \frac{4 Q_1 Q_2 \, (\vecvar{r_3} - \vecvar{r_2})}{|\vecvar{r_3} - \vecvar{r_2}|^3} = 0 ,
+		\end{align*}
+		kde $\vecvar{F_1}$ je výslednice elektrostatických sil působících na bod $\vecvar{r_1}$ a $\vecvar{F_{12}}, \vecvar{F_{23}}$ silová působení na $\vecvar{r_1}$ od bodů $\vecvar{r_2}, \vecvar{r_3}$ respektive. Ostatní síly analogicky dle indexů. \\
+		Třetí rovnice nám zde však neposkytne žádnou výhodu při řešení soustavy, takže ji můžeme vypustit. Dále vektory $\vecvar{r_1}, \vecvar{r_2}, \vecvar{r_3}$ mají stejný směr (ve směru osy $x$). Můžeme tedy psát $\vecvar{r_2}/r_2 = \vecvar r_3/r_3 = \hat{x}$, analogicky i pro lineární kombinace těchto vektorů (s ohledem na fakt, že $b > a > 0$, je tedy např. $(\vecvar{r_1} - \vecvar{r_2})/(r_1 - r_2) = - \hat{x}$). Můžeme tedy dále psát
+		\begin{align*}
+			- \frac{Q_2}{a^2} \, \hat{x} - \frac{4Q_1}{b^2} \, \hat{x} = 0 \\
+			\frac{\hat{x}}{a^2} - \frac{4 \, \hat{x}}{(b-a)^2} = 0
+		\end{align*}
+		Problém dále tedy můžeme redukovat na obyčejnou soustavu lineárních rovnice v jedné dimensi.
+		\begin{align*}
+			\frac{Q_2}{a^2} &= - \frac{4Q_1}{b^2} \\
+			\frac{1}{a^2} &= \frac{4}{(b-a)^2}
+		\end{align*}
+		Z druhé rovnice tedy získáme postupně
+		\begin{equation*}
+			(b-a)^2 = 4 a^2 \iff b-a = 2 a \iff a = \frac{b}{3} \, .
+		\end{equation*}
+		Při úpravě jsme využili faktu $b-a>0, \, a>0$, takže jsme mohli rovnici odmocnit bez konsekvencí v podobě absolutních hodnot. Následovným zpětným dosazením do první rovnice získáváme
+		\begin{equation*}
+			Q_2 \, b^2 = -4 Q_1 \frac{b^2}{9} \iff Q_2 = - \frac{4}{9} Q_1
+		\end{equation*}
+	
+	\subparagraph{Závěr:}
+		\begin{equation*}
+			a = \frac{b}{3} \, , \quad Q_2 = -\frac{4}{9} Q_1
+		\end{equation*}
+	\newpage
+			
+	\paragraph{Příklad 2:}
+		Pomocí vztahu
+		\begin{equation*}
+			\vecvar{E(r)} = \frac{1}{4 \pi \epsilon_0} \int\limits_{l'} \frac{\tau(\vecvar{r'}) (\vecvar{r - r'})}{|\vecvar{r - r'}|^3} \, \mathrm{d}l'
+		\end{equation*}
+		vypočítejte elektrické pole podél osy $z$ vytvořené liniovým nábojem  rozloženým na kružnici o poloměru $R$. Kružnice má střed v počátku a leží v rovině $x$-$y$. Náboj je na kružnici rozložen podle předpisu
+		\[ \tau(\varphi) = \left| \begin{matrix}
+			\tau_0, \varphi \in \left[ 0, \pi \right) \\
+			-\tau_0, \varphi \in \left( \pi, 2 \pi \right]
+		\end{matrix} \right. \] \\
+		Nábojová hustota má tedy hustotu $\tau_0$ pro $y > 0$ a hodnotu $-\tau_0$ pro $y < 0 \, .$
+		
+	\subparagraph{Řešení:}
+		Integrál budeme řešit v cylindrickém souřadném systému na dvou segmentech (po intervalech stejných jako je zadána funkce $\tau(\varphi)$).
+		\begin{align*}
+			\vecvar{E(r)}
+			&= \frac{1}{4 \pi \epsilon_0} \int\limits_{l'} \frac{\tau(\vecvar{r'}) (\vecvar{r - r'})}{|\vecvar{r - r'}|^3} \, \mathrm{d}l' \\ \\
+			&= \frac{1}{4 \pi \epsilon_0} \int\limits_{0}^{2 \pi} \frac{\tau_0 \, [ (0,0,z) - (R \cos(\varphi), R \sin(\varphi),0) ]}{(R^2 \cos^2(\varphi) + R^2 \sin^2(\varphi) + z^2)^{3/2}} R \,
+				\mathrm{d}\varphi \\ \\
+			&= \frac{1}{4 \pi \epsilon_0} \left(
+				\int\limits_{0}^{\pi} \frac{\tau_0 \, (-R \cos(\varphi), -R \sin(\varphi), z) }{(R^2 + z^2)^{3/2}} R \, \mathrm{d}\varphi
+				+ \int\limits_{\pi}^{2 \pi} \frac{-\tau_0 \, (-R \cos(\varphi), -R \sin(\varphi), z)}{(R^2 + z^2)^{3/2}} R \, \mathrm{d}\varphi
+				\right) \\ \\
+			&= \frac{\tau_0 R}{4 \pi \epsilon_0 (R^2 + z^2)^{3/2}} \left(
+				\int\limits_{0}^{\pi} (-R \cos(\varphi), -R \sin(\varphi), z) \, \mathrm{d}\varphi - \int\limits_{\pi}^{2 \pi} (-R \cos(\varphi), -R \sin(\varphi), z) \, \mathrm{d}\varphi
+				\right) \\ \\
+			&= \frac{\tau_0 R}{4 \pi \epsilon_0 (R^2 + z^2)^{3/2}} [ (0, -2R, \pi z) - (0, 2R, \pi z) ] \\ \\
+			&= - \frac{\tau_0 R^2}{\pi \epsilon_0 (R^2 + z^2)^{3/2}} \, \hat{y}
+		\end{align*}
+		Během výpočtu jsme několikrát využili skutečnosti, že integrace probíhá pouze přes $\varphi$, takže jsme mohli vytknout mnoho členů, což nám ulehčilo samotnou integraci. Předposlední rovnost platí díky znalosti goniometrických funkcí:
+		\begin{align*}
+			\int\limits_{0}^{\pi} \sin(x) \, \mathrm{d}x &= -\int\limits_{\pi}^{2 \pi} \sin(x) \, \mathrm{d}x = 2 \\
+			\int\limits_{0}^{\pi} \cos(x) \, \mathrm{d}x &= \int\limits_{\pi}^{2 \pi} \cos(x) \, \mathrm{d}x = 0 \, .
+		\end{align*}
+		
+	\subparagraph{Závěr:}
+		\begin{equation*}
+			\vecvar{E(r)} = - \frac{\tau_0 R^2}{\pi \epsilon_0 (R^2 + z^2)^{3/2}} \, \hat{y}
+		\end{equation*}
+	
+\end{document}

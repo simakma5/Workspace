@@ -1,0 +1,158 @@
+%DSP cheatsheet
+
+close all; clc; clear all;
+
+addpath C:\Users\micha\OneDrive\Plocha\DSP\m_their
+%addpath C:\Users\micha\OneDrive\Plocha\DSP\signaly
+
+%% 1 complex cepstrum
+s = loadbin("frame-006.bin");
+slen = length(s)
+
+%váhujte Hammingovým oknem
+w=hamming(slen);
+s = s.*w;
+
+
+wlen = 512;
+% wlen = floor(0.032 * fs); % 0.032 s
+cp=12;
+cepr = vrceps(s, 1, cp, wlen, wlen/2); %real cepstrum
+
+figure()
+plot(cepr);
+
+%% Spočítejte vyhlazený odhad vzájemné spektrální výkonové hustoty (CPSD) Welchovou metod
+
+
+s = load("sig_xy_05.mat");
+
+fs = s.fs;
+x = s.x;
+y = s.y;
+
+
+
+% Computation of short-time frame amount (50% overlap)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+slen=length(x);
+wlen=512 ; % délku krátkodobého segmentu volte 512 vzorků,
+wstep=wlen/2 ;
+wnum=(slen-wlen)/wstep+1 ;
+
+w=hamming(wlen); % HAMMING
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zero-initialization of output signal
+out = zeros(slen,1);
+
+% Main cycle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Sxy  = [];
+
+for i=1:wnum
+
+  % short-time frame selection
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  ii=(i-1)*wstep+1;
+  jj=(i-1)*wstep+wlen;
+
+  frame_x=x(ii:jj).*w;
+  frame_y=y(ii:jj).*w;
+  
+  % No modification 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% --- DO STH WITH FRAME AND OUT
+
+  X = fft(frame_x);
+  Y = fft(frame_y);
+
+  Sxy(:, i) = X.* conj(Y) /wlen;
+
+
+
+%   Ss = abs(dctxc1(clean(ii:jj).*w)).^2 /wlen;
+%   Sn = abs(dctxc1(noise(ii:jj).*w)).^2 /wlen;
+
+  %PWELCH of clean signal !!!!!!!!!!!!!!!
+%       Gs(:, i) = Ss;
+%       Gn(:, i) = Sn;
+  
+  %outframe = ifft(outframe);
+
+  % Addition to output signal (implementation of OLA with general window)
+%   out(ii:jj)=out(ii:jj)+yframe ;
+
+end
+
+%PWELCH -- END !!!!!!!!!!!!!!!!!
+Sxy_final = (mean(Sxy,2)); %10*log10
+
+
+%plot phase
+figure();
+plot(unwrap(angle(Sxy_final)));
+
+
+%%  DCT2
+
+s = loadbin("frame-002.bin");
+w=hamming(length(s));
+
+s = s .* w;
+dct2_a = dctxc2(s)
+
+%% SNR
+%Jaký je odstup signálu od šumu (SNR) zašuměného signálu   SX010S01.CS0, je-li referenční čistý signál   SA010S01.CS0? 
+
+x = loadbin("SX010S01.CS0");
+s = loadbin("SA010S01.CS0");
+u = x-s;
+
+P_s = mean(s.^2);
+P_u = mean(u.^2);
+snr = 10*log10(P_s/P_u)
+
+%% DCT komprimace
+%Komprimuje signál frame-002.bin na bázi kosinové transformace (použijte funkce dct a idct definované v MATLABu). Pro danou kompresi (aproximaci) použijte prvních 60 komponent DCT spektra.
+
+s = loadbin("frame-002.bin");
+
+dct_spectr = dct(s);
+
+dct_compr = zeros(size(dct_spectr));
+dct_compr(1:60) = dct_spectr(1:60);
+
+s_compr = idct(dct_compr);
+
+%power in comprimed
+P_s = mean(s.^2);
+P_compr = mean(s_compr.^2);
+
+Pratio = P_compr / P_s
+
+%% MSC
+% délka krátkodobého segmentu - 64 ms,
+% váhování - Hammingovo okno odpovídající délky,
+% segmentace - s 50% překryvem,
+% řád FFT - stejný, jako je délka krátkodobého segmentu.
+
+ss = load("sigs_2chan_04.mat");
+fs = ss.fs;
+sig1 = ss.sig1;
+sig2 = ss.sig2;
+
+
+sig1 = sig1 .* hamming(length(sig1));
+sig2 = sig2 .* hamming(length(sig2));
+wlen = floor(0.064 * fs); % 0.032 s
+
+
+msc_coh = mscohere(sig1, sig2, wlen, wlen/2);
+
+
+%Určete průměrnou koherenci (tj. průměrnou hodnotu vypočítané MSC). Výsledek uveďte s minimální přesností na 3 platné cifry.
+
+avg_msc = mean(msc_coh)
+
+
+

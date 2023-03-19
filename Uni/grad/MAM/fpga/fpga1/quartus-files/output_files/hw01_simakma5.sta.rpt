@@ -1,0 +1,1082 @@
+TimeQuest Timing Analyzer report for hw01_simakma5
+Fri Nov 04 13:21:33 2022
+Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. TimeQuest Timing Analyzer Summary
+  3. Parallel Compilation
+  4. Clocks
+  5. Slow 1200mV 85C Model Fmax Summary
+  6. Slow 1200mV 85C Model Setup Summary
+  7. Slow 1200mV 85C Model Hold Summary
+  8. Slow 1200mV 85C Model Recovery Summary
+  9. Slow 1200mV 85C Model Removal Summary
+ 10. Slow 1200mV 85C Model Minimum Pulse Width Summary
+ 11. Slow 1200mV 85C Model Metastability Summary
+ 12. Slow 1200mV 0C Model Fmax Summary
+ 13. Slow 1200mV 0C Model Setup Summary
+ 14. Slow 1200mV 0C Model Hold Summary
+ 15. Slow 1200mV 0C Model Recovery Summary
+ 16. Slow 1200mV 0C Model Removal Summary
+ 17. Slow 1200mV 0C Model Minimum Pulse Width Summary
+ 18. Slow 1200mV 0C Model Metastability Summary
+ 19. Fast 1200mV 0C Model Setup Summary
+ 20. Fast 1200mV 0C Model Hold Summary
+ 21. Fast 1200mV 0C Model Recovery Summary
+ 22. Fast 1200mV 0C Model Removal Summary
+ 23. Fast 1200mV 0C Model Minimum Pulse Width Summary
+ 24. Fast 1200mV 0C Model Metastability Summary
+ 25. Multicorner Timing Analysis Summary
+ 26. Board Trace Model Assignments
+ 27. Input Transition Times
+ 28. Signal Integrity Metrics (Slow 1200mv 0c Model)
+ 29. Signal Integrity Metrics (Slow 1200mv 85c Model)
+ 30. Signal Integrity Metrics (Fast 1200mv 0c Model)
+ 31. Setup Transfers
+ 32. Hold Transfers
+ 33. Report TCCS
+ 34. Report RSKM
+ 35. Unconstrained Paths Summary
+ 36. Clock Status Summary
+ 37. Unconstrained Input Ports
+ 38. Unconstrained Output Ports
+ 39. Unconstrained Input Ports
+ 40. Unconstrained Output Ports
+ 41. TimeQuest Timing Analyzer Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2017  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
++-----------------------------------------------------------------------------+
+; TimeQuest Timing Analyzer Summary                                           ;
++-----------------------+-----------------------------------------------------+
+; Quartus Prime Version ; Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition ;
+; Timing Analyzer       ; TimeQuest                                           ;
+; Revision Name         ; hw01_simakma5                                       ;
+; Device Family         ; MAX 10                                              ;
+; Device Name           ; 10M50DAF484C7G                                      ;
+; Timing Models         ; Final                                               ;
+; Delay Model           ; Combined                                            ;
+; Rise/Fall Delays      ; Enabled                                             ;
++-----------------------+-----------------------------------------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 16          ;
+; Maximum allowed            ; 8           ;
+;                            ;             ;
+; Average used               ; 1.14        ;
+; Maximum used               ; 8           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processor 2            ;   2.1%      ;
+;     Processors 3-8         ;   2.0%      ;
++----------------------------+-------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clocks                                                                                                                                                                                                                                                     ;
++----------------------------------------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+--------------------------------------------------+
+; Clock Name                                   ; Type ; Period ; Frequency  ; Rise  ; Fall  ; Duty Cycle ; Divide by ; Multiply by ; Phase ; Offset ; Edge List ; Edge Shift ; Inverted ; Master ; Source ; Targets                                          ;
++----------------------------------------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+--------------------------------------------------+
+; CLK                                          ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { CLK }                                          ;
+; divider:inst4|div5:inst1|inst12              ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { divider:inst4|div5:inst1|inst12 }              ;
+; divider:inst4|div10:inst7|div2:inst|inst     ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { divider:inst4|div10:inst7|div2:inst|inst }     ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { divider:inst4|div10:inst7|div5:inst2|inst12 }  ;
+; divider:inst4|div10:inst8|div2:inst|inst     ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { divider:inst4|div10:inst8|div2:inst|inst }     ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { divider:inst4|div10:inst8|div5:inst2|inst12 }  ;
+; divider:inst4|div10:inst9|div2:inst|inst     ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { divider:inst4|div10:inst9|div2:inst|inst }     ;
+; divider:inst4|div10:inst10|div2:inst|inst    ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { divider:inst4|div10:inst10|div2:inst|inst }    ;
+; divider:inst4|div10:inst10|div5:inst2|inst12 ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { divider:inst4|div10:inst10|div5:inst2|inst12 } ;
+; divider:inst4|div10:inst11|div2:inst|inst    ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { divider:inst4|div10:inst11|div2:inst|inst }    ;
+; divider:inst4|div10:inst11|div5:inst2|inst12 ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { divider:inst4|div10:inst11|div5:inst2|inst12 } ;
+; divider:inst4|div10:inst12|div2:inst|inst    ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { divider:inst4|div10:inst12|div2:inst|inst }    ;
+; divider:inst4|div10:inst12|div5:inst2|inst12 ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { divider:inst4|div10:inst12|div5:inst2|inst12 } ;
+; divider:inst4|div10:inst13|div2:inst|inst    ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { divider:inst4|div10:inst13|div2:inst|inst }    ;
+; divider:inst4|div10:inst13|div5:inst2|inst12 ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { divider:inst4|div10:inst13|div5:inst2|inst12 } ;
+; divider:inst4|div10:inst14|div2:inst|inst    ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { divider:inst4|div10:inst14|div2:inst|inst }    ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { divider:inst4|div10:inst14|div5:inst2|inst12 } ;
+; KEY0                                         ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { KEY0 }                                         ;
+; SW0                                          ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { SW0 }                                          ;
++----------------------------------------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+--------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 85C Model Fmax Summary                                                                                                          ;
++------------+-----------------+----------------------------------------------+---------------------------------------------------------------+
+; Fmax       ; Restricted Fmax ; Clock Name                                   ; Note                                                          ;
++------------+-----------------+----------------------------------------------+---------------------------------------------------------------+
+; 137.4 MHz  ; 137.4 MHz       ; divider:inst4|div10:inst11|div2:inst|inst    ;                                                               ;
+; 155.86 MHz ; 155.86 MHz      ; divider:inst4|div10:inst13|div2:inst|inst    ;                                                               ;
+; 200.08 MHz ; 200.08 MHz      ; divider:inst4|div10:inst12|div2:inst|inst    ;                                                               ;
+; 226.45 MHz ; 226.45 MHz      ; divider:inst4|div10:inst10|div2:inst|inst    ;                                                               ;
+; 280.27 MHz ; 250.0 MHz       ; CLK                                          ; limit due to minimum period restriction (max I/O toggle rate) ;
+; 311.53 MHz ; 311.53 MHz      ; divider:inst4|div10:inst8|div2:inst|inst     ;                                                               ;
+; 339.9 MHz  ; 339.9 MHz       ; divider:inst4|div10:inst9|div2:inst|inst     ;                                                               ;
+; 339.44 MHz ; 339.44 MHz      ; divider:inst4|div10:inst7|div2:inst|inst     ;                                                               ;
+; 347.46 MHz ; 347.46 MHz      ; divider:inst4|div10:inst14|div2:inst|inst    ;                                                               ;
+; 448.03 MHz ; 250.0 MHz       ; SW0                                          ; limit due to minimum period restriction (max I/O toggle rate) ;
+; 448.03 MHz ; 416.15 MHz      ; divider:inst4|div10:inst14|div5:inst2|inst12 ; limit due to minimum period restriction (tmin)                ;
+; 448.03 MHz ; 416.15 MHz      ; divider:inst4|div10:inst7|div5:inst2|inst12  ; limit due to minimum period restriction (tmin)                ;
+; 448.03 MHz ; 416.15 MHz      ; divider:inst4|div10:inst8|div5:inst2|inst12  ; limit due to minimum period restriction (tmin)                ;
+; 1424.5 MHz ; 250.0 MHz       ; KEY0                                         ; limit due to minimum period restriction (max I/O toggle rate) ;
++------------+-----------------+----------------------------------------------+---------------------------------------------------------------+
+This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
+
+
++-----------------------------------------------------------------------+
+; Slow 1200mV 85C Model Setup Summary                                   ;
++----------------------------------------------+--------+---------------+
+; Clock                                        ; Slack  ; End Point TNS ;
++----------------------------------------------+--------+---------------+
+; divider:inst4|div10:inst11|div2:inst|inst    ; -3.139 ; -5.085        ;
+; divider:inst4|div10:inst13|div2:inst|inst    ; -2.708 ; -3.950        ;
+; divider:inst4|div10:inst8|div2:inst|inst     ; -2.210 ; -3.708        ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; -2.198 ; -15.860       ;
+; SW0                                          ; -2.095 ; -14.502       ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; -2.033 ; -14.642       ;
+; divider:inst4|div10:inst12|div2:inst|inst    ; -1.999 ; -3.952        ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; -1.838 ; -12.800       ;
+; divider:inst4|div10:inst10|div2:inst|inst    ; -1.714 ; -3.869        ;
+; CLK                                          ; -1.596 ; -3.406        ;
+; divider:inst4|div10:inst14|div2:inst|inst    ; -1.371 ; -2.489        ;
+; divider:inst4|div10:inst7|div2:inst|inst     ; -1.275 ; -2.424        ;
+; divider:inst4|div10:inst9|div2:inst|inst     ; -0.971 ; -1.912        ;
+; divider:inst4|div10:inst10|div5:inst2|inst12 ; -0.629 ; -0.629        ;
+; divider:inst4|div10:inst12|div5:inst2|inst12 ; -0.586 ; -0.586        ;
+; divider:inst4|div5:inst1|inst12              ; -0.544 ; -0.544        ;
+; divider:inst4|div10:inst11|div5:inst2|inst12 ; -0.426 ; -0.426        ;
+; divider:inst4|div10:inst13|div5:inst2|inst12 ; -0.137 ; -0.137        ;
+; KEY0                                         ; 0.298  ; 0.000         ;
++----------------------------------------------+--------+---------------+
+
+
++-----------------------------------------------------------------------+
+; Slow 1200mV 85C Model Hold Summary                                    ;
++----------------------------------------------+--------+---------------+
+; Clock                                        ; Slack  ; End Point TNS ;
++----------------------------------------------+--------+---------------+
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; -0.295 ; -2.345        ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; -0.155 ; -1.225        ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; 0.281  ; 0.000         ;
+; divider:inst4|div10:inst13|div5:inst2|inst12 ; 0.323  ; 0.000         ;
+; SW0                                          ; 0.347  ; 0.000         ;
+; KEY0                                         ; 0.393  ; 0.000         ;
+; divider:inst4|div10:inst11|div5:inst2|inst12 ; 0.425  ; 0.000         ;
+; divider:inst4|div10:inst14|div2:inst|inst    ; 0.441  ; 0.000         ;
+; divider:inst4|div10:inst9|div2:inst|inst     ; 0.441  ; 0.000         ;
+; divider:inst4|div10:inst13|div2:inst|inst    ; 0.451  ; 0.000         ;
+; divider:inst4|div10:inst10|div5:inst2|inst12 ; 0.524  ; 0.000         ;
+; divider:inst4|div5:inst1|inst12              ; 0.531  ; 0.000         ;
+; divider:inst4|div10:inst7|div2:inst|inst     ; 0.572  ; 0.000         ;
+; divider:inst4|div10:inst12|div5:inst2|inst12 ; 0.607  ; 0.000         ;
+; divider:inst4|div10:inst12|div2:inst|inst    ; 0.619  ; 0.000         ;
+; divider:inst4|div10:inst11|div2:inst|inst    ; 0.745  ; 0.000         ;
+; divider:inst4|div10:inst8|div2:inst|inst     ; 0.748  ; 0.000         ;
+; divider:inst4|div10:inst10|div2:inst|inst    ; 0.833  ; 0.000         ;
+; CLK                                          ; 0.864  ; 0.000         ;
++----------------------------------------------+--------+---------------+
+
+
+------------------------------------------
+; Slow 1200mV 85C Model Recovery Summary ;
+------------------------------------------
+No paths to report.
+
+
+-----------------------------------------
+; Slow 1200mV 85C Model Removal Summary ;
+-----------------------------------------
+No paths to report.
+
+
++-----------------------------------------------------------------------+
+; Slow 1200mV 85C Model Minimum Pulse Width Summary                     ;
++----------------------------------------------+--------+---------------+
+; Clock                                        ; Slack  ; End Point TNS ;
++----------------------------------------------+--------+---------------+
+; SW0                                          ; -3.000 ; -14.224       ;
+; CLK                                          ; -3.000 ; -8.612        ;
+; KEY0                                         ; -3.000 ; -4.403        ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; -1.403 ; -12.627       ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; -1.403 ; -12.627       ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; -1.403 ; -12.627       ;
+; divider:inst4|div10:inst10|div2:inst|inst    ; -1.403 ; -5.612        ;
+; divider:inst4|div10:inst11|div2:inst|inst    ; -1.403 ; -5.612        ;
+; divider:inst4|div10:inst12|div2:inst|inst    ; -1.403 ; -5.612        ;
+; divider:inst4|div10:inst13|div2:inst|inst    ; -1.403 ; -5.612        ;
+; divider:inst4|div10:inst14|div2:inst|inst    ; -1.403 ; -5.612        ;
+; divider:inst4|div10:inst7|div2:inst|inst     ; -1.403 ; -5.612        ;
+; divider:inst4|div10:inst8|div2:inst|inst     ; -1.403 ; -5.612        ;
+; divider:inst4|div10:inst9|div2:inst|inst     ; -1.403 ; -5.612        ;
+; divider:inst4|div10:inst10|div5:inst2|inst12 ; -1.403 ; -1.403        ;
+; divider:inst4|div10:inst11|div5:inst2|inst12 ; -1.403 ; -1.403        ;
+; divider:inst4|div10:inst12|div5:inst2|inst12 ; -1.403 ; -1.403        ;
+; divider:inst4|div10:inst13|div5:inst2|inst12 ; -1.403 ; -1.403        ;
+; divider:inst4|div5:inst1|inst12              ; -1.403 ; -1.403        ;
++----------------------------------------------+--------+---------------+
+
+
+-----------------------------------------------
+; Slow 1200mV 85C Model Metastability Summary ;
+-----------------------------------------------
+No synchronizer chains to report.
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 0C Model Fmax Summary                                                                                                           ;
++------------+-----------------+----------------------------------------------+---------------------------------------------------------------+
+; Fmax       ; Restricted Fmax ; Clock Name                                   ; Note                                                          ;
++------------+-----------------+----------------------------------------------+---------------------------------------------------------------+
+; 149.34 MHz ; 149.34 MHz      ; divider:inst4|div10:inst11|div2:inst|inst    ;                                                               ;
+; 171.23 MHz ; 171.23 MHz      ; divider:inst4|div10:inst13|div2:inst|inst    ;                                                               ;
+; 215.15 MHz ; 215.15 MHz      ; divider:inst4|div10:inst12|div2:inst|inst    ;                                                               ;
+; 242.72 MHz ; 242.72 MHz      ; divider:inst4|div10:inst10|div2:inst|inst    ;                                                               ;
+; 313.68 MHz ; 250.0 MHz       ; CLK                                          ; limit due to minimum period restriction (max I/O toggle rate) ;
+; 337.04 MHz ; 337.04 MHz      ; divider:inst4|div10:inst8|div2:inst|inst     ;                                                               ;
+; 356.13 MHz ; 356.13 MHz      ; divider:inst4|div10:inst9|div2:inst|inst     ;                                                               ;
+; 362.58 MHz ; 362.58 MHz      ; divider:inst4|div10:inst7|div2:inst|inst     ;                                                               ;
+; 369.82 MHz ; 369.82 MHz      ; divider:inst4|div10:inst14|div2:inst|inst    ;                                                               ;
+; 480.54 MHz ; 250.0 MHz       ; SW0                                          ; limit due to minimum period restriction (max I/O toggle rate) ;
+; 480.54 MHz ; 416.15 MHz      ; divider:inst4|div10:inst14|div5:inst2|inst12 ; limit due to minimum period restriction (tmin)                ;
+; 480.54 MHz ; 416.15 MHz      ; divider:inst4|div10:inst7|div5:inst2|inst12  ; limit due to minimum period restriction (tmin)                ;
+; 480.54 MHz ; 416.15 MHz      ; divider:inst4|div10:inst8|div5:inst2|inst12  ; limit due to minimum period restriction (tmin)                ;
+; 1567.4 MHz ; 250.0 MHz       ; KEY0                                         ; limit due to minimum period restriction (max I/O toggle rate) ;
++------------+-----------------+----------------------------------------------+---------------------------------------------------------------+
+This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
+
+
++-----------------------------------------------------------------------+
+; Slow 1200mV 0C Model Setup Summary                                    ;
++----------------------------------------------+--------+---------------+
+; Clock                                        ; Slack  ; End Point TNS ;
++----------------------------------------------+--------+---------------+
+; divider:inst4|div10:inst11|div2:inst|inst    ; -2.848 ; -4.378        ;
+; divider:inst4|div10:inst13|div2:inst|inst    ; -2.420 ; -3.514        ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; -2.090 ; -14.916       ;
+; divider:inst4|div10:inst8|div2:inst|inst     ; -1.967 ; -3.201        ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; -1.961 ; -13.990       ;
+; SW0                                          ; -1.834 ; -12.454       ;
+; divider:inst4|div10:inst12|div2:inst|inst    ; -1.824 ; -3.474        ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; -1.769 ; -12.221       ;
+; divider:inst4|div10:inst10|div2:inst|inst    ; -1.560 ; -3.382        ;
+; CLK                                          ; -1.379 ; -2.838        ;
+; divider:inst4|div10:inst14|div2:inst|inst    ; -1.194 ; -2.117        ;
+; divider:inst4|div10:inst7|div2:inst|inst     ; -1.124 ; -2.056        ;
+; divider:inst4|div10:inst9|div2:inst|inst     ; -0.904 ; -1.561        ;
+; divider:inst4|div10:inst10|div5:inst2|inst12 ; -0.502 ; -0.502        ;
+; divider:inst4|div10:inst12|div5:inst2|inst12 ; -0.473 ; -0.473        ;
+; divider:inst4|div5:inst1|inst12              ; -0.450 ; -0.450        ;
+; divider:inst4|div10:inst11|div5:inst2|inst12 ; -0.338 ; -0.338        ;
+; divider:inst4|div10:inst13|div5:inst2|inst12 ; -0.089 ; -0.089        ;
+; KEY0                                         ; 0.362  ; 0.000         ;
++----------------------------------------------+--------+---------------+
+
+
++-----------------------------------------------------------------------+
+; Slow 1200mV 0C Model Hold Summary                                     ;
++----------------------------------------------+--------+---------------+
+; Clock                                        ; Slack  ; End Point TNS ;
++----------------------------------------------+--------+---------------+
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; -0.273 ; -2.168        ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; -0.136 ; -1.072        ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; 0.224  ; 0.000         ;
+; SW0                                          ; 0.282  ; 0.000         ;
+; divider:inst4|div10:inst13|div5:inst2|inst12 ; 0.293  ; 0.000         ;
+; KEY0                                         ; 0.355  ; 0.000         ;
+; divider:inst4|div10:inst11|div5:inst2|inst12 ; 0.377  ; 0.000         ;
+; divider:inst4|div10:inst14|div2:inst|inst    ; 0.404  ; 0.000         ;
+; divider:inst4|div10:inst9|div2:inst|inst     ; 0.404  ; 0.000         ;
+; divider:inst4|div10:inst13|div2:inst|inst    ; 0.417  ; 0.000         ;
+; divider:inst4|div10:inst10|div5:inst2|inst12 ; 0.450  ; 0.000         ;
+; divider:inst4|div5:inst1|inst12              ; 0.473  ; 0.000         ;
+; divider:inst4|div10:inst12|div5:inst2|inst12 ; 0.505  ; 0.000         ;
+; divider:inst4|div10:inst7|div2:inst|inst     ; 0.525  ; 0.000         ;
+; divider:inst4|div10:inst12|div2:inst|inst    ; 0.568  ; 0.000         ;
+; divider:inst4|div10:inst11|div2:inst|inst    ; 0.700  ; 0.000         ;
+; divider:inst4|div10:inst8|div2:inst|inst     ; 0.700  ; 0.000         ;
+; divider:inst4|div10:inst10|div2:inst|inst    ; 0.743  ; 0.000         ;
+; CLK                                          ; 0.772  ; 0.000         ;
++----------------------------------------------+--------+---------------+
+
+
+-----------------------------------------
+; Slow 1200mV 0C Model Recovery Summary ;
+-----------------------------------------
+No paths to report.
+
+
+----------------------------------------
+; Slow 1200mV 0C Model Removal Summary ;
+----------------------------------------
+No paths to report.
+
+
++-----------------------------------------------------------------------+
+; Slow 1200mV 0C Model Minimum Pulse Width Summary                      ;
++----------------------------------------------+--------+---------------+
+; Clock                                        ; Slack  ; End Point TNS ;
++----------------------------------------------+--------+---------------+
+; SW0                                          ; -3.000 ; -14.224       ;
+; CLK                                          ; -3.000 ; -8.612        ;
+; KEY0                                         ; -3.000 ; -4.403        ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; -1.403 ; -12.627       ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; -1.403 ; -12.627       ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; -1.403 ; -12.627       ;
+; divider:inst4|div10:inst10|div2:inst|inst    ; -1.403 ; -5.612        ;
+; divider:inst4|div10:inst11|div2:inst|inst    ; -1.403 ; -5.612        ;
+; divider:inst4|div10:inst12|div2:inst|inst    ; -1.403 ; -5.612        ;
+; divider:inst4|div10:inst13|div2:inst|inst    ; -1.403 ; -5.612        ;
+; divider:inst4|div10:inst14|div2:inst|inst    ; -1.403 ; -5.612        ;
+; divider:inst4|div10:inst7|div2:inst|inst     ; -1.403 ; -5.612        ;
+; divider:inst4|div10:inst8|div2:inst|inst     ; -1.403 ; -5.612        ;
+; divider:inst4|div10:inst9|div2:inst|inst     ; -1.403 ; -5.612        ;
+; divider:inst4|div10:inst10|div5:inst2|inst12 ; -1.403 ; -1.403        ;
+; divider:inst4|div10:inst11|div5:inst2|inst12 ; -1.403 ; -1.403        ;
+; divider:inst4|div10:inst12|div5:inst2|inst12 ; -1.403 ; -1.403        ;
+; divider:inst4|div10:inst13|div5:inst2|inst12 ; -1.403 ; -1.403        ;
+; divider:inst4|div5:inst1|inst12              ; -1.403 ; -1.403        ;
++----------------------------------------------+--------+---------------+
+
+
+----------------------------------------------
+; Slow 1200mV 0C Model Metastability Summary ;
+----------------------------------------------
+No synchronizer chains to report.
+
+
++-----------------------------------------------------------------------+
+; Fast 1200mV 0C Model Setup Summary                                    ;
++----------------------------------------------+--------+---------------+
+; Clock                                        ; Slack  ; End Point TNS ;
++----------------------------------------------+--------+---------------+
+; divider:inst4|div10:inst11|div2:inst|inst    ; -1.224 ; -1.668        ;
+; divider:inst4|div10:inst13|div2:inst|inst    ; -1.050 ; -1.158        ;
+; SW0                                          ; -0.761 ; -4.868        ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; -0.731 ; -4.628        ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; -0.614 ; -3.791        ;
+; divider:inst4|div10:inst12|div2:inst|inst    ; -0.603 ; -1.084        ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; -0.535 ; -3.223        ;
+; divider:inst4|div10:inst10|div2:inst|inst    ; -0.471 ; -0.817        ;
+; CLK                                          ; -0.434 ; -0.563        ;
+; divider:inst4|div10:inst8|div2:inst|inst     ; -0.393 ; -0.581        ;
+; divider:inst4|div10:inst14|div2:inst|inst    ; -0.267 ; -0.383        ;
+; divider:inst4|div10:inst7|div2:inst|inst     ; -0.174 ; -0.322        ;
+; divider:inst4|div10:inst9|div2:inst|inst     ; -0.152 ; -0.152        ;
+; divider:inst4|div10:inst10|div5:inst2|inst12 ; -0.031 ; -0.031        ;
+; divider:inst4|div10:inst12|div5:inst2|inst12 ; 0.001  ; 0.000         ;
+; divider:inst4|div5:inst1|inst12              ; 0.080  ; 0.000         ;
+; divider:inst4|div10:inst11|div5:inst2|inst12 ; 0.114  ; 0.000         ;
+; divider:inst4|div10:inst13|div5:inst2|inst12 ; 0.253  ; 0.000         ;
+; KEY0                                         ; 0.694  ; 0.000         ;
++----------------------------------------------+--------+---------------+
+
+
++-----------------------------------------------------------------------+
+; Fast 1200mV 0C Model Hold Summary                                     ;
++----------------------------------------------+--------+---------------+
+; Clock                                        ; Slack  ; End Point TNS ;
++----------------------------------------------+--------+---------------+
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; -0.180 ; -1.436        ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; -0.118 ; -0.940        ;
+; divider:inst4|div10:inst9|div2:inst|inst     ; 0.045  ; 0.000         ;
+; divider:inst4|div10:inst13|div5:inst2|inst12 ; 0.093  ; 0.000         ;
+; SW0                                          ; 0.151  ; 0.000         ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; 0.151  ; 0.000         ;
+; divider:inst4|div10:inst11|div5:inst2|inst12 ; 0.165  ; 0.000         ;
+; divider:inst4|div10:inst14|div2:inst|inst    ; 0.167  ; 0.000         ;
+; KEY0                                         ; 0.170  ; 0.000         ;
+; divider:inst4|div10:inst13|div2:inst|inst    ; 0.173  ; 0.000         ;
+; divider:inst4|div5:inst1|inst12              ; 0.199  ; 0.000         ;
+; divider:inst4|div10:inst7|div2:inst|inst     ; 0.212  ; 0.000         ;
+; divider:inst4|div10:inst12|div2:inst|inst    ; 0.235  ; 0.000         ;
+; divider:inst4|div10:inst10|div5:inst2|inst12 ; 0.259  ; 0.000         ;
+; divider:inst4|div10:inst12|div5:inst2|inst12 ; 0.271  ; 0.000         ;
+; divider:inst4|div10:inst11|div2:inst|inst    ; 0.278  ; 0.000         ;
+; divider:inst4|div10:inst8|div2:inst|inst     ; 0.279  ; 0.000         ;
+; divider:inst4|div10:inst10|div2:inst|inst    ; 0.321  ; 0.000         ;
+; CLK                                          ; 0.333  ; 0.000         ;
++----------------------------------------------+--------+---------------+
+
+
+-----------------------------------------
+; Fast 1200mV 0C Model Recovery Summary ;
+-----------------------------------------
+No paths to report.
+
+
+----------------------------------------
+; Fast 1200mV 0C Model Removal Summary ;
+----------------------------------------
+No paths to report.
+
+
++-----------------------------------------------------------------------+
+; Fast 1200mV 0C Model Minimum Pulse Width Summary                      ;
++----------------------------------------------+--------+---------------+
+; Clock                                        ; Slack  ; End Point TNS ;
++----------------------------------------------+--------+---------------+
+; SW0                                          ; -3.000 ; -12.736       ;
+; CLK                                          ; -3.000 ; -7.102        ;
+; KEY0                                         ; -3.000 ; -4.074        ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; -1.000 ; -9.000        ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; -1.000 ; -9.000        ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; -1.000 ; -9.000        ;
+; divider:inst4|div10:inst10|div2:inst|inst    ; -1.000 ; -4.000        ;
+; divider:inst4|div10:inst11|div2:inst|inst    ; -1.000 ; -4.000        ;
+; divider:inst4|div10:inst12|div2:inst|inst    ; -1.000 ; -4.000        ;
+; divider:inst4|div10:inst13|div2:inst|inst    ; -1.000 ; -4.000        ;
+; divider:inst4|div10:inst14|div2:inst|inst    ; -1.000 ; -4.000        ;
+; divider:inst4|div10:inst7|div2:inst|inst     ; -1.000 ; -4.000        ;
+; divider:inst4|div10:inst8|div2:inst|inst     ; -1.000 ; -4.000        ;
+; divider:inst4|div10:inst9|div2:inst|inst     ; -1.000 ; -4.000        ;
+; divider:inst4|div10:inst10|div5:inst2|inst12 ; -1.000 ; -1.000        ;
+; divider:inst4|div10:inst11|div5:inst2|inst12 ; -1.000 ; -1.000        ;
+; divider:inst4|div10:inst12|div5:inst2|inst12 ; -1.000 ; -1.000        ;
+; divider:inst4|div10:inst13|div5:inst2|inst12 ; -1.000 ; -1.000        ;
+; divider:inst4|div5:inst1|inst12              ; -1.000 ; -1.000        ;
++----------------------------------------------+--------+---------------+
+
+
+----------------------------------------------
+; Fast 1200mV 0C Model Metastability Summary ;
+----------------------------------------------
+No synchronizer chains to report.
+
+
++-------------------------------------------------------------------------------------------------------------+
+; Multicorner Timing Analysis Summary                                                                         ;
++-----------------------------------------------+---------+--------+----------+---------+---------------------+
+; Clock                                         ; Setup   ; Hold   ; Recovery ; Removal ; Minimum Pulse Width ;
++-----------------------------------------------+---------+--------+----------+---------+---------------------+
+; Worst-case Slack                              ; -3.139  ; -0.295 ; N/A      ; N/A     ; -3.000              ;
+;  CLK                                          ; -1.596  ; 0.333  ; N/A      ; N/A     ; -3.000              ;
+;  KEY0                                         ; 0.298   ; 0.170  ; N/A      ; N/A     ; -3.000              ;
+;  SW0                                          ; -2.095  ; 0.151  ; N/A      ; N/A     ; -3.000              ;
+;  divider:inst4|div10:inst10|div2:inst|inst    ; -1.714  ; 0.321  ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst10|div5:inst2|inst12 ; -0.629  ; 0.259  ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst11|div2:inst|inst    ; -3.139  ; 0.278  ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst11|div5:inst2|inst12 ; -0.426  ; 0.165  ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst12|div2:inst|inst    ; -1.999  ; 0.235  ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst12|div5:inst2|inst12 ; -0.586  ; 0.271  ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst13|div2:inst|inst    ; -2.708  ; 0.173  ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst13|div5:inst2|inst12 ; -0.137  ; 0.093  ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst14|div2:inst|inst    ; -1.371  ; 0.167  ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst14|div5:inst2|inst12 ; -2.033  ; -0.155 ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst7|div2:inst|inst     ; -1.275  ; 0.212  ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst7|div5:inst2|inst12  ; -2.198  ; 0.151  ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst8|div2:inst|inst     ; -2.210  ; 0.279  ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst8|div5:inst2|inst12  ; -1.838  ; -0.295 ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst9|div2:inst|inst     ; -0.971  ; 0.045  ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div5:inst1|inst12              ; -0.544  ; 0.199  ; N/A      ; N/A     ; -1.403              ;
+; Design-wide TNS                               ; -90.921 ; -3.57  ; 0.0      ; 0.0     ; -117.031            ;
+;  CLK                                          ; -3.406  ; 0.000  ; N/A      ; N/A     ; -8.612              ;
+;  KEY0                                         ; 0.000   ; 0.000  ; N/A      ; N/A     ; -4.403              ;
+;  SW0                                          ; -14.502 ; 0.000  ; N/A      ; N/A     ; -14.224             ;
+;  divider:inst4|div10:inst10|div2:inst|inst    ; -3.869  ; 0.000  ; N/A      ; N/A     ; -5.612              ;
+;  divider:inst4|div10:inst10|div5:inst2|inst12 ; -0.629  ; 0.000  ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst11|div2:inst|inst    ; -5.085  ; 0.000  ; N/A      ; N/A     ; -5.612              ;
+;  divider:inst4|div10:inst11|div5:inst2|inst12 ; -0.426  ; 0.000  ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst12|div2:inst|inst    ; -3.952  ; 0.000  ; N/A      ; N/A     ; -5.612              ;
+;  divider:inst4|div10:inst12|div5:inst2|inst12 ; -0.586  ; 0.000  ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst13|div2:inst|inst    ; -3.950  ; 0.000  ; N/A      ; N/A     ; -5.612              ;
+;  divider:inst4|div10:inst13|div5:inst2|inst12 ; -0.137  ; 0.000  ; N/A      ; N/A     ; -1.403              ;
+;  divider:inst4|div10:inst14|div2:inst|inst    ; -2.489  ; 0.000  ; N/A      ; N/A     ; -5.612              ;
+;  divider:inst4|div10:inst14|div5:inst2|inst12 ; -14.642 ; -1.225 ; N/A      ; N/A     ; -12.627             ;
+;  divider:inst4|div10:inst7|div2:inst|inst     ; -2.424  ; 0.000  ; N/A      ; N/A     ; -5.612              ;
+;  divider:inst4|div10:inst7|div5:inst2|inst12  ; -15.860 ; 0.000  ; N/A      ; N/A     ; -12.627             ;
+;  divider:inst4|div10:inst8|div2:inst|inst     ; -3.708  ; 0.000  ; N/A      ; N/A     ; -5.612              ;
+;  divider:inst4|div10:inst8|div5:inst2|inst12  ; -12.800 ; -2.345 ; N/A      ; N/A     ; -12.627             ;
+;  divider:inst4|div10:inst9|div2:inst|inst     ; -1.912  ; 0.000  ; N/A      ; N/A     ; -5.612              ;
+;  divider:inst4|div5:inst1|inst12              ; -0.544  ; 0.000  ; N/A      ; N/A     ; -1.403              ;
++-----------------------------------------------+---------+--------+----------+---------+---------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Board Trace Model Assignments                                                                                                                                                                                                                                                                                                                                                                                   ;
++--------------+--------------+-------------------+-------------------------+-------------------------+---------------+---------------------+----------------+------------------+--------+------------------+------------------------+------------------------+--------------+---------------+-----------------+-------+---------------------+--------------------+---------------+-----------------+-------------+
+; Pin          ; I/O Standard ; Near Tline Length ; Near Tline L per Length ; Near Tline C per Length ; Near Series R ; Near Differential R ; Near Pull-up R ; Near Pull-down R ; Near C ; Far Tline Length ; Far Tline L per Length ; Far Tline C per Length ; Far Series R ; Far Pull-up R ; Far Pull-down R ; Far C ; Termination Voltage ; Far Differential R ; EBD File Name ; EBD Signal Name ; EBD Far-end ;
++--------------+--------------+-------------------+-------------------------+-------------------------+---------------+---------------------+----------------+------------------+--------+------------------+------------------------+------------------------+--------------+---------------+-----------------+-------+---------------------+--------------------+---------------+-----------------+-------------+
+; LED0         ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; LED1         ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; LED2         ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; LED3         ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; LED4         ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; LED5         ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; LED6         ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; LED7         ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; ~ALTERA_TDO~ ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
++--------------+--------------+-------------------+-------------------------+-------------------------+---------------+---------------------+----------------+------------------+--------+------------------+------------------------+------------------------+--------------+---------------+-----------------+-------+---------------------+--------------------+---------------+-----------------+-------------+
+
+
++---------------------------------------------------------------------------------+
+; Input Transition Times                                                          ;
++---------------------+-----------------------+-----------------+-----------------+
+; Pin                 ; I/O Standard          ; 10-90 Rise Time ; 90-10 Fall Time ;
++---------------------+-----------------------+-----------------+-----------------+
+; KEY1                ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; SW1                 ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; SW0                 ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; KEY0                ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; CLK                 ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; ~ALTERA_TMS~        ; 2.5 V Schmitt Trigger ; 2000 ps         ; 2000 ps         ;
+; ~ALTERA_TCK~        ; 2.5 V Schmitt Trigger ; 2000 ps         ; 2000 ps         ;
+; ~ALTERA_TDI~        ; 2.5 V Schmitt Trigger ; 2000 ps         ; 2000 ps         ;
+; ~ALTERA_CONFIG_SEL~ ; 2.5 V                 ; 2000 ps         ; 2000 ps         ;
+; ~ALTERA_nCONFIG~    ; 2.5 V Schmitt Trigger ; 2000 ps         ; 2000 ps         ;
+; ~ALTERA_nSTATUS~    ; 2.5 V Schmitt Trigger ; 2000 ps         ; 2000 ps         ;
+; ~ALTERA_CONF_DONE~  ; 2.5 V Schmitt Trigger ; 2000 ps         ; 2000 ps         ;
++---------------------+-----------------------+-----------------+-----------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Signal Integrity Metrics (Slow 1200mv 0c Model)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
++--------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; Pin          ; I/O Standard ; Board Delay on Rise ; Board Delay on Fall ; Steady State Voh at FPGA Pin ; Steady State Vol at FPGA Pin ; Voh Max at FPGA Pin ; Vol Min at FPGA Pin ; Ringback Voltage on Rise at FPGA Pin ; Ringback Voltage on Fall at FPGA Pin ; 10-90 Rise Time at FPGA Pin ; 90-10 Fall Time at FPGA Pin ; Monotonic Rise at FPGA Pin ; Monotonic Fall at FPGA Pin ; Steady State Voh at Far-end ; Steady State Vol at Far-end ; Voh Max at Far-end ; Vol Min at Far-end ; Ringback Voltage on Rise at Far-end ; Ringback Voltage on Fall at Far-end ; 10-90 Rise Time at Far-end ; 90-10 Fall Time at Far-end ; Monotonic Rise at Far-end ; Monotonic Fall at Far-end ;
++--------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; LED0         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 8.25e-09 V                   ; 2.41 V              ; -0.0859 V           ; 0.289 V                              ; 0.136 V                              ; 3.15e-10 s                  ; 4.16e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 8.25e-09 V                  ; 2.41 V             ; -0.0859 V          ; 0.289 V                             ; 0.136 V                             ; 3.15e-10 s                 ; 4.16e-10 s                 ; No                        ; Yes                       ;
+; LED1         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 8.25e-09 V                   ; 2.41 V              ; -0.0871 V           ; 0.291 V                              ; 0.138 V                              ; 3.15e-10 s                  ; 4.16e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 8.25e-09 V                  ; 2.41 V             ; -0.0871 V          ; 0.291 V                             ; 0.138 V                             ; 3.15e-10 s                 ; 4.16e-10 s                 ; No                        ; Yes                       ;
+; LED2         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 8.25e-09 V                   ; 2.41 V              ; -0.0859 V           ; 0.289 V                              ; 0.136 V                              ; 3.15e-10 s                  ; 4.16e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 8.25e-09 V                  ; 2.41 V             ; -0.0859 V          ; 0.289 V                             ; 0.136 V                             ; 3.15e-10 s                 ; 4.16e-10 s                 ; No                        ; Yes                       ;
+; LED3         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 8.25e-09 V                   ; 2.41 V              ; -0.0871 V           ; 0.291 V                              ; 0.138 V                              ; 3.15e-10 s                  ; 4.16e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 8.25e-09 V                  ; 2.41 V             ; -0.0871 V          ; 0.291 V                             ; 0.138 V                             ; 3.15e-10 s                 ; 4.16e-10 s                 ; No                        ; Yes                       ;
+; LED4         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 8.25e-09 V                   ; 2.41 V              ; -0.0859 V           ; 0.289 V                              ; 0.136 V                              ; 3.15e-10 s                  ; 4.16e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 8.25e-09 V                  ; 2.41 V             ; -0.0859 V          ; 0.289 V                             ; 0.136 V                             ; 3.15e-10 s                 ; 4.16e-10 s                 ; No                        ; Yes                       ;
+; LED5         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 8.25e-09 V                   ; 2.41 V              ; -0.0859 V           ; 0.289 V                              ; 0.136 V                              ; 3.15e-10 s                  ; 4.16e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 8.25e-09 V                  ; 2.41 V             ; -0.0859 V          ; 0.289 V                             ; 0.136 V                             ; 3.15e-10 s                 ; 4.16e-10 s                 ; No                        ; Yes                       ;
+; LED6         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 8.25e-09 V                   ; 2.41 V              ; -0.0859 V           ; 0.289 V                              ; 0.136 V                              ; 3.15e-10 s                  ; 4.16e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 8.25e-09 V                  ; 2.41 V             ; -0.0859 V          ; 0.289 V                             ; 0.136 V                             ; 3.15e-10 s                 ; 4.16e-10 s                 ; No                        ; Yes                       ;
+; LED7         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 8.25e-09 V                   ; 2.41 V              ; -0.0871 V           ; 0.291 V                              ; 0.138 V                              ; 3.15e-10 s                  ; 4.16e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 8.25e-09 V                  ; 2.41 V             ; -0.0871 V          ; 0.291 V                             ; 0.138 V                             ; 3.15e-10 s                 ; 4.16e-10 s                 ; No                        ; Yes                       ;
+; ~ALTERA_TDO~ ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 1.39e-08 V                   ; 2.39 V              ; -0.0409 V           ; 0.21 V                               ; 0.121 V                              ; 4.7e-10 s                   ; 5.93e-10 s                  ; No                         ; Yes                        ; 2.32 V                      ; 1.39e-08 V                  ; 2.39 V             ; -0.0409 V          ; 0.21 V                              ; 0.121 V                             ; 4.7e-10 s                  ; 5.93e-10 s                 ; No                        ; Yes                       ;
++--------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Signal Integrity Metrics (Slow 1200mv 85c Model)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ;
++--------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; Pin          ; I/O Standard ; Board Delay on Rise ; Board Delay on Fall ; Steady State Voh at FPGA Pin ; Steady State Vol at FPGA Pin ; Voh Max at FPGA Pin ; Vol Min at FPGA Pin ; Ringback Voltage on Rise at FPGA Pin ; Ringback Voltage on Fall at FPGA Pin ; 10-90 Rise Time at FPGA Pin ; 90-10 Fall Time at FPGA Pin ; Monotonic Rise at FPGA Pin ; Monotonic Fall at FPGA Pin ; Steady State Voh at Far-end ; Steady State Vol at Far-end ; Voh Max at Far-end ; Vol Min at Far-end ; Ringback Voltage on Rise at Far-end ; Ringback Voltage on Fall at Far-end ; 10-90 Rise Time at Far-end ; 90-10 Fall Time at Far-end ; Monotonic Rise at Far-end ; Monotonic Fall at Far-end ;
++--------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; LED0         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 1.16e-06 V                   ; 2.37 V              ; -0.049 V            ; 0.154 V                              ; 0.186 V                              ; 4.63e-10 s                  ; 4.5e-10 s                   ; Yes                        ; Yes                        ; 2.32 V                      ; 1.16e-06 V                  ; 2.37 V             ; -0.049 V           ; 0.154 V                             ; 0.186 V                             ; 4.63e-10 s                 ; 4.5e-10 s                  ; Yes                       ; Yes                       ;
+; LED1         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 1.16e-06 V                   ; 2.37 V              ; -0.0508 V           ; 0.153 V                              ; 0.187 V                              ; 4.63e-10 s                  ; 4.49e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 1.16e-06 V                  ; 2.37 V             ; -0.0508 V          ; 0.153 V                             ; 0.187 V                             ; 4.63e-10 s                 ; 4.49e-10 s                 ; Yes                       ; Yes                       ;
+; LED2         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 1.16e-06 V                   ; 2.37 V              ; -0.049 V            ; 0.154 V                              ; 0.186 V                              ; 4.63e-10 s                  ; 4.5e-10 s                   ; Yes                        ; Yes                        ; 2.32 V                      ; 1.16e-06 V                  ; 2.37 V             ; -0.049 V           ; 0.154 V                             ; 0.186 V                             ; 4.63e-10 s                 ; 4.5e-10 s                  ; Yes                       ; Yes                       ;
+; LED3         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 1.16e-06 V                   ; 2.37 V              ; -0.0508 V           ; 0.153 V                              ; 0.187 V                              ; 4.63e-10 s                  ; 4.49e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 1.16e-06 V                  ; 2.37 V             ; -0.0508 V          ; 0.153 V                             ; 0.187 V                             ; 4.63e-10 s                 ; 4.49e-10 s                 ; Yes                       ; Yes                       ;
+; LED4         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 1.16e-06 V                   ; 2.37 V              ; -0.049 V            ; 0.154 V                              ; 0.186 V                              ; 4.63e-10 s                  ; 4.5e-10 s                   ; Yes                        ; Yes                        ; 2.32 V                      ; 1.16e-06 V                  ; 2.37 V             ; -0.049 V           ; 0.154 V                             ; 0.186 V                             ; 4.63e-10 s                 ; 4.5e-10 s                  ; Yes                       ; Yes                       ;
+; LED5         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 1.16e-06 V                   ; 2.37 V              ; -0.049 V            ; 0.154 V                              ; 0.186 V                              ; 4.63e-10 s                  ; 4.5e-10 s                   ; Yes                        ; Yes                        ; 2.32 V                      ; 1.16e-06 V                  ; 2.37 V             ; -0.049 V           ; 0.154 V                             ; 0.186 V                             ; 4.63e-10 s                 ; 4.5e-10 s                  ; Yes                       ; Yes                       ;
+; LED6         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 1.16e-06 V                   ; 2.37 V              ; -0.049 V            ; 0.154 V                              ; 0.186 V                              ; 4.63e-10 s                  ; 4.5e-10 s                   ; Yes                        ; Yes                        ; 2.32 V                      ; 1.16e-06 V                  ; 2.37 V             ; -0.049 V           ; 0.154 V                             ; 0.186 V                             ; 4.63e-10 s                 ; 4.5e-10 s                  ; Yes                       ; Yes                       ;
+; LED7         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 1.16e-06 V                   ; 2.37 V              ; -0.0508 V           ; 0.153 V                              ; 0.187 V                              ; 4.63e-10 s                  ; 4.49e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 1.16e-06 V                  ; 2.37 V             ; -0.0508 V          ; 0.153 V                             ; 0.187 V                             ; 4.63e-10 s                 ; 4.49e-10 s                 ; Yes                       ; Yes                       ;
+; ~ALTERA_TDO~ ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 1.97e-06 V                   ; 2.36 V              ; -0.0173 V           ; 0.144 V                              ; 0.094 V                              ; 6.44e-10 s                  ; 7.2e-10 s                   ; No                         ; Yes                        ; 2.32 V                      ; 1.97e-06 V                  ; 2.36 V             ; -0.0173 V          ; 0.144 V                             ; 0.094 V                             ; 6.44e-10 s                 ; 7.2e-10 s                  ; No                        ; Yes                       ;
++--------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Signal Integrity Metrics (Fast 1200mv 0c Model)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
++--------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; Pin          ; I/O Standard ; Board Delay on Rise ; Board Delay on Fall ; Steady State Voh at FPGA Pin ; Steady State Vol at FPGA Pin ; Voh Max at FPGA Pin ; Vol Min at FPGA Pin ; Ringback Voltage on Rise at FPGA Pin ; Ringback Voltage on Fall at FPGA Pin ; 10-90 Rise Time at FPGA Pin ; 90-10 Fall Time at FPGA Pin ; Monotonic Rise at FPGA Pin ; Monotonic Fall at FPGA Pin ; Steady State Voh at Far-end ; Steady State Vol at Far-end ; Voh Max at Far-end ; Vol Min at Far-end ; Ringback Voltage on Rise at Far-end ; Ringback Voltage on Fall at Far-end ; 10-90 Rise Time at Far-end ; 90-10 Fall Time at Far-end ; Monotonic Rise at Far-end ; Monotonic Fall at Far-end ;
++--------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; LED0         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
+; LED1         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.94e-08 V                   ; 2.78 V              ; -0.0444 V           ; 0.25 V                               ; 0.107 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.94e-08 V                  ; 2.78 V             ; -0.0444 V          ; 0.25 V                              ; 0.107 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
+; LED2         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
+; LED3         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.94e-08 V                   ; 2.78 V              ; -0.0444 V           ; 0.25 V                               ; 0.107 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.94e-08 V                  ; 2.78 V             ; -0.0444 V          ; 0.25 V                              ; 0.107 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
+; LED4         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
+; LED5         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
+; LED6         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.95e-08 V                   ; 2.78 V              ; -0.0452 V           ; 0.248 V                              ; 0.108 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.95e-08 V                  ; 2.78 V             ; -0.0452 V          ; 0.248 V                             ; 0.108 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
+; LED7         ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 9.94e-08 V                   ; 2.78 V              ; -0.0444 V           ; 0.25 V                               ; 0.107 V                              ; 2.67e-10 s                  ; 2.75e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 9.94e-08 V                  ; 2.78 V             ; -0.0444 V          ; 0.25 V                              ; 0.107 V                             ; 2.67e-10 s                 ; 2.75e-10 s                 ; No                        ; Yes                       ;
+; ~ALTERA_TDO~ ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 1.68e-07 V                   ; 2.73 V              ; -0.0395 V           ; 0.361 V                              ; 0.109 V                              ; 3.1e-10 s                   ; 4.41e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 1.68e-07 V                  ; 2.73 V             ; -0.0395 V          ; 0.361 V                             ; 0.109 V                             ; 3.1e-10 s                  ; 4.41e-10 s                 ; No                        ; Yes                       ;
++--------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------+
+; Setup Transfers                                                                                                                         ;
++----------------------------------------------+----------------------------------------------+----------+----------+----------+----------+
+; From Clock                                   ; To Clock                                     ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++----------------------------------------------+----------------------------------------------+----------+----------+----------+----------+
+; CLK                                          ; CLK                                          ; 3        ; 0        ; 2        ; 0        ;
+; divider:inst4|div5:inst1|inst12              ; CLK                                          ; 1        ; 1        ; 0        ; 0        ;
+; divider:inst4|div10:inst10|div2:inst|inst    ; divider:inst4|div5:inst1|inst12              ; 0        ; 0        ; 1        ; 1        ;
+; divider:inst4|div10:inst7|div2:inst|inst     ; divider:inst4|div10:inst7|div2:inst|inst     ; 3        ; 0        ; 2        ; 0        ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; divider:inst4|div10:inst7|div2:inst|inst     ; 1        ; 1        ; 0        ; 0        ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; divider:inst4|div10:inst7|div5:inst2|inst12  ; 0        ; 0        ; 0        ; 36       ;
+; divider:inst4|div10:inst8|div2:inst|inst     ; divider:inst4|div10:inst7|div5:inst2|inst12  ; 0        ; 0        ; 1        ; 1        ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; divider:inst4|div10:inst7|div5:inst2|inst12  ; 0        ; 0        ; 0        ; 36       ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; divider:inst4|div10:inst7|div5:inst2|inst12  ; 0        ; 0        ; 0        ; 36       ;
+; SW0                                          ; divider:inst4|div10:inst7|div5:inst2|inst12  ; 0        ; 0        ; 36       ; 0        ;
+; divider:inst4|div10:inst8|div2:inst|inst     ; divider:inst4|div10:inst8|div2:inst|inst     ; 3        ; 0        ; 2        ; 0        ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; divider:inst4|div10:inst8|div2:inst|inst     ; 1        ; 1        ; 0        ; 0        ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; divider:inst4|div10:inst8|div5:inst2|inst12  ; 0        ; 0        ; 0        ; 36       ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; divider:inst4|div10:inst8|div5:inst2|inst12  ; 0        ; 0        ; 0        ; 36       ;
+; divider:inst4|div10:inst9|div2:inst|inst     ; divider:inst4|div10:inst8|div5:inst2|inst12  ; 0        ; 0        ; 1        ; 1        ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; divider:inst4|div10:inst8|div5:inst2|inst12  ; 0        ; 0        ; 0        ; 36       ;
+; SW0                                          ; divider:inst4|div10:inst8|div5:inst2|inst12  ; 0        ; 0        ; 36       ; 0        ;
+; divider:inst4|div10:inst9|div2:inst|inst     ; divider:inst4|div10:inst9|div2:inst|inst     ; 4        ; 0        ; 2        ; 0        ;
+; divider:inst4|div10:inst10|div2:inst|inst    ; divider:inst4|div10:inst10|div2:inst|inst    ; 3        ; 0        ; 2        ; 0        ;
+; divider:inst4|div10:inst10|div5:inst2|inst12 ; divider:inst4|div10:inst10|div2:inst|inst    ; 1        ; 1        ; 0        ; 0        ;
+; divider:inst4|div10:inst11|div2:inst|inst    ; divider:inst4|div10:inst10|div5:inst2|inst12 ; 0        ; 0        ; 1        ; 1        ;
+; divider:inst4|div10:inst11|div2:inst|inst    ; divider:inst4|div10:inst11|div2:inst|inst    ; 3        ; 0        ; 2        ; 0        ;
+; divider:inst4|div10:inst11|div5:inst2|inst12 ; divider:inst4|div10:inst11|div2:inst|inst    ; 1        ; 1        ; 0        ; 0        ;
+; divider:inst4|div10:inst12|div2:inst|inst    ; divider:inst4|div10:inst11|div5:inst2|inst12 ; 0        ; 0        ; 1        ; 1        ;
+; divider:inst4|div10:inst12|div2:inst|inst    ; divider:inst4|div10:inst12|div2:inst|inst    ; 3        ; 0        ; 2        ; 0        ;
+; divider:inst4|div10:inst12|div5:inst2|inst12 ; divider:inst4|div10:inst12|div2:inst|inst    ; 1        ; 1        ; 0        ; 0        ;
+; divider:inst4|div10:inst13|div2:inst|inst    ; divider:inst4|div10:inst12|div5:inst2|inst12 ; 0        ; 0        ; 1        ; 1        ;
+; divider:inst4|div10:inst13|div2:inst|inst    ; divider:inst4|div10:inst13|div2:inst|inst    ; 3        ; 0        ; 2        ; 0        ;
+; divider:inst4|div10:inst13|div5:inst2|inst12 ; divider:inst4|div10:inst13|div2:inst|inst    ; 1        ; 1        ; 0        ; 0        ;
+; divider:inst4|div10:inst14|div2:inst|inst    ; divider:inst4|div10:inst13|div5:inst2|inst12 ; 0        ; 0        ; 1        ; 1        ;
+; divider:inst4|div10:inst14|div2:inst|inst    ; divider:inst4|div10:inst14|div2:inst|inst    ; 3        ; 0        ; 2        ; 0        ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; divider:inst4|div10:inst14|div2:inst|inst    ; 1        ; 1        ; 0        ; 0        ;
+; divider:inst4|div10:inst7|div2:inst|inst     ; divider:inst4|div10:inst14|div5:inst2|inst12 ; 0        ; 0        ; 1        ; 1        ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; divider:inst4|div10:inst14|div5:inst2|inst12 ; 0        ; 0        ; 0        ; 36       ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; divider:inst4|div10:inst14|div5:inst2|inst12 ; 0        ; 0        ; 0        ; 36       ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; divider:inst4|div10:inst14|div5:inst2|inst12 ; 0        ; 0        ; 0        ; 36       ;
+; SW0                                          ; divider:inst4|div10:inst14|div5:inst2|inst12 ; 0        ; 0        ; 36       ; 0        ;
+; KEY0                                         ; KEY0                                         ; 1        ; 0        ; 0        ; 0        ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; SW0                                          ; 0        ; 36       ; 0        ; 0        ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; SW0                                          ; 0        ; 36       ; 0        ; 0        ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; SW0                                          ; 0        ; 36       ; 0        ; 0        ;
+; SW0                                          ; SW0                                          ; 36       ; 0        ; 0        ; 0        ;
++----------------------------------------------+----------------------------------------------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------+
+; Hold Transfers                                                                                                                          ;
++----------------------------------------------+----------------------------------------------+----------+----------+----------+----------+
+; From Clock                                   ; To Clock                                     ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++----------------------------------------------+----------------------------------------------+----------+----------+----------+----------+
+; CLK                                          ; CLK                                          ; 3        ; 0        ; 2        ; 0        ;
+; divider:inst4|div5:inst1|inst12              ; CLK                                          ; 1        ; 1        ; 0        ; 0        ;
+; divider:inst4|div10:inst10|div2:inst|inst    ; divider:inst4|div5:inst1|inst12              ; 0        ; 0        ; 1        ; 1        ;
+; divider:inst4|div10:inst7|div2:inst|inst     ; divider:inst4|div10:inst7|div2:inst|inst     ; 3        ; 0        ; 2        ; 0        ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; divider:inst4|div10:inst7|div2:inst|inst     ; 1        ; 1        ; 0        ; 0        ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; divider:inst4|div10:inst7|div5:inst2|inst12  ; 0        ; 0        ; 0        ; 36       ;
+; divider:inst4|div10:inst8|div2:inst|inst     ; divider:inst4|div10:inst7|div5:inst2|inst12  ; 0        ; 0        ; 1        ; 1        ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; divider:inst4|div10:inst7|div5:inst2|inst12  ; 0        ; 0        ; 0        ; 36       ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; divider:inst4|div10:inst7|div5:inst2|inst12  ; 0        ; 0        ; 0        ; 36       ;
+; SW0                                          ; divider:inst4|div10:inst7|div5:inst2|inst12  ; 0        ; 0        ; 36       ; 0        ;
+; divider:inst4|div10:inst8|div2:inst|inst     ; divider:inst4|div10:inst8|div2:inst|inst     ; 3        ; 0        ; 2        ; 0        ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; divider:inst4|div10:inst8|div2:inst|inst     ; 1        ; 1        ; 0        ; 0        ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; divider:inst4|div10:inst8|div5:inst2|inst12  ; 0        ; 0        ; 0        ; 36       ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; divider:inst4|div10:inst8|div5:inst2|inst12  ; 0        ; 0        ; 0        ; 36       ;
+; divider:inst4|div10:inst9|div2:inst|inst     ; divider:inst4|div10:inst8|div5:inst2|inst12  ; 0        ; 0        ; 1        ; 1        ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; divider:inst4|div10:inst8|div5:inst2|inst12  ; 0        ; 0        ; 0        ; 36       ;
+; SW0                                          ; divider:inst4|div10:inst8|div5:inst2|inst12  ; 0        ; 0        ; 36       ; 0        ;
+; divider:inst4|div10:inst9|div2:inst|inst     ; divider:inst4|div10:inst9|div2:inst|inst     ; 4        ; 0        ; 2        ; 0        ;
+; divider:inst4|div10:inst10|div2:inst|inst    ; divider:inst4|div10:inst10|div2:inst|inst    ; 3        ; 0        ; 2        ; 0        ;
+; divider:inst4|div10:inst10|div5:inst2|inst12 ; divider:inst4|div10:inst10|div2:inst|inst    ; 1        ; 1        ; 0        ; 0        ;
+; divider:inst4|div10:inst11|div2:inst|inst    ; divider:inst4|div10:inst10|div5:inst2|inst12 ; 0        ; 0        ; 1        ; 1        ;
+; divider:inst4|div10:inst11|div2:inst|inst    ; divider:inst4|div10:inst11|div2:inst|inst    ; 3        ; 0        ; 2        ; 0        ;
+; divider:inst4|div10:inst11|div5:inst2|inst12 ; divider:inst4|div10:inst11|div2:inst|inst    ; 1        ; 1        ; 0        ; 0        ;
+; divider:inst4|div10:inst12|div2:inst|inst    ; divider:inst4|div10:inst11|div5:inst2|inst12 ; 0        ; 0        ; 1        ; 1        ;
+; divider:inst4|div10:inst12|div2:inst|inst    ; divider:inst4|div10:inst12|div2:inst|inst    ; 3        ; 0        ; 2        ; 0        ;
+; divider:inst4|div10:inst12|div5:inst2|inst12 ; divider:inst4|div10:inst12|div2:inst|inst    ; 1        ; 1        ; 0        ; 0        ;
+; divider:inst4|div10:inst13|div2:inst|inst    ; divider:inst4|div10:inst12|div5:inst2|inst12 ; 0        ; 0        ; 1        ; 1        ;
+; divider:inst4|div10:inst13|div2:inst|inst    ; divider:inst4|div10:inst13|div2:inst|inst    ; 3        ; 0        ; 2        ; 0        ;
+; divider:inst4|div10:inst13|div5:inst2|inst12 ; divider:inst4|div10:inst13|div2:inst|inst    ; 1        ; 1        ; 0        ; 0        ;
+; divider:inst4|div10:inst14|div2:inst|inst    ; divider:inst4|div10:inst13|div5:inst2|inst12 ; 0        ; 0        ; 1        ; 1        ;
+; divider:inst4|div10:inst14|div2:inst|inst    ; divider:inst4|div10:inst14|div2:inst|inst    ; 3        ; 0        ; 2        ; 0        ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; divider:inst4|div10:inst14|div2:inst|inst    ; 1        ; 1        ; 0        ; 0        ;
+; divider:inst4|div10:inst7|div2:inst|inst     ; divider:inst4|div10:inst14|div5:inst2|inst12 ; 0        ; 0        ; 1        ; 1        ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; divider:inst4|div10:inst14|div5:inst2|inst12 ; 0        ; 0        ; 0        ; 36       ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; divider:inst4|div10:inst14|div5:inst2|inst12 ; 0        ; 0        ; 0        ; 36       ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; divider:inst4|div10:inst14|div5:inst2|inst12 ; 0        ; 0        ; 0        ; 36       ;
+; SW0                                          ; divider:inst4|div10:inst14|div5:inst2|inst12 ; 0        ; 0        ; 36       ; 0        ;
+; KEY0                                         ; KEY0                                         ; 1        ; 0        ; 0        ; 0        ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; SW0                                          ; 0        ; 36       ; 0        ; 0        ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; SW0                                          ; 0        ; 36       ; 0        ; 0        ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; SW0                                          ; 0        ; 36       ; 0        ; 0        ;
+; SW0                                          ; SW0                                          ; 36       ; 0        ; 0        ; 0        ;
++----------------------------------------------+----------------------------------------------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
+---------------
+; Report TCCS ;
+---------------
+No dedicated SERDES Transmitter circuitry present in device or used in design
+
+
+---------------
+; Report RSKM ;
+---------------
+No non-DPA dedicated SERDES Receiver circuitry present in device or used in design
+
+
++------------------------------------------------+
+; Unconstrained Paths Summary                    ;
++---------------------------------+-------+------+
+; Property                        ; Setup ; Hold ;
++---------------------------------+-------+------+
+; Illegal Clocks                  ; 0     ; 0    ;
+; Unconstrained Clocks            ; 0     ; 0    ;
+; Unconstrained Input Ports       ; 1     ; 1    ;
+; Unconstrained Input Port Paths  ; 52    ; 52   ;
+; Unconstrained Output Ports      ; 8     ; 8    ;
+; Unconstrained Output Port Paths ; 8     ; 8    ;
++---------------------------------+-------+------+
+
+
++------------------------------------------------------------------------------------------------------------------+
+; Clock Status Summary                                                                                             ;
++----------------------------------------------+----------------------------------------------+------+-------------+
+; Target                                       ; Clock                                        ; Type ; Status      ;
++----------------------------------------------+----------------------------------------------+------+-------------+
+; CLK                                          ; CLK                                          ; Base ; Constrained ;
+; KEY0                                         ; KEY0                                         ; Base ; Constrained ;
+; SW0                                          ; SW0                                          ; Base ; Constrained ;
+; divider:inst4|div5:inst1|inst12              ; divider:inst4|div5:inst1|inst12              ; Base ; Constrained ;
+; divider:inst4|div10:inst7|div2:inst|inst     ; divider:inst4|div10:inst7|div2:inst|inst     ; Base ; Constrained ;
+; divider:inst4|div10:inst7|div5:inst2|inst12  ; divider:inst4|div10:inst7|div5:inst2|inst12  ; Base ; Constrained ;
+; divider:inst4|div10:inst8|div2:inst|inst     ; divider:inst4|div10:inst8|div2:inst|inst     ; Base ; Constrained ;
+; divider:inst4|div10:inst8|div5:inst2|inst12  ; divider:inst4|div10:inst8|div5:inst2|inst12  ; Base ; Constrained ;
+; divider:inst4|div10:inst9|div2:inst|inst     ; divider:inst4|div10:inst9|div2:inst|inst     ; Base ; Constrained ;
+; divider:inst4|div10:inst10|div2:inst|inst    ; divider:inst4|div10:inst10|div2:inst|inst    ; Base ; Constrained ;
+; divider:inst4|div10:inst10|div5:inst2|inst12 ; divider:inst4|div10:inst10|div5:inst2|inst12 ; Base ; Constrained ;
+; divider:inst4|div10:inst11|div2:inst|inst    ; divider:inst4|div10:inst11|div2:inst|inst    ; Base ; Constrained ;
+; divider:inst4|div10:inst11|div5:inst2|inst12 ; divider:inst4|div10:inst11|div5:inst2|inst12 ; Base ; Constrained ;
+; divider:inst4|div10:inst12|div2:inst|inst    ; divider:inst4|div10:inst12|div2:inst|inst    ; Base ; Constrained ;
+; divider:inst4|div10:inst12|div5:inst2|inst12 ; divider:inst4|div10:inst12|div5:inst2|inst12 ; Base ; Constrained ;
+; divider:inst4|div10:inst13|div2:inst|inst    ; divider:inst4|div10:inst13|div2:inst|inst    ; Base ; Constrained ;
+; divider:inst4|div10:inst13|div5:inst2|inst12 ; divider:inst4|div10:inst13|div5:inst2|inst12 ; Base ; Constrained ;
+; divider:inst4|div10:inst14|div2:inst|inst    ; divider:inst4|div10:inst14|div2:inst|inst    ; Base ; Constrained ;
+; divider:inst4|div10:inst14|div5:inst2|inst12 ; divider:inst4|div10:inst14|div5:inst2|inst12 ; Base ; Constrained ;
++----------------------------------------------+----------------------------------------------+------+-------------+
+
+
++---------------------------------------------------------------------------------------------------+
+; Unconstrained Input Ports                                                                         ;
++------------+--------------------------------------------------------------------------------------+
+; Input Port ; Comment                                                                              ;
++------------+--------------------------------------------------------------------------------------+
+; KEY1       ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
++------------+--------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------+
+; Unconstrained Output Ports                                                                          ;
++-------------+---------------------------------------------------------------------------------------+
+; Output Port ; Comment                                                                               ;
++-------------+---------------------------------------------------------------------------------------+
+; LED0        ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LED1        ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LED2        ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LED3        ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LED4        ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LED5        ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LED6        ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LED7        ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
++-------------+---------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------+
+; Unconstrained Input Ports                                                                         ;
++------------+--------------------------------------------------------------------------------------+
+; Input Port ; Comment                                                                              ;
++------------+--------------------------------------------------------------------------------------+
+; KEY1       ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
++------------+--------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------+
+; Unconstrained Output Ports                                                                          ;
++-------------+---------------------------------------------------------------------------------------+
+; Output Port ; Comment                                                                               ;
++-------------+---------------------------------------------------------------------------------------+
+; LED0        ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LED1        ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LED2        ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LED3        ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LED4        ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LED5        ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LED6        ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; LED7        ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
++-------------+---------------------------------------------------------------------------------------+
+
+
++------------------------------------+
+; TimeQuest Timing Analyzer Messages ;
++------------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime TimeQuest Timing Analyzer
+    Info: Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
+    Info: Processing started: Fri Nov 04 13:21:30 2022
+Info: Command: quartus_sta hw01_simakma5 -c hw01_simakma5
+Info: qsta_default_script.tcl version: #3
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 8 of the 8 processors detected
+Info (21077): Low junction temperature is 0 degrees C
+Info (21077): High junction temperature is 85 degrees C
+Critical Warning (332012): Synopsys Design Constraints File file not found: 'hw01_simakma5.sdc'. A Synopsys Design Constraints File is required by the TimeQuest Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
+Info (332142): No user constrained base clocks found in the design. Calling "derive_clocks -period 1.0"
+Info (332105): Deriving Clocks
+    Info (332105): create_clock -period 1.000 -name SW0 SW0
+    Info (332105): create_clock -period 1.000 -name KEY0 KEY0
+    Info (332105): create_clock -period 1.000 -name divider:inst4|div10:inst9|div2:inst|inst divider:inst4|div10:inst9|div2:inst|inst
+    Info (332105): create_clock -period 1.000 -name divider:inst4|div10:inst8|div5:inst2|inst12 divider:inst4|div10:inst8|div5:inst2|inst12
+    Info (332105): create_clock -period 1.000 -name divider:inst4|div10:inst8|div2:inst|inst divider:inst4|div10:inst8|div2:inst|inst
+    Info (332105): create_clock -period 1.000 -name divider:inst4|div10:inst7|div5:inst2|inst12 divider:inst4|div10:inst7|div5:inst2|inst12
+    Info (332105): create_clock -period 1.000 -name divider:inst4|div10:inst7|div2:inst|inst divider:inst4|div10:inst7|div2:inst|inst
+    Info (332105): create_clock -period 1.000 -name divider:inst4|div10:inst14|div5:inst2|inst12 divider:inst4|div10:inst14|div5:inst2|inst12
+    Info (332105): create_clock -period 1.000 -name divider:inst4|div10:inst14|div2:inst|inst divider:inst4|div10:inst14|div2:inst|inst
+    Info (332105): create_clock -period 1.000 -name divider:inst4|div10:inst13|div5:inst2|inst12 divider:inst4|div10:inst13|div5:inst2|inst12
+    Info (332105): create_clock -period 1.000 -name divider:inst4|div10:inst13|div2:inst|inst divider:inst4|div10:inst13|div2:inst|inst
+    Info (332105): create_clock -period 1.000 -name divider:inst4|div10:inst12|div5:inst2|inst12 divider:inst4|div10:inst12|div5:inst2|inst12
+    Info (332105): create_clock -period 1.000 -name divider:inst4|div10:inst12|div2:inst|inst divider:inst4|div10:inst12|div2:inst|inst
+    Info (332105): create_clock -period 1.000 -name divider:inst4|div10:inst11|div5:inst2|inst12 divider:inst4|div10:inst11|div5:inst2|inst12
+    Info (332105): create_clock -period 1.000 -name divider:inst4|div10:inst11|div2:inst|inst divider:inst4|div10:inst11|div2:inst|inst
+    Info (332105): create_clock -period 1.000 -name divider:inst4|div10:inst10|div5:inst2|inst12 divider:inst4|div10:inst10|div5:inst2|inst12
+    Info (332105): create_clock -period 1.000 -name divider:inst4|div10:inst10|div2:inst|inst divider:inst4|div10:inst10|div2:inst|inst
+    Info (332105): create_clock -period 1.000 -name divider:inst4|div5:inst1|inst12 divider:inst4|div5:inst1|inst12
+    Info (332105): create_clock -period 1.000 -name CLK CLK
+Info (332097): The following timing edges are non-unate.  TimeQuest will assume pos-unate behavior for these edges in the clock network.
+    Info (332098): Cell: inst|9~0  from: datad  to: combout
+Info (332143): No user constrained clock uncertainty found in the design. Calling "derive_clock_uncertainty"
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
+Info: Found TIMEQUEST_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
+Info: Analyzing Slow 1200mV 85C Model
+Info: Can't run Report Timing Closure Recommendations. The current device family is not supported.
+Critical Warning (332148): Timing requirements not met
+Info (332146): Worst-case setup slack is -3.139
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -3.139              -5.085 divider:inst4|div10:inst11|div2:inst|inst 
+    Info (332119):    -2.708              -3.950 divider:inst4|div10:inst13|div2:inst|inst 
+    Info (332119):    -2.210              -3.708 divider:inst4|div10:inst8|div2:inst|inst 
+    Info (332119):    -2.198             -15.860 divider:inst4|div10:inst7|div5:inst2|inst12 
+    Info (332119):    -2.095             -14.502 SW0 
+    Info (332119):    -2.033             -14.642 divider:inst4|div10:inst14|div5:inst2|inst12 
+    Info (332119):    -1.999              -3.952 divider:inst4|div10:inst12|div2:inst|inst 
+    Info (332119):    -1.838             -12.800 divider:inst4|div10:inst8|div5:inst2|inst12 
+    Info (332119):    -1.714              -3.869 divider:inst4|div10:inst10|div2:inst|inst 
+    Info (332119):    -1.596              -3.406 CLK 
+    Info (332119):    -1.371              -2.489 divider:inst4|div10:inst14|div2:inst|inst 
+    Info (332119):    -1.275              -2.424 divider:inst4|div10:inst7|div2:inst|inst 
+    Info (332119):    -0.971              -1.912 divider:inst4|div10:inst9|div2:inst|inst 
+    Info (332119):    -0.629              -0.629 divider:inst4|div10:inst10|div5:inst2|inst12 
+    Info (332119):    -0.586              -0.586 divider:inst4|div10:inst12|div5:inst2|inst12 
+    Info (332119):    -0.544              -0.544 divider:inst4|div5:inst1|inst12 
+    Info (332119):    -0.426              -0.426 divider:inst4|div10:inst11|div5:inst2|inst12 
+    Info (332119):    -0.137              -0.137 divider:inst4|div10:inst13|div5:inst2|inst12 
+    Info (332119):     0.298               0.000 KEY0 
+Info (332146): Worst-case hold slack is -0.295
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -0.295              -2.345 divider:inst4|div10:inst8|div5:inst2|inst12 
+    Info (332119):    -0.155              -1.225 divider:inst4|div10:inst14|div5:inst2|inst12 
+    Info (332119):     0.281               0.000 divider:inst4|div10:inst7|div5:inst2|inst12 
+    Info (332119):     0.323               0.000 divider:inst4|div10:inst13|div5:inst2|inst12 
+    Info (332119):     0.347               0.000 SW0 
+    Info (332119):     0.393               0.000 KEY0 
+    Info (332119):     0.425               0.000 divider:inst4|div10:inst11|div5:inst2|inst12 
+    Info (332119):     0.441               0.000 divider:inst4|div10:inst14|div2:inst|inst 
+    Info (332119):     0.441               0.000 divider:inst4|div10:inst9|div2:inst|inst 
+    Info (332119):     0.451               0.000 divider:inst4|div10:inst13|div2:inst|inst 
+    Info (332119):     0.524               0.000 divider:inst4|div10:inst10|div5:inst2|inst12 
+    Info (332119):     0.531               0.000 divider:inst4|div5:inst1|inst12 
+    Info (332119):     0.572               0.000 divider:inst4|div10:inst7|div2:inst|inst 
+    Info (332119):     0.607               0.000 divider:inst4|div10:inst12|div5:inst2|inst12 
+    Info (332119):     0.619               0.000 divider:inst4|div10:inst12|div2:inst|inst 
+    Info (332119):     0.745               0.000 divider:inst4|div10:inst11|div2:inst|inst 
+    Info (332119):     0.748               0.000 divider:inst4|div10:inst8|div2:inst|inst 
+    Info (332119):     0.833               0.000 divider:inst4|div10:inst10|div2:inst|inst 
+    Info (332119):     0.864               0.000 CLK 
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is -3.000
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -3.000             -14.224 SW0 
+    Info (332119):    -3.000              -8.612 CLK 
+    Info (332119):    -3.000              -4.403 KEY0 
+    Info (332119):    -1.403             -12.627 divider:inst4|div10:inst14|div5:inst2|inst12 
+    Info (332119):    -1.403             -12.627 divider:inst4|div10:inst7|div5:inst2|inst12 
+    Info (332119):    -1.403             -12.627 divider:inst4|div10:inst8|div5:inst2|inst12 
+    Info (332119):    -1.403              -5.612 divider:inst4|div10:inst10|div2:inst|inst 
+    Info (332119):    -1.403              -5.612 divider:inst4|div10:inst11|div2:inst|inst 
+    Info (332119):    -1.403              -5.612 divider:inst4|div10:inst12|div2:inst|inst 
+    Info (332119):    -1.403              -5.612 divider:inst4|div10:inst13|div2:inst|inst 
+    Info (332119):    -1.403              -5.612 divider:inst4|div10:inst14|div2:inst|inst 
+    Info (332119):    -1.403              -5.612 divider:inst4|div10:inst7|div2:inst|inst 
+    Info (332119):    -1.403              -5.612 divider:inst4|div10:inst8|div2:inst|inst 
+    Info (332119):    -1.403              -5.612 divider:inst4|div10:inst9|div2:inst|inst 
+    Info (332119):    -1.403              -1.403 divider:inst4|div10:inst10|div5:inst2|inst12 
+    Info (332119):    -1.403              -1.403 divider:inst4|div10:inst11|div5:inst2|inst12 
+    Info (332119):    -1.403              -1.403 divider:inst4|div10:inst12|div5:inst2|inst12 
+    Info (332119):    -1.403              -1.403 divider:inst4|div10:inst13|div5:inst2|inst12 
+    Info (332119):    -1.403              -1.403 divider:inst4|div5:inst1|inst12 
+Info: Analyzing Slow 1200mV 0C Model
+Info (334003): Started post-fitting delay annotation
+Info (334004): Delay annotation completed successfully
+Info (332097): The following timing edges are non-unate.  TimeQuest will assume pos-unate behavior for these edges in the clock network.
+    Info (332098): Cell: inst|9~0  from: datad  to: combout
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
+Critical Warning (332148): Timing requirements not met
+Info (332146): Worst-case setup slack is -2.848
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -2.848              -4.378 divider:inst4|div10:inst11|div2:inst|inst 
+    Info (332119):    -2.420              -3.514 divider:inst4|div10:inst13|div2:inst|inst 
+    Info (332119):    -2.090             -14.916 divider:inst4|div10:inst7|div5:inst2|inst12 
+    Info (332119):    -1.967              -3.201 divider:inst4|div10:inst8|div2:inst|inst 
+    Info (332119):    -1.961             -13.990 divider:inst4|div10:inst14|div5:inst2|inst12 
+    Info (332119):    -1.834             -12.454 SW0 
+    Info (332119):    -1.824              -3.474 divider:inst4|div10:inst12|div2:inst|inst 
+    Info (332119):    -1.769             -12.221 divider:inst4|div10:inst8|div5:inst2|inst12 
+    Info (332119):    -1.560              -3.382 divider:inst4|div10:inst10|div2:inst|inst 
+    Info (332119):    -1.379              -2.838 CLK 
+    Info (332119):    -1.194              -2.117 divider:inst4|div10:inst14|div2:inst|inst 
+    Info (332119):    -1.124              -2.056 divider:inst4|div10:inst7|div2:inst|inst 
+    Info (332119):    -0.904              -1.561 divider:inst4|div10:inst9|div2:inst|inst 
+    Info (332119):    -0.502              -0.502 divider:inst4|div10:inst10|div5:inst2|inst12 
+    Info (332119):    -0.473              -0.473 divider:inst4|div10:inst12|div5:inst2|inst12 
+    Info (332119):    -0.450              -0.450 divider:inst4|div5:inst1|inst12 
+    Info (332119):    -0.338              -0.338 divider:inst4|div10:inst11|div5:inst2|inst12 
+    Info (332119):    -0.089              -0.089 divider:inst4|div10:inst13|div5:inst2|inst12 
+    Info (332119):     0.362               0.000 KEY0 
+Info (332146): Worst-case hold slack is -0.273
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -0.273              -2.168 divider:inst4|div10:inst8|div5:inst2|inst12 
+    Info (332119):    -0.136              -1.072 divider:inst4|div10:inst14|div5:inst2|inst12 
+    Info (332119):     0.224               0.000 divider:inst4|div10:inst7|div5:inst2|inst12 
+    Info (332119):     0.282               0.000 SW0 
+    Info (332119):     0.293               0.000 divider:inst4|div10:inst13|div5:inst2|inst12 
+    Info (332119):     0.355               0.000 KEY0 
+    Info (332119):     0.377               0.000 divider:inst4|div10:inst11|div5:inst2|inst12 
+    Info (332119):     0.404               0.000 divider:inst4|div10:inst14|div2:inst|inst 
+    Info (332119):     0.404               0.000 divider:inst4|div10:inst9|div2:inst|inst 
+    Info (332119):     0.417               0.000 divider:inst4|div10:inst13|div2:inst|inst 
+    Info (332119):     0.450               0.000 divider:inst4|div10:inst10|div5:inst2|inst12 
+    Info (332119):     0.473               0.000 divider:inst4|div5:inst1|inst12 
+    Info (332119):     0.505               0.000 divider:inst4|div10:inst12|div5:inst2|inst12 
+    Info (332119):     0.525               0.000 divider:inst4|div10:inst7|div2:inst|inst 
+    Info (332119):     0.568               0.000 divider:inst4|div10:inst12|div2:inst|inst 
+    Info (332119):     0.700               0.000 divider:inst4|div10:inst11|div2:inst|inst 
+    Info (332119):     0.700               0.000 divider:inst4|div10:inst8|div2:inst|inst 
+    Info (332119):     0.743               0.000 divider:inst4|div10:inst10|div2:inst|inst 
+    Info (332119):     0.772               0.000 CLK 
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is -3.000
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -3.000             -14.224 SW0 
+    Info (332119):    -3.000              -8.612 CLK 
+    Info (332119):    -3.000              -4.403 KEY0 
+    Info (332119):    -1.403             -12.627 divider:inst4|div10:inst14|div5:inst2|inst12 
+    Info (332119):    -1.403             -12.627 divider:inst4|div10:inst7|div5:inst2|inst12 
+    Info (332119):    -1.403             -12.627 divider:inst4|div10:inst8|div5:inst2|inst12 
+    Info (332119):    -1.403              -5.612 divider:inst4|div10:inst10|div2:inst|inst 
+    Info (332119):    -1.403              -5.612 divider:inst4|div10:inst11|div2:inst|inst 
+    Info (332119):    -1.403              -5.612 divider:inst4|div10:inst12|div2:inst|inst 
+    Info (332119):    -1.403              -5.612 divider:inst4|div10:inst13|div2:inst|inst 
+    Info (332119):    -1.403              -5.612 divider:inst4|div10:inst14|div2:inst|inst 
+    Info (332119):    -1.403              -5.612 divider:inst4|div10:inst7|div2:inst|inst 
+    Info (332119):    -1.403              -5.612 divider:inst4|div10:inst8|div2:inst|inst 
+    Info (332119):    -1.403              -5.612 divider:inst4|div10:inst9|div2:inst|inst 
+    Info (332119):    -1.403              -1.403 divider:inst4|div10:inst10|div5:inst2|inst12 
+    Info (332119):    -1.403              -1.403 divider:inst4|div10:inst11|div5:inst2|inst12 
+    Info (332119):    -1.403              -1.403 divider:inst4|div10:inst12|div5:inst2|inst12 
+    Info (332119):    -1.403              -1.403 divider:inst4|div10:inst13|div5:inst2|inst12 
+    Info (332119):    -1.403              -1.403 divider:inst4|div5:inst1|inst12 
+Info: Analyzing Fast 1200mV 0C Model
+Info (332097): The following timing edges are non-unate.  TimeQuest will assume pos-unate behavior for these edges in the clock network.
+    Info (332098): Cell: inst|9~0  from: datad  to: combout
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in TimeQuest to see clock uncertainties.
+Critical Warning (332148): Timing requirements not met
+Info (332146): Worst-case setup slack is -1.224
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -1.224              -1.668 divider:inst4|div10:inst11|div2:inst|inst 
+    Info (332119):    -1.050              -1.158 divider:inst4|div10:inst13|div2:inst|inst 
+    Info (332119):    -0.761              -4.868 SW0 
+    Info (332119):    -0.731              -4.628 divider:inst4|div10:inst7|div5:inst2|inst12 
+    Info (332119):    -0.614              -3.791 divider:inst4|div10:inst14|div5:inst2|inst12 
+    Info (332119):    -0.603              -1.084 divider:inst4|div10:inst12|div2:inst|inst 
+    Info (332119):    -0.535              -3.223 divider:inst4|div10:inst8|div5:inst2|inst12 
+    Info (332119):    -0.471              -0.817 divider:inst4|div10:inst10|div2:inst|inst 
+    Info (332119):    -0.434              -0.563 CLK 
+    Info (332119):    -0.393              -0.581 divider:inst4|div10:inst8|div2:inst|inst 
+    Info (332119):    -0.267              -0.383 divider:inst4|div10:inst14|div2:inst|inst 
+    Info (332119):    -0.174              -0.322 divider:inst4|div10:inst7|div2:inst|inst 
+    Info (332119):    -0.152              -0.152 divider:inst4|div10:inst9|div2:inst|inst 
+    Info (332119):    -0.031              -0.031 divider:inst4|div10:inst10|div5:inst2|inst12 
+    Info (332119):     0.001               0.000 divider:inst4|div10:inst12|div5:inst2|inst12 
+    Info (332119):     0.080               0.000 divider:inst4|div5:inst1|inst12 
+    Info (332119):     0.114               0.000 divider:inst4|div10:inst11|div5:inst2|inst12 
+    Info (332119):     0.253               0.000 divider:inst4|div10:inst13|div5:inst2|inst12 
+    Info (332119):     0.694               0.000 KEY0 
+Info (332146): Worst-case hold slack is -0.180
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -0.180              -1.436 divider:inst4|div10:inst8|div5:inst2|inst12 
+    Info (332119):    -0.118              -0.940 divider:inst4|div10:inst14|div5:inst2|inst12 
+    Info (332119):     0.045               0.000 divider:inst4|div10:inst9|div2:inst|inst 
+    Info (332119):     0.093               0.000 divider:inst4|div10:inst13|div5:inst2|inst12 
+    Info (332119):     0.151               0.000 SW0 
+    Info (332119):     0.151               0.000 divider:inst4|div10:inst7|div5:inst2|inst12 
+    Info (332119):     0.165               0.000 divider:inst4|div10:inst11|div5:inst2|inst12 
+    Info (332119):     0.167               0.000 divider:inst4|div10:inst14|div2:inst|inst 
+    Info (332119):     0.170               0.000 KEY0 
+    Info (332119):     0.173               0.000 divider:inst4|div10:inst13|div2:inst|inst 
+    Info (332119):     0.199               0.000 divider:inst4|div5:inst1|inst12 
+    Info (332119):     0.212               0.000 divider:inst4|div10:inst7|div2:inst|inst 
+    Info (332119):     0.235               0.000 divider:inst4|div10:inst12|div2:inst|inst 
+    Info (332119):     0.259               0.000 divider:inst4|div10:inst10|div5:inst2|inst12 
+    Info (332119):     0.271               0.000 divider:inst4|div10:inst12|div5:inst2|inst12 
+    Info (332119):     0.278               0.000 divider:inst4|div10:inst11|div2:inst|inst 
+    Info (332119):     0.279               0.000 divider:inst4|div10:inst8|div2:inst|inst 
+    Info (332119):     0.321               0.000 divider:inst4|div10:inst10|div2:inst|inst 
+    Info (332119):     0.333               0.000 CLK 
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is -3.000
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -3.000             -12.736 SW0 
+    Info (332119):    -3.000              -7.102 CLK 
+    Info (332119):    -3.000              -4.074 KEY0 
+    Info (332119):    -1.000              -9.000 divider:inst4|div10:inst14|div5:inst2|inst12 
+    Info (332119):    -1.000              -9.000 divider:inst4|div10:inst7|div5:inst2|inst12 
+    Info (332119):    -1.000              -9.000 divider:inst4|div10:inst8|div5:inst2|inst12 
+    Info (332119):    -1.000              -4.000 divider:inst4|div10:inst10|div2:inst|inst 
+    Info (332119):    -1.000              -4.000 divider:inst4|div10:inst11|div2:inst|inst 
+    Info (332119):    -1.000              -4.000 divider:inst4|div10:inst12|div2:inst|inst 
+    Info (332119):    -1.000              -4.000 divider:inst4|div10:inst13|div2:inst|inst 
+    Info (332119):    -1.000              -4.000 divider:inst4|div10:inst14|div2:inst|inst 
+    Info (332119):    -1.000              -4.000 divider:inst4|div10:inst7|div2:inst|inst 
+    Info (332119):    -1.000              -4.000 divider:inst4|div10:inst8|div2:inst|inst 
+    Info (332119):    -1.000              -4.000 divider:inst4|div10:inst9|div2:inst|inst 
+    Info (332119):    -1.000              -1.000 divider:inst4|div10:inst10|div5:inst2|inst12 
+    Info (332119):    -1.000              -1.000 divider:inst4|div10:inst11|div5:inst2|inst12 
+    Info (332119):    -1.000              -1.000 divider:inst4|div10:inst12|div5:inst2|inst12 
+    Info (332119):    -1.000              -1.000 divider:inst4|div10:inst13|div5:inst2|inst12 
+    Info (332119):    -1.000              -1.000 divider:inst4|div5:inst1|inst12 
+Info (332102): Design is not fully constrained for setup requirements
+Info (332102): Design is not fully constrained for hold requirements
+Info: Quartus Prime TimeQuest Timing Analyzer was successful. 0 errors, 5 warnings
+    Info: Peak virtual memory: 4868 megabytes
+    Info: Processing ended: Fri Nov 04 13:21:33 2022
+    Info: Elapsed time: 00:00:03
+    Info: Total CPU time (on all processors): 00:00:02
+
+

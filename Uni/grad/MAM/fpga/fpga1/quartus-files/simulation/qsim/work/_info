@@ -1,0 +1,73 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Uni/MAM/hw01/simulation/qsim
+vhard_block
+Z0 !s110 1667148178
+!i10b 1
+!s100 I[kZPWQ<1^MkcOS0@QIYh0
+IDi47EGem`hdPY`ShMO5fg3
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+Z2 dC:/Uni/MAM/hw01/quartus-files/simulation/qsim
+Z3 w1667148177
+Z4 8hw01_simakma5.vo
+Z5 Fhw01_simakma5.vo
+L0 1920
+Z6 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z7 !s108 1667148178.000000
+Z8 !s107 hw01_simakma5.vo|
+Z9 !s90 -work|work|hw01_simakma5.vo|
+!i113 1
+Z10 o-work work
+Z11 tCvgOpt 0
+vhw01_simakma5
+R0
+!i10b 1
+!s100 AiFi;gHh:F3BeGFANI`Zn0
+ISI0YWeiomK5gn_Db3bmR;3
+R1
+R2
+R3
+R4
+R5
+L0 31
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+R11
+vhw01_simakma5_vlg_vec_tst
+R0
+!i10b 1
+!s100 0Bh`OlTfb0d_:j6VG:5Zd1
+I8l2d=M0Oi0hkLj<M1^lOW1
+R1
+R2
+w1667148176
+8Waveform13.vwf.vt
+FWaveform13.vwf.vt
+L0 29
+R6
+r1
+!s85 0
+31
+R7
+!s107 Waveform13.vwf.vt|
+!s90 -work|work|Waveform13.vwf.vt|
+!i113 1
+R10
+R11

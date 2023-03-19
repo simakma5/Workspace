@@ -1,0 +1,75 @@
+\documentclass[11pt,a4paper]{report}
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{0mm}
+\setlength\evensidemargin{0mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+\usepackage{yfonts}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{array}
+\usepackage{mathtools}
+\usepackage{stddoc}
+
+
+\begin{document}
+	
+	\section*{Příklad}
+		
+		\paragraph*{Zadání} Pro okamžité hodnoty napětí a proudu v obvodu střídavého proudu platí rovnice
+			\begin{align}
+				u(t) &= 325 \sin(100 \pi t) \; \mathrm V,
+			\\
+				i(t) &= 0.7 \sin \( 100 \pi t + \frac \pi 3 \) \mathrm A.
+			\end{align}
+			Určete
+			\begin{enumerate}
+				\item efektivní hodnoty napětí a proudu,
+				\item frekvenci střídavého proudu,
+				\item činný výkon střídavého proudu.
+			\end{enumerate}
+	
+		\paragraph*{Řešení}
+			\begin{enumerate}
+				\item 
+				\begin{align}
+					u(t) &= 325 \sin(100 \pi t) \; \mathrm V
+				\implies
+					\mathrm{U_m} = 325 \; \mathrm V
+				\implies
+					\Aboxed{\mathrm{U_{ef}} = \frac{\mathrm{U_m}}{\sqrt{2}} \approx 230 \; \mathrm V.}
+				\\
+					i(t) &= 0.7 \sin \( 100 \pi t + \frac \pi 3 \) \mathrm A
+				\implies
+					\mathrm{I_m} = 0.7 \; \mathrm A
+				\implies
+					\Aboxed{\mathrm{I_{ef}} = \frac{\mathrm{I_m}}{\sqrt{2}} \approx 0.5 \; \mathrm A.}
+				\end{align}
+				
+				\item Jelikož víme, že rovnice střídavého napětí je ve tvaru $u(t) = \mathrm{U_m} \sin(2 \pi f + \varphi_u)$ (případně rovnice střídavého proudu $i(t) = \mathrm{I_m} \sin(2 \pi f + \varphi_i)$), můžeme od oka určit frekvenci $f$ ze zadání jako $f = 50$ Hz.
+				
+				\item Víme, že činný výkon spočítáme jako
+				\begin{align}
+					P = \mathrm{U_{ef}} \cdot \mathrm{I_{ef}} \cos(\varphi),
+				\end{align}
+				kde $\varphi = \varphi_i - \varphi_u$ a hodnoty $\mathrm{U_{ef}}$ a $\mathrm{I_{ef}}$ jsme již vypočítali, takže můžeme psát
+				\begin{align}
+					P &= \mathrm{U_{ef}} \cdot \mathrm{I_{ef}} \cos(\varphi_i - \varphi_u),
+				\\
+					P &= 230 \cdot 0.5 \cdot \cos\( \frac \pi 3 \) \mathrm W,
+				\\
+					P &= 230 \cdot 0.5 \cdot 0.5 \; \mathrm W,
+				\\
+					\Aboxed{P &= 57.5 \; \mathrm W}.
+				\end{align}
+			\end{enumerate}
+	
+	
+	
+	
+\end{document}

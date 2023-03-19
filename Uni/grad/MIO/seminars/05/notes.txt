@@ -1,0 +1,2 @@
+When designing two parallel-going transmission lines of width w, the minimum distance should be at least 2w in order to diminish the cross-talking.
+Geometric matching of a strip with central pin: doesn't have to be exactly the same. Actually, it is often really good when the strip is slightly wider than the central pin of a connector.

@@ -1,0 +1,48 @@
+\documentclass[11pt, a4paper]{article}
+
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{15mm}
+\setlength\evensidemargin{15mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+\let\openright=\clearpage
+
+\usepackage[czech]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{stddoc}
+\usepackage{mathtools}
+
+\usepackage{gensymb}
+
+\begin{document}
+	
+	\pagenumbering{gobble}
+	
+	\section*{Oblouková a úhlová míra}
+		
+		Pokud se budeme zabývat převodem mezi úhly a radiány (tj. mezi úhlovou a obloukovou mírou), jde o jednoduché počty založené na logice toho, že pokud máme úhel $\varphi$ reprezentující kompletní rotaci (uzavřený kruh), tak jeho hodnota je
+		\begin{align*}
+			\varphi &= 360\degree = 2\pi \; \mathrm{rad}.
+		\end{align*}
+		Jak je vidět, můžeme úhel reprezentovat buď pomocí klasických stupňů ($\degree$, používáno spíše na základní škole nebo v aplikovaných oborech), nebo pomocí radiánů (rad, v matematice preferovaná volba).
+		
+		Pokud se nad tím více zamyslíme, oblouková míra ("úhel v radiánech") je přirozenější, ač tak	 zprvu nepřipadá. Když bychom se totiž ptali na to, jak dlouhý oblouk $s$ vytne úhel $\varphi$ s ramenem o fixní délce $r$, dostaneme se ke vztahu $s=\varphi r$. V případě celé otočky je to přirozeně obvod kruhu $o=2\pi r$, což je jasné. Z tohoto triviálního případu je vidět, že ač často musíme překládat radiány do stupňů, protože stupně jsou nám "přirozenější", je to ve skutečnosti naopak. Stupně jsou pouze konstruktem společnosti\footnote{Kdo to vlastně vymyslel, že budeme mít na plnou otočku stupňů zrovna $360\degree$? Mohl jich být libovolný počet, stavaři třeba používají grady, kterých je na plnou otočku 400.}, kdežto elementární vzorec pro obvod kružnice je přeci platný vždy a tudíž úhel vyjádřený v radiánech je přirozená matematická volba.
+		
+		Bez zbytečného filosofování, zadáno je převádět úhly vyjádřené ve stupních do radiánů a naopak. K tomu se rozhodně hodí mít universální přepočet oběma směry. Vyjdeme tedy z toho, že víme
+		\begin{align*}
+			2\pi = 360 \degree,
+		\end{align*}
+		přičemž již vynechávám psaní jednoty 'rad', protože se to většinou nepíše. Z toho je vidět, že
+		\begin{align*}
+			\Aboxed{1 \; \mathrm{rad} &= \frac{180\degree}{\pi}} & \Aboxed{1\degree &= \frac{\pi}{180} \; \mathrm{rad}}
+		\end{align*}
+	
+	
+\end{document}

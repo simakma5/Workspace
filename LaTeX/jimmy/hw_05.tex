@@ -1,0 +1,134 @@
+\documentclass{article}
+
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{setspace}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{mathtools,amsmath,amsfonts,amsthm}
+\usepackage{physics}
+\usepackage{pgfplots}
+
+\let\oldhat\hat
+\renewcommand{\hat}[1]{\oldhat{\mathbf{#1}}}
+\newcommand{\vecvar}[1]{\boldsymbol{#1}}
+\newcommand{\vecconst}[1]{\mathbf{#1}}
+
+\title{Příklady pro týden 5}
+\author{Martin Šimák}
+\date{}
+
+\onehalfspacing
+
+\def\({\left(}
+\def\){\right)}
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks,
+	citecolor=blue,
+	filecolor=black,
+	linkcolor=green,
+	urlcolor=green
+}
+
+\def\nlm{\\[5mm]}
+
+
+\renewcommand{\vec}{\boldsymbol}
+\renewcommand{\d}{\mathrm d}
+\newcommand{\h}{\hbar}
+
+\begin{document}
+	\pagenumbering{gobble}
+	\maketitle
+		
+	\noindent
+	Martin je bačkora. Píše totiž vektory jako $\vecvar u_0$, když stačí psát $\vec u_0$.
+	\begin{align}
+	\label{eq:particni-funkce}
+	\tag{kuchevnik}
+		Z = \frac{1}{(2\pi \h)^6}\int_{\mathbb R^6} e^{-\beta \mathcal H(\vec x, \vec p)} \, \d \vec x \, \d \vec p 
+	\end{align}
+	Ty vole v rovnici \eqref{eq:particni-funkce} není jedinej vlas suchej.
+	
+	\subsection*{Zadání}
+		Bodový  náboj  o  velikosti $q$  leží  vně  koule  o  poloměru $R$.  Koule  je  z dokonalého  vodiče  a  je  nabita nábojem $q$.  Předpokládejte,  že  zvolíme  potenciál  v  nekonečnu  rovný  nule. V takovém  případě  má uvedená úloha jediné řešení. Nalezněte toto řešení. Dále určete práci, kterou musí konat síla působící na tento bodový  náboj, aby ho z nekonečna přesunula na určitou pozici  vně koule. Závislost této práce vykreslete. Fyzikálně interpretujte její průběh. Bodový náboj i koule mají stejný náboj. Přitahují se, či odpuzují? \\
+		
+		\noindent\rule{8cm}{0.4pt}
+	
+	\subsection*{Řešení}
+		Nejprve vyřešíme lehčí úlohu, kdy budeme prozatím ignorovat náboj samotné koule (zůstává však dokonalým vodičem), čímž získáme potenciál $\varphi'$ (metodou zrcadlení) a až potom k tomuto výsledku přičteme i působení nabité koule. \\
+		\paragraph{Značení:}
+			\begin{itemize}
+				\item náboj s čarou vole $q' \equiv - q R/r_q$,
+				\item bod pozorování $\vecvar{r} = r \, \vecvar{r_0}$ ($\vecvar{r_0}$ je jednotkový vektor ve směru pozorování),
+				\item bodový náboj je na souřadnici $\vecvar{r_q} = r_q \, \vecvar{r_{0q}}$ ($\vecvar{r_{0q}}$ je jednotkový vektor ve směru bodového náboje $q$),
+				\item zrcadlový obraz bodového náboje $q'$ je na souřadnici, $\vecvar{r_{q'}} = r_{q'} \, \vecvar{r_{0q'}}$ ($\vecvar{r_{0q'}}$ je jednotkový vektor ve směru zrcadlového obrazu $q'$ a $r_{q'} = R^2/r_q)$
+				\item $\alpha \equiv r/R$
+				\item  $\beta \equiv R/r_q$
+			\end{itemize}
+		
+		\paragraph{Výpočet potenciálu:}
+			\begin{align*}
+				\varphi'(\vecvar{r})
+				&= \frac{1}{4 \pi \epsilon_0} \left( \frac{q}{\|\vec r - \vec r_q\|} + \frac{q'}{|\vecvar{r - r_{q'}}|} \right) \nlm
+				&= \frac{1}{4 \pi \epsilon_0} \left( \frac{q}{|r \vecvar{r_0} - r_q \vecvar{r_{0q}}|} - \frac{qR/r_q}{|r \vecvar{r_0} - R^2/r_q \vecvar{r_q} |} \right) \nlm 
+				&= \frac{q}{4 \pi \epsilon_0 R} \left( \frac{1}{|\alpha \vecvar{r_0} - 1/\beta \vecvar{r_{0q}}|} - \frac{\beta}{|\alpha \vecvar{r_0} - \beta \vecvar{r_q}| } \right)
+			\end{align*}
+			\begin{align*}
+				\varphi'(\vec r)
+				&= \frac{1}{4\pi\epsilon_0} \( \frac{q}{|\vec r - \vec r_q|} + \frac{q'}{|\vec r - \vec r_{q'}} \).
+			\end{align*}
+		
+		Nyní jsme tedy stanovili potenciál, který představuje situaci bodového náboje vně dokonale vodivé, však nenabité koule. Jelikož koule se vně vlastního objemu v dostatečné vzdálenosti jeví jako bodový náboj, můžeme její příspevek snadno přičíst k dosavadnímu výsledku, tedy
+		\begin{subequations}
+			\begin{align}
+				\varphi
+				&= \varphi' + \frac{1}{4 \pi \epsilon_0} \frac{q}{r}
+				= \frac{q}{4 \pi \epsilon_0 R} \left( \frac{1}{|\alpha \vecvar{r_0} - 1/\beta \vecvar{r_{0q}}|} - \frac{\beta}{|\alpha \vecvar{r_0} - \beta \vecvar{r_q}|} + \frac{1}{\alpha} \right) \, ,
+			\\
+				Z &= -\text{fujky fuj} + \textit{komiko}
+			\end{align}	
+		\end{subequations}
+		
+		\paragraph{Výpočet práce (energie):}
+			Práci vykonanou při přesunu bodového náboje z nekonečna (místo nulového potenciálu) na určitou posici vně koule můžeme interpretovat také jako elektrostatickou energii náboje ve výsledné poloze. Spočteme ji pomocí námi dříve určeného potenciálu, do kterého nebudeme započítávat první člen v závorce, protože náboj sám na sebe elektrostatickou silou nepůsobí.
+			
+			\begin{equation*}
+				W_q = q(\varphi(\vecvar{r}) - \varphi(\infty))
+				= \frac{q^2}{4 \pi \epsilon_0 R} \left( \frac{R}{r_q} - \frac{R/r_q}{|r_q/R \, \vecvar{r_q} - R/r_q \, \vecvar{r_q}|} \right)
+				= \frac{q^2}{4 \pi \epsilon_0 R} \left( \beta - \frac{\beta}{1/\beta - \beta} \right)
+			\end{equation*}
+			\begin{align*}
+				\Aboxed{ W_q = \frac{q^2 \beta}{4 \pi \epsilon_0 R} \( 1 - \frac{\beta}{1 - \beta^2} \) }
+			\end{align*}
+			\newpage
+			
+		\paragraph{Visualisace práce v grafu:}
+			Práci jako funkci radiální vzdálenosti od středu koule, kterou jsme umístili do počátku souřadnicové soustavy, můžeme nanést do 2-D grafu. Pro účely visualisace jsme jako referenční hodnoty zvolili $q=1, R=0.5$ a graf znázorňujeme v hodnotách 1:10 (hodnoty vzdálenosti blížící se poloměru koule příliš zkreslují graf silným působením elektrostatických sil na krátkou vzdálenost).
+			\begin{center} \[
+				\begin{tikzpicture}
+				\begin{axis} [
+					axis lines = left,
+					xlabel = {$r \, [\mathrm{m}]$},
+					ylabel = {$W_q(r) \, [\mathrm{GJ}]$},
+					ymajorgrids=true,
+					xmajorgrids=true,
+					grid style=dashed,
+					]
+				\addplot[
+					domain=1:10,
+					samples=100,
+					color=red,
+					]
+					{10^(-9)*((1-0.5/(x-0.25/x))/(4*3.14*8.85*10^(-12)*x))};
+				\end{axis}
+				\end{tikzpicture} \]
+			\end{center}
+			
+			Z grafů vidíme, že práce vychází kladně, což implikuje fakt, že se koule s nábojem odpuzují.
+		
+\end{document}

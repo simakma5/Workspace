@@ -1,0 +1,80 @@
+\documentclass[11pt, a4paper]{article}
+
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{15mm}
+\setlength\evensidemargin{15mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+\let\openright=\clearpage
+
+\usepackage[czech]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{stddoc}
+\usepackage{mathtools}
+
+\begin{document}
+	\pagenumbering{arabic}
+	
+	\section*{Příklady pro týden 11}
+	\begin{center}
+		\rule{12cm}{0.2pt}
+	\end{center}
+
+	\paragraph{Zadání}
+		Rovinná vlna o frekvenci $f=1 \, $ má amplitudu elektrického pole $E_0 = 100 \; \mathrm V \cdot \mathrm m^{-1}$. Vlna se šíří mořskou vodou ($\mu_r = 1; \, \epsilon_r = 80; \, \sigma = 4 \; \mathrm S \cdot \mathrm m^{-1}$). Určete amplitudu intenzity elektrického a magnetického pole poté, co vlna  prošla  1 cm  vodního  prostředí. Určete dále časově střední výkon v kvádru o  průřezu 1 $\mathrm m^2$, který se na této dráze mění v teplo. Výpočet tepla proveďte jak z
+		\begin{align*}
+			\int_V \sigma \norm{\vec E}^2 \, \d V,
+		\end{align*}
+		tak z
+		\begin{align*}
+			\oint_S \( \vec E \times \vec H \) \cdot \d \vec S.
+		\end{align*}
+	\\
+		\noindent\rule{8cm}{0.4pt}
+		
+	\paragraph{Řešení}
+		Řešení příkladu započneme výpočtem vlnového čísla $k$ a impedance prostředí $Z$
+		\begin{align*}
+			k = \sqrt{-\mathrm i \omega \mu (\sigma + \mathrm i \omega \epsilon)} &\approx 202,927 -77.8178 \mathrm i,
+		\\
+			Z = \frac{\omega \mu}{k} &\approx 33.9207 + 13.0078 \mathrm i,
+		\end{align*}
+		přičemž při výpočtu jsme samozřejmě využili lineárních vlastností rovinné vlny, umožňujících psát
+		\begin{align*}
+			\mu &= \mu_r \mu_0,
+		\\
+			\epsilon &= \epsilon_r \epsilon_0.
+		\end{align*}
+		Dále jelikož v našem případě se jedná o elektromagnetickou vlnu šířící se stejným prostředím (uvažujme například, ve směru osy x), pro velikosti intenzit elektromagnetických polí tedy platí
+		\begin{align*}
+			E(x) &= \left| E_0 \e^{-\mathrm{ik}x} \right|,
+		\\
+			H(x) &= \frac{E(x)}{|Z|}.
+		\end{align*}
+		Můžeme již tedy podle zadání lehce vypočítat intenzity elektromagnetických polí jako
+		\begin{align*}
+			|\hat E| &= E(0.01) = \left| E_0 \e^{-0.01 \mathrm{ik}} \right| \approx \underline{46 \; \mathrm V \cdot \mathrm m^{-1}},
+		\\
+			|\hat H| &= H(0.01) = \left| \frac{E_0 \e^{-0.01 \mathrm{ik}}}{Z} \right| \approx \underline{1.3 \; \mathrm A \cdot \mathrm m^{-1}}.
+		\end{align*}
+		Dále, přistoupíme-li k výpočtu výkonu ztraceného v teplo, můžeme ho spočítat přímou metodou jako Jouleovo teplo
+		\begin{align*}
+			P = \int_V \sigma |\hat E|^2 \, \d V = \frac \sigma 2 \int_{0}^{0.01} E^2(x) \, \d x \approx \underline{100 \; \mathrm W}.
+		\end{align*}
+		Druhá metoda je přes Poyntingův vektor, který je v našem případě kolineární se směrem propagace vlny, tudíž v integrálu dochází ke značnému zjednodušení (nemusíme integrovat, snačí odečíst koncové hodnoty Poyntingova vektoru):
+		\begin{align*}
+			P = \oint_S (\vec E \times \vec H) \cdot \d \vec S = \norm{\vec E(0) \times \vec H(0)} - \norm{\vec E(d) \times \vec H(d)} \approx \underline{100 \; \mathrm W},
+		\end{align*}
+		kde Poyntingův vektor počítáme jako
+		\begin{align*}
+			\vec E \times \vec H = \frac 12 \, \mathrm{Re} \left[ \vec E \times \vec H + \vec E \times \vec H^* \right].
+		\end{align*}
+	
+\end{document}

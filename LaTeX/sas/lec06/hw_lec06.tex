@@ -1,0 +1,90 @@
+\documentclass[11pt, a4paper]{article}
+
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{15mm}
+\setlength\evensidemargin{15mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+\let\openright=\clearpage
+
+\usepackage[czech]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{stddoc}
+\usepackage{mathtools}
+
+\def\R{{\mathbb{R}}}
+
+\begin{document}
+	
+	\pagenumbering{arabic}
+	
+	\section*{Domácí úkol A8B37SAS - 26.3.2020}
+	\noindent\rule{12cm}{0.2pt}
+	
+	\subsection*{Ověření 66/122}
+		
+		\noindent
+		Během výpočtu zde používáme součtu konečné geometrické řady (zkrácený výpočet, protože jde většinou pouze o úpravy do chtěného tvaru geometrické řady)
+		\begin{align}
+			d_n &= \frac{1}{N_0} \sum_{0}^{N_1-1} A e^{-i n \Omega_0 k} = \frac{A}{N_0} \frac{1-e^{-in\Omega_0 N_1}}{1-e^{in \Omega_0}} = \frac{A}{N_0} \frac{1-e^{-in 2 \pi \frac{N_1}{N_0}}}{1-e^{in 2\pi \frac{1}{N_0}}}, \quad \text{pro } n \not= mN_0,
+		\\
+			d_n &= \frac{A}{N_0} N_1, \quad \text{pro } n=mN_0.
+		\end{align}
+	
+	\subsection*{Ověření 79/122}
+		
+		\noindent
+		Tento výpočet je podobný (znovu použijeme součet geometrické řady)
+		\begin{align}
+			S(\Omega) &= \sum_{m \in \mathrm Z} s[k] e^{-i\Omega k} = \sum_{-N_1}^{N_1} A e^{-i\Omega k} = A\sum_{1}^{2N_1+1} e^{-i\Omega(k-N_1-1)} =
+		\\
+			&= A e^{i \Omega N_1} e^{i \Omega} e^{-i \Omega} \frac{1 - e^{-i\Omega(2N_1+1)}}{1-e^{-i\Omega}} = A e^{i\Omega N_1} \frac{1 - e^{-i(2N_1+1)\Omega}}{1-e^{-i\Omega}}.
+		\end{align}
+	
+	\subsection*{Ověření 90/122}
+	
+		\noindent
+		Z přednášky víme:
+		\begin{align*}
+			\mathrm{DtFT}\{A\} &= 2\pi A \sum_{m \in \mathrm Z} \delta(\omega-2\pi m),
+		\\
+			\mathrm{DtFT}\{ A\cos(\Omega_0 k) &= \pi A \sum_{m \in \mathrm Z} \delta(\Omega-\Omega_0-2\pi m) + \delta(\Omega+\Omega_0-2\pi m) \},
+		\\
+			\Omega_0 &\equiv \frac{2 \pi}{N_0}.
+		\end{align*}
+		Na základě toho můžeme psát
+		\begin{align}
+			S(\Omega) = 2 \pi A (\delta(\Omega) + \frac 12 \delta(\Omega - \Omega_0) + \frac 12 \delta(\Omega + \Omega_0)).
+		\end{align}
+	
+	\subsection*{Ověření 103/122}
+		
+		\noindent
+		Jde o přímý výpočet koeficientů Fourierovy řady
+		\begin{align}
+			c_n &= \frac{1}{T_0} \int_{(T_0)} s(t) e^{-in\omega_0 t} \: \d t = \frac{1}{T_0} \int_{0}^{T_1} e^{-in\omega_0 t} \: \d t = \frac{A}{T_0} \[ \frac{e^{-in \frac{2\pi}{T_0} t}}{-in \frac{2\pi}{T_0}} \]_0^{T_1} =
+		\\
+			&= \frac{A \( 1 - e^{-i \frac{2\pi n T_1}{T_0}} \)}{i 2\pi n} = \frac{A}{i 2\pi n} \( 1 - e^{-i \frac{2\pi n T_1}{T_0}} \), \quad \text{pro } n \not= 0,
+		\\
+			c_0 &= \frac{1}{T_0} \int_{(T_0)} s(t) \: \d t = \frac{A}{T_0} \cdot \mathrm{lenght}(\langle 0, T_1 \rangle) = \frac{A T_1}{T_0}, \quad \text{pro } n=0.
+		\end{align}
+	
+	\subsection*{Ověření 115/122}
+		
+		\noindent
+		Jde o přímý výpočet Fourierovy transformace
+		\begin{align}
+			S(\omega) = \int_\R s(t) e^{i \omega t} \: \d t = \int_{0}^{T_1} A e^{i \omega t} \: \d t = A \[ \frac{e^{i \omega t}}{i \omega} \]_0^{T_1} = \frac{A}{i \omega} \( e^{i T_1 \omega} -1 \)
+		\end{align}
+	
+	
+	
+	
+\end{document}

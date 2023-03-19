@@ -1,0 +1,662 @@
+/*<simulation_settings>
+<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off hw02_simakma5 -c hw02_simakma5 --vector_source="C:/Uni/MAM/hw02/project/output_files/Waveform21.vwf" --testbench_file="C:/Uni/MAM/hw02/project/simulation/qsim/output_files/Waveform21.vwf.vht"</ftestbench_cmd>
+<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off hw02_simakma5 -c hw02_simakma5 --vector_source="C:/Uni/MAM/hw02/project/output_files/Waveform21.vwf" --testbench_file="C:/Uni/MAM/hw02/project/simulation/qsim/output_files/Waveform21.vwf.vht"</ttestbench_cmd>
+<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="C:/Uni/MAM/hw02/project/simulation/qsim/" hw02_simakma5 -c hw02_simakma5</fnetlist_cmd>
+<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="C:/Uni/MAM/hw02/project/simulation/qsim/" hw02_simakma5 -c hw02_simakma5</tnetlist_cmd>
+<modelsim_script>onerror {exit -code 1}
+vlib work
+vcom -work work hw02_simakma5.vho
+vcom -work work output_files/Waveform21.vwf.vht
+vsim -novopt -c -t 1ps -L fiftyfivenm -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.hw02_simakma5_vhd_vec_tst
+vcd file -direction hw02_simakma5.msim.vcd
+vcd add -internal hw02_simakma5_vhd_vec_tst/*
+vcd add -internal hw02_simakma5_vhd_vec_tst/i1/*
+proc simTimestamp {} {
+    echo "Simulation time: $::now ps"
+    if { [string equal running [runStatus]] } {
+        after 2500 simTimestamp
+    }
+}
+after 2500 simTimestamp
+run -all
+quit -f
+</modelsim_script>
+<modelsim_script_timing>onerror {exit -code 1}
+vlib work
+vcom -work work hw02_simakma5.vho
+vcom -work work output_files/Waveform21.vwf.vht
+vsim -novopt -c -t 1ps -sdfmax hw02_simakma5_vhd_vec_tst/i1=hw02_simakma5_vhd.sdo -L fiftyfivenm -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.hw02_simakma5_vhd_vec_tst
+vcd file -direction hw02_simakma5.msim.vcd
+vcd add -internal hw02_simakma5_vhd_vec_tst/*
+vcd add -internal hw02_simakma5_vhd_vec_tst/i1/*
+proc simTimestamp {} {
+    echo "Simulation time: $::now ps"
+    if { [string equal running [runStatus]] } {
+        after 2500 simTimestamp
+    }
+}
+after 2500 simTimestamp
+run -all
+quit -f
+</modelsim_script_timing>
+<hdl_lang>vhdl</hdl_lang>
+</simulation_settings>*/
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+
+/*
+Copyright (C) 2017  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+*/
+
+HEADER
+{
+	VERSION = 1;
+	TIME_UNIT = ns;
+	DATA_OFFSET = 0.0;
+	DATA_DURATION = 100000.0;
+	SIMULATION_TIME = 0.0;
+	GRID_PHASE = 0.0;
+	GRID_PERIOD = 10.0;
+	GRID_DUTY_CYCLE = 50;
+}
+
+SIGNAL("A")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("B")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("C")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("CLK_IN")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
+SIGNAL("CLK_OUT")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("D")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("D0")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("D1")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("D2")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("D3")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("Data")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("h")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("KEY0")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
+SIGNAL("KEY1")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
+SIGNAL("LATCH")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("STROBE")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+SIGNAL("SW0")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
+SIGNAL("SW1")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
+GROUP("DCBA")
+{
+	MEMBERS = "A", "B", "C", "D";
+}
+
+GROUP("OE")
+{
+	MEMBERS = "D0", "D1", "D2", "D3";
+}
+
+GROUP("SW")
+{
+	MEMBERS = "SW0", "SW1";
+}
+
+TRANSITION_LIST("A")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 999.0;
+		LEVEL 0 FOR 99001.0;
+	}
+}
+
+TRANSITION_LIST("B")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 999.0;
+		LEVEL 0 FOR 99001.0;
+	}
+}
+
+TRANSITION_LIST("C")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 999.0;
+		LEVEL 0 FOR 99001.0;
+	}
+}
+
+TRANSITION_LIST("CLK_IN")
+{
+	NODE
+	{
+		REPEAT = 1;
+		NODE
+		{
+			REPEAT = 5000;
+			LEVEL 0 FOR 10.0;
+			LEVEL 1 FOR 10.0;
+		}
+	}
+}
+
+TRANSITION_LIST("CLK_OUT")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 999.0;
+		LEVEL 0 FOR 99001.0;
+	}
+}
+
+TRANSITION_LIST("D")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 999.0;
+		LEVEL 0 FOR 99001.0;
+	}
+}
+
+TRANSITION_LIST("D0")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 999.0;
+		LEVEL 0 FOR 99001.0;
+	}
+}
+
+TRANSITION_LIST("D1")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 999.0;
+		LEVEL 0 FOR 99001.0;
+	}
+}
+
+TRANSITION_LIST("D2")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 999.0;
+		LEVEL 0 FOR 99001.0;
+	}
+}
+
+TRANSITION_LIST("D3")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 999.0;
+		LEVEL 0 FOR 99001.0;
+	}
+}
+
+TRANSITION_LIST("Data")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 999.0;
+		LEVEL 0 FOR 99001.0;
+	}
+}
+
+TRANSITION_LIST("h")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 999.0;
+		LEVEL 0 FOR 99001.0;
+	}
+}
+
+TRANSITION_LIST("KEY0")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 3840.0;
+		LEVEL 1 FOR 3200.0;
+		LEVEL 0 FOR 92960.0;
+	}
+}
+
+TRANSITION_LIST("KEY1")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 1 FOR 100000.0;
+	}
+}
+
+TRANSITION_LIST("LATCH")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 999.0;
+		LEVEL 0 FOR 99001.0;
+	}
+}
+
+TRANSITION_LIST("STROBE")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 999.0;
+		LEVEL 0 FOR 99001.0;
+	}
+}
+
+TRANSITION_LIST("SW0")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 100000.0;
+	}
+}
+
+TRANSITION_LIST("SW1")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 100000.0;
+	}
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "CLK_IN";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 0;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "KEY1";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 1;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "KEY0";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 2;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "SW";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 3;
+	TREE_LEVEL = 0;
+	CHILDREN = 4, 5;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "SW0";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 4;
+	TREE_LEVEL = 1;
+	PARENT = 3;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "SW1";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 5;
+	TREE_LEVEL = 1;
+	PARENT = 3;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "OE";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 6;
+	TREE_LEVEL = 0;
+	CHILDREN = 7, 8, 9, 10;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "D0";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 7;
+	TREE_LEVEL = 1;
+	PARENT = 6;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "D1";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 8;
+	TREE_LEVEL = 1;
+	PARENT = 6;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "D2";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 9;
+	TREE_LEVEL = 1;
+	PARENT = 6;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "D3";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 10;
+	TREE_LEVEL = 1;
+	PARENT = 6;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "DCBA";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Unsigned;
+	TREE_INDEX = 11;
+	TREE_LEVEL = 0;
+	CHILDREN = 12, 13, 14, 15;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "A";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Unsigned;
+	TREE_INDEX = 12;
+	TREE_LEVEL = 1;
+	PARENT = 11;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "B";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Unsigned;
+	TREE_INDEX = 13;
+	TREE_LEVEL = 1;
+	PARENT = 11;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "C";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Unsigned;
+	TREE_INDEX = 14;
+	TREE_LEVEL = 1;
+	PARENT = 11;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "D";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Unsigned;
+	TREE_INDEX = 15;
+	TREE_LEVEL = 1;
+	PARENT = 11;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "Data";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 16;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "h";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 17;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "LATCH";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 18;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "STROBE";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 19;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "CLK_OUT";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 20;
+	TREE_LEVEL = 0;
+}
+
+TIME_BAR
+{
+	TIME = 0;
+	MASTER = TRUE;
+}
+;

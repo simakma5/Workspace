@@ -1,0 +1,107 @@
+\documentclass[11pt,a4paper]{report}
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{15mm}
+\setlength\evensidemargin{15mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+\let\openright=\clearpage
+
+\usepackage[czech]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{stddoc}
+
+
+\renewcommand{\vec}{\boldsymbol}
+\def\endl{\\[3mm]}
+\newcommand*\colvec[3][]{
+	\begin{pmatrix}
+		\ifx \relax#1 \relax
+		\else #1\\
+		\fi
+		#2 \\ #3
+	\end{pmatrix}
+}
+
+
+
+\begin{document}
+	
+	\pagenumbering{gobble}
+	
+	\section*{Úvod do elektromagnetismu (elektrostatika)}
+	
+	Co známe ze střední školy: \textit{Coulombův zákon, elektrická intensita, potenciál, napětí, elektrostatická energie, kapacita, ...}
+	
+	Co byste se měli naučit na vysoké škole (a my dnes vysvětlíme pomocí geometrické intuice): \textit{Gaussův zákon, Rotace elektrostatického pole, \dots, Maxwellovy rovnice}?
+	\begin{align}
+		\div \vec E &= \frac{\rho}{\epsilon_0}, & \oint_{\partial \Omega} \vec E \cdot \d \vec S &= \frac{1}{\epsilon_0} \int_{\Omega} \rho \: \d V,
+	\\
+		\div \vec B &= 0, & \oint_{\partial \Omega} \vec B \cdot \d \vec S &= 0,
+	\\
+		\rot \vec E &= -\pder{\vec B}{t}, & \oint_{\partial \Sigma} \vec E \cdot \d \vec \l &= -\der{}{t} \int_{\Sigma} \vec B \: \d \vec S,	
+	\\
+		\label{eq:ampere}
+		\rot \vec B &= \mu_0 \vec J + \mu_0 \epsilon_0 \pder{\vec E}{t}, & \oint_{\partial \Sigma} \vec B \cdot \d \vec \l &= \mu_0 \int_S \vec J \cdot \d \vec S  + \mu_0 \epsilon_0 \der{}{t} \oint_{\Sigma} \vec E \cdot \d \vec S.
+	\end{align}
+	Ne tedy ještě úplně \dots
+	
+	\subsection*{Základní veličiny}
+		Nejprve si můžeme ujasnit to, co známe ze střední. Já si již dovolím psát věci ve vektorové formě, se kterou se budete na vysoké škole setkávat. Například \textit{Coulombův zákon elektrostatické síly} znáte pravděpodobně ze střední školy jako
+	\begin{align*}
+		F_{\mathrm{el}} &= \frac{1}{4 \pi \epsilon_0} \frac{Q_1 Q_2}{d^2}.
+	\end{align*}
+	My však již víme, že to je pouze velikost této síly, kterou náboj o velikosti $Q_1$ působí na náboj $Q_2$. Když přidáme do rovnice směr\footnote{Jde o směr vektoru $\vec r_2 - \vec r_1$, jehož velikost je $d = \norm{\vec r_2 - \vec r_1}$, kde $\norm{\cdot}$ je norma (veliksot vektoru). Použití vektoru $\vec r_2 - \vec r_1$ tak do výpočtu zanáší násobení i jeho velikostí $d$. Abychom se tohoto parazitního vlivu zbavili, musíme výraz velikostí $d$ také podělit, přičemž $d$ již nepoužíváme, neboť jde o zbytečné značení. Tudíž toto je důvod, proč je ve jmenovateli \underline{třetí mocnina} vzdálenosti a ne \underline{kvadrát} jako v původním vzorci.}, získáme tak
+	\begin{align}
+		\tag{Coulomb}
+		\vec F_{\mathrm{el}} &= \frac{1}{4 \pi \epsilon_0} \frac{Q_1 Q_2}{\norm{\vec r_2 - \vec r_1}^3} (\vec r_2 - \vec r_1),
+	\end{align}
+	Naprosto stejnou logiku můžeme aplikovat i na veličinu známou jako \textit{intensita elektrického pole}:
+	\begin{align}
+		\tag{Intensita}
+		\vec E &= \frac{1}{4 \pi \epsilon_0} \frac{Q}{\norm{\vec r}^2} \vec r.
+	\end{align}
+\newpage
+	
+	\subsection*{K Maxwellovým rovnicím}
+		
+		Maxwellovy rovnice\footnote{James Clerk Maxwell (1831-1879) byl skotský fyzik, který jako první konsolidoval ve svých rovnicích klasickou teorii elektromagnetismu. Ač všechny rovnice byly známy již dříve, Maxwell objevil chybu v Ampère-ově zákoně \eqref{eq:ampere}, který tehdy ještě neobsahoval tzv. \textit{posuvný proud} $\mu_0 \epsilon_0 \partial_t \vec E$, který doplnil mnoha fyziky předpovídaný poslední kousek skládačky, kterou byl elektromagnetismus. Díky tomuto poslednímu dílku později Einstein ve své relativitě doložil hypotézu, že elektřina a magnetismus jsou pouze dvě strany stejné mince (Maxwellova korekce Ampèrova zákona dokládá, že nejen proměnným elektríckým polem můžeme dosahnout vzniku magnetického, ale i naopak). Předpověděl tak objev elektromagnetického vlnění, vlnového charkteru světla a mnoho dalších. Byla to také právě Maxwellova teze o elektromagnetismu, která nakonec inspirovala Einsteina k tomu, aby stvořil Speciální teorii relativity, neboť Maxwellovy rovnice právě s dosavadní Galileiovou relativitou nesouhlasily.} vyžadují v plném kontextu vcelku náročnou matematiku, která by Vám měla býti odpřednášena během dvou semestrů (zhruba). My se však pustíme do takové malé triviální analýzy těchto vztahů bez jakékoliv vyšší matematiky. Pokusím se Vám totiž základní význam Maxwellových rovnic odprezentovat v nejjednodušším případě elektrostatiky, a to čistě geometricky.
+		
+		Základním stavebním kamenem, který všichni známe je elektrické pole kolem nabité částice (hmotný bod s nábojem $q$). Pokud budeme situaci analyzovat, můžeme na základě jednoduché logiky usoudit, že čím větší bude elektrický náboj $q$ (generátor pole), tím silnější bude pole. Silnější pole odpovídá v grafech větší hustotě siločar. Pokud tedy náboj obklopíme uzavřeným povrchem (například sférou), můžeme ekvivalentně říci, že čím větší bude elektrický náboj $q$, tím větší bude tok elektrického pole obklopující sférou (větší náboj $\rightarrow$ více siločar $\rightarrow$ větší tok pole povrchem sféry). Tuto veličinu si označíme $\phi$ a matematicky exaktně se tato veličina počítá jako $\phi \coloneqq \oint_{S} \vec E \cdot \d \vec S$. Dále pouze uvedu, že celkový náboj uvnitř nějakého objemu se spočítá jako $q = \oint_V \rho \d V$, protože $\rho$ je nábojová hustota a tudíž vypočítáme nábojovou hustotu přes celý objem, tudíž celkový náboj (prakticky jde o vztah $m = \rho V$, který známe ze základní školy, pouze zde máme hustotu nábojovou, tudíž dostáváme celkový náboj $q=\rho V$). Pustíme se tedy do "matematiky". Začneme s tím, co jsme logicky vyvodili, tedy čim větší náboj, tím větší tok: $\phi = c q,$
+		kde $c$ je pouze konstanta úměrnosti. Pokud využijeme mnou odhalených tajů matematiky, můžeme upravit námi "selsky jasný vztah" do podoby
+		\begin{align*}
+			\phi &= c q,
+		\\
+			\oint_{S} \vec E \cdot \d \vec S &= c \oint_V \rho \: \d V.
+		\end{align*}
+		Pokud si tedy pouze uvědomíme, že jelikož $c$ je reálné číslo, tak musí platit $c=1/\epsilon_0$, a označíme $S \equiv \Omega$, $V \equiv \Omega$, dostáváme přímo Gaussův zákon elektrostatiky
+		\begin{align}
+			\tag{Gauss}
+			\Aboxed{\oint_{\partial \Omega} \vec E \cdot \d \vec S &= \frac{1}{\epsilon_0} \int_\Omega \rho \: \d V.}
+		\end{align}
+		
+		Tento zákon mimo jiné tvrdí, že elektrické pole je zdrojové (zřídlové, radiální), tudíž existují elektrické náboje (monopóly), které elektrické pole generují. To nám připadá samozřejmé, ale jiná z Maxwellových rovnic například zase tvrdí, že neexistují takovéto "magnetické náboje", což již tak evidentní být nemusí.
+		
+		\newpage
+		\begin{center}
+			\begin{tikzpicture}
+				\filldraw[black] (0,0) circle(3pt) node[black] at(0.3,-0.35){Q};
+				\draw[black,dashed] (0,0) circle(2.5);
+				\draw[black,dashed] (0,0) ellipse(2.5 and 0.75);
+				\draw[black,dashed] (0,0) ellipse(0.75 and 2.5);
+				\draw[black,dashed] (-0.75,-0.75)--(0.75,0.75);
+				\draw[black,dashed] (-2.5,0)--(2.5,0);
+				\draw[black,dashed] (0,-2.5)--(0,2.5);
+			\end{tikzpicture}
+		\end{center}
+	
+	
+		
+	
+\end{document}

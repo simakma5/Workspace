@@ -1,0 +1,10 @@
+12:00:53 **** Incremental Build of configuration Debug for project simakma5_arm01 ****
+make -j16 all 
+arm-none-eabi-size   simakma5_arm01.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6476	     20	   1572	   8068	   1f84	simakma5_arm01.elf
+Finished building: default.size.stdout
+ 
+
+12:00:54 Build Finished. 0 errors, 0 warnings. (took 391ms)
+

@@ -1,0 +1,192 @@
+==================
+MCU peripherals
+==================
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+<Practical> Basic idea of the 9 essential peripherals:
+----
+* GPIO controller
+	** setting the GPIO pins as either input or output
+	** reading the voltage level if input
+	** writing the voltage to 0 or 1 if output
+	** can be routed to other peripherals such as ADCs or DACs
+
+* Timers
+	** controls the blinking rate of LEDs, sample rate of the ADCs, delays
+	** one time mode (stopwatch countdown -> interrupt) vs. periodic mode (stopwatch countdown -> automatic reset)
+	** examples are general-purpose timers, watchdog timers or SysTick timers
+
+* PWM (Pulse Width Modulation) controllers
+	** special kinds of timers directly capable of controlling the voltage output at a given GPIO pin
+	** let's say we're working in 5V logic and need a 2.5V output -> PWM with duty cycle 1, i.e., alternate between log. 0 and log. 1 in intervals of the same length for as long as we need the output)
+		*** duty cycle is the ration of on-time and off-time
+		*** another important parameter of a PWM is its output period which is just the working period as a reference for the duty cycle
+	** it's very common to use a PWM for achieving variable LED brigthness, controlling motors, audio amps, power supplies etc.
+
+* DACs (Digital to Analog Converters)
+	** PWM controller does something similar except that it again produces only digital voltage signals
+	** produce an analog reconstruction of a digital signal (digital input -> holding circuit -> wave smoothening -> analog output)
+	** DAC's output quality depends directly on the range of inputs acceptable by the DAC (8bit DAC -> 0 - 255, 32bit DAC -> 0 - 4294967295)
+	** speakers, medical devices, AC motor drive controllers or analog video equipment
+
+* ADCs (Analog to Digital Converters)
+	** usually directly connected to dedicated pins (analog pins) meant to receive an analog signal
+	** produce a digital voltage from the receiver analog voltage (analog input -> sampling -> quantisation -> digital output)
+	** the converted digital signal can be handed to the microprocessor for further processing (e.g., amplification or recording of sound signals) or making decisions in case of sensor input like battery voltage and temperature sensor
+
+* Serial communcation controllers
+	** performing protocols used for talking to the external peripherals, e.g., UART, I2C, SPI or others like I2S, USART, USB, Ethernet, Bluetooth, Wifi etc.
+	** most of the used communication protocols are serial thanks to the simplicity of reception of a serial communication (no need for reconstruction etc.)
+
+* Memory
+	** two types: primary (volatile, holds data and the source code which is presently being processed) and secondary (nonvolatile, holds constants and the source code)
+
+* Interrupt controllers
+	** main function: listen to the peripherals for events and report to the processor once they occur (alarm going off for the human body)
+	** examples of events typically producing interrupts: GPIO reads 1 or 0, timer countdown reached 0, serial communication receiver a packet of data, DMA has completed a transfer
+	** if a registered event (IRQ) happens, the interrupt controller goes and tells the CPU about it and CPU takes an appropriate action (ISR)
+		*** IRQ (Interrupt ReQuest) wakes up the CPU to take action
+		*** ISR (Interrupt Service Routine) is the function which gets executed once a corresponding IRQ comes
+		*** These two need to be mapped together so the CPU knows which ISR to perform as a reaction to which IRQ -> interrupt vector table
+			 ---------------------------------------------------
+			| IRQ number			| ISR address location		|
+			|---------------------------------------------------|
+			| 1 (button 1 pressed)	| 0x1234 (turn on led 1)	|
+			| 2 (button 2 released)	| 0x4846 (turn off led 1)	|
+			 ---------------------------------------------------
+(	** if we didn't implement interrupts, we would have to do something like polling, i.e., periodical asking if the awaited event has occured or not	)
+
+* DMA (Direct Memory Access) controller
+	** manages data transfer (from one memory location to another) responsibilities of the system -> processor can carry on doing its operations
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1) RCC (Reset and Clock Control)
+====
+* enable clock signals into the individual peripherals (GPIO, TIMER, ADC, ...) in order to be able to use them
+* the clock signal is brought into the peripheral by registers AHBxxx or APBxxx
+	** for example, AHB1ENR enables clock for GPIO gates and DMA signals, e.g., RCC->AHB1ENR |= (0b1 << 0) brings clock for GPIOA
+
+2) GPIO (General-Purpose Input/Output)
+====
+* 16-bit gate which can be used as an input-output port for digital peripherals or as an analog gate if the gate contains analog inputs or outputs
+* digital GPIO pins can be controlled either by SW or it's possible to utilize an alternate function of already defined blocks which are hard-wired to specific pins
+* all registers of this gate are 32bit; if their settings are done using one bit, e.g., OTYPER or ODR, only the lower 16 bits are occupied
+
+GPIO registers:
+----
+* GPIOx->MODER (32 bit register, rw permissions)
+	** sets the mode of a GPIO pin using a neighbouring pair of bits for each pin
+	** 00 = Input, 01 = Output, 11 = Analog input, 10 = Alternate function (e.g., to be connected to another peripheral)
+* GPIOx->OTYPER (16bit register, rw permissions)
+	** determines whether the output pin is two-state (push-pull) or three-state (open drain) using one bit for each pin
+	** open drain output pins are required e.g., when connecting a data bus
+	** 0 = Push-pull, 1 = Open drain
+* GPIOx->OSPEEDR (32bit register, rw permissions)
+	** allows for setting the maximum frequency of the output signal
+	** the processor alone would be capable of such high speeds that it would be destructive, especially with longer transmissions
+	** lowering frequency -> prolongation of the rising and falling edge periods X lower supplied current, hence saved energy
+	** 00 = Low speed, 01 = Medium speed, 10 = Fast speed, 11 = High speed
+* GPIOx->PUPDR (32bit register, rw permissions)
+	** used for connection of internal pull-up or pull-down resistors
+	** if not set, voltage level on the input pin is undefined (floating input) which can lead to an incorrect evaluation of the gate's state
+	** 00 = No resistors, 01 = Pull-up (resistor to VCC), 10 = Pull-down (resistor to GND), 11 = unused combination
+* GPIOx->IDR (16bit register, read-only permissions)
+	** contains information about the value on the input pins of a given gate
+	** pin must be set as a digital input for the reading to make sense, otherwise (set as analog) the input digital circuit is disconnected 
+* GPIOx->ODR (16bit register, rw permissions)
+	** setting a bit of this register controls the logical level on the corresponding pin of the gate
+	** pin must be set as a digital input for the writing to make sanse, otherwise (set as analog) the output digital circuit is disconnected
+* GPIOx->BSRR (32bit register, write-only permissions)
+	** register allowing for direct setting and resetting of individual GPIO gate pins without the need to read the input value
+	** the lower 16 bits serve for setting (log. 1) pins and the higher 16 bits serve for resetting (setting log. 0)
+	** 0 = Bit of the GPIOx port is unchanged, 1 = Bit of the GPIOx port is set (lower 16 bits) or reset (higher 16 bits)
+
+3) SYSCFG (SYStem ConFiGuration controller)
+====
+
+4) EXTI (EXTernal Interrupt/event controller)
+====
+* 23 channels -> possibility to create up to 23 different interrupts
+	** first 16 channels are dedicated to GPIO ports with the restriction that to channel $n$, you can only connect $n$-th pin of just one GPIO
+		*** e.g., GPIOA connected to EXTI channel 0 -> interrupt on channel 0 is generated by pin PA0, nohting else
+		*** if there is an interrupt set to be generated from pin PB2 (channel 2), it's not possible to generate an external interrupt from PA2, PC2, PD2 etc.
+	** the rest of the channels is assigned as follows:
+		*** EXTI 16 = PVD output
+		*** EXTI 17 = RTC Alarm Wakeup
+		*** EXTI 18 = USB OTG FS Wakeup
+		*** EXTI 19 = Ethernet Wakeup
+		*** EXTI 20 = USB OTG HS Wakeup
+		*** EXTI 21 = RTC Tamper and TimeStamp
+		*** EXTI 22 = RTC Wakeup
+* all EXTI registers are again 32bit but only the first 23 bits (corresponding to channels) are in function
+
+EXTI registers:
+----
+* EXTI->IMR (Interrupt Mask Register)
+	** setting a log. 1 in a given position allows for the generation of an interrupt in the corresponding channel
+* EXTI->EMR (Event Mask Register)
+	** its setting is the same as the IMR: setting a log. 1 allows for the corresponding event generation
+* EXTI->RTSR (Rising Trigger Selection Register)
+	** setting the corresponding bit as log. 1 configures the channel so that it generates an interrupt on rising edge
+* EXTI->FTSR (Falling Trigger Selection Register)
+	** setting the corresponding bit as log. 1 configures the channel so that it generates an interrupt on falling edge
+* EXTI->SWIER (SoftWare Interrupt Event Register)
+	** using this register, it is possible to create a SW request for a specific channel interrupt
+* EXTI->PR (Pending Register)
+	** serves two purposes:
+		*** at the beggining of the interrupt, it contains the bit of the channel which generated the interrupt
+		*** after the interrupt routine is over, we must cancel the interrupt request -> this is done by setting log. 1 to the corresponding bit
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+<Theory> Interrupt system function in detail
+----
+General interrupt system function:
+	1. peripheral requests interrupt (usually using the instruction CALL interrupt_address)
+	2. processor evaluates the request
+	3. checks whether the interrupt requested by the peripheral is allowed
+	4. evaluates whether there is another interrupt request with higher priority or not
+	5. interrupts the running program in a suitable moment - first completes the current instruction/s (pipeline)
+	6. moves on to processing the service routine
+
+General processor flow when entering an interrupt:
+	1. save the PC (program counter) value, i.e., the next instruction, into the stack memory
+	2. sets the PC value to the address of the requested interrupt (losing information about the point at which the program was interrupted)
+	3. block the given level of the interrupt system
+	4. starts processing the service routine beginning at the set address
+	! It is important to save all the registers used in the service routine along with the status register, i.e., PSR (Program State Register) for ARM processors, because at the end of the interrupt routine, the state of registers and their flags must be restored.
+
+Notes:
+	* Every peripherals has a bit (interrupt flag) indicating an interrupt request and a bit (interrupt mask) allowing/forbidding the interrupt
+	* Global mask allows/forbids all currently allowed interrupts
+	* Priorities of individual interrupts are set by the manufacturer
+	* The response from the interrupt system to periodic requests fluctuates due to the number of instruction machine cycles, processor clock signal being asynchronous etc. which means that e.g., sampling AD and DA converters using interrupt system leads to a phase instability and lowering S/N or SFDR.
+	* Interrupt routine must be ended with the instruction RETI (RETurn from Interrupt)
+
+Handling two interrupts coming at the same moment:
+	* Nested interrupt handling = SW is prepared to accept another interrupt even before finishing handling the current one, enabling to prioritize interrupts
+	* NMI (Non-Maskable Interrupt) = hardware interrupt that standard interrupt-masking techniques in the system cannot ignore
+
+<Practical> Interrupt system in ARM processors
+----
+1. Accept interrupt request, finish the current instruction, access the interrupt vector table
+	* save 8 registers - PSR, PC, LR (link register), R12, R3, R2, R1 and R0 - into the currently used stack (PSP/MSP)
+	* load the interrupt address from the interrupt vector table
+	* update SP (stack pointer), PSR, LR and PC
+		** SP is updated to MSP
+		** PSR is updated so that IPSR hold the number of interrupt
+		** LR is updated to hold a special value called EXC_RETURN (0xFFFFFFF{X}) which serves as the information for return from interrupt
+			*** This means that ARM interrupt system doesn't need to be terminated by the RETI instrution and instead uses a jump to EXC_RETURN
+			*** The return from the interrupt routine can be then done using BX LR, POP {PC}, LDR or LDM
+			*** The four lower bits {X} in EXC_RETURN determine where to jump when returning from the interrupt rotuine
+2. Save the address of the interrupt into the PC
+3. Launch the interrupt service routine in Handler mode
+4. Finish the routine and return to the main program
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+

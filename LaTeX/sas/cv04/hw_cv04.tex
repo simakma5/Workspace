@@ -1,0 +1,149 @@
+\documentclass[11pt, a4paper]{article}
+
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{15mm}
+\setlength\evensidemargin{15mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+\let\openright=\clearpage
+
+\usepackage[czech]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{stddoc}
+\usepackage{mathtools}
+
+\begin{document}
+	
+	\pagenumbering{arabic}
+	
+	\section*{Domácí úkol A8B37SAS - 18.3.2020}
+	\noindent\rule{12cm}{0.2pt}
+	
+	\section{Příklad 1}
+		
+		\subsection{1a}
+			
+			\noindent Naším úkolem je nalézt koeficienty Fourierovy řady
+			\begin{align}
+				c_n = \frac{1}{T_0} \int_{(T_0)} s(t) \e^{-\mathrm i n \omega_0 t} \: \d t, \quad \omega_0 = \frac{2\pi}{T_0}.
+			\end{align}
+			Pro náš signál tedy můžeme psát (pro $n \not= 0$)
+			\begin{align}
+				c_n &= \frac{1}{T_0} \int_{-T_0/4}^{T_0/4} A \e^{-\mathrm i n \omega_0 t} \: \d t = \frac{A}{T_0} \( \int_{-T_0/4}^{T_0/4} \cos(n \omega_0 t) \: \d t - \mathrm i \underbrace{\int_{-T_0/4}^{T_0/4} \sin(n \omega_0 t) \: \d t}_{0} \) =
+			\\
+				&= \frac{2A}{T_0} \int_{0}^{T_0/4} \cos(n \omega_0 t) \: \d t = \frac{2A}{T_0 n \omega_0} \Bigg[ \sin(n \omega_0 t) \Bigg]_{0}^{T_0/4} = \frac{A}{\pi n} \sin \(\frac \pi 2 n \).
+			\end{align}
+			Pro $n=0$ koeficient lehce dopočítáme jako
+			\begin{align}
+				c_0 = \frac{1}{T_0} \int_{(T_0)} s(t) \: \d t = \cdots = \frac{A}{2}.
+			\end{align}
+			Dohromady tedy máme
+			\begin{align}
+				c_n = \left\{ \begin{matrix}
+					\frac{A}{\pi n} \sin(n \frac \pi 2), & \text{ pro } n \not= 0,
+				\\[2mm]
+					\frac{A}{2}, & \text{ pro } n=0.
+				\end{matrix} \right.
+			\end{align}
+	
+		\subsection{1b}
+			
+			Postupujeme analogicky jako v 1a:
+			\begin{align}
+				c_n &= \frac{1}{T_0} \int_{-T_0/6}^{T_0/6} A \e^{-\mathrm i n \omega_0 t} \: \d t = \frac{2A}{T_0} \int_{0}^{T_0/6} \cos(n \omega_0 t) \: \d t = \frac{A}{\pi n} \sin \( \frac \pi 3 n \),
+			\\
+				c_0 &= \frac{1}{T_0} \int_{(T_0)} s(t) \: \d t = \cdots = \frac{A}{3},
+			\\
+				c_n &= \left\{ \begin{matrix}
+				\frac{A}{\pi n} \sin \( \frac \pi 3 n \), & \text{ pro } n \not= 0,
+				\\[2mm]
+				\frac{A}{3}, & \text{ pro } n=0.
+				\end{matrix} \right.
+			\end{align}
+		
+		\subsection{Porovnání koeficientů}
+			
+			\subsubsection{Hodnoty maxim}
+				
+				\begin{align}
+					\mathrm{max}_a(c_n) &= \Big| n = 2k + 1, k \in \mathbb Z \Big| = \frac A \pi,
+				\\
+					\mathrm{max}_b(c_n) &= \Big| n = \frac 32 (2k + 1), k \in \mathbb Z \Big| = \frac 23 \frac A\pi,
+				\\
+					\mathrm{max}_a(c_n) &= \frac 32 \mathrm{max}_b(c_n).
+				\end{align}
+				Signál $a$ má o třetinu vyšší maximální hodnotu koeficientů.
+				
+			\subsubsection{Četnost nulových koeficientů}
+				
+				\begin{align}
+					c_a = 0 \iff n = 2 k, k \in \mathbb Z,
+				\\
+					c_b = 0 \iff n = 3 k, k \in \mathbb Z.
+				\end{align}
+				Signál $a$ má o polovinu vyšší četnost nulových koeficientů.
+			
+	\section{Příklad 2}
+		
+		\subsection{2a}
+			
+			\noindent$s(t) = \cos \( \frac{2\pi}{T_0} t \)$ \\
+			Postup je defacto analogický příkladu 1, takže opakované kroky nemusíme komentovat.
+			\begin{align}
+				c_n &= \frac{1}{T_0} \int_{(T_0)} s(t) e^{- \mathrm i n \omega_0 t} \: \d t = \frac{1}{T_0}
+				\int_{-T_0/2}^{T_0/2} \cos \( \frac{2\pi}{T_0} t \) \cos \( n \omega_0 t \) \: \d t =
+			\\
+				&= \cdots = \frac{n \sin(\pi n)}{\pi (1-n^2)}, \quad n \not= \pm 1,
+			\\
+				c_{\pm 1} &= \frac{T_0}{2}.
+			\\
+				c_n &= \left\{ \begin{matrix}
+				\frac{n \sin(\pi n)}{\pi (1-n^2)}, & \text{ pro } |n| \not= 1,
+			\\[2mm]
+				\frac{T_0}{2}, & \text{ pro } |n| = 1.
+				\end{matrix} \right.
+			\end{align}
+			Koeficienty zachovaly sudou symetrii cosinu, tj. platí $c_{-n} = c_n$.
+		
+		\subsection{2b}
+			
+			\noindent$s(t) = \sin \( \frac{2\pi}{T_0} t \)$ \\
+			\begin{align}
+				c_n &= \frac{1}{T_0} \int_{-T_0/2}^{T_0/2} \underbrace{\sin \( \frac{2\pi}{T_0} t \) \sin \( n \omega_0 t \)}_{\text{sudá funkce}} = \cdots = \frac{\sin(\pi n)}{\pi (n^2 - 1)}, \quad n \not= \pm 1,
+			\\
+				c_{\pm 1} &= \frac{T_0}{2}.
+			\\
+				c_n &= \left\{ \begin{matrix}
+				\frac{\sin(\pi n)}{\pi (n^2 - 1)}, & \text{ pro } |n| \not= 1,
+			\\[2mm]
+				\frac{T_0}{2}, & \text{ pro } |n| = 1.
+				\end{matrix} \right.
+			\end{align}
+			Koeficienty zachovaly lichou symetrii sinu, tj. platí $c_{-n} = -c_n$.
+	
+	\section{Příklad 3}
+		
+		\noindent $s(t) = s_{1a}(t) s_{2a}(t)$.
+		\begin{align}
+			c_n &= \frac{1}{T_0} \int_{-T_0/4}^{T_0/4} A \cos \( \frac{2\pi}{T_0} t \) \e^{-\mathrm i n \omega_0 t} \: \d t = A \frac{\cos \( \frac \pi 2 n \)}{\pi (1 - n^2)}, \quad n \not= \pm 1,
+		\\
+			c_{\pm 1} &= \frac A4,
+		\\
+			c_n &= \left\{ \begin{matrix}
+			A \frac{\cos \( \frac \pi 2 n \)}{\pi (1 - n^2)}, & \text{ pro } |n| \not= 1,
+		\\[2mm]
+			\frac A4, & \text{ pro } |n| = 1.
+			\end{matrix} \right.
+		\end{align}
+	
+	
+	
+	
+\end{document}

@@ -1,0 +1,18 @@
+../Drivers/CMSIS/Include/core_cm4.h:1688:22:void __NVIC_EnableIRQ(IRQn_Type)	16	static
+../Core/Src/lib.hpp:64:6:void setPinMode(GPIO_TypeDef*, uint8_t, uint8_t, uint8_t, uint8_t)	16	static
+../Core/Src/lib.hpp:87:6:void setAlternateFunction(GPIO_TypeDef*, uint8_t, uint8_t)	16	static
+../Core/Src/lib.hpp:102:6:void writeBit(GPIO_TypeDef*, uint8_t, uint8_t)	16	static
+../Core/Src/lib.hpp:111:10:uint32_t readBit(GPIO_TypeDef*, uint8_t)	16	static
+../Core/Src/main.cpp:100:5:int main()	48	static
+../Core/Src/main.cpp:245:6:void SystemClock_Config()	88	static
+../Core/Src/main.cpp:292:13:void MX_USART2_UART_Init()	8	static
+../Core/Src/main.cpp:325:13:void MX_GPIO_Init()	48	static
+../Core/Src/main.cpp:355:6:void TIM3_Init()	8	static
+../Core/Src/main.cpp:366:6:void TIM3_IRQHandler()	16	static,ignoring_inline_asm
+../Core/Src/main.cpp:414:6:void TIM2_Init()	4	static
+../Core/Src/main.cpp:423:13:void ADC1_Init()	8	static
+../Core/Src/main.cpp:436:6:void ADC_IRQHandler()	8	static
+../Core/Src/main.cpp:446:13:void USART2_Init()	4	static
+../Core/Src/main.cpp:458:9:uint8_t USART2_read()	4	static
+../Core/Src/main.cpp:463:6:void USART2_write(uint8_t)	16	static
+../Core/Src/main.cpp:473:6:void Error_Handler()	4	static,ignoring_inline_asm

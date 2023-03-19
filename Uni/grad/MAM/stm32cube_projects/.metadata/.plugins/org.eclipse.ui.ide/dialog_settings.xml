@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="ExternalProjectImportWizard">
+		<item key="WizardProjectsImportPage.STORE_NESTED_PROJECTS" value="true"/>
+	</section>
+	<section name="SmartImportWizard">
+		<item key="SmartImportRootWizardPage.STORE_HIDE_ALREADY_OPEN" value="false"/>
+		<item key="SmartImportRootWizardPage.STORE_CLOSE_IMPORTED" value="false"/>
+		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
+		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
+		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Uni\MAM\stm32cube_projects\kerry\SEM_projekt2.0"/>
+			<item value="C:\Uni\MAM\stm32cube_projects\simakma5_arm01"/>
+			<item value="C:\Uni\MAM\stm32cube_projects\simakma5_arm03"/>
+			<item value="C:\Uni\MAM\stm32cube_projects\simakma5_arm04"/>
+			<item value="C:\Uni\MAM\stm32cube_projects\kerner"/>
+			<item value="C:\Uni\MAM\stm32cube_projects\SEM_projekt"/>
+			<item value="C:\Uni\MAM\stm32cube_projects\kamarat\arm05\Voltmetr"/>
+			<item value="C:\Uni\MAM\stm32cube_projects\kamarat\arm04\UART"/>
+			<item value="C:\Uni\MAM\stm32cube_projects\kamarat\arm03\stopky"/>
+		</list>
+	</section>
+	<section name="NewWizardAction">
+	</section>
+	<section name="ResourceNavigator">
+		<item key="ResourceViewer.STORE_SORT_TYPE" value="1"/>
+	</section>
+</section>

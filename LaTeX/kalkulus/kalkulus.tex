@@ -1,0 +1,100 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper,hmargin=1in,vmargin=1in]{geometry}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{stddoc}
+
+\newtheorem{theorem}{Tvrzení}[section]
+% The additional parameter [section] restarts the theorem counter at every new section.
+\newtheorem{corollary}{Corollary}[theorem]
+% An environment called corollary is created, the counter of this new environment will be reset every time a new theorem environment is used.
+\newtheorem{lemma}[theorem]{Lemma}
+% In this case, the even though a new environment called lemma is created, it will use the same counter as the theorem environment.
+\theoremstyle{remark}
+\newtheorem*{remark}{Poznámka}
+\newtheorem*{solution}{Řešení}
+% The syntax of the command \newtheorem* is the same as the non-starred version, except for the counter parameters. In this example a new unnumbered environment called remark is created.
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definice}[section]
+\newtheorem*{example}{Příklad}
+\newtheorem*{recap}{Opakování}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+
+\begin{document}
+	
+	\section{Kalkulus jedné proměnné}
+	
+		\begin{lemma}
+			Nechť $f(x)$ má v bodě $x_0$ vlastní limitu. Potom existuje $\delta>0$ takové, že $f(x)$ je omezená na určitém $P(x_0;\delta)$.
+		\end{lemma}
+		\begin{proof}
+			Vynecháváme.
+		\end{proof}
+		
+		\begin{theorem}
+			Nechť $f$ a $g$ jsou reálné funkce. Potom platí
+			\begin{align}
+				\lim_{x\to x_0} f(x)g(x) &= \lim_{x\to x_0} f(x) \lim_{x\to x_0} g(x)
+			\\
+				\lim_{x\to x_0} [f(x) + g(x)] &= \lim_{x\to x_0} f(x) + \lim_{x\to x_0} g(x)
+			\end{align}
+			za předpokladu, že existují obě strany a jsou konečné.
+		\end{theorem}
+		\begin{proof} Postupně:
+			\begin{enumerate}[label=(\arabic*)]
+				
+				\item
+				Nejprve si napišme definice jednotlivých limit a upravme si omezující epsilon tak, abychom došli k \uv{hezkému} závěru:
+				\begin{align*}
+					&\forall \epsilon > 0 \; \exists \delta_f > 0 : 0 < |x - x_0| < \delta_f \implies |L_f - f(x)| < \frac{\epsilon}{2 |g(x)|},
+				\\
+					&\forall \epsilon > 0 \; \exists \delta_g > 0 : 0 < |x - x_0| < \delta_g \implies |L_g - g(x)| < \frac{\epsilon}{2 |L_f|}.
+				\end{align*}
+				Cíl důkazu:
+				\begin{align*}
+					\forall \epsilon > 0 \; \exists \delta > 0 : 0 < |x - x_0| < \delta \implies |L_f L_g - f(x)g(x)| < \epsilon.
+				\end{align*}
+				Pomocí elementárních úprav (např. přidáním nulového členu $L_f g(x) - L_f g(x)$) lze výraz v absolutní hodnotě vyjádřit ve tvaru
+				\begin{align*}
+					L_f L_g - f(x)g(x) = L_f[L_g - g(x)] + g(x)[L_f - f(x)],
+				\end{align*}
+				jehož majorantu nalezneme pomocí trojúhelníkové nerovnosti jako
+				\begin{align*}
+					&|L_f[L_g - g(x)] + g(x)[L_f - f(x)]| < |L_f(L_g - g(x))| + |g(x)(L_f - f(x))| =
+				\\
+					&= |L_f|\underbrace{|(L_g-g(x))|}_{<\epsilon/(2|L_f|)} + |g(x)| \underbrace{|(L_f-f(x))|}_{<\epsilon/(2|g(x)|)} < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
+				\end{align*}
+				
+				\item Jde o velice podobný postup, přičemž jedinými modifikacemi jsou absolutní omezení jednotlivých limit (obě mají tentokrát majorantu $\epsilon/2$) a tvar finální limity, tedy cíl důkazu:
+				\begin{align*}
+					\forall \epsilon > 0 \; \exists \delta > 0 : 0 < |x - x_0| < \delta \implies |(L_f + L_g) - (f(x) + g(x))| < \epsilon.
+				\end{align*}
+				V tomto jednodušším případě přecházíme přímo k omezení
+				\begin{align*}
+					|(L_f - f(x)) + (L_g - g(x))| < |L_f - f(x)| + |L_g - g(x)| < \frac \epsilon 2 + \frac \epsilon 2 = \epsilon.
+				\end{align*}
+				
+			\end{enumerate}
+		\end{proof}
+		
+		\begin{theorem}[3]
+			Pokud $L$ je konečně generovaný lineární prostor, pak z každé jeho množiny generátorů lze vybrat bázi.
+		\end{theorem}
+		\begin{proof}
+			Pokud $G=\{v_1,\dots,v_n\}$ je množina generátorů, pak platí $L=\mathrm{span}(v_1,\dots,v_n)$.
+			\begin{enumerate}[label=(\alph*)]
+				
+				\item $n=0:$ 
+				
+				\item $n\geq 1:$
+				
+			\end{enumerate}
+		\end{proof}
+	
+\end{document}

@@ -1,0 +1,10 @@
+20:05:21 **** Incremental Build of configuration Debug for project stopky ****
+make -j16 all 
+arm-none-eabi-size   stopky.elf 
+   text	   data	    bss	    dec	    hex	filename
+   2308	      8	   1584	   3900	    f3c	stopky.elf
+Finished building: default.size.stdout
+ 
+
+20:05:21 Build Finished. 0 errors, 0 warnings. (took 94ms)
+

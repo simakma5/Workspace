@@ -1,0 +1,62 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper,hmargin=1in,vmargin=1in]{geometry}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Matematická analýza 1}
+\rhead{A8B01MC1}
+\rfoot{Martin Šimák}
+
+\usepackage{stddoc}
+
+
+\begin{document}
+	
+	\pagenumbering{gobble}
+	\section{Limity}
+	
+	\paragraph*{Zadání.} Vyšetřete definiční obor funkce a její limity v hraničních bodech definičního oboru:
+	\begin{align*}
+		f(x) = \frac{\sin(\pi x)}{1 - \mathrm e^{-x}}.
+	\end{align*}
+	
+	\paragraph*{Řešení.} Funkce $f$ nabývá tvaru $g/h$, kde $g(x) = \sin(\pi x)$ a $h(x) = 1-\mathrm e^{-x}$. Definiční obory dílčích funkcí určíme jednoduše jako $D(g) = D(h) = \mathbb R$. Jako dalšího poznatku si můžeme povšimnout, že funkce $h$ nabývá hodnoty $h(x_0) = 0$ v bodě $x_0 = 0$. Celkový definiční obor funkce $f$ je tedy $D(f) = \mathbb R \setminus \{0\}$. Zbývá tedy vyšetřit limity v bodech $-\infty, \, \infty$ a $0$.
+	\begin{enumerate}[label=(\alph*)]
+		\item \begin{align*}
+			\lim_{x \to \pm\infty} f(x) \in \emptyset,
+		\end{align*}
+		neboť samotná dílčí funkce $g(x) = \sin(\pi x)$ osciluje a nemá tedy v $\pm\infty$ limitu.
+		
+		\item \begin{align*}
+			\lim_{x \to 0} \frac{\sin(\pi x)}{1 - \mathrm e^{-x}} = \bigg| \frac 00 \bigg| \overset{\mathcal{L'H}}{=\joinrel=} \lim_{x \to 0} \frac{\pi \cos(\pi x)}{e^{-x}} = \pi.
+		\end{align*}
+	\end{enumerate}
+	
+	\paragraph*{Zadání.} Vyšetřete definiční obor funkce a její limity v hraničních bodech definičního oboru:
+	\begin{align*}
+		f(x) = \frac{\ln(x-1)}{3x-x^2}.
+	\end{align*}
+	
+	\paragraph*{Řešení.} Budeme-li postupovat stejně jako v prvním příkladě (tentokrát $g(x) = \ln(x-1)$ a $h(x) = 3x-x^2$), dojdeme ihned k závěru, že $D(g) = (1,\infty)$ a $D(h) = \mathbb R$. Dále funkce $h(x) = 3x - x^2 = x(3-x)$ má nulové body $x_1 = 0$ a $x_2 = 3$. Celkově tedy opět průnikem dostáváme $D(f) = (1,3) \cup (3,\infty)$. Zbývá tedy vyšetřit limity v bodech $1, \, 3$ a $\infty$.
+	\begin{enumerate}[label=(\alph*)]
+		\item \begin{align*}
+			\lim_{x \to 1^+} \frac{\ln(x-1)}{3x-x^2} = \bigg| \frac{-\infty}{2} \bigg| = -\infty.
+		\end{align*}
+	
+		\item \begin{align*}
+			\lim_{x \to 3^{\pm}} \frac{\ln(x-1)}{x(3-x)} = \bigg| \frac{\ln(2)}{3\cdot 0^{\mp}} \bigg| = \mp \infty,
+		\end{align*}
+		neboli $\lim_{x \to 3^+} f(x) = -\infty$ a $\lim_{x \to 3^-} f(x) = \infty$. Limita v bodě $x = 3$ tedy neexistuje.
+	
+		\item \begin{align*}
+			\lim_{x \to \infty} \frac{\ln(x-1)}{3x-x^2} = \bigg| \frac{\infty}{-\infty} \bigg| \overset{\mathcal{L'H}}{=\joinrel=} \lim_{x \to \infty} \frac{(x-1)^{-1}}{3-2x} = \bigg| \frac{0}{-\infty} \bigg| = 0.
+		\end{align*}
+	\end{enumerate}
+	
+	
+\end{document}

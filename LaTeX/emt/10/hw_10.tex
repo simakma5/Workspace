@@ -1,0 +1,75 @@
+\documentclass[12pt, a4paper]{article}
+
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{15mm}
+\setlength\evensidemargin{15mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+\let\openright=\clearpage
+
+\usepackage[czech]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{stddoc}
+\usepackage{mathtools}
+
+\def\endl{\\[3mm]}
+
+\begin{document}
+	\pagenumbering{gobble}
+	
+	\begin{center}
+		\section*{Příklady pro týden 10 - Martin Šimák}
+		\noindent\rule{13cm}{1.6pt} \\[5mm]
+	\end{center}
+
+	\subsection*{Zadání}
+		Čtvercová  smyčka  z tenkého  vodiče  má  délku  hrany $\l$ a  nachází  se  v blízkosti  nekonečně  dlouhého přímého vodiče. Hrana smyčky je rovnoběžná s osou vodiče a je vzdálena $d$ od něj. Přímým vodičem protéká konstantní proud $I_0$. Celkový odpor smyčky je $R$ a její vlastní indukčnost je $L$. V čase $t = t_0$ se smyčka začne od přímého vodiče vzdalovat konstantní rychlostí $v_0$ (ve směru kolmo od vodiče). Určete celkovou energii, která se pro $t \in \left[ \, t_0, \infty \right)$ spálila v rezistoru v teplo. Úlohu řešte nerelativisticky.
+	\endl
+		(Numerické hodnoty pro integrál: $v_0 = 100 \, \mathrm m \cdot \mathrm s^{-1}$; $\l = 1 \, \mathrm m$; $I_0 = 1000 \, \mathrm A$; $d = 10 \, \mathrm{mm}$; $R = 1 \, \Omega$; $L = 50 \, \mathrm{mH}$; $t_0 = 0 \, \mathrm s$)
+	\\
+		\noindent\rule{8cm}{0.4pt}
+	
+	\subsection*{Řešení}
+		Zvolme si souřadnicovou soustavu tak, aby tenký vodič nesoucí proud byl orientován jako osa $z$ (proud $I_0$ teče ve směru růstu $z$). Z tohoto předpokladu vyplývá, že smyčka leží v rovině kolmé k rovině $x,y$. Zbývá již tedy jen určit matematickou orientaci křivky $\Gamma$ odpovídající smyčce. Zvolme tedy (zápornou) orientaci ve směru hodinových ručiček (jednotkový normálový vektor plochy je tedy vektor $\vec e_\varphi$).
+	\\
+		K výpočtu budeme dozajista potřebovat kvantitativní vyjádření magnetického pole generovaného proudem ve svislém vodiči. Toto magnetické pole spočteme lehce pomocí Ampérovy věty jako
+		\begin{align*}
+			\vec B = \frac{\mu_0 I_0}{2 \pi \rho} \, \vec e_\varphi ,
+		\end{align*}
+		kde $\rho$ je cylindrická radiální souřadnice, $\varphi$ cylindrická polární souřadnice a integraci jsme nejlehčeji provedli po kružnici kolem vodiče.
+	\\
+		Pro průtok magnetického pole $\Phi$ skrz vnitřek smyčky (matematicky $\Omega \equiv$ Int($\Gamma$)) tedy můžeme psát
+		\begin{align*}
+			\Phi &= \int_{\Omega} \vec B(\rho) \cdot \d \vec S = \int_\Omega \vec B(\rho) \cdot \vec n \, \d\rho \, \d z = \int\limits_{z = z_0}^{z = z_0 + \l} \int\limits_{\rho = d + v_0t}^{d + \l + v_0t} \vec B(\rho) \cdot \vec e_\varphi \, \d \rho \, \d z
+		\\
+			&= \frac{\mu_0 I_0 \l}{2\pi} \int\limits_{d + v_0t}^{\l + d + v_0t} \frac{\d \rho}{\rho} = \frac{\mu_0I_0\l}{2\pi} \ln\( \frac{\l + d + v_0t}{d + v_0t} \).
+		\end{align*}
+		Průtok magnetického pole smyčkou nám dává možnost přímo vypočítat indukované veličiny ve smyčce jako
+		\begin{align}
+		\tag{Faradayův indukční zákon}
+			U_i &= - \der \Phi t,
+		\\
+		\tag{Definice indukčnosti}
+			I_i &= \frac \Phi L.
+		\end{align}
+		Indukčnost smyčky je dána, takže můžeme přistoupit k jednoduššímu z výpočtů a to k indukovanému proudu $I_i \,$:
+		\begin{align*}
+			I_i = \frac \Phi L = \frac{\mu_0I_0\l}{2\pi L} \ln\( \frac{\l + d + v_0t}{d + v_0t} \).
+		\end{align*}
+		Jouleovo teplo při průchodu indukovaného proudu $I_i$ rezistorem (smyčkou) je definováno
+		\begin{align*}
+			P = U_iI_i = RI_i^2 = R \( \frac{\mu_0I_0\l}{2\pi L} \)^2 \ln ^2 \( \frac{\l + d + v_0t}{d + v_0t} \).
+		\end{align*}
+		Z definičního vztahu pro výkon (zde Jouleovo teplo) můžeme pro energii spálenou v rezistoru psát
+		\begin{align*}
+			W_{\mathrm{lost}} = \int\limits_0^\infty R \( \frac{\mu_0I_0\l}{2\pi L} \)^2 \ln ^2 \( \frac{\l + d + v_0t}{d + v_0t} \) \, \d t \approx 4.74 \cdot 10^{-7} J = 0.474 \, \text{\textmu J}.
+		\end{align*}
+
+\end{document}

@@ -1,0 +1,50 @@
+\documentclass{article}
+
+\usepackage{amsmath, amssymb, esint}
+\usepackage{setspace}
+\usepackage{physics}
+\usepackage{bm}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\newcommand{\vecvar}[1]{\bm{#1}}
+\newcommand{\vecconst}[1]{\mathbf{#1}}
+
+\title{Příklady pro týden 1}
+\author{Martin Šimák}
+\date{}
+
+\begin{document}
+	\pagenumbering{gobble}
+	\maketitle{}
+	
+	\paragraph{Příklad 1;} $\vecvar{r} \neq \vecvar{r'}$\\
+	
+	\subparagraph{(1)} \[
+	\div\left(\frac{\vecvar{R_0}}{R^n}\right)
+	= \frac{R^n (\div\vecvar{R_0}) - \vecvar{R_0} \cdot (\grad R^n)}{R^{2n}}
+	= \frac{R^n (\frac{2}{R}) - \vecvar{R_0} \cdot (nR^{n-1} \vecvar{R_0})}{R^{2n}} = \frac{2R^{n-1} - nR^{n-1}}{R^{2n}}
+	= \frac{2 - n}{R^{n + 1}}
+	\]
+
+	\subparagraph{(2)} \[
+	\div{\left( \grad{\frac{1}{R}} \right)}
+	= \nabla^2(\frac{1}{R})
+	= -4 \pi \delta^3 (\vecvar{R})
+	= 0, \\
+	\]
+	kde poslední rovnost platí díky faktu, že $\vecvar{r} \neq \vecvar{r'}$.
+	\newpage
+	
+	\paragraph{Příklad 2} Geometricky (1) představuje přirozený dekrement působení silového radiálního pole generovaného bodovým zdrojem. Divergence je v každém bodě nulová, kdybychom však spočítali průtok pole sférou o poloměru $R$, dostaneme:\\ \[
+	\oiint \limits_{S} \vecvar{F} \cdot \mathrm{d}\vecvar{A}
+	= \int \limits_{S} \left( \frac{1}{R} \, \vecvar{r} \right) \cdot \left( R^2 \sin(\theta) \, \mathrm{d}\theta \mathrm{d}\phi \, \vecvar{r} \right)
+	= \left( \int_{0}^{\pi} \sin(\theta) \, \mathrm{d}\theta \right) \left( \int_{0}^{2\pi} \mathrm{d}\phi \right)
+	= 4\pi, \\
+	\]
+	což neodpovídá našemu očekávání (alternativní řešení pomocí Gaussovy integrální věty vede na nulové řešení). Paradox je tvořen tím, že při výpočtu divergence nepřipouštíme $\vecvar{R} = 0$, což by způsobilo dělení nulou (pole má v bodě $\vecvar{R} = 0$ singularitu). Divergence v tomto místě je tedy odpovědna za průtok pole v celém prostoru.
+	Tento problém lze elegantně vyřešit zapomoci Diracovy funkce delta, která by nám v tomto případě udávala nulovou divergenci všude, krom počátku.
+	
+	
+\end{document}

@@ -1,0 +1,97 @@
+\documentclass{article}
+
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{setspace}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+
+\usepackage{stddoc}
+
+\usepackage{circuitikz}
+\tikzstyle{densely dashed}=[dash pattern=on 4pt off 3pt]
+
+\def\({\left(}
+\def\){\right)}
+\def\endl{\\[3mm]}
+
+\title{Obvody pro Adámka}
+\author{}
+\date{}
+
+\onehalfspacing
+
+\begin{document}
+	
+	\pagenumbering{gobble}
+	
+	\maketitle
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\begin{circuitikz}[american voltages]
+				
+				%% upper right segment
+				\draw (0,0)
+					to [short, o-] (0,0)
+					to node[draw,circle,fill=white]{A} (0,-2)
+					to [short, o-] (-1,-2)
+					to [american inductor, mirror] (-1,-4)
+					to [short, -o] (0,-4)
+					to [short] (1,-4)
+					to [european potentiometer, name=P, mirror, l=Rd] (1,-2)
+				;
+				\draw (P.wiper) to [short] (2,-3)
+					to [short, -o] (2,0)	
+				;
+				
+				%% bottom right segment
+				\draw (-2.5,-9)
+					to [short, o-] (-2.5,-7)
+					to node[draw, circle, fill=white]{V} (0.5,-7)
+					to [short] (0.5,-7)
+					to node[draw, circle, fill=white]{A} (0.5,-9)
+					to [short, -o] (0.5,-9)
+				;
+				\draw (-2.5,-7)
+					to [short, o-] (-2.5,-5)
+					to [Telmech=M] (0.5,-5)
+					to [short, -o] (0.5,-7)
+				;
+				
+				%% upper left segment
+				\draw (5,0)
+					to [short, o-] (5,0)
+					to node[draw,circle,fill=white]{A} (5,-2)
+					to [short, o-] (4,-2)
+					to [american inductor, mirror] (4,-4)
+					to [short, -o] (5,-4)
+					to [short] (6,-4)
+					to [european potentiometer, name=P, mirror, l=Rd] (6,-2)
+				;
+				\draw (P.wiper) to [short] (7,-3)
+					to [short, -o] (7,0)	
+				;
+				
+				%% bottom right segment
+				\draw (2.5,-7)
+					to [short, o-] (2.5,-5)
+					to [Telmech=G] (5.5,-5)
+					to [short, -o] (5.5,-7)
+					to node[draw, circle, fill=white, label={[font=\footnotesize]+30:(n)}]{V} (2.5,-7)
+				;
+				
+			\end{circuitikz}
+		\end{center}
+		\caption{Laboratorní zapojení elektromotoru (M) s dynamem (G), oboje s vinutím nahoře}
+	\end{figure}
+	
+	
+\end{document}

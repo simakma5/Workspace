@@ -1,0 +1,1917 @@
+%% Verze pro jednostranný tisk:
+% Okraje: levý 40mm, pravý 25mm, horní a dolní 25mm
+% (ale pozor, LaTeX si sám přidává 1in)
+\documentclass[11pt,a4paper]{report}
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{15mm}
+\setlength\evensidemargin{15mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+% \openright zařídí, aby následující text začínal na pravé straně knihy
+\let\openright=\clearpage
+
+%% Pokud tiskneme oboustranně:
+%\documentclass[11pt,a4paper,twoside,openright]{report}
+%\setlength\textwidth{145mm}
+%\setlength\textheight{247mm}
+%\setlength\oddsidemargin{14.2mm}
+%\setlength\evensidemargin{0mm}
+%\setlength\topmargin{0mm}
+%\setlength\headsep{0mm}
+%\setlength\headheight{0mm}
+%\let\openright=\cleardoublepage
+%\usepackage{yfonts}
+
+%% Vytváříme PDF/A-2u - nefunguje, nevim proč
+%\usepackage[a-2u]{pdfx}
+
+% Toto makro definuje kapitolu, která není očíslovaná, ale je uvedena v obsahu.
+\def\chapwithtoc#1{
+	\chapter*{#1}
+	\addcontentsline{toc}{chapter}{#1}
+}
+
+\usepackage[british]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{array}
+\usepackage{stddoc}
+
+
+%%% ways to explicitly command the table of contents to show only some headlines
+%\setcounter{tocdepth}{1} % Show sections
+%\setcounter{tocdepth}{2} % + subsections
+%\setcounter{tocdepth}{3} % + subsubsections
+%\setcounter{tocdepth}{4} % + paragraphs
+%\setcounter{tocdepth}{5} % + subparagraphs
+\setcounter{tocdepth}{1}
+
+\newtheorem{theorem}{Theorem}[section]
+% The additional parameter [section] restarts the theorem counter at every new section.
+\newtheorem{corollary}{Corollary}[theorem]
+% An environment called corollary is created, the counter of this new environment will be reset every time a new theorem environment is used.
+\newtheorem{lemma}[theorem]{Lemma}
+% In this case, the even though a new environment called lemma is created, it will use the same counter as the theorem environment.
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+% The syntax of the command \newtheorem* is the same as the non-starred version, except for the counter parameters. In this example a new unnumbered environment called remark is created.
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+%\renewcommand\qedsymbol{$\blacksquare$} % černej čtvereček
+
+
+\title{Signals and Systems}
+\author{Martin, The Creator}
+\date{17/3/2020-??}
+
+
+\newcommand{\Av}[1]{\mathrm{Av}\[#1\]}
+\newcommand{\sinc}{\mathrm{\mathrm{sinc}}}
+\newcommand{\Sa}{\mathrm{Sa}}
+\newcommand{\rect}{\mathrm{rect}}
+\newcommand{\dft}[1]{\mathrm{DFT} \{ #1 \}}
+\newcommand{\idft}[1]{\mathrm{DFT}^{-1} \{ #1 \}}
+\newcommand{\dfs}[1]{\mathrm{DFS} \{ #1 \}}
+\newcommand{\idfs}[1]{\mathrm{DFS}^{-1} \{ #1 \}}
+\newcommand{\fs}[1]{\mathrm{FS} \{ #1 \}}
+\newcommand{\ifs}[1]{\mathrm{FS}^{-1} \{ #1 \}}
+\newcommand{\ft}[1]{\mathrm{FT} \{ #1 \}}
+\newcommand{\ift}[1]{\mathrm{FT}^{-1} \{ #1 \}}
+\newcommand{\dtft}[1]{\mathrm{DtFT} \{ #1 \}}
+\newcommand{\idtft}[1]{\mathrm{DtFT}^{-1} \{ #1 \}}
+\renewcommand{\Re}[1]{\mathrm{Re}\[ #1 \]}
+\renewcommand{\Im}[1]{\mathrm{Im}\[ #1 \]}
+\newcommand{\fourier}[2]{\mathcal{F} \! \left\{ #1 \right\} \! \[ #2 \]}
+\newcommand{\ifourier}[2]{\mathcal{F}^{-1} \! \left\{ #1 \right\} \! \[ #2 \]}
+\newcommand{\laplace}[2]{\mathcal{L} \! \left\{ #1 \right\} \! \[ #2 \]}
+\newcommand{\ilaplace}[2]{\mathcal{L}^{-1} \! \left\{ #1 \right\} \! \[ #2 \]}
+\newcommand{\ztransform}[2]{\mathcal{Z} \! \left\{ #1 \right\} \! \[ #2 \]}
+\newcommand{\iztransform}[2]{\mathcal{Z}^{-1} \! \left\{ #1 \right\} \! \[ #2 \]}
+
+
+
+\begin{document}
+	
+	\pagenumbering{gobble}
+	
+	\maketitle
+	\newpage
+	
+	\tableofcontents
+	\newpage
+	
+	\pagenumbering{arabic}
+	
+	
+	\chapter{Time domain analysis of signals}
+	\epigraph{
+		This'll be a proper bullshit.
+	}{me, an intellectual}
+			
+		\paragraph{Signal} is generally a \textit{complex-valued function of independent variable} (usually time $t$, generally collection of $M$ variables $\rightarrow$ $M$-dimensional signal), eg. sound is a one-dimensional signal $s(t)$, black-white picture is a two-dimensional signal $s(x,y)$.
+		
+		\paragraph{System} is a \textit{set of physical or mathematical components}, which \textit{responds to an input stimulus with a result called an output}, eg. filter, transmission line, antenna, modulator, coder.
+			
+		\section{Classification of signals}
+			
+			\subsection{Basic types of signals}
+				
+				\begin{itemize}
+					\item \textit{Deterministic signal} has an explicit mathematical representation, eg. $s(t) = \sin(\omega t + \varphi)$.
+					
+					\item \textit{Random signal} must be treated with statistics instead function analysis.
+				\end{itemize}
+				
+				A signal can be defined over the domain of $\R, (0, \infty), \dots$, then we talk about a \textit{continuous-time} signal, or $\N, \Z, \dots$, then we talk about a \textit{discrete-time} signal. This is of course not restricted to the domain, values of the signal can be also either discrete or continuous.
+				
+				\textit{Convention:} We'll be using functions with arguments in parentheses ($s(t)$) for continuous-time signals and functions with arguments in brackets ($s[k]$) for discrete-time signals. Also, when we talk about continuous-time (resp. discrete-time) signals, we of course mean any continuous-variable (resp. discrete-variable) signals. Time is just the most usual variable.
+			
+			\subsection{Classification based on the domain boundaries}
+				
+				\begin{itemize}
+					\item \textit{Causal signal} is a signal, which has zero value \textit{before} defined time instant:
+						\begin{align}
+							s(t) &= 0,
+						&
+							t &< t_0.
+						\end{align}
+						
+					\item Signal that is not causal is called \textit{noncausal}.
+					
+					\item \textit{Finite signal} is a signal, which has zero value \textit{before} and \textit{after} defined time instant:
+						\begin{align}
+							s(t) &= 0,
+						&
+							t &\not\in (t_a, t_b).
+						\end{align}
+					
+					\item Signal that is not finite is called \textit{infinite}.
+				\end{itemize}
+				
+			
+		\section{Basic time domain characteristics}
+			
+			\subsection{Continuous-time signal energy and power}
+				
+				\textit{Total energy} (not the energy we are used to from physics, but it can correspond in some cases) in a continuous-time signal is defined as
+				\begin{align}
+					E \coloneqq \int_\R |s(t)|^2 \: \d t = \int_\R s(t) s^*(t) \: \d t.
+				\end{align}
+				Generally energy is defined without physical units.
+				\textit{Energy signals} are Ct (continuous-time) signals with finite energy
+				\begin{align}
+					E = \int_{-\infty}^{\infty} |s(t)|^2 \: \d t < \infty.
+				\end{align}
+				(basically functions $f \in L^2$) \\
+				Instataneous power in Ct signal
+				\begin{align}
+					p(t) \coloneqq |s(t)|^2 = s(t) s^*(t).
+				\end{align}
+				\textit{Power} in a Ct signal
+				\begin{align}
+					P \coloneqq \Av{p(t)} = \Av{|s(t)|^2} = \Av{s(t) s^*(t)} = \lim\limits_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} |s(t)|^2 \: \d t.
+				\end{align}
+				
+			\subsection{Dicrete time signal energy and power}
+				
+				\textit{Total energy} (defined the same way as for the continuous-time case, energy is just a nickname such defined mapping\footnote{It's actually an inner product on a Hilbert function space (continuous-time signals) or Euklidean space (discrete-time signals) as we'll see later.}) in a discrete-time signal
+				\begin{align}
+					E \coloneqq \sum_{k \in \Z} |s[k]|^2 = \sum_{k \in \Z} s[k] s^*[k].
+				\end{align}
+				\textit{Energy signals} and \textit{Instantaneous power} are defined the same as with the Ct signals. \\
+				\textit{Power} in Dt signal:
+				\begin{align}
+					P \coloneqq \Av{p[k]} = \Av{|s[k]|^2} = \Av{s[k] s^*[k]} = \lim\limits_{N \to \infty} \frac{1}{2N + 1} \sum_{k =-N}^{N} |s[k]|^2.
+				\end{align}
+				These new quantities allow us to classify signals in one more way:
+				\begin{itemize}
+					\item \textit{Energy signals} are signals of \textit{finite energy} ($0 < E < \infty$, $s(t) \in L^2$) and \textit{zero power}. The signals themselves don't need to be finite.
+					
+					\item \textit{Power signals} are signals of \textit{infinite energy} and \textit{nonzero} and \textit{finite power} ($0 < P < \infty$), e.g. periodic signals.
+				\end{itemize}
+				
+				Another interesting quantity is the \textit{average value} of a signal (direct component of current/voltage), calculated by the average value operator 'Av$[\cdot]$' defined as
+				\begin{align}
+					s_{\mathrm{avg}} &= \Av{s(t)} \coloneqq \lim\limits_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} s(t) \: \d t
+				\\
+					s_{\mathrm{avg}} &= \Av{s[k]} \coloneqq \lim\limits_{N \to \infty} \frac{1}{2N + 1} \sum_{k = -N}^{N} s[k]
+				\end{align}
+				and the \textit{effective} or \textit{root mean square} power value is
+				\begin{align}
+					s_{\mathrm{ef}} = \sqrt{P}.
+				\end{align}
+				
+			
+		\section{Correlations of signals}
+		
+			\subsection{Energy of summation of two signals}
+				
+				Let's assume a signal $s(t) = s_1(t) + s_2(t)$. What is its energy and is it somehow related to the energies of its constituents?
+				\begin{align}
+					E = \int_\R |s_1(t) + s_2(t)|^2 = \cdots = E_1 + E_2 + E_{12} + E_{21},
+				\end{align}
+				where
+				\begin{align}
+					E_{12} = E^*_{21} \coloneqq \int_\R s_1(t) s_2^*(t) \: \d t
+				\end{align}
+				is \textit{mutual energy}. For power signals we have
+				\begin{align}
+					P = \Av{|s_1(t) + s_2(t)|^2} = P_1 + P_2 + P_{12} + P_{21},
+				\end{align}
+				where
+				\begin{align}
+					P_{12} = P^*_{21} \coloneqq \Av{s_1(t) s_2^*(t)} = \lim\limits_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} s_1(t) s_2^*(t) \: \d t
+				\end{align}
+				is \textit{mutual power}. Similarly, we define mutual energy and power for discrete-time signals:
+				\begin{align}
+					E_{12} &= E^*_{21} \coloneqq \sum_{k \in \Z} s_1[k] s_2^*[k],
+				\\
+					P_{12} &= P^*_{21} \coloneqq \Av{s_1[k] s_2^*[k]} = \lim\limits_{N \to \infty} \frac{1}{2N + 1} \sum_{k = -N}^{N} s_1[k] s_2^*[k].
+				\end{align}
+				
+				We say that to signals are \textit{orthogonal} (ultimately, we mean orthogonality in the same way as algebraically, see \eqref{eq:inproden}), when
+				\begin{align}
+					E_{12} = E_{21} = 0 \; &\iff \; E_{s_1 + s_2} = E_1 + E_2,
+				\\
+					P_{12} = P_{21} = 0 \; &\iff \; P_{s_1 + s_2} = P_1 + P_2.
+				\end{align}
+				
+				Mutual energy/power is highest for the same signals. Low value for different shape signals but also for shifted ones. \\
+				
+				\textit{Cross-correlation function} is a measure of similarity of two signals (shift is also taken into account). For energy signals, it is defined as follows:
+				\begin{align}
+					R_{12}(\tau) &\coloneqq \int_\R s_1(t+\tau) s_2^*(t) \: \d t,
+				&
+					\tau &\in \R,
+				\\
+					R_{12}(m) &\coloneqq \sum_{k \in \Z} s_1[k+m] s_2^*[k],
+				&
+					m &\in \Z.
+				\end{align}
+				Analogically for power signals:
+				\begin{align}
+					R_{12}(\tau) &\coloneqq \Av{s_1(t+\tau) s_2^*(t)} = \lim\limits_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} s_1(t+\tau) s_2^*(t) \: \d t,
+				&
+					\tau &\in \R,
+				\\
+					R_{12}(m) &\coloneqq \Av{s_1(k+m) s_2^*[k]} = \lim\limits_{N \to \infty} \frac{1}{2N+1} \sum_{k = -N}^{N} s_1[k+m] s_2^*[k],
+				&
+					m &\in \Z.
+				\end{align}
+				From the definition of cross-correlation function follows that $R_{12}(0) = E_{12}$ for energy signals and $R_{12}(0) = P_{12}$ for power signals. \\
+				
+				Autocorrelation function shows similarity of the values of the signal. For energy signals, we define it as follows:
+				\begin{align}
+					R(\tau) &\coloneqq \int_\R s(t+\tau) s^*(t) \: \d t,
+				&
+					\tau &\in \R,
+				\\
+					R(m) &\coloneqq \sum_{k \in \Z} s[k+m] s^*[k],
+				&
+					m &\in \Z.
+				\end{align}
+				Analogically for power signals:
+				\begin{align}
+					R(\tau) &\coloneqq \Av{s(t+\tau) s^*(t)} = \lim\limits_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} s(t+\tau) s^*(t) \: \d t,
+				&
+					\tau &\in \R,
+				\\
+					R(m) &\coloneqq \Av{s(k+m) s^*[k]} = \lim\limits_{N \to \infty} \frac{1}{2N+1} \sum_{k = -N}^{N} s[k+m] s^*[k],
+				&
+					m &\in \Z.
+				\end{align}
+				From the definition of autocorrelation function follows that $R(0) = E$ for energy signals and $R(0) = P$ for power signals. \\
+				
+				\paragraph{Various properties of correlation functions:} (everything is direct consequence of their explicit definitions and is true for discrete-time analogically)
+				\begin{align}
+					R_{12}(0) &= E_{12},
+				&
+					R_{12}(0) &= P_{12},
+				\\
+					R(0) &= E,
+				&
+					R(0) &= P,
+				\end{align}
+				\begin{align}
+					R_{12}(\tau) &= R_{21}^*(-\tau),
+				\\
+					R(\tau) &= R^*(\tau).
+				\end{align}
+				For real signals, we can deduce some extra symmetries for correlation functions:
+				\begin{align}
+					R_{12}(\tau) &= R_{21}(-\tau),
+				\\
+					R(\tau) &= R(-\tau).
+				\end{align}
+				Finally from Cauchy-Schwartz-Bunyakowsky inequality follows:
+				\begin{align}
+					|R(\tau)| \leq R(0).
+				\end{align}
+			
+			\subsection{Periodic signals}
+				
+				Every periodic signal can be characterized by repeating itself after defined number, called period. Mathematically put:
+				\begin{align}
+					\label{def:ctper}
+					s(t) &= s(t + m T_0),
+				&
+					&\forall t \in \R, \forall m \in \Z,
+				\\
+					\label{def:dtper}
+					s[k] &= s[k + m N_0],
+				&
+					&\forall k, m \in \Z.
+				\end{align}
+				\textit{Period} is an arbitrary such number $m T_0$ (resp. $m N_0$), for which \eqref{def:ctper} (resp. \eqref{def:dtper}) is true. \\
+				\textit{Fundamental period} is the smallest nonzero value $T_0$ (resp. $N_0$), for which \eqref{def:ctper} (resp. \eqref{def:dtper}) is true with $m=1$. \\
+				Every periodic signal is \textit{noncausal}, \textit{infinite}, \textit{power} signal. \\
+				Average value:
+				\begin{align}
+					\Av{s(t)} &= \frac{1}{T_0} \int_{(T_0)} s(t) \: \d t \equiv \frac{1}{T_0} \int_{t_0}^{t_0 + T_0} s(t) \: \d t,
+				\\
+					\Av{s[k]} &= \frac{1}{N_0} \sum_{k = k_0}^{k_0 + N_0 -1} s[k].
+				\end{align}
+				Power:
+				\begin{align}
+					P &= \Av{|s(t)|^2} = \frac{1}{T_0} \int_{(T_0)} |s(t)|^2 \: \d t,
+				\\
+					P &= \Av{|s[k]|^2} = \frac{1}{N_0} \sum_{k = k_0}^{k_0 + N_0 -1} |s[k]|^2.
+				\end{align}
+				Cross-correlation function:
+				\begin{align}
+					R_{12}(\tau) &= \frac{1}{T_0} \int_{(T_0)} s_1(t + \tau) s_2^*(t) \: \d t,
+				\\
+					R_{12}(m) &= \frac{1}{N_0} \sum_{k = k_0}^{k_0 + N_0 -1} s_1[k+m] s_2^*[k].
+				\end{align}
+				Autocorrelation function:
+				\begin{align}
+					R(\tau) &= \frac{1}{T_0} \int_{(T_0)} s(t + \tau) s^*(t) \: \d t,
+					\\
+					R(m) &= \frac{1}{N_0} \sum_{k = k_0}^{k_0 + N_0 -1} s[k+m] s^*[k].
+				\end{align}
+				
+				\paragraph{Various properties of periodic signals:} (everything is direct consequence of their explicit definitions and is true for discrete-time analogically) \\
+					If we define the periodic signal as a periodic extension of the finite signal
+					\begin{align}
+						s(t) &= \sum_{k \in \Z} s_{\mathrm{fin}}(t + k T_0),
+					&
+						s_{\mathrm{fin}} &=
+							\left\{ \begin{matrix}
+								s(t), & t \in \langle t_0,t_0 + T_0), \\
+								0, & t \not\in \langle t_0,t_0 + T_0),
+							\end{matrix} \right.
+					\end{align}
+					we can utilize that in the following properties:
+					\begin{itemize}
+						\item $R(\tau + m T_0) = R(\tau),$
+						\item Autocorrelation function using the finite signal
+							\begin{align}
+								R(\tau) = \frac{1}{T_0} \sum_{k \in \Z} R_{\mathrm{fin}}(\tau + k T_0),
+							\end{align}
+						\item Power using the finite signal
+							\begin{align}
+								P = \frac{E_{\mathrm{fin}}}{T_0}.
+							\end{align}
+					\end{itemize}
+				
+			\subsection{Sinusoidal and complex exponential signals in continuous-time}
+				
+				Sinusoidal (and complex exponential) signals form a subclass of the periodic signals, clearly distinct by their explicit expression. Generally \textit{complex exponential} signals are in a form of\footnote{$\omega = 2 \pi / T_0 = 2 \pi f$ is of course a real number representing the angular frequency}
+				\begin{align}
+					\label{def:ctcomplexp}
+					s(t) = A e^{i (\omega t + \theta)} = A \cos(\omega t + \theta) + i A \sin(\omega t + \theta).
+				\end{align}
+				If we are dealing with a real-valued signal, \textit{sinusoidal} signal is in the form of
+				\begin{align}
+					\label{def:ctsin}
+					s(t) = A \cos(\omega t + \theta).
+				\end{align}
+				real-valued (sinusoidal, harmonic) signals can be rewritten with complex exponentials
+				\begin{align}
+					s(t) = A \cos(\omega t + \theta) = \underbrace{\frac A2 e^{i  \theta}}_{c_1} e^{i \omega t} + \underbrace{\frac A2 e^{-i \theta}}_{c_{-1}} e^{i \omega t}.
+				\end{align}
+				
+				\paragraph{Characteristic properties of sinusoidal signals}
+					\begin{itemize}
+						\item $\Av{s(t)} = 0,$
+						\item $R(\tau) = (A^2/2) \cos(\omega \tau) \implies$ autocorrelation function doesn't depend on the initial phase shift,
+						\item $P = A^2/2.$
+					\end{itemize}
+				
+				\paragraph{Characteristic properties of comples exponential signals}
+					\begin{itemize}
+						\item $R(\tau) = |A|^2 e^{i \omega \tau},$
+						\item $P = |A|^2.$
+					\end{itemize}
+				
+			\subsection{Sinusoidal signals and complex exponential in discrete-time}
+				
+				We can of course also deal with sinusoidal (and complex exponential) signals in discrete-time, which we define in a similar manner\footnote{here, we distinguish angular frequency $\Omega = 2 \pi F = 2 \pi / N_0$ from the case of continuous-time}:
+				\begin{align}
+					\label{def:dtcomplexp}
+					s[k] = A e^{i (\Omega k + \theta)} = A \cos(\Omega k + \theta) + i A \sin(\Omega k + \theta).
+				\end{align}
+				real-valued (sinusoidal, harmonic) signals:
+				\begin{align}
+					\label{def:dtsin}
+					s[k] = A \cos(\Omega k + \theta).
+				\end{align}
+				Sinusoidal signals are not necessarily periodic. There is a condition a sinusoidal signal must satify in order to be periodic. The condition is
+				\begin{align}
+					F = \frac{m}{N_0}.
+				\end{align}
+	
+	
+	
+	\chapter{Signals as elements of Hilbert space}
+	\epigraph{
+		Every kind of science, if it has only reached a certain degree of maturity, automatically becomes a part of mathematics.
+	}{David Hilbert}
+		
+		\section{Hilbert spaces}
+			
+			\subsection{Motivation}
+				
+				Why do we even bother representing signals (functions) as elements of a vector space? Every vector space has some very convenient properties, namely having a basis. That means that we can express any element of the given space as a linear combination of basis vectors
+				\begin{align}
+					\vec x = \sum_{i} x_i \vec x_i.
+				\end{align}
+				We will specifically use an infinite-dimensional Hilbert function space:
+				\begin{align}
+					\label{eq:lincomb}
+					s(t) = \sum_{i} \alpha_n \varphi_n(t).
+				\end{align}
+				
+				Hilbert space is a very advantageous place to be in, because it is a real or complex inner product space (meaning that on every Hilbert space $\mathcal H$, we define an inner product associating a complex number to each pair of elements of $\mathcal H$) that is also a complete metric space with respect to the distance function induced by the inner product. The most important property of a Hilbert space is without a doubt the fact that 'inherently' contains the desired mapping: \textit{inner product}. \\
+				Inner product (on a Hilbert space $\mathcal H$) is a mapping
+				\begin{align}
+					\mathcal H \times \mathcal H \to \mathbb C
+				\end{align}
+				defined axiomatically by its properties:
+				\begin{subequations}
+					\begin{align}
+						\bracket{\alpha \vec x + \beta \vec y}{\vec z} &= \alpha \bracket{\vec x}{\vec z} + \beta \bracket{\vec y}{\vec z}
+					\\
+						\bracket{\vec x}{\vec y} &= \overline{\bracket{\vec y}{\vec x}}
+					\\
+						\bracket{\vec x}{\vec x} &\geq 0 \quad \& \quad \bracket{\vec x}{\vec x} = 0 \; \iff \; \vec x = \vec 0,
+					\end{align}
+				\end{subequations}
+				where $\vec x, \vec y, \vec z \in \mathcal H$ and $\alpha, \beta \in \mathbb C$ We name those properties respectively: sesquilinearity (linearity in one of its arguments (we use linearity in the first argument here as mathematicians do), antilinearity in the other one), conjugate symmetry and positive-definiteness. \\
+				The inner product also naturally induces two more (real-valued) functions: \textit{norm} and \textit{distance} (each of them has their own axiomatic definitions, but since here they're induced by the inner product, we prefer to shorten their definitions)
+				\begin{align}
+					\norm{\vec x} &\coloneqq \sqrt{\bracket{\vec x}{\vec x}},
+				\\
+					d(\vec x, \vec y) &\coloneqq \norm{\vec x - \vec y}.
+				\end{align}
+				
+			\subsection{Applying Hilbert space to signals}
+				
+				First of all, we will utilize the linear combinations. Unfortunately for us, we will not always use \textit{complete} systems of basis functions to express the signal, thus we'll have to settle with a 'mere approximation'
+				\begin{align}
+					\label{eq:sigexpansion}
+					s \approxeq \sum_n \alpha_n \varphi_n,
+				\end{align}
+				where $\{ \varphi_n \}_n$ is of course our system of basis functions and $\alpha_n \in \C$ are expansion coefficients, which we choose very carefully to minimize energy of the error function
+				\begin{align}
+					s_e = s - \sum_n \alpha_n \varphi_n.
+				\end{align}
+				The best way to minimize the error energy is to compute the coefficient using the orthogonal projection
+				\begin{align}
+					\label{eq:signalorthogonalprojection}
+					\alpha_n = \frac{\bracket{s}{\varphi_n}}{\norm{\varphi_n}^2}.
+				\end{align}
+				
+				Since (for continuous-time signals) we are interested in the Hilbert \textit{function} space $L^2$ of quadratically integrable functions, the explicit mapping of inner product on such space is defined as
+				\begin{align}
+					\bracket{f(t)}{g(t)} \coloneqq \int_\R f(t) g^*(t) \: \d t.
+				\end{align}
+				Thus we can represent signal energy as an inner product (from the definition of signal energy):
+				\begin{align}
+					\label{eq:innerproductenergy}
+					E &= \int_\R |s(t)|^2 \: \d t = \bracket{s(t)}{s(t)} = \norm{s(t)}^2,
+				\\
+					\label{eq:innerproductmutualtenergy}
+					E_{12} &= \int_\R s_1(t) s_2^*(t) \: \d t = \bracket{s_1(t)}{s_2(t)}.
+				\end{align}
+				
+				In case discrete-time signals, we are dealing with vectors of a generally complex coordinate space $\mathbb C^n$, where inner product is defined differently (in the first row, there is general formula and in the second I consider a standart complex inner product with metric tensor $\vec G = \vec E_n$)\footnote{to use our discrete-time convention: $\bracket{f[n]}{g[n]} \coloneqq  \sum_{n} f[n] g^*[n]$ when regarding discrete-time signals (this is how we had it in the lectures)}:
+				\begin{align}
+					\bracket{\vec x}{\vec y} \coloneqq \vec y^\dagger \cdot \vec G \cdot \vec x = \overline{\vec x^\dagger \cdot \vec G \cdot \vec y},
+				\\
+					\bracket{\vec x}{\vec y} = \sum_{i} x_i y_i^*
+				\end{align}
+				but fortunatelly, the correlation with energy remains even in this domain:
+				\begin{align}
+					E &= \sum_{k \in \Z} |s[k]|^2 = \bracket{s[k]}{s[k]} = \norm{s[k]}^2,
+				\\
+					E_{12} &= \sum_{k \in \Z} s_1[k] s_2^*[k] = \bracket{s_1[k]}{s_2[k]}.
+				\end{align}
+				
+				Using this convinient similarity of the inner product and energy, we can reformulate \eqref{eq:signalorthogonalprojection} in the language of signal energies:
+				\begin{align}
+					\alpha_n = \frac{\bracket{s}{\varphi_n}}{\norm{\varphi_n}^2} = \frac{E_{s}{\varphi_n}}{E_{\varphi_n}}.
+				\end{align}
+				So now that we know that, it becomes clear, what in \eqref{eq:signalorthogonalprojection} was in the terms of minimizing the error signal energy.
+				
+				Even better it gets, when we work with a \textit{complete} system of basis functions. That means that exactly zero error function had been mathematically granted to us, thus the approximation \eqref{eq:sigexpansion} ceases to be just an approximation and becomes an identity:
+				\begin{align}
+					s &= \sum_n \alpha_n \varphi_n,
+				&
+					s_e &= 0.
+				\end{align}
+				Under such circumstances, we can derive the so called \textit{Parseval's theorem}, which we'll see in practice a lot later:
+				\begin{align}
+					E_s = \sum_n |c_n|^2 E_{\varphi_n}.
+				\end{align}
+				
+				So now, since we've introduced ourselves to the new mathematic possibilities, let's try to apply them a bit more widely to the area of Signals of Systems.
+				
+				In the terms of Signals and Systems, linear combination, such as \eqref{eq:lincomb}, will be useful once we'll be talking about Fourier series or sampling.
+				
+				\paragraph{Orthogonal expansion} is one of the applications of linear combinations, where we represent a given signal as a sum of mutually orthogonal signals.
+				\begin{align}
+					\label{def:orthogonalexpansion}
+					s(t) &= \sum_{i} \alpha_n \varphi_n(t),
+				&
+					\bracket{\varphi_i(t)}{\varphi_j(t)} &=
+						\left\{ \begin{matrix}
+							\norm{\varphi_i(t)}^2, & \mathrm{if} \; j = i, \\
+							0, & \mathrm{otherwise}.
+						\end{matrix} \right.
+				\end{align}
+				
+				Again, in the terms of Signals and Systems, it is particularly useful for \textit{unique mapping of signals between domains} (a transform, so to say). In that case, it is sufficient to represent the signal using \textit{expansion coefficients}. \\
+				Coefficients of the orthogonal expansion are unique and can be determined using the \textit{orthogonal projection} of the signal into one of the basis signals
+				\begin{align}
+					\label{def:ortproj}
+					\alpha_i = \frac{\bracket{s(t)}{\varphi_i(t)}}{\norm{\varphi_i(t)}^2}.
+				\end{align}
+			
+		\section{Orthogonal systems}
+		
+			By an \textit{orthogonal system}, we mean a system of functions $\{\varphi_n(t)\}_{n=n_0}^{n_0+K-1}$, where $\varphi_n(t) \in L^2$ are orthogonal functions on a given interval. The system is further called \textit{orthonormal}, if $\norm{\varphi_n(t)} = 1$ is true for every $n \in \{ n_0, \cdots, n_0+K-1 \}.$
+				
+			\subsection{Common instances of orthogonal systems:}
+				
+				\subsubsection{Trigonometric}
+				
+					Trigonometric system is a system orthogonal on the interval of lenght $T_0 = 2 \pi / \omega_0$ and its energy in the interval of orthogonality is $E_0 = T_0; E_n = T_0/2, n \not= 0$. The system:
+					\begin{align}
+						\label{eq:trigorthsys}
+						\{\varphi_n(t)\}_{n=n_0}^{n_0+K-1} = \{1\} \cup \left\{ \cos(n \omega_0 t) \right\}_{n=1}^{\infty} \cup \left\{ \sin(n \omega_0 t) \right\}_{n=1}^{\infty}.
+					\end{align}
+					
+				\subsubsection{Complex exponential}
+					
+					Exponential system in an extremely useful system to work with, thanks to its comfortable handling during calculations. It is orthogonal on the interval of lenght $T_0 = 2 \pi / \omega_0$ (resp. $N_0 = 2 \pi / \Omega_0$) and its energy in the interval of orthogonality is $E_n = T_0, n \not= 0$ (resp. $E_n = N_0, n \not= 0$). The system (basis functions, expansion coefficients, Parseval):
+					\begin{align}
+						\label{eq:ctexporthsys}
+						\{\varphi_n^{CT}(t)\}_{n=n_0}^{n_0+K-1} &= \left\{ e^{i \omega_n t} \right\}_{n \in \Z} = \left\{ e^{i n \omega_0 t} \right\}_{n \in \Z},
+					\\
+						c_n &= \frac{1}{T_0} \int_{0}^{T_0} s(t) e^{-i \omega_n t} \: \d t,
+					\\
+						\int_{(T_0)} |s(t)|^2 \: \d t &= T_0 \sum_{n \in \Z} |c_n|^2.
+					\end{align}
+					\begin{align}
+						\label{dtexportthsys}
+						\{\varphi_n^{DT}[k]\}_{n=n_0}^{n_0+K-1} &= \left\{ e^{i \Omega_n k} \right\}_{n \in \Z} = \left\{ e^{i n \Omega_0 k} \right\}_{n \in \Z},
+					\\
+						d_n &= \frac{1}{N_0} \sum_{k=0}^{N_0-1} s[k] e^{-i \Omega_n k},
+					\\
+						\sum_{k=0}^{N_0-1} |s[k]|^2 &= N_0 \sum_{n=0}^{N_0-1} |d_n|^2.
+					\end{align}
+					
+				\subsubsection{Sample function}
+					
+					Sample function system is a system orthogonal on the interval $\R$ and its energy in the interval of orthogonality is $E_n = T_s$. It is an important one because it is a complete orthogonal system used for continuous-time bandlimited signal sampling. The system (basis functions, expansion coefficients, Parseval):
+					\begin{align}
+						\label{eq:saorthsys}
+						\{\varphi_n(t)\}_{n=n_0}^{n_0+K-1} &= \left\{ \Sa\( \frac{\pi}{T_s} (t-nT_s) \) \right\}_{n \in \Z},
+					\\
+						s(n) &= s(nT_s),
+					\\
+						\int_\R |s(t)|^2 \: \d t &= T_s \sum_{k \in \Z} |s[k]|^2.
+					\end{align}
+				
+				\noindent(other honorable mentions: Legendre polynomials, Walsh, etc.)
+				
+			
+		
+	\chapter{Spectral analysis of signals}
+	\epigraph{
+		This is a fucking hefty one. Better buckle up before you go apeshit from all that Fourier fuckery.
+	}{Don't hate me, hate SAS}
+			
+		\section{Generalized Fourier series (FS)}
+			
+			\subsection{Generalized Fourier series in continuous-time}
+				
+				Expansion of a signal based on the special properties of a complete orthogonal system of functions
+				\begin{align}
+					\label{def:ctgfs}
+					s(t) &\approxeq \sum_{n=n_0}^{n_0+K-1} c_n \varphi_n(t),
+				&
+					t &\in I.
+				\end{align}
+				Evaluation of Fourier coefficients
+				\begin{align}
+					\label{def:ctgfscoeffs}
+					c_n \coloneqq \frac{1}{E_n} \int_{(I)} s(t) \varphi_n^*(t) \: \d t. 
+				\end{align}
+				For the given complete orthogonal system and energy signal, we demand \textit{norm convergence}
+				\begin{align}
+					\label{eq:ctnormconv}
+					\lim\limits_{K \to \infty} \int_{(I)} \left| s(t) - \sum_{n=n_0}^{n_0+K-1} c_n \varphi_n(t) \right|^2 \: \d t = \lim\limits_{K \to \infty} \Delta E_K = 0.
+				\end{align}
+				Parseval's identity
+				\begin{align}
+					\label{ctpars}
+					\int_{(I)} |s(t)|^2 \: \d t = \sum_{n=n_0}^{\infty} |c_n|^2 E_n.
+				\end{align}
+				
+			\subsection{Generalized Fourier series in discrete-time}
+				
+				Very similarly, we define the Generalized Fourier series for signals of discrete-time. This time we have a complete orthogonal system of sequences $\{ \varphi_n[k] \}_{n=n_0}^{n_0+K-1}$, where
+				\begin{align}
+					\label{def:dtgfs}
+					s[k] &\approxeq \sum_{n=n_0}^{n_0+K-1} c_n \varphi_n[k],
+				&
+					k &\in \{ k_a, \cdots, k_b \} = \{ k_a, \cdots, k_a+N-1 \},
+				\end{align}
+				evaluation of Fourier coefficients
+				\begin{align}
+					\label{def:dtgfscoeffs}
+				c_n \coloneqq \frac{1}{E_n} \sum_{k=k_a}^{k_b} s[k] \varphi_n^*[k],
+				\end{align}
+				convergence
+				\begin{align}
+					\label{eq:dtnormconv}
+					\sum_{k=k_a}^{k_a+N-1} \left| s[k] - \sum_{n=n_0}^{n_0+K-1} c_n \varphi_n[k] \right|^2 = 0.
+				\end{align}
+				Parseval's identity
+				\begin{align}
+					\label{dtpars}
+					\sum_{k=k_a}^{k_a+N-1} |s[k]|^2 = \sum_{n=n_0}^{n_0+N-1} |c_n|^2 E_n.
+				\end{align}
+				
+			\subsection{Types of Fourier series}
+				
+				We recognise many various types of Fourier series, according to the orthogonal systems they're based on. Here, we list some of the most usual types, which we will also use in applications.
+				
+				\subsubsection{Complex Fourier series}
+					
+					Based on the complex exponential orthogonal system, we can define with a suitable approximation $T_0 = 2 \pi / \omega_0$ Fourier expansion (common use in case of complex signals)
+					\begin{align}
+						\label{eq:complexpfs}
+						s(t) &= \sum_{n \in \Z} c_n e^{i n \omega_0 t},
+					\\
+						c_n &= \frac{1}{T_0} \int_{(T_0)} s(t) e^{-i n \omega_0 t} \: \d t.
+					\end{align}
+					For real-valued signals, we can show that
+					\begin{align}
+						c_{-n} = c_n^*.
+					\end{align}
+					That of course implies parities in certain spectra of the signal
+					\begin{align}
+						|c_{-n}| &= |c_n|, & \arg[c_{-n}] = -\arg[c_n].
+					\end{align}
+					So by that we of course mean even symmetry in the amplitude spectrum and an odd symmetry in the phase spectrum. More advantages of real-valued signals:
+					\begin{align}
+					s(t) &= \sum_{n \in \Z} \underbrace{|c_n| \cos(n \omega_0 + \arg(c_n))}_{\mathrm{even}} + i \sum_{n \in \Z} \underbrace{|c_n| \sin(n \omega_0 + \arg(c_n))}_{\mathrm{odd}} =
+					\\[5mm]
+					&= \sum_{n \in \Z} |c_n| \cos(n \omega_0 + \arg(c_n)) = \sum_{n \in \N_0} A_n \cos(n \omega_0 t + \varphi_n),
+					\end{align}
+					\begin{align}
+						A_n &= \left\{ \begin{matrix}
+								|c_0|, & n = 0, \\
+								2 |c_n|, & n > 0,
+							\end{matrix} \right.
+					&
+						\varphi_n = \arg(c_n).
+					\end{align}
+					
+					From the relations above, we can see that Trigonometric Fourier series can be interpreted as a real-valued case of Complex exponential Fourier series. To top it all off, we can also express Parseval's identity for this case of orthogonal expansion:
+					\begin{align}
+						\label{eq:complexppars}
+						\int_{(T_0)} |s(t)|^2 \: \d t = T_0 \sum_{n=n_0}^{\infty} |c_n|^2.
+					\end{align}
+					
+				\subsubsection{Trigonometric Fourier series}
+					
+					Based on the trigonometric orthogonal system, we can define with a suitable approximation $T_0 = 2 \pi / \omega_0$ Fourier expansion (common use in case of real signals)
+					\begin{align}
+					\label{def:trigfs}
+					s(t) &= \sum_{n \in \N_0} A_n \cos(n \omega_0 t + \varphi_n)
+					\end{align}
+					or
+					\begin{align}
+						\label{def:sincosfs}
+						s(t) &= \frac{a_0}{2} + \sum_{n \in \N} a_n \cos(n \omega_0 t) + b_n \sin(n \omega_0 t),
+					\\
+						a_n &= \frac{2}{T_0} \int_{(T_0)} s(t) \cos(n \omega_0 t) \: \d t
+					&
+						n &= 0, 1, 2, \cdots,
+					\\
+						b_n &= \frac{2}{T_0} \int_{(T_0)} s(t) \sin(n \omega_0 t) \: \d t,
+					&
+						n &= 1, 2, 3, \cdots.
+					\end{align}
+					Relations between coefficients $a_n, b_n$ and $A_n$ are
+					\begin{align}
+						a_n &= \left\{ \begin{matrix}
+								2 A_0, & n = 0, \\
+								A_n \cos(\varphi_n), & n > 0,
+							\end{matrix} \right.
+					\\
+						b_n &= -A_n \sin(\varphi_n).
+					\end{align}
+					
+				
+			\subsection{Spectra generated by Fourier series}
+				
+					The transform itself of course naturally generates a spectrum: a sequence of its coefficients
+					\begin{align}
+						\label{def:basespec}
+						\{ c_n \}_{n \in \Z},
+					\end{align}
+					which, for real-valued signals, holds a conjugate symmetry ($c_{-n} = c_n^*$).
+					
+					However, we can utilize Fourier coefficients in a less obvious manner and that is for example to construct the \textit{amplitude spectrum}
+					\begin{align}
+						\label{def:ampspec}
+						\{ |c_n| \}_{n \in \Z},
+					\end{align}
+					which holds an even symmetry ($|c_{-n}| = |c_{n}|$) for real-valued signals. The \textit{phase spectrum}
+					\begin{align}
+						\label{def:phasespec}
+						\{ \arg(c_n) \}_{n \in \Z},
+					\end{align}
+					on the other hand, holds an odd symmetry ($\arg(c_{-n}) = -\arg(c_n)$) in the case of real-valued signals. \textit{Power spectrum} is another one with an even symmetry ($|c_{-n}|^2 = |c_n|^2$) for real-valued signals
+					\begin{align}
+						\label{def:powerspec}
+						\{ |c_n|^2 \}_{n \in \Z}.
+					\end{align}
+					
+					In the language of the power spectrum, we can for example once again reformulate the Parseval's identity:
+					\begin{align}
+						P \coloneqq \Av{|s(t)|^2} = \sum_{n \in \Z} |c_n|^2.
+					\end{align}
+					
+					In terms of the autocorrelation function, we can also find an interesting way to utilize the power spectrum:
+					\begin{align}
+						|c_n|^2 &= \frac{1}{T_0} \int_{(T_0)} R(\tau) e^{-i n \omega_0 \tau} \: \d t,
+					\\
+						R(\tau) &= \sum_{n \in \Z} |c_n|^2 e^{i n \omega_0 \tau}.
+					\end{align}
+					
+				\subsection{Bandwidth and amplitude spectrum}
+					
+					Let's assume a signal with continuous $(k-1)$th derivative, piece-wisely continuous $k$th derivative and without Dirac deltas ($|c_n| \to 0$ as $n \to \pm \infty$). Then we can find an upper bound of the amplitude spectrum, i.e.
+					\begin{align}
+						|c_n| &\leq \frac{M}{|n|^{k+1}},
+					&
+						M &< \infty.
+					\end{align}
+					Or if we would try to interpret this result with words: the smoother the signal (higher $k$), the narrower the amplitude spectrum. As a direct logical consequence of this, we can approximate a periodic signal as
+					\begin{align}
+						\hat s(t) = \sum_{n = -N}^{N} c_n e^{i n \omega_0 t},
+					\end{align}
+					where, for signals with finite bandwidth (bandlimited) signals, $B = N/T_0 = N f_0$.
+					
+				
+			\section{Fourier series of discrete-time periodic signal (DFS)}
+				
+				For a discrete-time periodic signal such as \eqref{def:dtper}, we can approximate it using the Fourier expansion (for all $m \in \Z$)\footnote{$\sum_{(N_0)} = \sum_{k = k_0}^{k_0+N_0-1}$}
+				\begin{align}
+					\label{def:dfs}
+					d_n &= \dfs{s[k]} = \frac{1}{N_0} \sum_{(N_0)} s[k] e^{-i n \Omega_0 k} = d_{n+mN_0},
+				\\
+					\label{def:idfs}
+					s[k] &= \idfs{d_n} = \sum_{(N_0)} c_n e^{i n \Omega_0 k},
+				\end{align}
+				with fundamental frequency $\Omega_0 = 2 \pi F_0 = 2 \pi / N_0$.
+				
+				\subsection{DFS as a sampling of a continuous-time signal}
+					Basically, we can define a discrete-time signal as a sequence of samples of continuous-time periodic signal
+					\begin{align}
+						s_d[k] = s(kT_s),
+					\end{align}
+					where $s$ has a period $T_0$, we sample it with the sampling period $T_s$ and period of $s_d$ is $N_0$. Sampling period is defined
+					\begin{align}
+						\label{def:sampleper}
+						T_0 = N_0 T_s.
+					\end{align}
+					
+					With such defined signal, we can explore its properties, starting with the Fourier expansion:
+					\begin{align}
+						s_d[k] = s(kT_s) = \sum_{n \in \Z} c_n e^{i n \omega_0 kT_s} = \sum_{n \in \Z} c_n e^{i n \frac{2 \pi}{T_0} kT_s} = \sum_{n \in \Z} c_n e^{i n \frac{2 \pi}{N_0} k}.
+					\end{align}
+					Evaluation of Fourier coefficients:
+					\begin{align}
+						d_n = \sum_{m \in \Z} c_{n+mN_0}.
+					\end{align}
+					
+					\paragraph{Sampling theorem} is a theorem stating under which circumstances can be a bandlimited signal fully reconstructed from its spectrum without occuring of \textit{aliasing} (spectral overlapping in the DFS spectrum). The requirements are met, when we fulfill the \textit{sampling condition}:
+					\begin{align}
+						f_s \geq 2 f_{max} + \frac{1}{T_0}.
+					\end{align}
+					
+				
+			\section{Fourier transform (FT)}
+					
+				\subsection{Fourier transform as a Fourier series of nonperiodic signal}
+					
+					In this subsection, we will prepare the grounds for analysis of nonperiodic signals using the already known apparatus. First of all, let's assume we have a nonperiodic signal as a limit case of a finite signal
+					\begin{align}
+						s(t) &= \lim\limits_{T \to \infty} s_T(t),
+					&
+						s_T(t) &= \left\{ \begin{matrix}
+								s(t), & |t| \leq T/2, \\
+								0, & |t| > T/2.
+							\end{matrix} \right.
+					\end{align}
+					When we apply the tools of the Fourier series, after a wee bit of math-play, it boils down to the definitions of the \textit{Fourier transform} and \textit{Inverse Fourier transform}:
+					\begin{align}
+						\label{def:ft}
+						S(\omega) &\equiv \fourier{s(t)}{\omega} \coloneqq \int_\R s(t) e^{-i \omega t} \: \d t,
+					\\
+						\label{def:ifs}
+						s(t) &\equiv \ifourier{S(\omega)}{t} \coloneqq \frac{1}{2 \pi} \int_\R S(\omega) e^{i \omega t} \: \d \omega.
+					\end{align}
+					Or we can reformulate the transforms for frequencies:
+					\begin{align}
+						S(f) &= \int_\R s(t) e^{-i 2 \pi f t} \: \d t,
+					\\
+						s(t) &= \int_\R S(f) e^{i 2 \pi f t} \: \d f.
+					\end{align}
+					
+				\subsection{Spectra generated by Fourier transform}
+					
+					The spectra are very similar to the ones generated by Fourier series, so we will just go through that rather quickly. Of course we have the default spectrum  of the signal
+					\begin{align}
+						S(\omega) &= \fourier{s(t)}{\omega} = \int_\R s(t) e^{-i \omega t} \: \d t,
+					\end{align}
+					which holds a conjugate symmetry ($S(-\omega) = S^*(\omega)$) in the case of real-valued signals. Amplitude spectrum once again with an even symmetry ($|S(-\omega)| = |S(\omega)|$) is defined similarly:
+					\begin{align}
+						|S(\omega)| &= |\fourier{s(t)}{\omega}|.
+					\end{align}
+					Phase spectrum with an odd symmetry ($\arg(S(-\omega)) = -\arg(S(\omega))$) as well:
+					\begin{align}
+						\arg(S(\omega)) &= \arg(\fourier{s(t)}{\omega}]).
+					\end{align}
+					
+				\subsection{Energy spectral density}
+					
+					Energy spectral density is a new useful quantity, which can tell us, how the energy of a signal is distributed with frequency. Energy of a \textit{bandlimited} signal
+					\begin{align}
+						s(t, \omega_1, \omega_2) &= \frac{1}{2 \pi} \int_{\omega_1}^{\omega_2} S(\omega) e^{i \omega t} \: \d \omega
+					\end{align}
+					is
+					\begin{align}
+						E(\omega_1, \omega_2) &= \frac{1}{2 \pi} \int_{\omega_1}^{\omega_2} |S(\omega)|^2 \: \d \omega.
+					\end{align}
+					Generally the signal energy can be calculated
+					\begin{align}
+						E = \frac{1}{2 \pi} \int_\R \underbrace{|S(\omega)|^2}_{C(\omega)} \: \d \omega,
+					\end{align}
+					where $C(\omega)$ is the $\textit{energy spectral density}$ of the signals. It is always real-valued and holds an even symmetry ($C(\omega) = |S(\omega)|^2$) for real signals. Via the new quantity, we can again reformulate Parseval's theorem:
+					\begin{align}
+						E = \int_\R |s(t)|^2 \: \d t = \frac{1}{2 \pi} \int_\R |S(\omega)|^2 \: \d \omega = \frac{1}{2 \pi} \int_\R C(\omega) \: \d \omega.
+					\end{align}
+					Relation between autocorrelation function and energy spectral density: $C(\omega) = \fourier{R(\tau)}{\omega}$.
+					
+				\subsection{Power spectral density}
+					
+					The situation is quite similar for power signals. We can define a new quantity \textit{power spectral density}, which tells us, how the power of a signal is distributed with frequency. Let's assume a finite signal
+					\begin{align}
+						s_T(t) &= \left\{ \begin{matrix}
+							s(t), & |t| \leq T/2, \\
+							0, & |t| > T/2.
+						\end{matrix} \right.
+					\end{align}
+					Power spectral density:
+					\begin{align}
+						C(\omega) = \lim\limits_{T \to \infty} \frac 1T |S_T(\omega)|^2 = \lim\limits_{T \to \infty} \frac 1T |\fourier{s_T(t)}{\omega}|^2 = \lim\limits_{T \to \infty} \frac 1T \left| \int_{-T/2}^{T/2} s_T(t) e^{-i \omega t} \: \d t \right|^2.
+					\end{align}
+					Then the power of the signal is
+					\begin{align}
+						P = \frac{1}{2 \pi} \int_\R \lim\limits_{T \to \infty} \frac 1T |S_T(\omega)|^2 \: \d \omega = \frac{1}{2 \pi} \int_\R C(\omega) \: \d \omega.
+					\end{align}
+					
+				\subsection{Bandwidth and amplitude spectrum}
+				
+					Let's assume a signal with continuous $(k-1)$th derivative, piece-wisely continuous $k$th derivative and without Dirac deltas ($|S(\omega)| \to 0$ as $\omega \to \infty$). Then we can find an upper bound of the amplitude spectrum, i.e.
+					\begin{align}
+						|S(\omega)| &\leq \frac{M}{|\omega|^{k+1}},
+					&
+						M &< \infty.
+					\end{align}
+					Or if we would try to interpret this result with words: the smoother the signal (higher $k$), the faster the fall of the amplitude spectrum. As a direct logical consequence of this, we can approximate a bandlimited signal as
+					\begin{align}
+						\hat s(t) = \frac{1}{2 \pi} \int_{-2 \pi B}^{2 \pi B} S(\omega) e^{i \omega t} \: \d \omega,
+					\end{align}
+					where $B$ is the finite bandwidth of the signal.
+					
+				
+			\section{Discrete-time Fourier transform (DtFT)}
+				
+				\subsection{Discrete-time Fourier transform as a Fourier series of nonperiodic discrete-time signal}
+					
+					Again, now we'll be preparing the grounds (also in a similar fashion as the last time). Let's assume a signal nonperiodic signal as a limit case of a finite signal
+					\begin{align}
+						s[k] &= \lim\limits_{N \to \infty} s_N[k],
+					&
+						s_N[k] = \left\{ \begin{matrix}
+								s[k], & |k| \leq N,
+							\\
+								0, & |k| > N.
+							\end{matrix} \right.
+					\end{align}
+					Just as the last time, we now apply the Fourier series and with a wee bit of patience, we get the Fourier transform of the signal
+					\begin{align}
+						\label{def:dtft}
+						S(\Omega) &\equiv \fourier{s[k]}{\Omega} \coloneqq \sum_{k \in \Z} s[k] e^{-i \Omega k},
+					\\
+						\label{def:idtft}
+						s[k] &\equiv \ifourier{S[\Omega]}{k} \coloneqq \frac{1}{2 \pi} \int_{(2 \pi)} S(\Omega) e^{i \Omega k} \: \d \Omega.
+					\end{align}
+					
+				\subsection{Spectra generated by discrete-time Fourier transform}
+				
+					The spectra are very similar to the ones generated by discrete-time Fourier series and Fourier transform, so we will just go through that rather quickly. Of course we have the default spectrum  of the signal
+					\begin{align}
+						S(\Omega) = \fourier{s[k]}{\Omega} = \sum_{k \in \Z} s[k] e^{-i \Omega k},
+					\end{align}
+					which holds a conjugate symmetry ($S(-\Omega) = S^*(\Omega)$) in the case of real-valued signals. Amplitude spectrum once again with an even symmetry ($|S(-\Omega)| = |S(\Omega)|$) is defined similarly:
+					\begin{align}
+						|S(\Omega)| &= |\fourier{s[k]}{\Omega}|.
+					\end{align}
+					Phase spectrum with an odd symmetry ($\arg(S(-\Omega)) = -\arg(S(\Omega))$) as well:
+					\begin{align}
+						\arg(S(\Omega)) &= \arg(\fourier{s[k]}{\Omega}).
+					\end{align}
+					
+				\subsection{Energy spectral density}
+					
+					The energy spectral density is defined in the same manner as in the continuous-time case, so we'll just lay down the Parseval's theorem, which summs it all up quite neatly, and a few more equations:
+					\begin{align}
+						E &= \sum_{k \in \Z} |s[k]|^2 = \frac{1}{2 \pi} \int_{(2 \pi)} \underbrace{|S(\Omega)|^2}_{C(\Omega)} \: \d \Omega = \frac{1}{2 \pi} \int_{(2 \pi)} C(\Omega) \: \d \Omega,
+					\end{align}
+					\begin{align}
+						C(\Omega) &= |S(\Omega)|^2 = \fourier{R[m]}{\Omega}.
+					\end{align}
+					To top it off, we add that the even symmetry of energy spectral density regarding real-valued signals works for discrete-time as well.
+					
+				\subsection{Power spectral density}
+					
+					\begin{align}
+						s_N[k] = \left\{ \begin{matrix}
+								s[k], & |k| \leq N,
+							\\
+								0, & |k| > N.
+							\end{matrix} \right.
+					\end{align}
+					\begin{align}
+						C(\Omega) &= \lim\limits_{N \to \infty} \frac{1}{2N+1} |S_N(\Omega)|^2 = \lim\limits_{N \to \infty} \frac{1}{2N+1} |\fourier{s_N[k]}{\Omega}|^2
+					\\
+						&= \lim\limits_{N \to \infty} \frac{1}{2N+1} \left| \sum_{k = -N}^{-N} s[k] e^{-i \Omega k} \right|^2.
+					\end{align}
+					\begin{align}
+						P = \frac{1}{2 \pi} \int_{(2 \pi)} \lim\limits_{N \to \infty} \frac{1}{2N+1} |S_N(\Omega)|^2 \: \d \Omega = \frac{1}{2 \pi} \int_{(2 \pi)} C(\Omega) \: \d \Omega.
+					\end{align}
+					
+			\section{Sampled signal and its spectrum}
+				
+				\subsection{continuous-time signal and spectrum of its samples}
+					
+					Now, we'll try to use the discrete-time Fourier Transform to analyze a sampled continuous-time signal. Let's take a continuous-time signal and sample it with sample period $T_s$, i.e.
+					\begin{align}
+						s_d[k] = s(kT_s)
+					\end{align}
+					Now, as I said earlier, we will use the discrete-time Fourier transform to create a spectrum of the sampled signal. After a wee bit of mathematics, we get
+					\begin{align}
+						S_d(\Omega) &= \frac{1}{T_s} \sum_{k \in \Z} S \( \frac{\Omega}{T_s} + m \omega_s \),
+					&
+						\omega_s &\equiv \frac{2 \pi}{T_s}.
+					\end{align}
+					
+				\paragraph{Shannon sampling theorem} (Whittaker-Nyquist-Kotelnikov-Shannon theorem in its fullest name) is a theorem, which serves as a fundamental bridge between continuous-time signals and discrete-time signals. It establishes a sufficient condition for a sample rate that permits a discrete sequence of samples to capture all the information from a continuous-time signal of finite bandwidth. So to say:
+				\begin{align}
+					\omega_s \geq 2 \omega_{max} \implies \text{no overlapping occurs}.
+				\end{align}
+				To take care of that, we define \textit{Nyquist rate} as the minimal sample rate when \textit{aliasing} does not yet occur:
+				\begin{align}
+					f_s = 2 f_{max}.
+				\end{align}
+				
+				\paragraph{Interpolation} is a procces of reconstruction of a bandlimited continuous-time signal from its samples.
+				\begin{align}
+					s(t) = \sum_{k \in \Z} s_d[k] \Sa \( \frac{\omega_s}{2} (t - kT_s) \) = \sum_{k \in \Z} s(kT_s) \Sa \( \frac{\omega_s}{2} (t - kT_s) \).
+				\end{align}
+				
+			
+		
+	\chapter{Transitioning between Fourier spectra}
+	\epigraph{
+		You thought is was over, huh? Tough shit, monkey. This is even more fucking boring. Let's do the same dogshit four times and change it only a little bit. And then add some more. Suicide will seem reasonable by the end of this fucking chapter.
+	}{Don't kill yourself, you'll go to hell.}
+		
+		\paragraph{So far} we've discovered some very useful tools for frequency analysis of signals:
+		\begin{itemize}
+			\item \textit{Fourier series} (FS) for continuous-time periodic signals,
+			\item \textit{Discrete Fourier series} (DFS) for discrete-time periodic signals,
+			\item \textit{Fourier transform} (FT) for continuous-time general signals,
+			\item \textit{Discrete time Fourier transform} (DtFT) for discrete-time general signals,
+		\end{itemize}
+		but also some relationships between them:
+		\begin{itemize}
+			\item Relationship between FS and DFS: sampling of a periodic signal,
+			\item Relationship between FT and DtFT: sampling of a general signal,
+			\item Relationship between FS and FT: expressing a continuous-time finite signal using spectrum samples,
+			\item Relationship between DFS and DtFT: expressing a discrete-time finite signal using spectrum samples.
+		\end{itemize}
+		This chapter will be all about exploring those connections (especially reversible sampling) a little bit more elaborately.
+		
+		\section{Mutual relationships between transforms}
+		
+			\subsection{Relationship between FS and DFS}
+				
+				\noindent
+				Fourier series (FS)
+				\begin{align}
+					c_n &= \mathrm{FS}\{ s(t) \} = \frac{1}{T_0} \int_{(T_0)} s(t) e^{-in\omega_0 t} \: \d t,
+				\\
+					s(t) &= \mathrm{FS}^{-1}\{ c_n \} = \sum_{n \in \Z} c_n e^{in\omega_0 t}.
+				\end{align}
+				Discrete Fourier series (DFS)
+				\begin{align}
+					d_n &= \mathrm{DFS}\{ s[k] \} = \frac{1}{N_0} \sum_{k=k_0}^{k_0+N_0-1} s[k] e^{-in\Omega_0 k},
+				\\
+					s[k] &= \mathrm{DFS}^{-1} \{ d_n \} = \sum_{n=n_0}^{n_0+N_0-1} d_n e^{in\Omega_0 k}.
+				\end{align}
+				
+				So we know that we can get from Fourier series to the discrete variant via sampling the original (continuous) signal. Is there a way to reconstruct the original signal? \\
+				Let's start sampling a continuous periodic signal $s(t)$ (fundamental period $T_0$, Fourier series spectrum $c_n$) with sampling period $T_s$ to get a discrete periodic signal $s[k]$ (fundamental period $N_0$, Discrete Fourier series spectrum $d_n$). In order for $s[k]$ to be periodic as well, sampling must first satisfy the following condition
+				\begin{align}
+					\frac{mT_0}{T_s} &= N_0, & &N_0 \in \Z, m \in \N.
+				\end{align}
+				This way also, if we narrow it down to the case $m=1$, we can say that $N_0$ is number of samples per fundamental perdio $T_0$ of the original signal. So is there a relationship between $c_n$ and $d_n$? Let's find out \dots
+				
+				For sure, we can express eany discrete-time signal as a chain of Kronecker deltas, so let's do that to our signal $s[k]$ created as a sampled signal $S(t)$ in a sampling rate $s[k] = S(kT_s)$ and expand it into DFS
+				\begin{align}
+					s[k] = \sum_{m \in \Z} \delta[k+mN_0] = \frac{1}{N_0} \sum_{n=n_0}^{n_0+N_0-1} e^{in \frac{2\pi}{N_0} k}.
+				\end{align}
+				Further, we transform $s(t)$ into FS spectrum and look for similarities with the DFS spectrum of the signal $s[k]$. As it turns out, there is a quite simple relation between the spectra of the signals
+				\begin{align}
+					d_n = \sum_{k \in \Z} c_{m-kN_0}.
+				\end{align}
+				
+				\paragraph{Sampling condition} Let s(t) be a bandlimited signal, i.e. there is $N_m$ for which is true that
+				\begin{align}
+					c_n &= 0, & |n| &> N_m.
+				\end{align}
+				That way, if we sample with the condition
+				\begin{align}
+					\label{eq:sampconddfstofs}
+					N_0 \geq 2 N_m + 1,
+				\end{align}
+				then we can calculate $c_n$ from $d_n$. Therefore $s(t)$ can be reconstructed from its samples $s[k]$ and thus it is equivalent to digitally process $s[k]$ instead of processing $s(t)$ (because $s[k]$ fully represents $s(t)$). \\
+				The sampling condition \eqref{eq:sampconddfstofs} can also be reformulated in the language of frequencies or angular frequencies
+				\begin{align}
+					f_s &\geq 2 f_m + f_0, & \omega_s &\geq 2 \omega_m + \omega_0.
+				\end{align}
+				
+				Fulfulling the sampling condition \eqref{eq:sampconddfstofs} (automatically also its variations) thus allows us to reconstruct spectrum of the original signal
+				\begin{align}
+					c_n &= \left\{ \begin{matrix}
+							d_n, & |n| \leq N_m,
+						\\
+							0, & |n| > N_m,
+						\end{matrix} \right.
+				\;\implies\;
+					s(t) = \mathrm{FS}^{-1} \{ c_n \}.
+				\end{align}
+				
+			\subsection{Relationship between FT and DtFT}
+				
+				\noindent
+				Fourier transform (FT)
+				\begin{align}
+					S_c(\omega) &= \mathrm{FT} \{ s(t) \} = \int_\R s(t) e^{-i \omega t} \: \d t,
+				\\
+					s(t) &= \mathrm{FT}^{-1} \{ S(\omega) \} = \frac{1}{2 \pi} \int_\R S(\omega) e^{i \omega t} \: \d \omega.
+				\end{align}
+				Discrete time Fourier transform (DtFT)
+				\begin{align}
+					S_d(\Omega) &= \mathrm{DtFT} \{ s[k] \} = \sum_{k \in \Z} s[k] e^{-i \Omega k},
+				\\
+					s[k] &= \mathrm{DtFT}^{-1} \{ S(\Omega) \} = \frac{1}{2 \pi} \int_{(2 \pi)} S(\omega) e^{i \Omega k} \: \d \Omega.
+				\end{align}
+				
+				Once again, we are onto reconstruction of the original continuous signal using its samples (discrete signal). The derivation is quite similar as with the periodic signals, so we'll take it more quickly. First, we'll express the discrete signal as a chain of, this time, Dirac deltas
+				\begin{align}
+					s(t) = \sum_{m \in \Z} \delta(t+2\pi m) = \frac{1}{2 \pi} \sum_{n \in \Z} e^{int}.
+				\end{align}
+				Further, we take again very similar steps. We convert both signals to their spectra and with a wee bit of mathematical dexterity, we can deduce the relation
+				\begin{align}
+					S_d(\Omega) = \frac{1}{T_s} \sum_{m \in \Z} S \( \frac{\Omega - 2 \pi m}{T_s} \) = \frac{1}{T_s} \sum_{m \in \Z} S \( \frac{\Omega}{T_s} - m \omega_s \).
+				\end{align}
+				
+				\paragraph{Sampling condition} Spectrum of a continuous bandlimited signal $s(t)$ (i.e. $S(\omega) = 0,$ when  $|\omega| > \omega_m,$ for some maximal angular frequency $\omega_m$) can be reconstructed from a spectrum of its samples if
+				\begin{align}
+					\label{eq:sampconddtfttoft}
+					\omega_s &> 2 \omega_m, & f_s &> 2 f_m.
+				\end{align}
+				Again, this implies that we can equivalently digitally process $s[k]$ instead of processing $s(t)$ in its analogue (continuous) form.
+				
+				Fulfulling the sampling condition \eqref{eq:sampconddtfttoft} thus allows us to reconstruct spectrum of the original signal. Procedure to obtain $S_c(\omega)$ from $S_d(\Omega)$
+				\begin{align}
+					S_c(\omega) &= T_s S_d(T_s \omega), & &\omega \in \( -\frac{\omega_s}{2}, \frac{\omega_s}{2} \).
+				\end{align}
+				And finally, we get $s(t)$ (based on the steps $s[k] \to S_d(\Omega) \to S_c(\omega) \to s(t)$) in one final formula as
+				\begin{align}
+					s(t) = \sum_{k \in \Z} s[k] \Sa \( \frac{\omega_s}{2} (t-kT_s) \).
+				\end{align}
+				
+			\subsection{Relationship between FS and FT}
+				
+				\noindent
+				Fourier series (FS)
+				\begin{align}
+				c_n &= \mathrm{FS}\{ s(t) \} = \frac{1}{T_0} \int_{(T_0)} s(t) e^{-in\omega_0 t} \: \d t,
+				\\
+				s(t) &= \mathrm{FS}^{-1}\{ c_n \} = \sum_{n \in \Z} c_n e^{in\omega_0 t}.
+				\end{align}
+				Fourier transform (FT)
+				\begin{align}
+				S_c(\omega) &= \mathrm{FT} \{ s(t) \} = \int_\R s(t) e^{-i \omega t} \: \d t,
+				\\
+				s(t) &= \mathrm{FT}^{-1} \{ S(\omega) \} = \frac{1}{2 \pi} \int_\R S(\omega) e^{i \omega t} \: \d \omega.
+				\end{align}
+				
+				Many times seen trick, when we take a finite continuous signal $s_{fin}(t)$ (spectrum by Fourier transform $S(\omega)$), nonzero on the interval of one period $T_0$ of an another continuous periodic signal (spectrum by Fourier series $d_n$). On the interval of one period ($t \in \( -T_0/2, T_0/2 \)$ in the relation), spectrum of the periodic signal is identical to the spectrum of the finite signal with a correction of a multiplicative constant.
+				\begin{align}
+					s_{per}(t) &= s_{fin}(t), \quad t \in \( -\frac{T_0}{2}, \frac{T_0}{2} \)
+				& \iff & &
+					S(n \omega_0) &= T_0 c_n.
+				\end{align}
+				
+			\subsection{Relationship between DFS and DtFT}
+				
+				\noindent
+				Discrete Fourier series (DFS)
+				\begin{align}
+				d_n &= \dfs{s[k]} = \frac{1}{N_0} \sum_{k=k_0}^{k_0+N_0-1} s[k] e^{-in\Omega_0 k},
+				\\
+				s[k] &= \idfs{d_n} = \sum_{n=n_0}^{n_0+N_0-1} d_n e^{in\Omega_0 k}.
+				\end{align}
+				Discrete time Fourier transform (DtFT)
+				\begin{align}
+				S_d(\Omega) &= \dtft{s[k]} = \sum_{k \in \Z} s[k] e^{-i \Omega k},
+				\\
+				s[k] &= \idtft{S(\Omega)} = \frac{1}{2 \pi} \int_{(2 \pi)} S(\omega) e^{i \Omega k} \: \d \Omega.
+				\end{align}
+				
+				The same trick is applied here. We take a discrete periodic signal $s_{per}[k]$($N_0$, $d_n$) and a discrete finite signal $s_{fin}[k]$ (nonzero value on the interval of one period of $s_{per}[k]$, spectrum $S(\Omega)$). The final relation is
+				\begin{align}
+					s_{per}[k] &= s_{fin}[k], \quad k \in \langle k_0, k_0 + N_0 -1 \rangle
+				& \iff & &
+					S(n \Omega_0) &= N_0 d_n.
+				\end{align}
+				
+			
+		\section{Discrete Fourier transform (DFT)}
+			
+			\textit{Discrete Fourier transform} serves as a complementary tool to easily calculate all the transforms we've encountered before. It is defined as follows
+			\begin{align}
+				\label{def:dft}
+				D[n] &= \dft{d[k]} = \sum_{k=0}^{N-1} d[k] e^{-in \frac{2\pi}{N} k}, & n&=0,1,\dots,N-1,
+			\\
+				\label{def:idft}
+				d[k] &= \idft{D[n]} = \frac 1N \sum_{n=0}^{N-1} D[n] e^{in \frac{2\pi}{N} k}, & k&=0,1,\dots,N-1.
+			\end{align}
+			
+			One of the biggest differences between DFT and any other transform is that this one take in a finite complex-valued sequence and turns it into an another one. At the same time, both sequences are of the same lenght $N$. DFT however shares some similar properties, namely
+			\begin{itemize}
+				\item Linearity
+					\begin{align}
+						\dft{\sum_m a_m d_m[k]} = \sum_m a_m \dft{d_m[k]},
+					\end{align}
+				
+				\item periodicity
+					\begin{align}
+						d[k+mN] &= d[k], & &\forall m \in \Z &\implies& & d[N-k] &= d[k],
+					\\
+						D[n+mN] &= D[n], & &\forall m \in \Z &\implies& & D[N-n] &= D[n];
+					\end{align}
+					
+				\item Parseval's identity
+					\begin{align}
+						\sum_{k=0}^{N-1} |d[k]|^2 = \frac 1N \sum_{k=0}^{N-1} |D[n]|^2;
+					\end{align}
+					
+				\item complex conjugation symmetry
+					\begin{align}
+						\dft{d^*[k]} &= D^*[n],
+					\\
+						\idft{D^*[n]} &= d^*[-k];
+					\end{align}
+					
+				\item relation between forward and inverse DFT
+					\begin{align}
+						\idft{D[n]} = \frac 1N \( \dft{D^*[n]} \)^*;
+					\end{align}
+					
+				\item symmetries for real-valued signals (sequences)
+					\begin{align}
+						|D[n]| &= |D[N-n]|,
+					\\
+						\arg\{ D[n] \} &= -\arg\{ D[N-n] \}.
+					\end{align}
+			\end{itemize}
+			
+			But why is it important? It is extremely useful for calculation of a spectrum from signal samples on finite interval. It has no need for analytic description of a signal nor for a signal defined everywhere (like $\R$). The result thus can be just an approximation.
+			
+			The \textit{Fast Fourier transform} (FFT) is actually just an efficient implementation of DFT (it cleverly divides the calculation, halving the computational complexity every step it takes).
+			
+			\subsection{Calculation of DFS using DFT}
+				
+				If we take a look at the spectra generated by these two transforms (defined \eqref{def:dfs}, \eqref{def:dft}), we can see they are very similar. It is enough to take just one period of $s[k]$ as the argument of DFT, consider $N=N_0$ and they are the same spectrum, with a multiplicative constant as a correction of course
+				\begin{align}
+					d_n = \dfs{s[k]} = \frac{1}{N_0} D[n] = \frac{1}{N_0} \dft{s[k]}.
+				\end{align}
+				
+			\subsection{Calculation of DtFT using DFT}
+				
+				Proceeding from the easiest case further, we can take DtFT defined in \eqref{def:dtft} and look for similarities. If we're dealing with a finite signal, thing is pretty easy. We can obtain DtFT spectrum samples once we allow only integer multiples of $\Omega_d = 2\pi/N$ in the argument
+				\begin{align}
+					S(n \Omega_d) = D[n] = \dft{s[k]}.
+				\end{align}
+				
+				The real problem occurs, when we happen to stumble across an infinite signal. That way, instead of $s[k]$, we must take into account signal $s[k]$ only in a rectangular window limited by the lenght of the permissible interval of DFT: $s[k] \cdot (H[k] - H[k-N])$. We must, however, count with the fact that we won't get the samples of $S(\Omega)$, but samples of 
+				\begin{align}
+					&\frac{1}{2 \pi} S(\Omega) * W_N(\Omega), &  W_N(\Omega) &\equiv \dft{H[k] - H[k-N]}.
+				\end{align}
+				This process of course heavily depends on the choice of $N$. Greater $N$ (longer signal) means smaller $\Omega_d$ (more densely sampled spectrum). So, for an infinite signal, larger $N$ allows for the DFT to get closer to the actual spectrum $S(\Omega)$. From the definition of DFT, we know the order of samples, but we can't precisely specify which sample was obtained in what time (and we need the time instant of the first sample in particular). Our knowledge of DFT, though, brings two possible solutions to the problem.
+				\begin{enumerate}
+					\item Through time shift theorem \eqref{eq:timeshifttheorem}: we know that time shfit changes only the phase spectrum of a signal (phase spectrum is often not taken into consideration, we mostly care about amplitude), so we're free to move it on the time axis as much as we want. So we can exploit that and move the signal so it is aligned with time zero (nonzero valued of the shifted signal $s'[k]$ should be positioned at $k=0,1,\dots,N-1$)
+					\begin{align}
+						S(n\Omega_d) = e^{in\Omega_d N_1}S'(n \Omega_d).
+					\end{align}
+					
+					\item Through periodicity of DFT: we simply reselect the interval of one period (preserve lenght, but now the nonzero values will start from $t=0$). Graphically, we take everything from the interval of nonzero values $(k_0, k_0+N-1)$ on the left from zero and append it to the right side to the lenght of period $N$ (now the interval of nonzero values is $(0, N-1)$ - by shifting any nonzero values in the originaly negative time to the positive time to extend the original interval)
+					\begin{align}
+						S(n \Omega_d) = S'(n\Omega_d).
+					\end{align}
+				\end{enumerate}
+			
+			\subsection{Relationship between FS and DFT}
+				
+				Now, let's take a look at FS, defined a reconstruction of a sampled spectrum DFS, which we can already obtain using DFT. So ths should be rather easy. Beacuse we know that for signals sampled properly (sampling condition is fulfilled), we can write
+				\begin{align}
+					c_n = \left\{ \begin{matrix}
+							d_n, & |n| \leq \[ \frac{N_0}{2} \],
+						\\
+							0, & |n| > \[ \frac{N_0}{2} \],
+						\end{matrix} \right.
+				\end{align}
+				we can pretty much summ up.
+				
+				So if we take as an input signal $s(t)$ sampled on just one period, we can work out the FS coefficient. Then if the sampling condition is fulfilled, we can exact values of FS (coefficients $c_n$). If not, it's just an approximation.
+				\begin{align}
+					c_n &= \left\{ \begin{matrix}
+							\frac 1N D[n] = \frac{1}{N_0} \dft{s[k]} = \frac{T_s}{T_0} \dft{s(kT_s)}, & |n| \leq \[ \frac{N_0}{2} \],
+						\\
+							0, & |n| > \[ \frac{N_0}{2} \].
+						\end{matrix} \right.
+				\end{align}
+				
+				Few problems after all: coefficients $d_n$ obtained using DFT are in the interval $(0,\dots,N-1)$. Using the function \textit{ffshift()}, we can shift the calculated coefficients to be centered about zero (now in the interval $\langle -N_0/2, N_0/2 \rangle$).
+				
+				Notes about the imapct of choice of $N_0$: with incresing number of samples $N_0$ (increasing sampling frequency $\omega_s$, decreaing sampling period $T_s$), the impact of error caused by not fulfilling the sampling condition is decreasing. Of course the bigger the number of samples $N_0$, the bigger the interval of indices $n$, for which the coefficients are calculated ($c_n \not= 0, \quad n \in (-N_0/2, N_0/2)$).
+				
+			\subsection{Calculation of FT using DFT}
+				
+				This calculation is again based on the already known relationships FT, DtFT and DtFT, DFT. We'll just lay down the results without building any intuition behind it (should be crystal clear already). As an input, we take signal samples $s(kT_s)$ with number of samples $N$ of signal $s(t)$ at times $0, T_s, \dots, (N-1) T_s$. The output are spectrum samples $S_c(c \omega_d)$ at multiples of $\omega_d = \omega_s/N = (2\pi/T_s)(1/N) = 2\pi/T$.
+				\begin{align}
+					S_c(n \omega_d) &= \left\{ \begin{matrix}
+							T_s D[n] = T_s \dft{s[k]} = T_s \dft{s(kT_s)}, & |n| \leq \frac{\omega_s}{2},
+						\\
+							0, & |n| > \frac{\omega_s}{2}. 
+						\end{matrix} \right.
+				\end{align}
+				
+				The two contradictory assumptions: (for calculation of $S_d(\Omega)$) we need a finite signal, (for calculation of $S_c(\omega)$) we need a bandlimited signal. That is where we appear to be at an inpasse, because finite signals tend to be always infinite. The situation really is unsolvable and the final say is that we can never get precise results, we always automatically approximate this way.
+				
+				Again, application of function \textit{ffshift()} is very commmon to center the interval of coefficients to $(-\frac{\omega_s}{2}, \frac{\omega_s}{2})$ from $(0, \omega_s)$.
+				
+				Parallel to the last time, incresing $T$ decreases gaps between the spectrum samples. With increasing $\omega_s$, we decrease the impact of the error caused by not fulfilling the sampling condition. Also, the greater sampling frequency $\omega_s$, the bigger the interval, where spectrum samples $S_s(n \omega_d)$ are calculated.
+				
+				
+		
+	\chapter{Time domain analysis of systems}
+	\epigraph{
+		Fucking finally, deterministic signals are over, let's take a look at systems.
+	}{Spoiler: It's fucking boring as well...}
+		
+		\section{Classification of systems}
+		
+			\paragraph{System} is an \textit{object} (circuit, digital filter, reciever, antenna, microphone, \dots) that responds to an input stimulus (\textit{excitation}) with a result (\textit{response}). In this course, we'll be dealing with SISO (Single-Input Single-Output) systems.
+			Often, we use a system operator to express system's reaction to the input signal.
+			
+			\subsection{Basic types of systems}
+			
+				\begin{itemize}
+					\item $A[x(t)] = y(t)$ for \textit{continuous time systems},
+					\item $A[x[k]] = y[k]$ for \textit{discrete time systems},
+				\end{itemize}
+				but there are some \textit{mixed systems} as well (e.g. sampler can be characterised $A[x(t)] = y[k]$ or interpolator would be $A[x[k]] = y(t)$).
+				
+			\subsection{Classification based on response}
+				
+				\begin{itemize}
+					\item \textit{Causal systems} are systems that directly respond to the input stimulus, thus no output can be produced before an input is present (physically implementable).
+					\begin{align}
+						x(t) &= 0, \quad \forall t<t_0, & \implies & & y(t) &= 0, \quad \forall t<t_0.
+					\end{align}
+					
+					\item \textit{Noncausal systems} cannot be implemented in real-time (respond to future input), e.g. ideal filters, signal preprocessing.
+					
+					\item Response of \textit{memoryless systems} depends only on the value of the input signal at the current time instant, e.g. resistor network.
+					
+					\item \textit{Memory systems} contain memory. Therefore, they store information about past or future signal values, e.g. immittance networks.
+					
+					\item \textit{Time-Invariant systems} have the property that a time-shifted at the input produces an indentical time-shift at the output (in other words, the system as a function is doesn't depend on the time-shift)
+					\begin{align}
+						y(t-\tau) = A[x(t-\tau)].
+					\end{align}
+					
+					\item Reaction of \textit{time-varying systems} to a time-shifted input, on the contrary, depend on the time-shift.
+					
+					\item \textit{Linear systems}, as always, have the unique superpositional property
+					\begin{align}
+						A\[ \sum_i \lambda_i x_i(t) \] = \sum_i \lambda_i A[x_i(t)].
+					\end{align}
+				\end{itemize}
+				
+				Another interesting characteristic of a signal can be the so called \textit{stability} of a signal. It basically means that the response to a bounded input is likewise bounded: \textit{Bounded-Input Bounded-Output (BIBO) Stability}
+				\begin{align}
+					|x(t)| &< M_x < \infty & \implies & & |y(t)| &< M_y < \infty.
+				\end{align}
+				
+			
+		\section{LTI systems}
+			
+			\subsection{Continuous-time LTI systems}
+				
+				In this course, we will be mostly dealing with \textit{Linear Time-Invariant Systems} (LTI). Those are the most convinient systems, thanks to their properties, they have this unique response to impulse pulses $h(t) = A[\delta(t)]$. In time-varying systems, it would be not only a function of time, but also a function of the time shift, $\tau$, itself. Thus we can define the output signal of any LTI as
+				\begin{align}
+					\label{eq:ctoutputsignal}
+					y(t) = \int_\R x(\tau) h(t-\tau) \: \d \tau = x(t) * h(t).
+				\end{align}
+				The resulting operation is of course convolution, a very important \textit{commutative}, \textit{associative} and \textit{distributive} operation, which we'll be using frequently. Continuous convolution is defined
+				\begin{align}
+					\label{def:ctconvolution}
+					f(t) * g(t) \coloneqq \int_\R f(\tau) g(t-\tau) \: \d t.
+				\end{align}
+				
+				In order to obtain an ideal system, we would imagine to have a causal and stable LTI system. Such systems are very advantageous, so we introduce the conditions of causality and stability of LTI systems. There are only two (both necessary and sufficient) conditions. The condition on causality is
+				\begin{align}
+					h(t) &= 0, \quad \forall t < 0
+				\\
+					\int_\R |h(\tau)| \: \d \tau &< \infty
+				\end{align}
+				is the condition on stability.
+				
+				Regarding the correlation functions (autocorrelation and cross-correlation functions), we can also find some useful relations, which we can exploit during our future calculations. Those relations will be mostly about the relationships between various correlation functions of input and output signals (the last one regards autocorrelation function of the output signal).
+				\begin{align}
+					R_{y,x}(\tau) &= h(\tau) * R_x(\tau),
+				\\
+					R_{x,y}(\tau) &= h^*(-\tau) * R_x(\tau),
+				\\
+					R_y(\tau) &= h(\tau) * R_{x,y}(\tau) = h(\tau) * h^*(-\tau) * R_x(\tau).
+				\end{align}
+				Energy and power is redundant to state, because is still true that $E = R(0)$ (resp. $P = R(0)$). Average value of an output signal
+				\begin{align}
+					\Av{y(t)} = \Av{x(t)} \int_\R h(\tau) \: \d \tau.
+				\end{align}
+				
+				As I said earlier, LTI systems can be handled in quite a pleasant way. One of the reasons is that an important class of LTI systems can be described by \textit{linear ordinary differential equations with fixed coefficients}, which is reasonable to work with. By that, we mean an equation in the form of 
+				\begin{align}
+					\sum_{i=0}^m \alpha_i y^{(i)}(t) &= \sum_{i=0}^M \beta_i x^{(i)}(t),
+				\\
+					\sum_{i=0}^m \alpha_i h^{(i)}(t) &= \sum_{i=0}^M \beta_i \delta^{(i)}(t),
+				\end{align}
+				where in the second row, we can see (when we apply linear superposition) a special case that we've already derived earlier. We can of course continue in the time domain using characteristic equation, find eigenvalues and eigenfunctions, get a homogenous solution, then find a particular one, etc. Or we can utilize the \textit{Laplace transform}, which can greatly shorten our path to the solution. Laplace transform, however, requires (in order for convolutions to work properly) a function satisfying $f(x) = 0$, for $\Re{x} < 0$, which for us means the condition of causality. By Laplace (and Inverse Laplace) transform we mean
+				\begin{align}
+					S(p) &\equiv \laplace{s(t)}{p} \coloneqq \int_{0^-}^\infty s(t) e^{-pt} \: \d t \equiv \lim\limits_{\epsilon \to 0^+} \int_{-\epsilon}^{\infty} s(t) e^{-pt} \: \d t,
+				\\
+					s(t) &= \ilaplace{S(p)}{t} = \frac{1}{2\pi i} \int_{c-i\infty}^{c+i\infty} S(p) e^{pt} \: \d p
+				\end{align}
+				with the \textit{Region of convergence} $\Re{p} > p_0$. As we know from mathematics, Laplace transform is an integral transform bringing many useful properties to the table (properties listed with repsect to the following order: \textit{linearity}, \textit{derivative theorem} (for one-sided signals), \textit{convolution theorem})
+				\begin{align}
+					\laplace{\lambda_1 s_1(t) + \lambda_2 s_2(t)}{p} &= \lambda_1 \laplace{s_1(t)}{p} + \lambda_2 \laplace{s_2(t)}{p},
+				\end{align}
+				\begin{align}
+					\laplace{s^{n}(t)}{p} &= p^n \laplace{s(t)}{p},
+				\end{align}
+				\begin{align}
+					\laplace{x(t)*y(t)}{p} &= \laplace{x(t)}{p} \cdot \laplace{y(t)}{p}.
+				\end{align}
+				
+				Using Laplace transform (when it's possible) and its properties (mostly the convolution theorem), we can also characterize the system itself. By that we mean that we define the so called \textit{system function} as a Laplace transform of an impulse response of the system
+				\begin{align}
+					\label{def:ctsystemfuntion}
+					H(p) \equiv \laplace{h(t)}{p} = \frac{Y(p)}{X(p)} = \frac{\sum_{i=0}^M \beta_i p^i}{\sum_{i=0}^m \alpha_i p^i}.
+				\end{align}
+				Using the system function, we can work with the concept of $stability$ of a system. System is stable if and only if its system function satisfies the following conditions. For system function is true that
+				\begin{itemize}
+					\item it is a pure rational function ($\mathrm{deg}[Y(p)] < \mathrm{deg}[X(p)]$),
+					\item $\Re{\lambda_i} < 0$, where $\lambda_i \in \C$ are roots of the denominator.
+				\end{itemize}
+				The earlier statements can be summarized as the condition of convergence of the system function on the complex plane.
+				
+			\subsection{Discrete-time LTI systems}
+				
+				Now that we have processed something about continuous-time systems, naturally, we would like to have something analogous for discrete-time cases as well. The theory and procedure is rather similar, so we'll skim through it rather hastily. LTI systems again have the privilege of having the response to an impulse only dependent on the time samples and not the shift of the signal ($h[\cdot] = A[\delta(k-i)]$ is not a function of i, only of k). Impuls response and output signal are thus as follows
+				\begin{align}
+					h[k] &= A[\delta[k]],
+				\\
+					\label{eq:dtoutputsignal}
+					y[k] &= \sum_{i \in \Z} x[i] h[k-i] = x[k] * h[k].
+				\end{align}
+				Again, we're dealing with convolution (again a \textit{commutative}, \textit{associative} and \textit{distributive} operation). This time, however, a discrete one. Discrete convolution is of course not defined through an integral. Instead we define it as a using the aforementioned sum
+				\begin{align}
+					\label{def:dtconvolution}
+					f[k] * g[k] \coloneqq \sum_{i \in \Z} f[i] h[k-i].
+				\end{align}
+				Causality and stabiliy of the system are very analogous to what we've discovered for the continuous-time systems
+				\begin{align}
+					h[k] &= 0, \quad \forall k < 0,
+				\\
+					\sum_{k \in \Z} |h[k]| &< \infty.
+				\end{align}
+				To top it off, the relationships of correlation functions and average value (simply laying it down, because there is no need to talk around too much anymore)
+				\begin{align}
+					R_{y,x}[m] &= h[m] * R_x[m],
+				\\
+					R_{x,y}[m] &= h^*[-m] * R_x[m],
+				\\
+					R_y[m] &= h[m] * R_{x,y}[m] = h[m] * h^*[-m] * R_x[m],
+				\\
+					\Av{y[k]} &= \Av{x[k]} \sum_{i \in \Z} h[i].
+				\end{align}
+				
+				To a certain degree of similarity with the continuous case, we can describe discrete LTI systems using \textit{ordinary difference equations with fixed coefficients}, such as in the form of
+				\begin{align}
+					\sum_{i=0}^m \alpha_i y[k-i] &= \sum_{i=0}^M \beta_i x[k-i],
+				\\
+					\sum_{i=0}^m \alpha_i h[k-i] &= \sum_{i=0}^M \beta_i \delta[k-i],
+				\end{align}
+				where in the second row, we've again utilized the properties of LTI systems to automatically get the response to a linear combination of samples. Similarly, we can either solve it directly (characteristic equation, eigenvalues, etc.) or use another approach, the \textit{Z-transform}. The Z transform is another integral transform defined with its inverse in the second row
+				\begin{align}
+					\label{def:ztransform}
+					S(z) \equiv \ztransform{s[k]}{z} &\coloneqq \sum_{k \in \N_0} s[k] z^{-k}
+				\\
+					\label{def:iztransform}
+					s[k] = \iztransform{S(z)}{k} &\coloneqq \frac{1}{2\pi i} \oint_\Gamma S(z) z^{k-1} \: \d z
+				\end{align}
+				with the \textit{Region of convergence} $|z| > z_0$. Thanks to being another integral transform, Z transform has many useful properties as well, some of the we list (with respect to the order: \textit{linearity}, \textit{delay theorem} (for one-sided signals), \textit{convolution theorem}) here:
+				\begin{align}
+					\ztransform{\lambda_1 s_1[k] + \lambda_2 s_2[k]}{z} &= \lambda_1 \ztransform{s_1[k]}{z} + \lambda_2 \ztransform{s_2[k]}{z},
+				\\
+					\ztransform{s[k-n]}{z} &= z^{-n} \ztransform{s[k]}{z}, \quad n \geq 0,
+				\\
+					\ztransform{x[k] * y[k]}{z} &= \ztransform{x[k]}{z} \cdot \ztransform{y[k]}{z}.
+				\end{align}
+				
+				Using Z transform (when it's possible) and its properties (mostly the convolution theorem), we can also characterize the system itself. By that we mean that we define the so called \textit{system function} as a Z transform of an impulse response of the system
+				\begin{align}
+				\label{def:dtsystemfuntion}
+					H(z) \equiv \ztransform{h[k]}{z} = \frac{Y(z)}{X(z)} = \frac{\sum_{i=0}^M \beta_i z^{-i}}{\sum_{i=0}^m \alpha_i z^{-i}}.
+				\end{align}
+				Using the system function, we can work with the concept of $stability$ of a system. System is stable if and only if its system function satisfies the following conditions. For system function is true that
+				\begin{itemize}
+					\item it is a pure rational function ($\mathrm{deg}[Y(p)] < \mathrm{deg}[X(p)]$),
+					\item $|\lambda_i| < 1$, where $\lambda_i \in \C$ are roots of the denominator.
+				\end{itemize}
+				The earlier stated conditions can be summarized as the condition of convergence of the system function on the unit circle of the complex plane.
+				
+			
+		
+	\chapter{Spectral analysis of systems}
+	\epigraph{
+		The same old Fourier shit we've already done with signals, just for systems and without so many fucking definitions.
+	}{It's shorter, so appreciate it and shut the fuck up}
+		
+		\section{Frequency response}
+			Let's start the frequency analysis by looking at the output signal when we take a harmonic complex function as an input
+			\begin{align*}
+				y(t) &= h(t) * Ae^{i(\omega_0 t + \theta)} = \int_\R h(\tau) Ae^{i(\omega_0 (t-\tau) + \theta)} \: \d \tau = \underbrace{Ae^{i(\omega_0 t + \theta)}}_{x(t)} \underbrace{\int_\R h(\tau) e^{-i\omega_0 \tau} \: \d \tau}_{\fourier{h(\tau)}{\omega} \big|_{\omega=\omega_0}} =
+			\\
+				&= x(t) H(\omega_0) = x(t) |H(\omega_0)| e^{i \arg\[H(\omega_0)\]}.
+			\end{align*}
+			So with the dependece on the frequency of the input complex harmonic signal, we can define a \textit{transfer function} (or \textit{frequency response}) of the system. As we can see, the system produces another complex harmonic function with frequency left unchanged. To define it completely, we have
+			\begin{align}
+				\label{def:transferfunction}
+				H(\omega) = |H(\omega)| e^{i \arg[H(\omega)]} = \fourier{h(t)}{\omega}.
+			\end{align}
+			From that, we can go further, because as we can see, the system changes only the amplitude and phase, so we can also give names to that, shortly: $|H(\omega)|$ is the amplitude response and $\Phi(\omega) \equiv \arg[H(\omega)]$ is the phase response of the system.
+			
+			We can go even further and apply what we've just discovered to the problematic of analysis of responses of LTI systems to general periodic signals. Since we consider the input signal $x(t)$ to be periodic, we can express it using the Fourier series
+			\begin{align}
+				x(t) = \sum_{n \in \Z} X_n e^{in\omega_0 t}.
+			\end{align}
+			Further, we utilize the linearity of LTI systems in order to apply superposition of responses. What we get, is a satisfying result
+			\begin{align}
+				Y_n = H(n\omega_0) X_n.
+			\end{align}
+			From that, it is apparent that the LTI system simply modifies the Fourier coefficients of the input signal. So to summ it up, the I/O relationship of LTI systems in both domains can be written as
+			\begin{align}
+				y(t) &= h(t) * x(t),
+			\\
+				Y(\omega) &= H(\omega) X(\omega),
+			\\
+				|Y(\omega)| &= |H(\omega)| |X(\omega)|,
+			\\
+				\arg[Y(\omega)] &= \Phi(\omega) + \arg[X(\omega)].
+			\end{align}
+			As always, very similar results can be easily derived for discrete-time signals and systems, where the frequency, amplitude and phase responses are $H(\Omega) = \dtft{h[m]} = \fourier{h[m]}{\Omega} = |H(\Omega)| e^{i \arg[H(\Omega)]}$. To put it all together at once, we get
+			\begin{align}
+				y[k] &= h[k] * x[k],
+			\\
+				Y(\Omega) &= H(\Omega) X(\Omega),
+			\\
+				|Y(\Omega)| &= |H(\Omega)| |X(\Omega)|,
+				\\
+				\arg[Y(\Omega)] &= \Phi(\Omega) + \arg[X(\Omega)].
+			\end{align}
+			
+			In the language of spectral analysis, amplitude response amplitude response expresses (multiplicative) change to the amplitude spectrum. Similarly, phase response expresses (additive) change to the phase spectrum. Very similarly, we can introduce certain symmetries regarding the transfer function when dealing with real-valued signals
+			\begin{align}
+				h(t) \in \R & & \implies & & H(-\omega) = H^*(\omega), \; |H(-\omega)| = |H(\omega)|, \; \Phi(-\omega) = \Phi(\omega),
+			\end{align}
+			which can be described wordly as conjugate symmetry in frequency, even symmetry in amplitude and odd symmetry in phase.
+			
+			\subsection{Output signal characteristics}
+				
+				From the relations, we've drived earlier, we can very simply deduce a followup in the way of correlation functions, spectral densities and thus even energy and power of input and output signals
+				\begin{align}
+					C_{y,x} &= H(\omega) C_x(\omega),
+				\\
+					C_{x,y} &= H^*(\omega) C_x(\omega).
+				\end{align}
+				\begin{align}
+					C_y(\omega) = H(\omega) C_{x,y}(\omega) = H(\omega) H^*(\omega) C_x(\omega) = |H(\omega)|^2 C_x(\omega).
+				\end{align}
+				\begin{align}
+					R_y(\tau) &= \frac{1}{2\pi} \int_\R |H(\omega)|^2 C_x(\omega) e^{i\omega \tau} \: \d \omega,
+				\\
+					\label{eq:outputenergy}
+					E_y &= R_y(0) = \frac{1}{2\pi} \int_\R |H(\omega)|^2 C_x(\omega) \: \d \omega,
+				\\
+					\label{eq:outputpower}
+					P_y &= R_y(0) = \frac{1}{2\pi} \int_\R |H(\omega)|^2 C_x(\omega) \: \d \omega.
+				\end{align}
+				\begin{align}
+					\Av{y(t)} &= H(0) \Av{x(t)}.
+				\end{align}
+				
+				Relations \eqref{eq:outputenergy} and \eqref{eq:outputpower} tell us the same thing, but formally, they apply to different cases (by that we ofcouse mean that energy relation is for energy signals and power relation is for power signals). We could also bother to also list the characteristics for discrete variant, but that would be literally the same, only with $\Omega$ instead of $\omega$.
+				
+				There is one more characteristic that will link some already existing concepts of system function (we'll label it $H_{\mathcal L}$ for continuous and $H_{\mathcal Z}$ for discrete time, because those are the transforms of the impulse response $h$) and transfer function (we'll label that one $H_{\mathcal F}$ for both cases, because it was created as a Fourier transform of the impulse response $h$), both earlier denoted $H$. Because of the defitions
+				\begin{align}
+					H_{\mathcal F}(\omega) &= \fourier{h(t)}{\omega} = \int_\R h(t) e^{-i\omega t} \: \d t,
+				\\
+					H_{\mathcal L}(p) &= \laplace{h(t)}{p} = \int_0^\infty h(t) e^{-pt} \: \d t,
+				\end{align}
+				we can (for stable and causal systems) write
+				\begin{align}
+					H_{\mathcal F}(\omega) &= H_{\mathcal L}(i\omega).
+				\end{align}
+				In the discrete time, it is fairly similar (also for the final correlation of the spectra we demand stability and causality)
+				\begin{align}
+					H_{\mathcal F}(\Omega) &= \fourier{h[k]}{\Omega} = \sum_{k \in \Z} h[k] e^{-i \Omega k},
+				\\
+					H_{\mathcal Z}(z) &= \ztransform{h[k]}{z} = \sum_{k \in \Z} h[k] z^{-k},
+				\\
+					H_{\mathcal F}(\Omega) &= H_{\mathcal Z}(e^{i\Omega}).
+				\end{align}
+				Since we've established these connections and relationships of system and transfer functions, we can take a deeper look at the complex plane and the LTI systems described by differential (resp. difference) equations. Regarding that, there are quite nice graphs and deconstruction of the problematics in lecture slideshow \#6, slides 17-23/23 to be specific.
+							
+			\subsection{Physically realizable systems}
+				
+				By \textit{physically realizable systems}, we mostly mean \textit{causal} systems. For systems, we can find both necessary and sufficient conditions on causality\footnote{both those conditions (criterions) are named the same - \textit{Paley-Wiener criterions}. That is of no mistake, since (citing Wikipedia, but verified from many other sources) "\dots, a Paley–Wiener theorem is any theorem that relates decay properties of a function or distribution at infinity with analyticity of its Fourier transform."}:
+				
+				\paragraph{Paley-Wiener criterion for continuous stable system}
+					\begin{align}
+						\label{eq:ctpaleywiener}
+						\int_\R \frac{|\ln|H(\omega)||}{1+\omega^2} \: \d \omega < \infty.
+					\end{align}
+					The criteria can be reformulated by word roughly as that the amplitude response can be zero, but only at discrete frequencies (mustn't be zero on nonzero lenght interval of frequency), and that it mustn't have faster decay than exponential.
+				
+				\paragraph{Paley-Wiener criterion for discrete stable system}
+					\begin{align}
+						\label{eq:dtpaleywiener}
+						\int_{(2 \pi)} |\ln |H(\Omega)|| \: \d \Omega < \infty.
+					\end{align}
+					In words: the amplitude response can be zero, but only at discrete frequencies (mustn't be zero on nonzero lenght interval of frequency).
+	
+			
+			
+			
+						
+				
+				
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+\appendix
+	\chapter{Special signals}
+		
+		\subsubsection{Heaviside function (unit step)}
+		
+			\begin{align}
+				H(t) &\coloneqq \left\{ \begin{matrix}
+						0, & t < 0, \\
+						1/2, & t = 0, \\
+						1, & t > 0,
+					\end{matrix} \right.
+				&
+				H[k] &\coloneqq \left\{ \begin{matrix}
+						0, & k < 0, \\
+						1, & k \geq 0.
+					\end{matrix} \right.
+			\end{align}
+			Properties:
+			\begin{itemize}
+				\item Power signal with $P = R(0) = 1/2,$
+				\item $s_{\mathrm{avg}} = 1/2,$
+				\item $R(\tau) = 1/2.$
+			\end{itemize}
+		
+		\subsubsection{Rectangular function (unit pulse)}
+		
+			\begin{align}
+				\rect(t) \coloneqq H \( t + \frac 12 \) - H \( t - \frac 12 \) =
+					\left\{ \begin{matrix}
+						0, & |t| > 1/2, \\
+						1/2, & |t| = 1/2, \\
+						1, & |t| < 1/2,
+					\end{matrix} \right.
+			\end{align}
+			Properties:
+			\begin{itemize}
+				\item Energy signal with $E = 1,$
+				\item \begin{align}
+						R(\tau) = \left\{ \begin{matrix}
+						0, & |\tau| \geq 1, \\
+						1 - |\tau|, & |\tau| < 1,
+						\end{matrix} \right.
+					\end{align}
+				\item $\fourier{\rect(t)}{\omega} = \Sa(\omega /2)$.
+			\end{itemize}
+		
+		\subsubsection{Kronecker delta (unit impulse)}
+		
+			\begin{align}
+				\delta[k] = \left\{ \begin{matrix}
+						0, & k \not= 0, \\
+						1, & k = 0.
+					\end{matrix} \right.
+			\end{align}
+			Properties:
+				\begin{itemize}
+					\item $\fourier{\delta[k]}{\Omega} = 1.$
+					\item $\ztransform{\delta[k]}{z} = 1.$
+				\end{itemize}
+		
+		\subsubsection{Dirac delta}
+		
+			\begin{align}
+				\delta(t) = \left\{ \begin{matrix}
+						0, & t \not= 0, \\
+						\infty, & t = 0.
+					\end{matrix} \right.
+			\end{align}
+			Properties:
+				\begin{itemize}
+					\item $\int_\R \delta(t) \: \d t = 1$,
+					\item $\fourier{\delta(t)}{\omega} = 1$,
+					\item $\laplace{\delta(t)}{p} = 1$.
+				\end{itemize}
+		
+		\subsubsection{Sinc function (sample function)}
+		
+			\noindent
+			normalized:
+				\begin{align}
+					\sinc(t) = \left\{ \begin{matrix}
+						\frac{\sin(\pi t)}{\pi t}, & t \not= 0, \\[1mm]
+						1, & t = 0.
+					\end{matrix} \right.
+				\end{align}
+				\quad Properties:
+				\begin{itemize}
+					\item $R(\tau) = \pi \Sa(t)$,
+					\item $E = R(0) = \pi$,
+					\item $\fourier{\Sa(t)}{\omega} = \pi \rect(\omega /2)$.
+				\end{itemize}
+			
+			\noindent
+			unnormalized:
+				\begin{align}
+					\Sa(t) = \left\{ \begin{matrix}
+						\frac{\sin(t)}{t}, & t \not= 0, \\[1mm]
+						1, & t = 0.
+					\end{matrix} \right.
+				\end{align}
+	
+		\subsubsection{Periodic signals}
+			
+			\noindent
+			See \eqref{def:ctper}, \eqref{def:dtper} and the whole subsection for detailed info.
+			\begin{itemize}
+				\item
+					\begin{align}
+						\fourier{s(t)}{\omega} &= 2 \pi \sum_{n \in \Z} c_n \delta(\omega - n\omega_0), & \omega_0 &= \frac{2 \pi}{T_0}.
+					\end{align}
+				
+				\item
+					\begin{align}
+						\fourier{s[k]}{\Omega} &= 2 \pi \sum_{n \in \Z} c_n \delta(\Omega - n\Omega_0), & \Omega_0 &= \frac{2 \pi}{N_0}.
+					\end{align}
+			\end{itemize}
+			
+		\subsubsection{Sinusoidal and complex exponential signals}
+			
+			\noindent See \eqref{def:dtcomplexp}, \eqref{def:ctsin}, \eqref{def:dtcomplexp}, \eqref{def:dtsin} and the whole subsection for detailed info.
+			\begin{itemize}
+				\item
+					\begin{align}
+						\fourier{A \cos(\omega_c t + \varphi)}{\omega} = \pi A \( e^{i \varphi} \delta(\omega - \omega_c) + e^{-i \varphi} \delta(\omega + \omega_c) \).
+					\end{align}
+					
+				\item
+					\begin{align}
+						\fourier{A \cos(\Omega_c k + \varphi)}{\Omega} = \pi A \sum_{m \in \Z} \[ e^{i \varphi} \delta(\Omega - \Omega_c - 2 \pi m) + e^{-i \varphi} \delta(\Omega - \Omega_c - 2 \pi m) \].
+					\end{align}
+			\end{itemize}
+			
+		\subsubsection{Constant signals}
+			
+			\noindent
+			continuous-time constant function:
+				\begin{align}
+					s(t) = K.
+				\end{align}
+				\quad Properties:
+				\begin{itemize}
+					\item $\fourier{K}{\omega} = 2 \pi K \delta(\omega)$.
+				\end{itemize}
+			
+			\noindent
+			discrete-time constant function:
+				\begin{align}
+					s[k] = K.
+				\end{align}
+				\quad Properties:
+				\begin{itemize}
+					\item
+						\begin{align}
+							\fourier{K}{\Omega} = \left\{ \begin{matrix}
+									2 \pi K \sum_{m \in \Z} \delta(\Omega - 2m \pi), & \Omega \in \Z,
+								\\
+									2 \pi K \delta(\Omega), & \Omega \in \langle -\pi, \pi ).
+								\end{matrix} \right.
+						\end{align}
+				\end{itemize}
+			
+			
+			
+	\chapter{FT/DtFT relations}
+		
+		\section{FT/DtFT theorems}
+		
+			\subsubsection{Linearity}
+				\begin{align}
+					\fourier{\lambda_1 s_1(t) + \lambda_2 s_2(t)}{\omega} &= \lambda_1 \fourier{s_1(t)}{\omega} + \lambda_2 \fourier{s_2(t)}{\omega},
+				\\
+					\fourier{\lambda_1 s_1[k] + \lambda_2 s_2[k]}{\Omega} &= \lambda_1 \fourier{s_1[k]}{\Omega} + \lambda_2 \fourier{s_2[k]}{\Omega},
+				\end{align}
+		
+			\subsubsection{Modulation theorem}
+				\label{eq:modulationtheorem}
+				\begin{align}
+					\fourier{s(t) e^{iat}}{\omega} &= S(\omega - a) = S \( f - \frac{a}{2 \pi} \),
+				\\
+					\fourier{s[k] e^{iak}}{\Omega} &= S(\Omega - a),
+				\end{align}
+				
+			\subsubsection{Frequency shift}
+				\begin{align}
+					\fourier{s[k] \cos(\Omega_c k)}{\Omega} = \frac 12 (S(\Omega - \Omega_c) + S(\Omega + \Omega_c)),
+				\end{align}
+				
+			\subsubsection{Shift (time shift) theorem}
+				\begin{align}
+					\label{eq:timeshifttheorem}
+					\fourier{s[k-k_d]}{\Omega} = S(\Omega) e^{-i\Omega t_d},
+				\end{align}
+				
+			\subsubsection{Convolution theorem}
+				\begin{align}
+					\label{eq:convolutiontheorem}
+					\fourier{s_1[k] * s_2[k]}{\Omega} = \fourier{s_1[k]}{\Omega} \cdot \fourier{s_2[k]}{\Omega},
+				\end{align}
+				
+			\subsubsection{Scaling theorem}
+				\begin{align}
+					\label{eq:scalingtheorem}
+					\fourier{s(at)}{\omega} = \frac{1}{|a|} S (\omega / a),
+				\end{align}
+				
+			\subsubsection{Complex conjugation theorem}
+				\begin{align}
+					\label{eq:conjugationtheorem}
+					\fourier{s^*(t)}{\omega} = S^*(-\omega),
+				\end{align}
+				
+			\subsubsection{Derivative theorem}
+				\begin{align}
+					\label{eq:derivativetheorem}
+					\fourier{\dot s(t)}{\omega} = i \omega S(\omega) = i 2 \pi f S(f),
+				\end{align}
+				
+			\subsubsection{Integration theorem}
+				\begin{align}
+					\label{eq:integrationtheorem}
+					\fourier{\int_{\infty}^{t} s(t') \: \d t'}{\omega} = S(\omega)/(i \omega), \quad \omega \not= 0,
+				\end{align}
+				
+			\subsubsection{Integral/Summation of multiplication theorem}
+				\begin{align}
+					\int_\R s_1(t) s_2^*(t) \: \d t &= \frac{1}{2 \pi} \int_\R S_1(\omega) S_2^*(\omega) \: \d t = \int_\R S_1(f) S_2^*(f) \: \d t,
+				\\
+					\sum_{k \in \Z} s_1[k] s_2^*[k] &= \frac{1}{2 \pi} \int_{(2 \pi)} S_1(\Omega) S_2^*(\Omega) \: \d \Omega,
+				\end{align}
+				
+			\subsubsection{Multiplication of signals}
+				\begin{align}
+					\fourier{s_1(t) s_2(t)}{\omega} &= \frac{1}{2 \pi} S_1(\omega) * S_2(\omega) = S_1(f) * S_2(f),
+				\\
+					\fourier{s_1[k] s_2[k]}{\Omega} &= \frac{1}{2 \pi} \int_{(2 \pi)} S_2(u) S_1(\Omega - u) \: \d u,
+				\end{align}
+				
+			\subsubsection{Duality theorem}
+				\begin{align}
+					\fourier{s(t)}{\omega} &= S(\omega)
+					&\iff&&
+					\fourier{S(t)}{\omega} &= 2 \pi s(-\omega) = s(-f),
+				\end{align}
+				
+			\subsubsection{Differentiaion theorem with causal definition of difference}
+				\begin{align}
+					\fourier{\Delta s[k]}{\Omega} = \( 1 - e^{-i \Omega} \) S(\Omega),
+				\end{align}
+				
+			\subsubsection{Differentiaion theorem with noncausal definition of difference}
+				\begin{align}
+					\fourier{\Delta' s[k]}{\Omega} = \( e^{i \Omega} - 1 \) S(\Omega),
+				\end{align}
+				
+			\subsubsection{Summation theorem}
+				\begin{align}
+					\fourier{i[k]}{\Omega} = \fourier{\sum_{n = -\infty}^{k} s[n]}{\Omega} = \frac{S(\Omega)}{1 - e^{-i \Omega}}.
+				\end{align}
+		
+		\subsection{Notable remarks about the theorems}
+		\begin{itemize}
+			\item Amplitude doesn't change with time shift: $|\fourier{s(t-t_d)}{\omega}| = |S(\omega) e^{-i\omega t_d}| = |S(\omega)|$,
+			
+			\item We can extend the derivative theorem to $n$th derivative: $\fourier{s^{(n)}(t)}{\omega} = (i \omega)^n S(\omega)$,
+			
+			\item Integration/Summation of multiplication theorem could be interpreted as
+			\begin{align}
+				\bracket{s_1(t)}{s_2^*(t)} &= \frac{1}{2 \pi} \bracket{S_1(\omega)}{S_2^*(\omega)} = \bracket{S_1(f)}{S_2^*(f)},
+			\\
+				\bracket{s_1[k]}{s_2^*[k]} &= \frac{1}{2 \pi} \int_{(2 \pi)} S_1(\Omega) S_2^*(\Omega) \: \d \Omega.
+			\end{align}
+		\end{itemize}
+			
+	
+	
+\end{document}

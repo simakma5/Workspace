@@ -1,0 +1,35 @@
+# Reading C:/intelFPGA_lite/17.1/modelsim_ase/tcl/vsim/pref.tcl
+# do hw02_simakma5_run_msim_rtl_vhdl.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/17.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vcom -93 -work work {C:/Uni/MAM/hw02/project/digit_switch.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:19:32 on Nov 26,2022
+# vcom -reportprogress 300 -93 -work work C:/Uni/MAM/hw02/project/digit_switch.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity digit_switch
+# -- Compiling architecture BEHAVIOR of digit_switch
+# End time: 13:19:32 on Nov 26,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/Uni/MAM/hw02/project/rom.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 13:19:33 on Nov 26,2022
+# vcom -reportprogress 300 -93 -work work C:/Uni/MAM/hw02/project/rom.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity ROM64x3
+# -- Compiling architecture BEHAVIOR of ROM64x3
+# End time: 13:19:33 on Nov 26,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 

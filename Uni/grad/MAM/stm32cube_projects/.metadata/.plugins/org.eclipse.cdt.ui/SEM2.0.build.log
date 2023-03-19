@@ -1,0 +1,10 @@
+13:36:11 **** Incremental Build of configuration Debug for project SEM2.0 ****
+make -j16 all 
+arm-none-eabi-size   SEM2.0.elf 
+   text	   data	    bss	    dec	    hex	filename
+   3280	     28	   1588	   4896	   1320	SEM2.0.elf
+Finished building: default.size.stdout
+ 
+
+13:36:11 Build Finished. 0 errors, 0 warnings. (took 161ms)
+

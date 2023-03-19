@@ -1,0 +1,90 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+
+ENTITY digit_switch IS
+    PORT (
+        reset : IN STD_LOGIC := '0';
+        clock : IN STD_LOGIC;
+        output1 : OUT STD_LOGIC;
+        output2 : OUT STD_LOGIC;
+        output3 : OUT STD_LOGIC;
+        output4 : OUT STD_LOGIC
+    );
+END digit_switch;
+
+ARCHITECTURE BEHAVIOR OF digit_switch IS
+    TYPE type_fstate IS (state2,state3,state4,state1);
+    SIGNAL fstate : type_fstate;
+    SIGNAL reg_fstate : type_fstate;
+BEGIN
+    PROCESS (clock,reg_fstate)
+    BEGIN
+        IF (clock='1' AND clock'event) THEN
+            fstate <= reg_fstate;
+        END IF;
+    END PROCESS;
+
+    PROCESS (fstate,reset)
+    BEGIN
+        IF (reset='1') THEN
+            reg_fstate <= state1;
+            output1 <= '0';
+            output2 <= '0';
+            output3 <= '0';
+            output4 <= '0';
+        ELSE
+            output1 <= '0';
+            output2 <= '0';
+            output3 <= '0';
+            output4 <= '0';
+            CASE fstate IS
+                WHEN state2 =>
+                    reg_fstate <= state3;
+
+                    output4 <= '0';
+
+                    output2 <= '1';
+
+                    output1 <= '0';
+
+                    output3 <= '0';
+                WHEN state3 =>
+                    reg_fstate <= state4;
+
+                    output4 <= '0';
+
+                    output2 <= '0';
+
+                    output1 <= '0';
+
+                    output3 <= '1';
+                WHEN state4 =>
+                    reg_fstate <= state1;
+
+                    output4 <= '1';
+
+                    output2 <= '0';
+
+                    output1 <= '0';
+
+                    output3 <= '0';
+                WHEN state1 =>
+                    reg_fstate <= state2;
+
+                    output4 <= '0';
+
+                    output2 <= '0';
+
+                    output1 <= '1';
+
+                    output3 <= '0';
+                WHEN OTHERS => 
+                    output1 <= 'X';
+                    output2 <= 'X';
+                    output3 <= 'X';
+                    output4 <= 'X';
+                    report "Reach undefined state";
+            END CASE;
+        END IF;
+    END PROCESS;
+END BEHAVIOR;

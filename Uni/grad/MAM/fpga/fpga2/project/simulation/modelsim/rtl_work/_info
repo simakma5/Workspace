@@ -1,0 +1,88 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Uni/MAM/hw02/project/simulation/modelsim
+Edigit_switch
+Z1 w1669282256
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+R0
+Z4 8C:/Uni/MAM/hw02/project/digit_switch.vhd
+Z5 FC:/Uni/MAM/hw02/project/digit_switch.vhd
+l0
+L4
+VG42PMCIXMhjiKjJLeb5_40
+!s100 1e^LOgh`V2?9<4lX@MOTl3
+Z6 OV;C;10.5b;63
+31
+Z7 !s110 1669465172
+!i10b 1
+Z8 !s108 1669465172.000000
+Z9 !s90 -reportprogress|300|-93|-work|work|C:/Uni/MAM/hw02/project/digit_switch.vhd|
+Z10 !s107 C:/Uni/MAM/hw02/project/digit_switch.vhd|
+!i113 1
+Z11 o-93 -work work
+Z12 tExplicit 1 CvgOpt 0
+Abehavior
+R2
+R3
+DEx4 work 12 digit_switch 0 22 G42PMCIXMhjiKjJLeb5_40
+l23
+L18
+Vz:K[WZ0LaGn6;jOdI?gDA1
+!s100 8e2D5]CPCZ^e?T3mV6`M;0
+R6
+31
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Erom64x3
+Z13 w1668375565
+R2
+R3
+R0
+Z14 8C:/Uni/MAM/hw02/project/rom.vhd
+Z15 FC:/Uni/MAM/hw02/project/rom.vhd
+l0
+L4
+VKaUO`jj_hUBO?>SlS97Fa1
+!s100 l[Ld`6DoRC^[IU@oV_IKY0
+R6
+31
+Z16 !s110 1669465173
+!i10b 1
+Z17 !s108 1669465173.000000
+Z18 !s90 -reportprogress|300|-93|-work|work|C:/Uni/MAM/hw02/project/rom.vhd|
+Z19 !s107 C:/Uni/MAM/hw02/project/rom.vhd|
+!i113 1
+R11
+R12
+Abehavior
+R2
+R3
+DEx4 work 7 rom64x3 0 22 KaUO`jj_hUBO?>SlS97Fa1
+l23
+L11
+V;0T7]LY0_IJF3XGU4^Cmk1
+!s100 z@?PK67^B]bi3c`YlS2id3
+R6
+31
+R16
+!i10b 1
+R17
+R18
+R19
+!i113 1
+R11
+R12

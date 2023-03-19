@@ -1,0 +1,80 @@
+\documentclass[11pt, a4paper]{article}
+
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{15mm}
+\setlength\evensidemargin{15mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+\let\openright=\clearpage
+
+\usepackage[czech]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{stddoc}
+\usepackage{mathtools}
+
+\usepackage{gensymb}
+
+\begin{document}
+	
+	\pagenumbering{arabic}
+	
+	\section*{Karanténní počty - 27.4.}
+	\noindent\rule{12cm}{0.2pt}
+	
+	\section*{Převody}
+		
+		\paragraph{Úvod.} Jde o jednoduché počty založené na logice toho, že pokud máme úhel $\varphi$ reprezentující kompletní rotaci (uzavřený kruh), tak jeho hodnota je
+		\begin{align*}
+			\varphi &= 360\degree = 2\pi \; \mathrm{rad}.
+		\end{align*}
+		Jak je vidět, můžeme úhel reprezentovat buď pomocí klasických stupňů ($\degree$, používáno spíše na základní škole nebo v aplikovaných oborech), nebo pomocí radiánů (rad, v matematice preferovaná volba).
+		
+		Pokud se nad tím více zamyslíme, oblouková míra ("úhel v radiánech") je přirozenější, ač tak	 zprvu nepřipadá. Když bychom se totiž ptali na to, jak dlouhý oblouk $s$ vytne úhel $\varphi$ s ramenem o fixní délce $r$, dostaneme se ke vztahu $s=\varphi r$. V případě celé otočky je to přirozeně obvod kruhu $o=2\pi r$, což je jasné. Z tohoto triviálního případu je vidět, že ač často musíme překládat radiány do stupňů, protože stupně jsou "přirozenější", je to ve skutečnosti naopak. Stupně jsou pouze konstruktem lidí\footnote{Kdo to vlastně vymyslel, že budeme mít na plnou otočku stupňů zrovna $360\degree$? Mohl jich být libovolný počet, stavaři třeba používají grady, kterých je na plnou otočku 400.}, kdežto elementární vzorec pro obvod kružnice je přeci platný vždy a tudíž úhel vyjádřený v radiánech je přirozená volba.
+		
+		Bez zbytečného filosofování \footnote{Chtěl jsem jen uvést o co jde, protože sám vím, že na střední to učitelky nedělají a musel jsem si na tohle všechno přijít sám. Do té doby jsem stejně jako všichni, kdo se to učí, říkal, že je to sračka, nějaký radiány xD.}, zadáno je převádět úhly vyjádřené ve stupních do radiánů a naopak. K tomu se rozhodně hodí mít universální přepočet oběma směry. Vyjdeme tedy z toho, že víme
+		\begin{align*}
+			2\pi = 360 \degree,
+		\end{align*}
+		přičemž již vynechávám psaní jednoty 'rad', protože se to většinou nepíše. Z toho je vidět, že
+		\begin{align*}
+			\Aboxed{1 \; \mathrm{rad} &= \frac{180\degree}{\pi}} & \Aboxed{1\degree &= \frac{\pi}{180} \; \mathrm{rad}}
+		\end{align*}
+		
+	\newpage
+		
+		\paragraph{Úloha} je zadána přimočaře, že máme převádět vyjádření úhlů mezi radiány a stupni. Tak tedy:
+		\begin{align}
+			4\degree &= \frac{\pi}{45} \approx 0.06981317008,
+		\\
+			15\degree &= \frac{\pi}{12} \approx 0.2617993878,
+		\\
+			-40\degree &= \frac{-2\pi}{9} \approx -0.6981317008,
+		\\
+			300\degree &= \frac{5\pi}{3} \approx 5.235987756,
+		\\
+			168\degree &= \frac{14\pi}{15} \approx 2.9321531434,
+		\\
+			-112\degree &= \frac{-28\pi}{45} \approx -1.9547687622,
+		\\
+			\frac 35 \pi &= \frac 35 180\degree = 108\degree,
+		\\
+			\frac 76 \pi &= \frac 76 180\degree = 210\degree,
+		\\
+			\frac{3}{10}\pi &= \frac{3}{10} 180\degree = 54\degree,
+		\\
+			\frac{11}{4} \pi &= \frac{11}{4} 180\degree = 495\degree,
+		\\
+			\frac{11}{18} \pi &= \frac{11}{18} 180\degree = 110\degree,
+		\\
+			5 &= 5 \frac{180\degree}{\pi} = 286.47889757\degree.
+		\end{align}
+	
+	
+\end{document}

@@ -1,0 +1,43 @@
+Quartus Prime Archive log --	C:/Uni/MAM/hw02/project/hw02_simakma5_tmp_archive.qarlog
+
+Archive:	C:/Uni/MAM/hw02/project/hw02_simakma5_tmp_archive.qar
+Date:		Sat Nov 26 13:33:29 2022
+Quartus Prime		17.1.0 Build 590 10/25/2017 SJ Lite Edition
+
+	=========== Files Selected: ===========
+C:/Uni/MAM/hw02/project/4digit_bcd_counter.bdf
+C:/Uni/MAM/hw02/project/6bit_counter.bdf
+C:/Uni/MAM/hw02/project/Waveform.vwf
+C:/Uni/MAM/hw02/project/Waveform10.vwf
+C:/Uni/MAM/hw02/project/Waveform11.vwf
+C:/Uni/MAM/hw02/project/Waveform12.vwf
+C:/Uni/MAM/hw02/project/Waveform13.vwf
+C:/Uni/MAM/hw02/project/activator.bdf
+C:/Uni/MAM/hw02/project/control_unit.bdf
+C:/Uni/MAM/hw02/project/digit_switch.vhd
+C:/Uni/MAM/hw02/project/div10.bdf
+C:/Uni/MAM/hw02/project/div2.bdf
+C:/Uni/MAM/hw02/project/div5.bdf
+C:/Uni/MAM/hw02/project/divider.bdf
+C:/Uni/MAM/hw02/project/hw02_simakma5.bdf
+C:/Uni/MAM/hw02/project/hw02_simakma5.qpf
+C:/Uni/MAM/hw02/project/hw02_simakma5.qsf
+C:/Uni/MAM/hw02/project/output_files/Waveform.vwf
+C:/Uni/MAM/hw02/project/output_files/Waveform1.vwf
+C:/Uni/MAM/hw02/project/output_files/Waveform2.vwf
+C:/Uni/MAM/hw02/project/output_files/Waveform20.vwf
+C:/Uni/MAM/hw02/project/output_files/Waveform21.vwf
+C:/Uni/MAM/hw02/project/output_files/Waveform3.vwf
+C:/Uni/MAM/hw02/project/output_files/Waveform4.vwf
+C:/Uni/MAM/hw02/project/rom.vhd
+c:/intelfpga_lite/17.1/quartus/bin64/assignment_defaults.qdf
+	======= Total: 26 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.
+
+
+******* Archived project restoration attempt on Sat Nov 26 13:33:30 2022
+Source archive file:	C:/Uni/MAM/hw02/project/hw02_simakma5_tmp_archive.qar
+Archive was extracted into	C:/Uni/MAM/hw02/project_copy/
+		 - successfully.

@@ -1,0 +1,134 @@
+\documentclass[12pt,a4paper]{report}
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{15mm}
+\setlength\evensidemargin{15mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+\let\openright=\clearpage
+
+\usepackage[czech]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{stddoc}
+\usepackage{mathtools}
+
+
+\renewcommand{\vec}{\boldsymbol}
+\def\endl{\\[3mm]}
+\newcommand*\colvec[3][]{
+	\begin{pmatrix}
+		\ifx \relax#1 \relax
+		\else #1\\
+		\fi
+		#2 \\ #3
+	\end{pmatrix}
+}
+
+\begin{document}
+	
+	\pagenumbering{gobble}
+	
+	\begin{center}
+		\section*{Příklady pro týden 8 - Martin Šimák}
+		\noindent\rule{13cm}{1.6pt} \\[5mm]
+	\end{center}
+	
+	\subsection*{Zadání}
+		Dvě rovinné  elektrody rovnoběžné s rovinnou $z = 0$ nesou plošný proud  o velikosti $K_0$. Roviny jsou vzdáleny $d$ ve směru osy $z$. Střed systému je ve středu souřadné soustavy. Elektroda na pozici $z = d/2$ nese proud ve směru $\vec e_x$. Elektroda na pozici $z = -d/2$ nese proud ve směru $- \vec e_x$. \\
+	\noindent\rule{8cm}{0.4pt}
+	
+	\subsection*{Řešení}
+		Řešení budeme hledat nejprve přes Poissonovu rovnici, přičemž si můžeme uvěděomit, že vektorový potenciál magnetického pole $\vec A$ si můžeme zjednodušit pouze na jeho složku $A_x$, ostatní budou nulové, neboť má stejný směr jako plošný proud $\vec K = \pm K_0 \vec e_x$. Dále díky symetriím (invariance úlohy ve směrech $x,y$) bude záviset pouze na $z$. Protože proudová hustota $\vec J$ je kromě oblasti elektrod nulová, můžeme psát
+		\begin{align*}
+				\Delta \vec A &= 0, \endl
+				\Delta A_x &= 0, \endl
+				A_x &= Cz + D.
+		\end{align*}
+		Pro jednotlivé oblasti tedy dostáváme
+		\begin{align*}
+			z \geq d/2 : \quad & A_x = Cz + D \implies B = C, \endl
+			z \in \( -d/2, d/2 \) : \quad & A_x = Ez + F \implies B = E, \endl
+			z \leq -d/2 : \quad & A_x = Gz + H \implies B = G,
+		\end{align*}
+		kde $B$ je vektor magnetického pole se směrem $\vec e_y$, jelikož rotace vektorového potenciálu\footnote{kompaktní značení $\partial_x f \equiv \pder{f}{x}$ zapůjčené z diferenciální geometrie} $\Rot A = \partial_z A_x \vec e_y$. Z prosté fyzikální intuice však také víme, že magnetické pole v nekonečnu bude nulové ($\lim_{z \to \infty} B = 0$), tudíž automaticky $C = 0$, $G = 0$. Dále abychom získali konkrétní hodnoty parametrů, budeme se snažit vyhovět okrajovým podmínkám skokového rozdílu $B$ a spojitosti $A$ na elektrodách, tedy
+		\begin{align}
+			\label{eq:bound-1}
+			\vec e_n \times (\vec B_1 - \vec B_2) &= \mu_0 \vec K , \endl
+			\label{eq:bound-2}
+			\vec A_1 &= \vec A_2 .
+		\end{align}
+		Začněme tedy s podmínkou \ref{eq:bound-1}, kdy $B_1$ je magnetické pole venkovní a $B_2$ vnitřní na rozhraní $z = d/2$. Pro náš případ můžeme psát
+		\begin{align*}
+			\vec e_z \times (0 - E) \vec e_y &= \mu_0 K_0 \vec e_x , \endl
+			- \vec e_x (-E) &= \mu_0 K_0 \vec e_x , \endl
+			E &= \mu_0 K_0 .
+		\end{align*}
+		Pro spojitost vektorových potenciálů \ref{eq:bound-2} můžeme na horním rozhraní stanovit
+		\begin{align*}
+			A_1(d/2) &= A_2(d/2) , \endl
+			E \, \frac{d}{2} + F &= D
+		\end{align*}
+		a na dolním rozhraní
+		\begin{align*}
+			A_1(-d/2) &= A_2(-d/2) , \endl
+			\label{eq:a*}
+			\tag{*}
+			-E \, \frac{d}{2} + F &= H .
+		\end{align*}
+		Spojením výsledných rovností tedy dostáváme
+		\begin{align*}
+			2F &= D + H , \endl
+			\label{eq:a**}
+			\tag{**}
+			H &= 2F - D .
+		\end{align*}
+		Dosazením \ref{eq:a**} do \ref{eq:a*} získáváme
+		\begin{align*}
+			-E \, \frac{d}{2} + F &= 2F - D , \endl
+			E \, \frac{d}{2} - F + D &= 0 , \endl
+			F &= \mu_0 K_0 \frac{d}{2} + D .
+		\end{align*}
+		Vektorové potenciály a magnetická pole rozdělená dle $z$ můžeme tedy již nyní přepsat s konkrétními hodnotami jako
+		\begin{align*}
+			z \geq d/2 : \quad & \vec A = D \, \vec e_x \implies \vec B = \vec o , \endl
+			z \in \( -d/2, d/2 \) : \quad & \vec A = (\mu_0 K_0 (z + d/2) + D) \, \vec e_x \implies \vec B = \mu_0 K_0 \vec e_y , \endl
+			z \leq -d/2 : \quad & \vec A = (D + \mu_0 K_0 d) \, \vec e_x \implies \vec B = \vec o .
+		\end{align*}
+		
+		Jako stručné ověření výsledku můžeme použít (v tomto případě) značně jednodušší výpočet problému přes Ampérův zákon
+		\begin{align*}
+			\oint_{C} \vec B \cdot \d \vec l .
+		\end{align*}
+		Pro horní desku lehce nalezneme magnetické pole (Ampérovskou smyčku kreslíme paralelně s rovinou $y,z$) jako
+		\begin{align*}
+			\oint_{C} \vec B_1 \cdot \d \vec l = 2 B_1 l &= \mu_0 I = \mu_0 K_0 l , \endl
+			B_1 &= \frac{1}{2} \mu_0 K_0 , \endl
+			\vec B_1 &= \left\{ \begin{matrix}
+					+(\mu_0 / 2) K_0 \vec e_y, & \text{pro } z < d/2 \\
+					-(\mu_0 / 2) K_0 \vec e_y, & \text{pro } z > d/2
+				\end{matrix} \right. ,
+		\end{align*}
+		kde vektorový charakter přímo vyplývá z Biot-Savartova zákona, který kvalitativně přímo zaručuje, že vektor magnetického pole musí být kolmý na procházející proud (čili nutně $B_x = 0$), a z faktu, že jakýkoli příspěvek k integraci ve směru $z$ v $+y$ je automaticky vykompenzovám přesně opačným příspěvkem v $-y$ (tím pádem tedy také nutně $B_z = 0$). \\
+		V oblasti mimo desky je jasné, že $\vec B = \vec o$, protože tam je uzavřený proud nulový pro libovolnou smyčku. \\
+		Stejně nenáročně lze zjistit i příspěvěk k celkovému magnetickému poli od spodní desky jako
+		\begin{align*}
+			\oint_{C} \vec B_2 \cdot \d \vec l = 2 B_2 l &= \mu_0 I = \mu_0 K_0 l , \endl
+			B_2 &= \frac{1}{2} \mu_0 K_0 , \endl
+			\vec B_2 &= \left\{ \begin{matrix}
+				-(\mu_0 / 2) K_0 \vec e_y, & \text{pro } z < -d/2 \\
+				+(\mu_0 / 2) K_0 \vec e_y, & \text{pro } z > -d/2
+			\end{matrix} \right. .
+		\end{align*}
+		Superpozicí tedy dostáváme i přes Ampérův zákon (jak jsme samozřejmě očekávali) stejný výsledek
+		\begin{align*}
+			z \in \( -\infty, -d/2 \) \cup \( d/2, \infty \) : \quad & \vec B = \vec o , \endl
+			z \in \( -d/2, d/2 \) : \quad & \vec B = \mu_0 K_0 \vec e_y .
+		\end{align*}	
+	
+	\end{document}

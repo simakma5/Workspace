@@ -1,0 +1,13 @@
+- Nízkošumový zesilovač: jaký je rozdíl mezi optimalizovaným jednopásmovým nebo multipásmovým zesilovačem? Jaký je rozdíl v Paretove ploše jako kompromisu (trade-off) mezi jednopásmovým a vícepásmovým nízkošumovým zesilovačem? Kdy je větší problém se stabilitou? Jaké jsou typické hodnoty dosažených šumových čísel pro optimalizovaný zesilovač s nízkošumovým pHEMT (a typické výkonové zesílení)?
+
+- Uveďte některé časté případy směšovačů: dvojitě vyvážený směšovač s diodami ("ring mixer"), Gilbertova buňka s bipolárními tranzistory a s MOS tranzistory (tato druhá byla uvedena u modulátorů), směšovač s dvojhradlovým MOSFET (a příslušné filtry).
+
+- Návrh výkonových úzkopásmových vysokofrekvenčních zesilovačů: jaké jsou základní tři účelové funkce pro optimalizaci zesilovače? Jaká třída zesilovače se používá? Vysvětlete tzv. „trojrozměrný“ protiklad tří hlavních optimalizovaných a sledovaných účelových funkcí. Jaké typické účinnosti nebo harmonického zkreslení se v úzkopásmových vysokofrekvenčních zesilovacích typicky dosahuje?
+
+- Popište princip rozprostřeného zesílení, jaké jsou základní výhody zesilovače s rozprostřeným zesílením? Co je limitující faktor pro mezní kmitočet tohoto zesilovače? Co je limitující faktor pro mezní kmitočet tohoto zesilovače? Dá se počet stupňů (tj. počet tranzistorů) v zesilovači optimalizovat? Dá se princip rozprostřeného zesílení použít i pro oscilátory?
+
+- Jakých typických IP3 (dobré) LNA dosahuje? Znázorněte zvláštní propad v části křivky intermodulačních produktů třetího řádu, který nastává pro zesilovače s pHEMT.
+
+- Co to je samokmitající směšovač, co základního o něm víte? Jaké má výhody a nevýhody?
+
+- S jakými typickými radiovými funkčními bloky se můžeme setkat v QAM modulátorech?

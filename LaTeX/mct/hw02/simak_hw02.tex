@@ -1,0 +1,155 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[a4paper,hmargin=1in,vmargin=1in]{geometry}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{stddoc}
+\usepackage{multicol}
+
+
+
+
+\begin{document}
+	
+	\pagenumbering{arabic}
+	
+	%% Hlavička
+	\begin{center}
+		\section*{Domácí úkol pro týden 2}\vspace*{-5mm}
+		\begin{minipage}{0.4\textwidth}
+			\begin{flushleft}
+				\textsc{3. října 2020}
+			\end{flushleft}
+		\end{minipage}
+		~
+		\begin{minipage}{0.4\textwidth}
+			\begin{flushright}
+				\textsc{Martin Šimák}
+			\end{flushright}
+		\end{minipage}
+		\noindent\rule{14.5cm}{0.6pt}
+	\end{center}
+	
+	%% Povinná část
+	\paragraph*{Zadání.} Určete střed a poloměr konvergence každé z následujících mocninných řad.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=(\alph*)]
+				
+				\item
+				\begin{align*}
+					\sum_{n=0}^\infty (2+3i)^n(z-2+i)^{3n+1},
+				\end{align*}
+				
+				\item
+				\begin{align*}
+					\sum_{n=0}^\infty \frac{2^n+n^5}{5^n+n^2} (z-1)^n,
+				\end{align*}
+				
+				\item
+				\begin{align*}
+					\sum_{n=0}^\infty n(2z+i)^n,
+				\end{align*}
+				
+				\item
+				\begin{align*}
+					\sum_{n=0}^\infty \frac{(-1)^n}{(2n+1)!} z^{2n+1}.
+				\end{align*}
+				
+			\end{enumerate}
+		\end{multicols}
+	
+	\paragraph*{Řešení.} Pro řešení daných příkladů budeme vycházet ze znalosti, že každou mocninnou řadu lze převést do standardního tvaru
+		\begin{align}
+				\sum_{n=0}^{\infty} a_n (z-z_0)^n,
+		\end{align}
+		kde $z_0$ je právě hledaný střed mocninné řady, a znalosti dvou následujících vzorců jasně determinujících poloměr konvergence mocninné řady:
+		\begin{align}
+				\frac 1R &= \limsup_{n\to\infty} \sqrt[n]{|a_n|},
+			&
+				\frac 1R &= \lim_{n\to\infty} \left| \frac{a_{n+1}}{a_n} \right|.
+		\end{align}
+		
+		\begin{enumerate}[label=(\alph*)]
+			
+			\item $z_0 = 2-i$.
+				\begin{align*}
+						\frac 1R &= \limsup_{k\to\infty} \sqrt[k]{|a_k|} = \Big| k \equiv 3n+1 \Big| = \lim_{n\to\infty} \sqrt[3n+1]{|2+3i|^n} = 	\lim_{n\to\infty} 13^{\frac{n}{6n+2}} = \sqrt[6]{13},
+					\\
+						\Aboxed{R &= 13^{-1/6}.}
+				\end{align*}
+			
+			\item $z_0 = 1$.
+				\begin{align*}
+						\frac 1R &= \lim_{n\to\infty} \left| \frac{a_{n+1}}{a_n} \right| = \lim_{n\to\infty} \left|\frac{2^{n+1}+(n+1)^5}{5^{n+1}+(n+1)^2} \cdot \frac{5^n+n^2}{2^n+n^5}  \right| =
+					\\
+						&= \lim_{n\to\infty} \left| \frac{2 \cdot 10^n+2^{n+1}n^2+5^n (n+1)^5 + n^2 (n+1)^5}{5 \cdot 10^n + 5^{n+1} n^5 + 2^n (n+1)^2 + n^5 (n+1)^2} \right| = \frac 25,
+					\\
+						\Aboxed{R &= \frac 52.}
+				\end{align*}
+			
+			\item $z_0 = -i/2 \impliedby \sum_{n=0}^\infty n(2z+i)^n = \sum_{n=0}^\infty n2^n(z+i/2)^n$.
+				\begin{align*}
+						\frac 1R &= \limsup_{n\to\infty} \sqrt[n]{|a_n|} = \lim_{n\to\infty} \sqrt[n]{n 2^n} = 2 \lim_{n\to\infty} \sqrt[n]{n} = 2,
+					\\
+						\Aboxed{R &= \frac 12.}
+				\end{align*}
+			
+			\item $z_0 = 0$.
+				\begin{align*}
+						\frac 1R &= \limsup_{n\to\infty} \sqrt[n]{|a_n|} = \lim_{n\to\infty} \frac{1}{\sqrt[n]{n!}} = 0,
+					\\
+						\Aboxed{R &= \infty.}
+				\end{align*}
+			
+		\end{enumerate}
+	
+	%% Bonus
+	\paragraph*{Bonus.} Určete poloměr konvergence následujících mocninných řad.
+		\begin{multicols}{2}
+			\begin{enumerate}[label=(\alph*)]
+				
+				\item
+					\begin{align*}
+							\sum_{n=0}^\infty (4^n + (-2)^n) z^n,
+					\end{align*}
+				
+				\item
+					\begin{align*}
+							\sum_{n=0}^\infty \sin\( e^{2^{-n}} - 1 \) z^n.
+					\end{align*}
+				
+			\end{enumerate}
+		\end{multicols}
+		
+	\paragraph*{Řešení.} I v tomto případě budeme postupovat stejným způsobem.
+		
+		\begin{enumerate}[label=(\alph*)]
+			
+			\item
+				\begin{align*}
+						\frac 1R &= \lim_{n\to\infty} \left| \frac{a_{n+1}}{a_n} \right| = \lim_{n\to\infty} \left| \frac{4^{n+1} + (-2)^{n+1}}{4^n + (-2)^n} \right| = \lim_{n\to\infty} \left| \frac{4 - 2 \cdot (-1/2)^n)}{1 + (-1/2)^n} \right| = 4,
+					\\
+						\Aboxed{R &= \frac 14.}
+				\end{align*}
+			
+			\item
+				\begin{align*}
+					\frac 1R &= \lim_{n\to\infty} \left| \frac{a_{n+1}}{a_n} \right| = \left|\lim_{n\to\infty} \frac{\sin\(e^{2^{-n-1}} - 1\)}{\sin\( e^{2^{-n}} - 1 \)} \right| = \left\langle \frac 00 \right\rangle \overset{\mathcal{L'H}}{=\joinrel=}
+				\\
+					&\overset{\mathcal{L'H}}{=\joinrel=} \left| \lim_{n\to\infty} \frac{\cos\(e^{2^{-n-1}}-1\)e^{2^{-n-1}} 2^{-n-1} \ln(2) (-1)}{\cos\(e^{2^{-n}} - 1 \) e^{2^{-n}} 2^{-n} \ln(2) (-1)} \right| =
+				\\
+					&= \left| \lim_{n\to\infty} \frac{\cos\(e^{2^{-n-1}}-1\)e^{2^{-n-1}} }{2 \cos\(e^{2^{-n}} - 1 \) e^{2^{-n}}} \right| =
+				\\
+					&\quad \left\langle \frac{e^{2^{-n-1}}}{e^{2^{-n}}} = e^{2^{-n-1}} \cdot e^{-2^{-n}} = e^{2^{-n-1} - 2^{-n}} = e^{2^{-n}\( 2^{-1}-1\)} = e^{-2^{-n-1}} \right\rangle
+				\\
+					&= \left| \lim_{n\to\infty} \frac{\cos\(e^{2^{-n-1}}-1\) }{2 e^{2^{-n-1}} \cos\(e^{2^{-n}} - 1 \)} \right| = \left| \frac{\lim_{n\to\infty} \cos\(e^{2^{-n-1}}-1\)}{2 \lim_{n\to\infty} e^{2^{-n-1}} \cos\(e^{2^{-n}} - 1\) } \right| = \frac 12,
+				\\
+					\Aboxed{R &= 2.}
+				\end{align*}
+			
+		\end{enumerate}
+	
+	
+\end{document}

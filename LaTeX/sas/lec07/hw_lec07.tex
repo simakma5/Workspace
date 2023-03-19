@@ -1,0 +1,75 @@
+\documentclass[11pt, a4paper]{article}
+
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{15mm}
+\setlength\evensidemargin{15mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+\let\openright=\clearpage
+
+\usepackage[british]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{stddoc}
+\usepackage{mathtools}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{theorem*}{Theorem}
+
+\begin{document}
+	
+	\pagenumbering{arabic}
+	
+	\section*{A8B37SAS: Homework from lecture 7 - 31.3.2020}
+	\noindent\rule{12cm}{0.2pt}
+	
+	First of all, I would like to \textit{apologize} for any notational anomalies I'm using that might cause any kind of confusion. Some of the conventions I'm using in the following text are that $\theta(t)$ is the Heaviside step function or $\int_{\mathbb R} = \int_{-\infty}^{\infty}$.
+	
+	\section{Laplace and Z transforms of a convolution of functions}
+		
+		\begin{theorem}
+			Let $f,g \in L_0$ (meaming that the generally complex functions are at least partially continuous and are of the exponential of lesser order of growth) have Laplace transforms $F(p),G(p)$. Then a convolution of those functions $h(t) \equiv f(t) * g(t)$ has Laplace transform
+			\begin{align}
+				H(p) \equiv \mathcal L[h(t)](p) = F(p) G(p).
+			\end{align}
+		\end{theorem}
+			\begin{proof}
+				Since (for Laplace transform to exist and for Fubini's theorem to work) we consider only measurable functions with value zero in the region of $\mathrm{Re}[f(t)] < 0$, we can write for the Laplace transform of the convolution of two such functions
+				\begin{align*}
+					H(p) &= \int_{\mathbb R} \( \int_{\mathbb R} \theta(\tau) f(\tau) \theta(t-\tau) g(t-\tau) \: \d \tau \) e^{-pt} \: \d t =
+				\\
+					&= \int_{\mathbb R} \( \int_{\mathbb R} \theta(\tau) f(\tau) e^{-p \tau} \theta(t-\tau) g(t-\tau) e^{-p(t-\tau)} \: \d t \) \: \d \tau.
+				\end{align*}
+				Furthermore, we can substitute $u \coloneqq t-\tau$, which yields
+				\begin{align*}
+					H(p) &= \int_{\mathbb R} \( \int_{\mathbb R} \theta(\tau) f(\tau) e^{-p \tau} \theta(u) g(u) e^{-pu} \: \d u \) \: \d \tau =
+				\\
+					&= \int_{\mathbb R} \theta(\tau) f(\tau) e^{-p \tau} \: \d u \int_{\mathbb R} \theta(u) g(u) e^{-pu} \: \d \tau = F(p) G(p).
+				\end{align*}
+			\end{proof}
+		
+		\begin{theorem}
+			Let's assume that sequences $(a_n)_{n\in\mathbb N_0}, (b_n)_{n\in\mathbb N_0} \in Z_0$ (meaning that the generally complex sequences are of the exponential or lesser order of growth) and $(c_n)_{n\in\mathbb N_0} = (a_n)_{n\in\mathbb N_0} * (b_n)_{n\in\mathbb N_0}$. Then is true that
+			\begin{align}
+				\mathcal Z[c_n](z) = \mathcal Z[a_n](z) \mathcal Z[b_n](z).
+			\end{align}
+		\end{theorem}
+			\begin{proof}
+				We will prove this one directly. Starting from the right, we get
+				\begin{align*}
+					\mathcal Z[a_n](z) \mathcal Z[b_n](z) = \sum_{k\in\mathbb N_0} \frac{a_k}{z^k} \sum_{\l\in\mathbb N_0} \frac{b_\l}{z^\l} = \sum_{n=0}^{\infty} \( \sum_{k=0}^{n} a_k b_{n-k} \) \frac{1}{z_n} = \mathcal Z[c_n](z).
+				\end{align*}
+			\end{proof}
+		
+		
+	
+	
+	
+	
+\end{document}

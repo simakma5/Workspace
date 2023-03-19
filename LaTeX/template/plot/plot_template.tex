@@ -1,0 +1,96 @@
+\documentclass{article}
+
+\usepackage[a4paper, total={6in,8in}]{geometry}
+\usepackage{setspace}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{pgfplots}
+
+\def\({\left(}
+\def\){\right)}
+\def\endl{\\[3mm]}
+
+\renewcommand{\vec}{\boldsymbol}
+\renewcommand{\d}{\mathrm d}
+\newcommand{\e}{\mathrm e}
+\newcommand{\h}{\hbar}
+
+\begin{document}
+	\begin{center}
+		\section*{Plots template document}
+		\noindent\rule{15cm}{1.4pt}
+	\end{center}
+	
+	\pagenumbering{gobble}
+	
+	\subsubsection*{Pgfplots}
+	Tikzpicture and axis enviroments are used somehow to do plots. \endl
+	\begin{tikzpicture}
+	\begin{axis}
+	\addplot[color=red]{exp(x)};
+	\end{axis}
+	\end{tikzpicture}
+	%Here ends the first plot
+	\hskip 5pt
+	%Here begins the 3d plot
+	\begin{tikzpicture}
+	\begin{axis}
+	\addplot3[
+	surf,
+	]
+	{exp(-x^2-y^2)*x};
+	\end{axis}
+	\end{tikzpicture}
+	\\
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\begin{axis}[
+		axis lines = left,
+		xlabel = $x$,
+		ylabel = {$f(x)$},
+		]
+		%Below the red parabola is defined
+		\addplot [
+		domain=-10:10, 
+		samples=100, 
+		color=red,
+		]
+		{x^2 - 2*x - 1};
+		\addlegendentry{$x^2 - 2x - 1$}
+		%Here the blue parabloa is defined
+		\addplot [
+		domain=-10:10, 
+		samples=100, 
+		color=blue,
+		]
+		{x^2 + 2*x + 1};
+		\addlegendentry{$x^2 + 2x + 1$}
+		
+		\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\begin{axis}[
+		title=Exmple using the mesh parameter,
+		hide axis,
+		colormap/cool,
+		]
+		\addplot3[
+		mesh,
+		samples=50,
+		domain=-8:8,
+		]
+		{sin(deg(sqrt(x^2+y^2)))/sqrt(x^2+y^2)};
+		\addlegendentry{$\frac{sin(r)}{r}$}
+		\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	
+\end{document}

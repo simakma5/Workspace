@@ -1,0 +1,91 @@
+\documentclass[11pt, a4paper]{article}
+
+\setlength\textwidth{145mm}
+\setlength\textheight{247mm}
+\setlength\oddsidemargin{15mm}
+\setlength\evensidemargin{15mm}
+\setlength\topmargin{0mm}
+\setlength\headsep{0mm}
+\setlength\headheight{0mm}
+\let\openright=\clearpage
+
+\usepackage[czech]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{stddoc}
+
+\begin{document}
+	
+	\section*{Domácí úkol A8B37SAS - 27.2.2020}
+	\noindent\rule{12cm}{0.2pt}
+
+	\section{Příklad 1}
+		
+		\paragraph{Zadání}
+		
+			Spočtěte následujicí integrál.
+			\begin{align*}
+				\int_{-\infty}^{\infty} \delta(2t-4) \, \sin\( \pi \( t + \frac 12 \) \) \: \d t
+			\end{align*}
+		
+		\paragraph{Řešení}
+		
+			\begin{align*}
+				\Aboxed{\int_{-\infty}^{\infty} \delta(2t-4) \, \sin\( \pi \( t + \frac 12 \) \) \: \d t = \sin\( \pi \( 2 + \frac 12 \) \) = \sin\( \frac{3\pi}{2} \) = -1.}
+			\end{align*}
+	\\[5mm]
+		
+	\section{Příklad 2}
+		
+		\paragraph{Zadání}
+		
+			Určete korelační funkci $R_{12}(\tau)$ spojitých signálů $s_1(t)$, $s_2(t)$ zadaných grafy (uvádím pouze rovnou předpisy).
+			
+		\paragraph{Řešení}
+			
+			Dva zadané spojité signály v časové oblasti můžeme vyjádřit pomocí předpisů
+			\begin{align*}
+				s_1(t) &= H\( t + \frac T2 \) - H\( t - \frac T2 \),
+			\\
+				s_2(t) &= \left\{ \begin{matrix}
+						0, &\text{ pokud }|t| > T/2, \\[1mm]
+						1 + \frac 2T t, &\text{ pokud }-T/2 \leq t \leq 0, \\[1mm]
+						1 - \frac 2T \, t, &\text{ pokud }0 \leq t \leq T/2.
+					\end{matrix} \right.
+			\end{align*}
+			
+			Dále, jelikož korelační funkce dvou spojitých signálů $s_1, s_2$ s časovou proměnnou $t$ je dána vztahem
+			\begin{align*}
+				R_{12}(\tau) = \int_{-\infty}^{\infty} s_1(t+\tau) s_2^*(t) \: \d t,
+			\end{align*}
+			můžeme korelačního funkci pomocí mnou určených předpisů funkcí (funkce jsou obě reálné, takže komplexní sdružení ztrácí na významu) vypočítat jako
+			\begin{align*}
+				R_{12}(\tau) &= \int_{-\infty}^{-T/2} s_1(t+\tau) \, 0 \: \d t \, + \int_{-T/2}^{0} s_1(t+\tau) \( 1 + \frac 2T \, t \) \: \d t \, +
+			\\
+				&\quad + \int_{0}^{T/2} s_1(t+\tau) \( 1 - \frac 2T \, t \) \: \d t \, + \int_{T/2}^{\infty} s_1(t+\tau) \, 0 \: \d t =
+			\\
+				&= \int_{-T/2}^{0} s_1(t+\tau) \( 1 + \frac 2T \, t \) \: \d t \, + \int_{0}^{T/2} s_1(t+\tau) \( 1 - \frac 2T \, t \) \: \d t =
+			\\
+				&= \int_{-T/2}^{0} s_1(t+\tau) \( 1 + \frac 2T \, t \) \: \d t \, - \int_{0}^{-T/2} s_1(-t+\tau) \( 1 + \frac 2T \, t \) \: \d t =
+			\\
+				&= \int_{-T/2}^{0} s_1(t+\tau) \( 1 + \frac 2T \, t \) \: \d t \, + \int_{-T/2}^{0} s_1(-t+\tau) \( 1 + \frac 2T \, t \) \: \d t =
+			\\
+				&= \int_{-T/2}^{0} s_1(t+\tau) \( 1 + \frac 2T \, t \) + s_1(-t+\tau) \( 1 + \frac 2T \, t \) \: \d t =
+			\\
+				&= \int_{-T/2}^{0} \( 1 + \frac 2T \, t \) \( s_1(t+\tau) ) + s_1(-t+\tau) \) \: \d t =
+			\\
+				&= \int_{-T/2}^{0} \( 1 + \frac 2T \, t \) \( H\( t + \tau + \frac T2 \) - H\( t + \tau - \frac T2 \) + \right.
+			\\
+				& \quad \left. + H\( -t + \tau + \frac T2 \) - H\( -t + \tau - \frac T2 \) \) \: \d t =
+			\\
+				&=
+			\end{align*}
+	
+	
+	
+	
+\end{document}

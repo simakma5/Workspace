@@ -1,0 +1,572 @@
+\documentclass{article}
+
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{setspace}
+
+\usepackage[british]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{amsmath,amssymb,amsfonts,amsthm,mathtools}
+\usepackage{circuitikz}
+\tikzstyle{densely dashed}=[dash pattern=on 4pt off 3pt]
+
+\def\({\left(}
+\def\){\right)}
+\def\endl{\\[3mm]}
+
+\onehalfspacing
+
+\begin{document}
+	\begin{center}
+		\section*{Circuit diagrams using circuitikz template document}
+		\noindent\rule{15cm}{1.4pt}
+	\end{center}
+
+	\begin{figure}[h!]
+		\begin{center}
+			\begin{circuitikz}[american voltages]
+				\draw
+				(0,0) to [short, *-] (6,0)
+				to [V, l_=$\mathrm{j}{\omega}_m \underline{\psi}^s_R$] (6,2) 
+				to [R, l_=$R_R$] (6,4) 
+				to [short, i_=$\underline{i}^s_R$] (5,4) 
+				(0,0) to [open, v^>=$\underline{u}^s_s$] (0,4) 
+				to [short, *- ,i=$\underline{i}^s_s$] (1,4) 
+				to [R, l=$R_s$] (3,4)
+				to [L, l=$L_{\sigma}$] (5,4) 
+				to [short, i_=$\underline{i}^s_M$] (5,3) 
+				to [L, l_=$L_M$] (5,0);
+			\end{circuitikz}
+			\caption{Example circuit}
+		\end{center}
+	\end{figure}
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\begin{circuitikz}[american voltages]
+				\draw (0,2)
+				to[short, *-] (0,2)
+				to[R=$R_1$] (2,2)
+				to[R=$R_2$] (2,0)
+				to[short, -*] (0,0);
+				\draw (2,2)
+				to[short, *-] (2,2)
+				to[R=$R_1$] (4,2)
+				to[R=$R_2$] (4,0)
+				to[short, -*] (2,0);
+				\draw (4,2)
+				to[short, *-] (4,2)
+				to[R=$R_1$] (6,2)
+				to[short, -*] (6,2)
+				to[R=$R_2$] (6,0)
+				to[short, *-*] (4,0);
+				\draw[densely dashed] (6,2)--(8,2);
+				\draw[densely dashed] (6,0)--(8,0);
+			\end{circuitikz}
+			\caption{And infinite ladder construct}
+		\end{center}
+	\end{figure}
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\begin{circuitikz}
+				\draw[densely dashed] (0,2)--(2,2);
+				\draw[densely dashed] (0,0)--(2,0);
+				\draw (2,2)
+				to[short, *-] (2,2)
+				to[R=$R_1$] (4,2)
+				to[short, -*] (4,2)
+				to[R=$R_2$] (4,0)
+				to[short, *-*] (2,0);
+				\draw[densely dashed] (4,2)--(6,2);
+				\draw[densely dashed] (4,0)--(6,0);
+			\end{circuitikz}
+			\caption{Segment}
+		\end{center}
+	\end{figure}
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\begin{circuitikz}[american voltages]
+				
+				%% upper right segment
+				\draw (0,0)
+				to [short, o-] (0,0)
+				to node[draw,circle,fill=white]{A} (0,-2)
+				to [short, o-] (-1,-2)
+				to [american inductor, mirror] (-1,-4)
+				to [short, -o] (0,-4)
+				to [short] (1,-4)
+				to [european potentiometer, name=P, mirror, l=Rd] (1,-2)
+				;
+				\draw (P.wiper) to [short] (2,-3)
+				to [short, -o] (2,0)	
+				;
+				
+				%% bottom right segment
+				\draw (-2.5,-9)
+				to [short, o-] (-2.5,-7)
+				to node[draw, circle, fill=white]{V} (0.5,-7)
+				to [short] (0.5,-7)
+				to node[draw, circle, fill=white]{A} (0.5,-9)
+				to [short, -o] (0.5,-9)
+				;
+				\draw (-2.5,-7)
+				to [short, o-] (-2.5,-5)
+				to [Telmech=M] (0.5,-5)
+				to [short, -o] (0.5,-7)
+				;
+				
+				%% upper left segment
+				\draw (5,0)
+				to [short, o-] (5,0)
+				to node[draw,circle,fill=white]{A} (5,-2)
+				to [short, o-] (4,-2)
+				to [american inductor, mirror] (4,-4)
+				to [short, -o] (5,-4)
+				to [short] (6,-4)
+				to [european potentiometer, name=P, mirror, l=Rd] (6,-2)
+				;
+				\draw (P.wiper) to [short] (7,-3)
+				to [short, -o] (7,0)	
+				;
+				
+				%% bottom right segment
+				\draw (2.5,-7)
+				to [short, o-] (2.5,-5)
+				to [Telmech=G] (5.5,-5)
+				to [short, -o] (5.5,-7)
+				to node[draw, circle, fill=white, label={[font=\footnotesize]+30:(n)}]{V} (2.5,-7)
+				;
+				
+			\end{circuitikz}
+		\end{center}
+		\caption{Laboratorní zapojení elektromotoru (M) s dynamem (G), oboje s vinutím nahoře}
+	\end{figure}
+
+	
+\newpage	
+	\section*{Obvody pro Martina Henycha}
+	
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\begin{circuitikz}[american voltages]
+				
+				%% upper row
+				\draw (0,0) to[short,o-] (1,0)
+				to[C=$C_F$] (3,0)
+				to[american inductor,l=$L_P$] (5,0)
+				to[american inductor,l=$L_P$] (7,0)
+				to[american inductor,l=$L_P$] (9,0)
+				to[american inductor,l=$L_P$] (11,0)
+				to[C=$C_F$] (13,0)
+				to[short,-o] (14,0)
+				;
+				
+				%% bottom row
+				\draw (0,-3) to[short,o-] (3,-3)
+				to[american inductor,l=$L_G$] (5,-3)
+				to[american inductor,l=$L_G$] (7,-3)
+				to[american inductor,l=$L_G$] (9,-3)
+				to[american inductor,l=$L_G$] (11,-3)
+				to[short,-o] (14,-3)
+				;
+				
+				%% first connecting column
+				\draw (5,0) to[short,*-] (5,0)
+				to[C=$C_V$] (5,-3)
+				to[short,-*] (5,-3)
+				;
+				
+				%% second connecting column
+				\draw (7,0) to[short,*-] (7,0)
+				to[american inductor,l=$L_V$] (7,-3)
+				to[short,-*] (7,-3)
+				;
+				
+				%% third connecting column
+				\draw (9,0) to[short,*-] (9,0)
+				to[C=$C_V$] (9,-3)
+				to[short,-*] (9,-3)
+				;
+				
+			\end{circuitikz}
+		\end{center}
+		\caption{First Circuit}
+	\end{figure}
+	
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\begin{circuitikz}[american voltages]
+				
+				%% central row
+				\draw (0,0) to[short,o-] (1,0)
+				to[C=$C_F$] (3,0)
+				to[american inductor,l=$L_P$] (5,0)
+				to[american inductor,l=$L_P$] (7,0)
+				to[american inductor,l=$L_P$] (9,0)
+				to[american inductor,l=$L_P$] (11,0)
+				to[C=$C_F$] (13,0)
+				to[short,-o] (14,0)
+				;
+				
+				%% first bottom branch ground
+				\draw (5,0) to[short,*-] (5,0)
+				to[C=$C_V$] (5,-2)
+				node[ground] (5,-2){}
+				;
+				
+				%% second bottom branch ground
+				\draw (7,0) to[short,*-] (7,0)
+				to[american inductor,l=$L_V$] (7,-2)
+				node[ground] (7,-2){}
+				;
+				
+				%% third bottom branch ground
+				\draw (9,0) to[short,*-] (9,0)
+				to[C=$C_V$] (9,-2)
+				node[ground] (9,-2){}
+				;
+				
+				%% upper branch
+				\draw (7,0) to[short,-] (7,4)
+				to[american inductor,l=$L_P$] (9,4)
+				to[american inductor,l=$L_P$] (11,4)
+				to[C=$C_F$] (13,4)
+				to[short,-o] (14,4)
+				;
+				
+				%% upper branch ground
+				\draw (9,4) to[short,*-] (9,4)
+				to[C=$C_V$] (9,2)
+				node[ground] (9,2){}
+				;
+				
+			\end{circuitikz}
+		\end{center}
+		\caption{Second Circuit}
+	\end{figure}
+	
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\begin{circuitikz}[american voltages]
+				
+				%% upper row
+				\draw (0,0) to[short,o-] (1,0)
+				to[american inductor,l=$L_R$] (3,0)
+				to[C=$C_L$] (5,0)
+				to[short,-] (7,0)
+				to[american inductor,l=$L_R$] (9,0)
+				to[C=$C_L$] (11,0)
+				to[short,-o] (14,0)
+				;
+				
+				%% bottom row
+				\draw (0,-3) to[short,o-o] (14,-3);
+				
+				%% first connecting column
+				\draw (5,0) to[short,*-] (5,0)
+				to[american inductor,l=$L_L$] (5,-3)
+				to[short,-*] (5,-3)
+				;
+				
+				%% second connecting column
+				\draw (7,0) to[short,*-] (7,0)
+				to[C=$C_R$] (7,-3)
+				to[short,-*] (7,-3)
+				;
+				
+				%% third connecting column
+				\draw (11,0) to[short,*-] (11,0)
+				to[american inductor,l=$L_L$] (11,-3)
+				to[short,-*] (11,-3)
+				;
+				
+				%% fourth connecting column
+				\draw (13,0) to[short,*-] (13,0)
+				to[C=$C_R$] (13,-3)
+				to[short,-*] (13,-3)
+				;
+				
+			\end{circuitikz}
+		\end{center}
+		\caption{Third Circuit}
+	\end{figure}
+	
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\begin{circuitikz}[american voltages]
+				
+				%% upper row
+				\draw (0,0) to[short,o-] (1,0)
+				to[american inductor,l=$L$] (3,0)
+				to[american inductor,l=$L$] (5,0)
+				to[american inductor,l=$L$] (7,0)
+				to[short,-o] (9,0)
+				;
+				
+				%% bottom row
+				\draw (0,-3) to[short,o-o] (9,-3);
+				
+				%% first connecting column
+				\draw (3,0) to[short,*-] (3,0)
+				to[C=$C$] (3,-3)
+				to[short,-*] (3,-3)
+				;
+				
+				%% second connecting column
+				\draw (5,0) to[short,*-] (5,0)
+				to[C=$C$] (5,-3)
+				to[short,-*] (5,-3)
+				;
+				
+				%% third connecting column
+				\draw (7,0) to[short,*-] (7,0)
+				to[C=$C$] (7,-3)
+				to[short,-*] (7,-3)
+				;
+				
+			\end{circuitikz}
+		\end{center}
+		\caption{Fourth Circuit}
+	\end{figure}
+	
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\begin{circuitikz}[american voltages]
+				
+				%% upper row
+				\draw (0,0) to[short,o-] (1,0)
+				to[C=$C$] (3,0)
+				to[C=$C$] (5,0)
+				to[C=$C$] (7,0)
+				to[short,-o] (9,0)
+				;
+				
+				%% bottom row
+				\draw (0,-3) to[short,o-o] (9,-3);
+				
+				%% first connecting column
+				\draw (3,0) to[short,*-] (3,0)
+				to[american inductor,l=$L$] (3,-3)
+				to[short,-*] (3,-3)
+				;
+				
+				%% second connecting column
+				\draw (5,0) to[short,*-] (5,0)
+				to[american inductor,l=$L$] (5,-3)
+				to[short,-*] (5,-3)
+				;
+				
+				%% third connecting column
+				\draw (7,0) to[short,*-] (7,0)
+				to[american inductor,l=$L$] (7,-3)
+				to[short,-*] (7,-3)
+				;
+				
+			\end{circuitikz}
+		\end{center}
+		\caption{Fifth Circuit}
+	\end{figure}
+	
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\resizebox{\textwidth}{!}{
+				\begin{circuitikz}[american voltages]
+					
+					\ctikzset{resistor=european}
+					
+					%% upper row
+					\draw (0,0) to[short,o-] (1,0)
+					to[R=$R$] (3,0)
+					to[american inductor,l=$L_R$] (5,0)
+					to[C=$C_L$] (7,0)
+					to[short] (11,0)
+					to[R=$R$] (13,0)
+					to[american inductor,l=$L_R$] (15,0)
+					to[C=$C_L$] (17,0)
+					to[short,-o] (23,0)
+					;
+					
+					%% bottom row
+					\draw (0,-3) to[short,o-o] (23,-3);
+					
+					%% first connecting column
+					\draw (7,0) to[short,*-] (7,0)
+					to[american inductor,l=$L_L$] (7,-3)
+					to[short,-*] (7,-3)
+					;
+					
+					%% second connecting column
+					\draw (9,0) to[short,*-] (9,0)
+					to[C=$C_R$] (9,-3)
+					to[short,-*] (9,-3)
+					;
+					
+					%% third connecting column
+					\draw (11,0) to[short,*-] (11,0)
+					to[R=$G$] (11,-3)
+					to[short,-*] (11,-3)
+					;
+					
+					%% fourth connecting column
+					\draw (17,0) to[short,*-] (17,0)
+					to[american inductor,l=$L_L$] (17,-3)
+					to[short,-*] (17,-3)
+					;
+					
+					%% fifth connecting column
+					\draw (19,0) to[short,*-] (19,0)
+					to[C=$C_R$] (19,-3)
+					to[short,-*] (19,-3)
+					;
+					
+					%% sixth connecting column
+					\draw (21,0) to[short,*-] (21,0)
+					to[R=$G$] (21,-3)
+					to[short,-*] (21,-3)
+					;
+					
+				\end{circuitikz}
+			}
+		\end{center}
+		\caption{Sixth Circuit}
+	\end{figure}
+	
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\resizebox{\textwidth}{!}{
+				\begin{circuitikz}
+					
+					%% central circuit
+					\draw (0,0) to[C=$C_R$] (0,2)
+					to[short] (2,2)
+					to[american inductor,l=$L_L$] (2,0)
+					to[short] (0,0)
+					;
+					
+					%% upper tail
+					\draw (1,2) to[short,*-*] (1,3);
+					
+					%% upper tail
+					\draw (1,0) to[short,*-*] (1,-1);
+					
+					
+					%% main diagonal upper left
+					\draw (1,3) to[short] (-5,6)
+					to[C=$2C_L$] (-6,6+1/2)
+					to[american inductor,mirror,l=$L_R/2$] (-8,7+1/2)
+					to[short,-o] (-9,8)
+					;
+					
+					%% main diagonal bottom left
+					\draw (1,-1) to[short,-o] (-9,4);
+					
+					%% main diagonal upper right
+					\draw (1,3) to[short] (7,0)
+					to[C=$2C_L$] (8,-1/2)
+					to[american inductor,l=$L_R/2$] (10,-1-1/2)
+					to[short,-o] (11,-2)
+					;
+					
+					%% main diagonal bottom right
+					\draw (1,-1) to[short,-o] (11,-6);
+					
+					
+					
+					%% side diagonal upper right
+					\draw (1,3) to[short] (7,6)
+					to[C=$2C_L$] (8,6+1/2)
+					to[american inductor,l=$L_R/2$] (10,7+1/2)
+					to[short,-o] (11,8)
+					;
+					
+					%% side diagonal bottom right
+					\draw (1,-1) to[short,-o] (11,4);
+					
+					%% side diagonal upper left
+					\draw (1,3) to[short] (-5,0)
+					to[C=$2C_L$] (-6,-1/2)
+					to[american inductor,mirror,l=$L_R/2$] (-8,-1-1/2)
+					to[short,-o] (-9,-2)
+					;
+					
+					%% side diagonal bottom left
+					\draw (1,-1) to[short,-o] (-9,-6);
+					
+					
+				\end{circuitikz}
+			}
+		\end{center}
+		\caption{Seventh circuit}
+	\end{figure}
+	
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\resizebox{\textwidth}{!}{
+				\begin{circuitikz}
+					
+					%% upper row
+					\draw (0,0) to[short,o-] (1,0)
+					to[C=$C_F$] (3,0)
+					to[american inductor,l=$L_P$] (5,0)
+					to[R=$R_P$] (7,0)
+					to[american inductor,l=$L_P$] (9,0)
+					to[R=$R_P$] (11,0)
+					to[american inductor,l=$L_P$] (13,0)
+					to[R=$R_P$] (15,0)
+					to[american inductor,l=$L_P$] (17,0)
+					to[R=$R_P$] (19,0)
+					to[C=$C_F$] (21,0)
+					to[short,-o] (22,0)
+					;
+					
+					%% bottom row
+					\draw (0,-6) to[short,o-] (3,-6)
+					to[american inductor,l=$L_G$] (5,-6)
+					to[R=$R_G$] (7,-6)
+					to[american inductor,l=$L_G$] (9,-6)
+					to[R=$R_G$] (11,-6)
+					to[american inductor,l=$L_G$] (13,-6)
+					to[R=$R_G$] (15,-6)
+					to[american inductor,l=$L_G$] (17,-6)
+					to[R=$R_G$] (19,-6)
+					to[short,-o] (22,-6)
+					;
+					
+					%% first column
+					\draw (7,0) to[short,*-] (7,0)
+					to[C=$C_V$] (7,-6)
+					to[short,-*] (7,-6)
+					;
+					
+					%% second column
+					\draw (11,0) to[short,*-] (11,0)
+					to[american inductor,l=$L_V$] (11,-3)
+					to[R=$R_V$] (11,-6)
+					to[short,*-] (11,-6)
+					;
+					
+				%% third column
+					\draw (15,0) to[short,*-] (15,0)
+					to[C=$C_V$] (15,-6)
+					to[short,-*] (15,-6)
+					;
+					
+				\end{circuitikz}
+			}
+		\end{center}
+		\caption{Eighth circuit}
+	\end{figure}
+	
+	
+\end{document}

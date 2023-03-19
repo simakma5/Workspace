@@ -1,0 +1,113 @@
+\documentclass{article}
+
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{setspace}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{amsmath,amssymb,amsfonts,amsthm,mathtools}
+\usepackage{pgfplots}
+
+% document-wise commands
+\def\({\left(}
+\def\){\right)}
+\def\endl{\\[3mm]}
+
+% math commands
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\vecconst}[1]{\mathbf{#1}}
+\renewcommand{\d}{\mathrm d}
+\newcommand{\h}{\hbar}
+\newcommand{\e}{\mathrm e}
+
+\onehalfspacing
+
+\begin{document}
+	\pagenumbering{gobble}
+	
+	\begin{center}
+		\section*{Příklady pro týden 5 - Martin Šimák}
+		\noindent\rule{15cm}{1.6pt} \\[5mm]
+	\end{center}
+	
+	\subsection*{Zadání}
+		 Bodový  náboj  o  velikosti $q$  leží  vně  koule  o  poloměru $R$.  Koule  je  z dokonalého  vodiče  a  je  nabita nábojem $q$.  Předpokládejte,  že  zvolíme  potenciál  v  nekonečnu  rovný  nule. V takovém  případě  má uvedená úloha jediné řešení. Nalezněte toto řešení. Dále určete práci, kterou musí konat síla působící na tento bodový  náboj, aby ho z nekonečna přesunula na určitou pozici  vně koule. Závislost této práce vykreslete. Fyzikálně interpretujte její průběh. Bodový náboj i koule mají stejný náboj. Přitahují se, či odpuzují? \\
+		
+		\noindent\rule{8cm}{0.4pt}
+	
+	\subsection*{Řešení}
+		Nejprve vyřešíme lehčí úlohu, kdy budeme prozatím ignorovat náboj samotné koule (zůstává však dokonalým vodičem), čímž získáme potenciál $\varphi'$ (metodou zrcadlení) a až potom k tomuto výsledku přičteme i působení nabité koule.\\
+		Metoda zrcadlení zde spočíná v tom, že nalezneme bod inverzní dle kružnice, která vznikne řezem koule libovolnou rovinou obsahující polopřímku $SQ$, kde $S$ je střed této kružnice a $Q$ je bod, ve kterém se nachází korespondující náboj. Bod $Q$ invertujeme na bod $Q'$, kam následně umístíme obraz náboje $q$, dle rovnice kruhové inverze
+		\begin{align*}
+			|SQ| |SQ'| = R^2 \implies r_{q'} = |SQ'| = \frac{R^2}{|SQ|} = \frac{R^2}{r_q} .
+		\end{align*}
+		Zbývá tedy již jen stanovit náboj $q'$, který určíme zapomoci podmínky, že soustava musí být silově rovnovážná na hranici kružnice. Stačí tedy dosadit do Coulombova zákona pro elektrostatickou sílu, kde bod pozorování bude průsečík uvažované kružnice (vzdálenost $R$) a polopřímky $SQ$, tedy
+		\begin{align*}
+			F_R = \frac{1}{4\pi\epsilon_0} \( \frac{q}{|R - r_q|} + \frac{q'}{|R - r_{q'}|} \) = 0 \endl
+			\frac{q'}{R - r_{q'}} = - \frac{q}{r_q - R} \endl
+			q' = \frac{-q \( R - \frac{R^2}{r_q} \)}{r_q - R} = -q \frac{R}{r_q} .
+		\end{align*}
+		\newpage
+		
+		\paragraph{Výsledné značení:}
+			\begin{itemize}
+				\item zrcadlový obraz náboje $q' = - q R/r_q$,
+				\item bod pozorování $\vec r = r \, \vec r_0$ ($\vec r_0$ je jednotkový vektor ve směru pozorování),
+				\item bodový náboj je na souřadnici $\vec r_q = r_q \, \vec r_{0q} $ ($\vec r_{0q}$ je jednotkový vektor ve směru bodového náboje $q$),
+				\item zrcadlový obraz bodového náboje $q'$ je na souřadnici $\vec r_{q'} = r_{q'} \, \vec r_{0q'}$ ($\vec r_{0q'}$ je jednotkový vektor ve směru zrcadlového obrazu $q'$ a $r_{q'} = R^2/r_q)$,
+				\item konstanta $\alpha \equiv r/R$,
+				\item konstanta $\beta \equiv R/r_q$.
+			\end{itemize}
+		
+		\paragraph{Výpočet potenciálu:}
+			\begin{align*}
+				\varphi'(\vec r)
+				&= \frac{1}{4 \pi \epsilon_0} \( \frac{q}{ \|\vec r - \vec r_q \| } + \frac{q'}{ \| \vec r - \vec r_{q'} \| } \) \endl
+				&= \frac{1}{4 \pi \epsilon_0} \( \frac{q}{ \| r \vec r_0 - r_q \vec r_{0q} \| } - \frac{qR/r_q}{ \| r \vec r_0 - R^2/r_q \vec r_q \| } \) \endl
+				&= \frac{q}{4 \pi \epsilon_0 R} \( \frac{1}{ \| \alpha \vec r_0 - 1/\beta \vec r_{0q} \| } - \frac{\beta}{ \| \alpha \vec r_0 - \beta \vec r_q \| } \)
+			\end{align*}
+		
+		Nyní jsme tedy stanovili potenciál, který představuje situaci bodového náboje vně dokonale vodivé, však nenabité koule. Jelikož koule se vně vlastního objemu v dostatečné vzdálenosti jeví jako bodový náboj, můžeme její příspevek snadno přičíst k dosavadnímu výsledku, tedy
+		\begin{align*}
+			\Aboxed{\varphi
+			= \varphi' + \frac{1}{4 \pi \epsilon_0} \frac{q}{r}
+			= \frac{q}{4 \pi \epsilon_0 R} \( \frac{1}{ \| \alpha \vec r_0 - 1/\beta \vec r_{0q} \| } - \frac{\beta}{ \| \alpha \vec r_0 - \beta \vec r_q \| } + \frac{1}{\alpha} \)} \, .
+		\end{align*} \\
+		
+		\paragraph{Výpočet práce (energie):}
+			Práci vykonanou při přesunu bodového náboje z nekonečna (místo nulového potenciálu) na určitou posici vně koule můžeme interpretovat také jako elektrostatickou energii náboje ve výsledné poloze. Spočteme ji pomocí námi dříve určeného potenciálu, do kterého nebudeme započítávat první člen v závorce, protože náboj sám na sebe elektrostatickou silou nepůsobí.
+			
+			\begin{align*}
+				W_q = q(\varphi(\vec r) - \varphi(\infty))
+				= \frac{q^2}{4 \pi \epsilon_0 R} \( \frac{R}{r_q} - \frac{R/r_q}{ \| r_q/R \, \vec r_q  - R/r_q \, \vec r_q \| } \)
+				= \frac{q^2}{4 \pi \epsilon_0 R} \( \beta - \frac{\beta}{1/\beta - \beta} \)
+			\end{align*}
+			\begin{align*}
+				\Aboxed{ W_q = \frac{q^2 \beta}{4 \pi \epsilon_0 R} \( 1 - \frac{\beta}{1 - \beta^2} \)}
+			\end{align*}
+			
+		\paragraph{Visualisace práce v grafu:}
+			Práci jako funkci radiální vzdálenosti, do které vkládáme bodový náboj $q$, od středu koule, kterou jsme umístili do počátku souřadnicové soustavy, můžeme nanést do 2-D grafu. Pro účely vizualizace jsme jako referenční hodnoty zvolili $q= 1$ nC, $R=0,1$ m (osa vzdálenosti začíná až od 0,5 m, abychom předešli zkreslování křivky přílišně silnými elektrostatickými silami na krátkou vzdálenost).
+			\begin{center} \[
+				\begin{tikzpicture}
+				\begin{axis} [
+					xlabel = {$r_q \, [\mathrm{m}]$},
+					ylabel = {$W_q(r_q) \, [\mathrm{nJ}]$},
+					ymajorgrids=true,
+					xmajorgrids=true,
+					grid style=dashed,
+					]
+				\addplot[
+					domain=0.5:10,
+					samples=100,
+					color=red,
+					]
+					{10^9*(((10^(-9))^2)/(4*3.14*8.85*10^(-12)*x)) * (1-(0.1*x)/(x^2-(0.1)^2))};
+				\end{axis}
+				\end{tikzpicture} \]
+			\end{center}
+			Z grafu vidíme, že práce vychází kladně, což implikuje fakt, že se koule s nábojem odpuzují.
+		
+\end{document}

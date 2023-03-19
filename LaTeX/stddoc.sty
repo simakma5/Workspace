@@ -1,0 +1,212 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+
+%% Matematika
+\RequirePackage{amsmath}            % rozšíření pro sazbu matematiky
+\RequirePackage{amssymb}            % rozšíření zásoby symbolů v matematice
+\RequirePackage{amsfonts}           % matematické fonty
+\RequirePackage{amsthm}             % sazba vět, definic apod.
+\RequirePackage{bbding}             % balíček s nejrůznějšími symboly
+\RequirePackage{bm}                 % tučné symboly (příkaz \bm)
+\RequirePackage{mathtools}          % doplňkový package pro matematiku
+\RequirePackage{gensymb}			% obsahuje generické symboly pro text i mathmode (příkazy \celsius, \ohm, ...)
+
+\RequirePackage{fancyvrb}           % vylepšené prostředí pro strojové písmo
+\RequirePackage{indentfirst}        % zavede odsazení 1. odstavce kapitoly
+\RequirePackage{yfonts}				% Staroněmecký fancy fonty
+
+\RequirePackage{dcolumn}            % lepší zarovnání sloupců v tabulkách
+\RequirePackage{booktabs}           % lepší vodorovné linky v tabulkách
+\RequirePackage{paralist}           % lepší enumerate a itemize
+\RequirePackage{enumitem}           % umožňuje customizaci enumerate
+\RequirePackage{xcolor}             % barevná sazba
+\RequirePackage{tcolorbox}			% nastavitelný colorbox
+
+\RequirePackage{graphicx}           % vkládání obrázků
+
+\RequirePackage{natbib}             % zajištuje možnost odkazovat na literaturu
+\RequirePackage[nottoc]{tocbibind}  % zajistí přidání seznamu literatury,
+
+
+\RequirePackage{wasysym}            % balíček s nejrůznějšími symboly
+\RequirePackage{hyperref}           % umožňuje hypertextové reference 
+\hypersetup{
+	colorlinks,
+	citecolor=blue,
+	filecolor=black,
+	linkcolor=blue,
+	urlcolor=blue
+}
+
+%% ==================================================================
+%% ======================== NASTAVENÍ DÉLEK =========================
+%% ==================================================================
+\setlength\parskip{1em}
+
+
+%% ==================================================================
+%% ====================== NASTAVENÍ HLAVIČEK ========================
+%% ==================================================================
+\makeatletter
+\def\@makechapterhead#1{
+	{\parindent \z@ \raggedright \normalfont
+		\Huge\bfseries \thechapter. #1
+		\par\nobreak
+		\vskip 20\p@
+}}
+\def\@makeschapterhead#1{
+	{\parindent \z@ \raggedright \normalfont
+		\Huge\bfseries #1
+		\par\nobreak
+		\vskip 20\p@
+}}
+\makeatother
+
+
+\RequirePackage{epigraph}					% Citáty na začátku kapitoly
+\setlength{\epigraphwidth}{0.8\textwidth}	% Nastavení širší pole citátů
+\renewcommand{\textflush}{flushright}
+\renewcommand{\sourceflush}{flushright}
+\let\originalepigraph\epigraph 
+\renewcommand\epigraph[2]{\originalepigraph{\textit{#1}}{\textsc{#2}}}
+
+\RequirePackage{lettrine}
+
+
+%% ==================================================================
+%% ====================== VEKTOROVÉ KRESLENÍ ========================
+%% ==================================================================
+\RequirePackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
+\RequirePackage{pgfplots}
+\newcommand{\legenda}[1]{\addlegendentry{#1}}
+
+
+%% ==================================================================
+%% ==================== DEFINICE A NOVÉ PŘÍKAZY =====================
+%% ==================================================================
+
+% Efektivnější psaní
+\def\({\left(}
+\def\){\right)}
+\def\[{\left[}
+\def\]{\right]}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\C}{{\mathbb C}}
+\newcommand{\Q}{{\mathbb Q}}
+\newcommand{\F}{{\mathbb F}}
+
+% Kombinační číslo
+\newcommand{\comb}[2]{
+	\left( \begin{matrix}
+		#1 \\
+		#2
+	\end{matrix} \right)
+}
+
+% Diskrétní matematika
+\renewcommand{\mod}[3]{#1 \equiv #2 \, (\mathrm{mod} \, #3)}
+
+% Komplexní kalkulus
+\newcommand{\res}[2]{\mathrm{res}_{#1}\(#2\)}
+
+% Hezké symboly
+\renewcommand{\l}{\ell}
+\newcommand{\e}{\mathrm e}
+\renewcommand{\iff}{\Leftrightarrow}
+
+% Vektory
+\renewcommand{\vec}{\boldsymbol}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+
+%% ---- Totální a parciální derivace ----
+\renewcommand{\d}{{\mathrm d}}
+\newcommand{\p}{\partial}
+\newcommand{\Cov}{\nabla}
+
+\newcommand{\nder}[3]{ \frac{\d^{#1} #2}{\d #3^{#1}} }
+\newcommand{\dder}[2]{ \nder{2}{#1}{#2} }
+\newcommand{\der} [2]{ \nder{}{#1}{#2}  }
+\newcommand{\vnder}[2]{ \frac{\d^{#1}}{\d #2^{#1}} }
+\newcommand{\vdder}[1]{ \vnder {2}{#1} }
+\newcommand{\vder}[1]{ \vnder {}{#1} }
+
+\newcommand{\npder}[3]{\frac{\p^{#1} #2}{\p #3^{#1}}}
+\newcommand{\pder} [2]{\npder{}{#1}{#2}}
+\newcommand{\pdder}[2]{\npder{2}{#1}{#2}}
+\newcommand{\ppder}[3]{\frac{\p^2 #1}{\p #2 \, \p #3}}
+
+
+% Vektorové diferenciální operátory
+\newcommand{\grad}{\mathrm{grad}\,}
+\renewcommand{\div}{\mathrm{div}\,}
+\newcommand{\rot}{\mathrm{rot}\,}
+
+\newcommand{\Grad}{\nabla}
+\newcommand{\Div}{\nabla\cdot}
+\newcommand{\Rot}{\nabla\times}
+\newcommand{\Lap}{\Delta}
+\newcommand{\Dal}{\square}
+
+%% ---- Kvantová mechanika ---- 
+\newcommand{\h}{\hbar}
+
+% Diracova notace
+\newcommand{\ket}[1]{\left|#1\right\rangle}
+\newcommand{\bra}[1]{\left\langle#1\right|}
+\newcommand{\bracket}[2]{\langle#1\,|\,#2\rangle}
+\newcommand{\braopket}[3]{\langle#1|#2|#3\rangle}
+\newcommand{\str}[2]{\langle#1\rangle_{#2}}
+
+%% ---- Speciální funkce ----
+
+% Válcové Hankelovy funkce
+\newcommand{\Hankel}[2]{{H^{(#1)}_{#2}}}
+\newcommand{\Hankelhat}[2]{ {\hat{H}^{(#1)}_{#2}}  }
+\newcommand{\Hankeltilde}[2]{ {\tilde{H}^{(#1)}_{#2}}  }
+
+% Sférické Hankelovy funkce
+\newcommand{\hankel}[2]{{h^{(#1)}_{#2}}}
+\newcommand{\hankelhat}[2]{ {\hat{h}^{(#1)}_{#2}}  }
+\newcommand{\hankeltilde}[2]{ {\tilde{h}^{(#1)}_{#2}}  }
+
+
+% ---- Statistická fyzika ---- 
+\newcommand{\stred}[1]{{\left\langle #1\right\rangle}}
+\newcommand{\Var}{{\text{Var}}}
+\newcommand{\CoVar}{{\text{Cov}}}
+\newcommand{\Cor}{{\text{Cor}}}
+
+
+% ---- Matice ----
+\newcommand{\vektor}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+
+
+%% ==================================================================
+%% ============================= KOKOTINKY ==========================
+%% ==================================================================
+
+
+\newcommand{\defcard}[3]{
+	\vspace{.5cm}\noindent
+	\fcolorbox{black}{black!15!white}{{
+			\vspace{.5cm}\noindent
+			\begin{minipage}{0.08\textwidth}
+				\begin{center}
+					{\Huge #1}
+				\end{center}
+			\end{minipage}
+			\hfil
+			\fcolorbox{black}{white}{
+				\begin{minipage}{0.85\textwidth}
+					\paragraph{#2}
+					#3
+			\end{minipage}}
+	}}
+	\vspace{.5cm}
+}

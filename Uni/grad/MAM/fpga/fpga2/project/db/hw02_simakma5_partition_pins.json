@@ -1,0 +1,65 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "STROBE",
+					"strict" : false
+				},
+				{
+					"name" : "Data",
+					"strict" : false
+				},
+				{
+					"name" : "D0",
+					"strict" : false
+				},
+				{
+					"name" : "D1",
+					"strict" : false
+				},
+				{
+					"name" : "D2",
+					"strict" : false
+				},
+				{
+					"name" : "D3",
+					"strict" : false
+				},
+				{
+					"name" : "CLK_OUT",
+					"strict" : false
+				},
+				{
+					"name" : "LATCH",
+					"strict" : false
+				},
+				{
+					"name" : "h",
+					"strict" : false
+				},
+				{
+					"name" : "SW1",
+					"strict" : false
+				},
+				{
+					"name" : "SW0",
+					"strict" : false
+				},
+				{
+					"name" : "CLK_IN",
+					"strict" : false
+				},
+				{
+					"name" : "KEY1",
+					"strict" : false
+				},
+				{
+					"name" : "KEY0",
+					"strict" : false
+				}
+			]
+		}
+	]
+}
