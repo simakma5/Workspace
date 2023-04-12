@@ -179,5 +179,3 @@ legend('T^{AMP}','T^{ATT}','Location','northeast')
 a = annotation("rectangle",[0 0 1 1],"Color",'w');
 exportgraphics(fig,"task2-temperatures.eps")
 delete(a)
-
-%% Task 3
