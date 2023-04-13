@@ -1,4 +1,4 @@
-close all; clear; clc
+close all; clear; clc; format compact
 
 %% Task 1
 P_LO = [-10 -8 -6 -4 -2 0 2 4 6 8 10];
@@ -78,9 +78,9 @@ P_IN = [0 2 4 6 8 10];
 P_OUT2 = [-88 -85 -85 -88 -79 -71.8];
 P_OUT3 = [-45.6 -38.7 -30.8 -18.6 -9.8 -5.1];
 P_OUT4 = [-88 -88 -88 -79 -79 -76];
-L_k = round(P_IN-P_OUT2,1)
-O_OUT = zeros(1,length(P_OUT2));
-for i = 1:length(P_OUT2)
-    O_OUT(i) = round(P_OUT2(i)-max(P_OUT3(i),P_OUT4(i)),1);
+L_k = round(P_IN-P_OUT3,1)
+O_OUT = zeros(1,length(P_OUT3));
+for i = 1:length(P_OUT3)
+    O_OUT(i) = round(P_OUT3(i)-max(P_OUT2(i),P_OUT4(i)),1);
 end
 O_OUT
