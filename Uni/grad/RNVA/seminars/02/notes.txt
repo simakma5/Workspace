@@ -1,0 +1,18 @@
+Poznamky ze seminare
+=====
+* Hodne vzdycky zavisi, jaky je zvolen souradnicovy system, tj. elipsoid Zeme pouzity pro urceni souradnic.
+	- v dnesni dobe diky GPS pouzivame skoro vsichni WGS84 celkem jednotne, ale treba indicka kartografie pouziva Everest atd
+	- u nas se jeste par desitek let zpatky pouzival elipsoid Krasovskij, protoze ho pouzivali Rusove
+
+* formaty dat NMEA a GPX
+	- vzdy musi byt uveden pouzity elipsoid
+	- GPX je de facto XML, coz pak umi zchroustat lecjaka aplikace
+		- casto jsou v tomto formatu exportovana data napr v hodinkach, GPSkach atd
+	- GPS Babel: dlouhodobe provozovana a stabilni free sluzba konverze formatu polohovych dat
+		- zadana data v NMEA/GPX prevede do ostatnich (klidne i jenom CSV)
+
+* vyuziti lokalnich souradnic ENU (East, North, Up)
+	- napriklad do letadla nechci nahravat celej soubor ECEF pro urceni polohy
+	- vhodne pro lokalni definici horizontu -> jednoduchy vypocet elevace a azimutu:
+		- elevace = arcsin(U/rho), azimut = arcsin(E/N), kde rho je radiala k cilovemu bodu
+

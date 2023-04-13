@@ -1,0 +1,53 @@
+{
+    "parameters": [
+        {
+            "descr": "substrate width",
+            "expr": "80",
+            "name": "sW",
+            "value": "80"
+        },
+        {
+            "descr": "substrate length",
+            "expr": "sW",
+            "name": "sL",
+            "value": "80"
+        },
+        {
+            "descr": "substrate thickness",
+            "expr": "1",
+            "name": "sT",
+            "value": "1"
+        },
+        {
+            "descr": "patch width",
+            "expr": "20",
+            "name": "pW",
+            "value": "20"
+        },
+        {
+            "descr": "patch length",
+            "expr": "30",
+            "name": "pL",
+            "value": "30"
+        },
+        {
+            "descr": "patch thickness",
+            "expr": "0.05",
+            "name": "t",
+            "value": "0.05"
+        },
+        {
+            "descr": "ms feed line width",
+            "expr": "2.13",
+            "name": "msW",
+            "value": "2.13"
+        },
+        {
+            "descr": "ms feed line offset",
+            "expr": "3",
+            "name": "ms_offset",
+            "value": "3"
+        }
+    ],
+    "version": 1
+}

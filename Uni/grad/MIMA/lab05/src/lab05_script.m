@@ -43,14 +43,14 @@ F1 = zeros(length(N1_COLD),1);
 F2 = zeros(length(N1_COLD),1);
 for i=1:length(f)
     [~,k] = min(abs(f_ENR-f(i)));
-    F1(i) = ENR(k)/(N1_HOT(i)/N1_COLD(i)+1);
-    F2(i) = ENR(k)/(N2_HOT(i)/N2_COLD(i)+1);
+    F1(i) = ENR(k)/(N1_HOT(i)/N1_COLD(i)-1);
+    F2(i) = ENR(k)/(N2_HOT(i)/N2_COLD(i)-1);
 end
 % Plot results
 fig = figure(2);
 plot( ...
-    f,10*log10(F1), ...
-    f,10*log10(F2) ...
+    f,10*real(log10(F1)), ...
+    f,10*real(log10(F2)) ...
     )
 xlim([20 1.5e3])
 xlabel('Frequency [MHz]')
@@ -169,7 +169,7 @@ plot( ...
     f,290*(F_ATT-1) ...
     )
 xlim([20 1.5e3])
-ylim([-1e4 5e4])
+ylim([-3e4 4e4])
 xlabel('Frequency [MHz]')
 ylabel('Equivalent noise temperature [K]')
 grid on

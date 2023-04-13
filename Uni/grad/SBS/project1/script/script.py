@@ -3,7 +3,7 @@ import pandas as pd
 import urllib
 import urllib3
 import geopy.distance
-from numpy import sqrt, log10, pi
+from numpy import sqrt, log10, pi, exp, tanh
 from math import ceil
 from time import sleep
 
@@ -117,6 +117,21 @@ def path_clearance(transmitter1, transmitter2, Txh = 0):
     gamma = 0.1                                             # rough value of gamma obtained from graphs in ITU-R P.676
     Aa = gamma*d.km
 
+    ## Outages (Tonda)
+    zasahFresnel = 1 # Pokud fresnel nepotka prekazku, dej 0
+    A = 15.81 # [dB] fade depth teda vlastne margin co mame? 
+    K = 1.625923e-5 #exp logK z r.530
+    dn75 = 7.7142 # row 300 collumn 
+    print(K)
+    eps_p = abs(Txh-Rxh)/d.km
+    hc= (Txh+Rxh)/2 - (d.km**2)/102 - sum([Txh,Rxh])/len([Txh,Rxh])
+    vsrlimit = float((dn75*d.km**1.5 *f**0.5)/24730)
+    vsr=float(min((dn75/50)**1.8 * exp(-hc/(2.5*sqrt(d.km))),vsrlimit))
+    if ~zasahFresnel:
+        vsr = 0
+    pw = K*(d.km**3.51)*(f**2 +13)**0.447 * 10**(-(0.376*tanh((hc-147)/125))-0.334*eps_p**0.39- 0.00027*min(Txh,Rxh)+17.85*vsr-A/10)
+    print(pw)
+
     ## Output the results into a file
     with open(fr"C:\\Workspace\\Uni\\grad\\SBS\\script\\{transmitter1}_{transmitter2}_{number_of_points}points.txt", 'w') as file:
         file.write('*'*20 + "PATH-CLEARANCE" + '*'*20 + "\n")
@@ -125,6 +140,7 @@ def path_clearance(transmitter1, transmitter2, Txh = 0):
         file.write("Average terrain height: h_avg = " + str(round(h_avg, 2)) + " m.\n")
         file.write("Height of the " + Rx + " antenna required for line-of-sight path clearance: Rxh = " + str(round(Rxh,2)) + " m\n")
         file.write("Corresponding losses: Ad = " + str(round(Ad, 2)) + " dB, FSL = " + str(round(FSL, 2)) + " dB, Aa = " + str(round(Aa, 2)) + " dB\n")
+        file.write("Outages from Tonda's part of the script: K = " + str(K) + ", pw = " + str(pw) + ".\n")
         file.write("\n" + '*'*20 + "DATA" + '*'*20 + '\n' + data_csv)
 
     return Rxh

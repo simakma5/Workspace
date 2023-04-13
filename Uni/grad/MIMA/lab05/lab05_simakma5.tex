@@ -114,7 +114,7 @@ popřípadě lze dopočítat i ekvivalentní šumovou teplotu pomocí vztahu $T_
 \begin{itemize}
     \item Průběhy se vzájemně liší zhruba o 5 dB, což je způsobeno tím, jak funguje kaskádování RF bloků z hlediska šumu, což je dáno Friisovým vztahem
     \begin{align}
-        F_{\mathrm{AMT+SPA}} = F_{\mathrm{AMP}} + \frac{F_{\mathrm{SPA}}-1}{G_{\mathrm{AMP}}}.
+        F_{\mathrm{AMP+SPA}} = F_{\mathrm{AMP}} + \frac{F_{\mathrm{SPA}}-1}{G_{\mathrm{AMP}}}.
     \end{align}
     To má za následek, že předřazení nízkošumového zesilovače před spektrální analyzátor značně snižuje šumové číslo měřící soustavy.
     \item Soustava s předřazeným zesilovačem má na specifických frekvencích značně vyšší hodnotu šumového čísla. To je způsobeno nedokonalým stínením předřazeného zesilovače, což má za následek průnik všudypřítomného rušivého signálu komunikačních služeb do obvodu zesilovače a tedy superpozici frekvenčně selektivního šumu na měřený signál.
@@ -146,9 +146,9 @@ kde $G_{\mathrm{DUT}}$ je zisk měřeného obvodu, který lze vyjádřit%
     \footnote{Dlužno podotknout, že zisk se v naprosté většině případů měří přímo pomocí skalárního či vektorového analyzátoru. My jsme uvedená data však měli připravené z předchozí úlohy, a tak bylo pohodlnější zisk získat touto nepřímou metodou.}
 jako
 \begin{align}
-    G_{\mathrm{DUT}} = \frac{N_{2,\mathrm{HOT}} - N_{2,\mathrm{COLD}}}{N_{1,\mathrm{HOT}} - N_{1,\mathrm{COLD}}},
+    G_{\mathrm{DUT}} = \frac{N_{2,\mathrm{HOT}}^{\mathrm{DUT}} - N_{2,\mathrm{COLD}}^{\mathrm{DUT}}}{N_{2,\mathrm{HOT}} - N_{2,\mathrm{COLD}}},
 \end{align}
-přičemž veličiny s indexem 2 odpovídají měřením šumových výkonů obvodu s DUT (šumové výkony na obrázku~\ref{fig:task2-powers}) a měření s indexem 1 obvodu bez DUT (šumové výkony $N_2$ na obrázku~\ref{fig:task1-powers}). Frekvenční průběhy samotných zisků jsou vyneseny na obrázku~\ref{fig:task2-gains}.
+přičemž veličiny s horním indexem $\mathrm{DUT}$ odpovídají měřením šumových výkonů obvodu s DUT (šumové výkony na obrázku~\ref{fig:task2-powers}) a měření bez horního indexu obvodu bez DUT (šumové výkony na obrázku~\ref{fig:task1-powers}). Frekvenční průběhy samotných zisků jsou vyneseny na obrázku~\ref{fig:task2-gains}.
 \begin{figure}[!ht]
     \centering
     \begin{subfigure}{.45\textwidth}
