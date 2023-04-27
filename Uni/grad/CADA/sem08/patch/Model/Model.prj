@@ -5,7 +5,7 @@
 [Author]
 marti
 [Mesh Cells]
-81,200
+94,080
 [Mesh Type]
 Hexahedral
 [Last Problem Type]
@@ -17,5 +17,5 @@ t
 [Results]
 Time Domain: S-Parameter
 [Modeler Unique ID]
-5:patch.cst?8f4639c6ec65d3c251d1f9c36629c373?35879:numberofparameters=8:port=1>mode=1>zre=0>zim=0:::ms_offset?msw?t?pl?pw?st?sl?sw
+5:patch.cst?c26619f17e8b1b8d6b166a9db0b33551?54988:numberofparameters=8:port=1>mode=1>zre=0>zim=0:::msw?ms_offset?pl?pw?sl?st?sw?t
 [Comment]

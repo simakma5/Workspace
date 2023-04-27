@@ -1,0 +1,10 @@
+CelesTrak - Satellite Tracking oriented pages
+http://celestrak.org/
+
+Navipedia - wiki-like reference webpage for GNSS and SBAS curated by ESA (European Space Agency)
+https://gssc.esa.int/navipedia//index.php/Main_Page
+
+Formaty pro syrova data systemu satelitni navigace
+----
+* RINEX (Receiver Independent Exchange Format):
+	- textovy format -> easy to read pro cloveka i pro stroj

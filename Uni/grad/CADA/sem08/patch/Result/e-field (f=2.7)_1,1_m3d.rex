@@ -3,7 +3,7 @@
   <MetaGeometryFile filename="model.gex" lod="1"/>
   <SimulationProperties fieldname="e-field (f=2.7) [1]" frequency="2.7000000476837158" encoded_unit="&amp;U:V^1.:m^-1" fieldtype="E-Field" fieldscaling="PEAK" dB_Amplitude="20"/>
   <ResultDataType vector="1" complex="1" timedomain="0" frequencymap="0"/>
-  <SimulationDomain min="-69.979248 -69.979248 -30.0292454" max="69.979248 69.979248 31.0292454"/>
+  <SimulationDomain min="-69.979248 -69.979248 -30.0292454" max="69.979248 69.979248 43.8092461"/>
   <PlotSettings Plot="4" ignore_symmetry="0" deformation="0" enforce_culling="0" integer_values="0" default_arrow_type="ARROWS" default_scaling="NONE"/>
   <Source type="SOLVER"/>
   <SpecialMaterials>

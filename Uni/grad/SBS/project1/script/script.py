@@ -39,7 +39,7 @@ def get_elevation(point):
     return response.json()['results'][0]['elevation']
 
 ### Function for calculating and printing path-clearance parameters
-def p2pLink(transmitter1, transmitter2, G = 0, Txh = 0):
+def p2pLink(transmitter1, transmitter2, G = 0, Txh = 0, Pt = 0):
 # region initialization
     start = TRANSMITTERS[transmitter1]
     stop =  TRANSMITTERS[transmitter2]
@@ -115,7 +115,7 @@ def p2pLink(transmitter1, transmitter2, G = 0, Txh = 0):
     L_clear_air = FSL + Aa + Ad
 
     ## Fade margin
-    P = 10                                                  # transmitted power
+    P = Pt                                                  # transmitted power
     Pr = -64                                                # receiver sensitivity
     L_sys = 0                                               # other system losses
     margin = P - Pr + 2*G - L_sys - L_clear_air
@@ -143,6 +143,11 @@ def p2pLink(transmitter1, transmitter2, G = 0, Txh = 0):
     r = 1/(0.477*d.km**0.633*R001**(0.073*alpha)*f**0.123-10.579*(1-exp(-0.024*d.km)))
     d_eff = r*d.km
     A001 = gamma*d_eff
+    C0 = 0.12+0.4*(log10((f*1e9/10)**0.8))
+    C1 = (0.07**C0)*(0.12**(1-C0))
+    C2 = 0.855*C0+0.546*(1-C0)
+    C3 = 0.139*C0+0.043*(1-C0)
+    p_rain = 100*10**(-(C2 + sqrt((log(10)*C2**2 + 4*C3*log(margin/(A001*C1)))/log(10)))/(2*C3))
 #endregion power
 
     ## Output the results into a file
@@ -155,8 +160,8 @@ def p2pLink(transmitter1, transmitter2, G = 0, Txh = 0):
         file.write("Average terrain height: h_avg = " + str(round(h_avg, 2)) + " m\n")
         file.write("Height of the " + Rx + " antenna required for LoS: Rxh = " + str(round(Rxh,2)) + " m\n")
         file.write("Clear-air fading effects: Ad = " + str(round(Ad, 2)) + " dB, FSL = " + str(round(FSL, 2)) + " dB, Aa = " + str(round(Aa, 2)) + " dB\n")
-        file.write("Power budget: margin = " + str(margin) + " dB, pw = " + str(pw) + " %\n")
-        file.write("Attenuation due to hydrometeors: d_eff = " + str(d_eff) + " m, A_001 = " + str(A001) + " dB\n")
+        file.write("Power budget: Pt = " + str(Pt) + " dBm, A = " + str(round(margin, 2)) + " dB, pw = " + str(pw) + " %\n")
+        file.write("Rain attenuation: d_eff = " + str(round(d_eff, 2)) + " m, A_001 = " + str(round(A001, 2)) + " dB, p_rain = " + str(p_rain) + " %\n")
         file.write("\n" + '*'*20 + "DATA" + '*'*20 + '\n' + data_csv)
     
     return [margin, d.km, pw]
@@ -165,15 +170,15 @@ def p2pLink(transmitter1, transmitter2, G = 0, Txh = 0):
 ### Main function
 if __name__ == "__main__":
     data = []
-    data.append(p2pLink(transmitter1="FEL",transmitter2="Strahov",G=33,Txh=20))
-    data.append(p2pLink(transmitter1="Strahov",transmitter2="Rudna",G=42,Txh=50))
-    data.append(p2pLink(transmitter1="Rudna",transmitter2="Zavodi",G=38.5,Txh=8))
-    data.append(p2pLink(transmitter1="Zavodi",transmitter2="Beroun",G=33,Txh=14))
+    data.append(p2pLink(transmitter1="FEL",transmitter2="Strahov",G=33,Txh=20,Pt=10))
+    data.append(p2pLink(transmitter1="Strahov",transmitter2="Rudna",G=42,Txh=50,Pt=17))
+    data.append(p2pLink(transmitter1="Rudna",transmitter2="Zavodi",G=38.5,Txh=8,Pt=15))
+    data.append(p2pLink(transmitter1="Zavodi",transmitter2="Beroun",G=33,Txh=14,Pt=12))
 
     # Joint outage probability
-    p_tot = 0
+    p_multihop = 0
     for i in range(len(data)):
         if i == 0: continue
         C = 0.5 + 0.0052*data[i][0] + 0.0025*(data[i][1] + data[i-1][1])
-        p_tot += data[i][2] - (data[i][2]*data[i-1][2])**C
-    print("Total outage probability of the muli-hop link: p_tot = " + str(p_tot))
+        p_multihop += data[i][2] - (data[i][2]*data[i-1][2])**C
+    print("Total outage probability of the multi-hop link: p_multihop = " + str(p_multihop))

@@ -23,9 +23,7 @@ false
 [start]command
 [end]command
 [start]content
-
 Solid.Delete "component1:substrate"
-
 [end]content
 [start]recover_picks
 1
@@ -39,13 +37,10 @@ Solid.Delete "component1:substrate"
 5
 [end]block_index
 [start]command
-
 '@ activate global coordinates
-
 [end]command
 [start]content
 WCS.ActivateWCS "global"
-
 [end]content
 [start]recover_picks
 0
@@ -59,13 +54,10 @@ WCS.ActivateWCS "global"
 6
 [end]block_index
 [start]command
-
 '@ activate local coordinates
-
 [end]command
 [start]content
 WCS.ActivateWCS "local"
-
 [end]content
 [start]recover_picks
 0
@@ -79,13 +71,10 @@ WCS.ActivateWCS "local"
 7
 [end]block_index
 [start]command
-
 '@ activate global coordinates
-
 [end]command
 [start]content
 WCS.ActivateWCS "global"
-
 [end]content
 [start]recover_picks
 0
@@ -116,9 +105,7 @@ WCS.ActivateWCS "global"
 [start]command
 [end]command
 [start]content
-
 Solid.Delete "component1:patch"
-
 [end]content
 [start]recover_picks
 1
@@ -134,9 +121,7 @@ Solid.Delete "component1:patch"
 [start]command
 [end]command
 [start]content
-
 Solid.Delete "component1:ms feed line"
-
 [end]content
 [start]recover_picks
 1
@@ -150,9 +135,7 @@ Solid.Delete "component1:ms feed line"
 11
 [end]block_index
 [start]command
-
 '@ transform: translate component1:ms feed line
-
 [end]command
 [start]content
 With Transform 
@@ -168,7 +151,6 @@ With Transform
      .AutoDestination "True" 
      .Transform "Shape", "Translate" 
 End With 
-
 [end]content
 [start]recover_picks
 1
@@ -225,6 +207,39 @@ End With
 [start]undo_item
 [start]block_index
 17
+[end]block_index
+[start]command
+'@ define port: 1
+ (undo)
+[end]command
+[start]content
+Port.Delete "1"
+[end]content
+[start]recover_picks
+1
+[end]recover_picks
+[start]delete_solids
+0
+[end]delete_solids
+[end]undo_item
+[start]undo_item
+[start]block_index
+25
+[end]block_index
+[start]command
+[end]command
+[start]content
+[end]content
+[start]recover_picks
+1
+[end]recover_picks
+[start]delete_solids
+0
+[end]delete_solids
+[end]undo_item
+[start]undo_item
+[start]block_index
+26
 [end]block_index
 [start]command
 
