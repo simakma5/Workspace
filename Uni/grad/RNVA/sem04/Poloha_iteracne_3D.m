@@ -93,8 +93,8 @@ r_orig=r0;
 r0_res=r0;
 
 % step_modifier=0.1;
-% step_modifier=0.5;
-step_modifier=1;
+step_modifier=0.5;
+% step_modifier=1;
 % iter_steps=20;
 iter_steps=round(20/step_modifier);
 
