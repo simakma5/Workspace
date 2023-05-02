@@ -16,7 +16,7 @@ V0=100; Vgnd=0;
 Nd1=round(1*Ny/4); %row number of #1 dielectric interface
 Nd2=round(3*Ny/8); %row number of #1 dielectric interface
 er1 = 1;
-er2 = 1;
+er2 = 3.66;
 eavr = (er1+er2)/2;
  
 % set initial potencial guess at free (inner) nodes equal to the average of fixed values
@@ -49,19 +49,17 @@ niter = 0;  %number of iterations
 while (Rmax > tres)
     for i = 2:Ny-1
         for j = 2:Nx-1
-             if (i ~= Nd1) && (i ~= Nd2) %nodes out of the interface
-                R(i,j)= 1/4*(V(i+1,j)+V(i-1,j)+V(i,j-1)+V(i,j+1))-V(i,j);
-                V(i,j)= V(i,j)+omega*R(i,j);
-                V(Ny/2,Nx/2-W/2:Nx/2+W/2) = V0;
-             elseif i == Nd1 %nodes on the interface
+             if i == Nd1 %nodes on the interface
                 R(i,j)= 1/4*(er2*V(i+1,j)+er1*V(i-1,j)+eavr*V(i,j-1)+eavr*V(i,j+1))/eavr-V(i,j); 
                 V(i,j)= V(i,j)+omega*R(i,j);
-                V(Ny/2,Nx/2-W/2:Nx/2+W/2) = V0;
              elseif i == Nd2 %nodes on the interface
                 R(i,j)= 1/4*(er1*V(i+1,j)+er2*V(i-1,j)+eavr*V(i,j-1)+eavr*V(i,j+1))/eavr-V(i,j); 
                 V(i,j)= V(i,j)+omega*R(i,j);
-                V(Ny/2,Nx/2-W/2:Nx/2+W/2) = V0;
-             end  
+             else %nodes out of the interface
+                R(i,j)= 1/4*(V(i+1,j)+V(i-1,j)+V(i,j-1)+V(i,j+1))-V(i,j);
+                V(i,j)= V(i,j)+omega*R(i,j);
+             end
+             V(Ny/2,Nx/2-W/2:Nx/2+W/2) = V0;
         end
     end
     Rmax = max(max(R));
@@ -133,3 +131,4 @@ hold on;
 [fx,fy] = gradient(-V);
 quiver(fx,fy);	%plot the vectors of electric field
 colorbar;
+title(['Line impedance Z0 = ' num2str(Z0) ' \Omega'])
