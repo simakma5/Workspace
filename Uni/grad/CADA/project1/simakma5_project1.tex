@@ -65,22 +65,23 @@ Determine the properties of a shielded coplanar stripline depicted in figure~\re
 \end{enumerate}
 
 \newpage\section{Theoretical introduction}
-Generally speaking, finite-difference methods are a class of numerical analysis techniques used for solving differential equations. This is done via breaking the computational domain (spatial or temporal in most cases) into a finite number of steps which allows for the replacement of differential operators, such as derivatives, with differences.
+Generally speaking, finite-difference methods are a class of numerical analysis techniques used for solving differential equations. This is done via breaking down the computational domain (spatial or temporal in most cases) into a finite number of steps which allows for the replacement of differential operators, such as derivatives, with differences.
 
-Methods based on finite differences are very useful for converting nonlinear differential equations into a system of linear equations which can be efficiently solved by matrix algebra techniques, e.g. Gauss-Seidel method and its variants. Since these linear algebra computations are very efficiently implemented in modern computers, finite-difference methods are one of the most common approaches to the numerical solution of differential equations.
+Methods based on finite differences are very useful for converting nonlinear differential equations into a system of linear equations which can be efficiently solved by matrix algebra techniques, e.g. Gauss-Seidel method and its variants. Since these linear algebra computations are efficiently implemented in modern computers, finite-difference methods are one of the most common approaches to the numerical solution of differential equations.
 
-In our case, we use finite differences to approximate the differential operator from the Gauss's law which has the integral form of
+In our case, we use finite differences to approximate the differential operator from Gauss's law of electrostatics which can be expressed in the integral form as
 \begin{align}
     \label{eq:gauss-3d}
-    \oint_S \epsilon \vec E \cdot \mathrm d \vec S &= Q.
+    \oint_S \epsilon \vec E \cdot \mathrm d \vec S &= Q,
 \end{align}
-However, in a plane, this equation simplifies to
+where $S$ is a closed surface encompassing the concerned structure. However, in a plane, equation~\ref{eq:gauss-3d} simplifies to
 \begin{align}
     \label{eq:gauss-2d}
     \oint_C \epsilon \vec E \cdot \mathrm d \vec c &= q_l,
 \end{align}
-where $C$ is the bounding curve of the area $S$ used in the full form~\ref{eq:gauss-3d} and $q_l = Q/l$ is the line charge density. Furthermore, assuming electrostatic (irrotational) field, we can put $\vec E = -\grad \varphi$ simplifying equation~\ref{eq:gauss-2d} even further into the form of
+where $C$ is a closed curve with linear charge density $q_l = Q/l$. Furthermore, assuming the problem can be considered electrostatic, $\vec E$ is an irrotational vector field, hence we can put $\vec E = -\grad \varphi$, simplifying equation~\ref{eq:gauss-2d} even further into the form of
 \begin{align}
+    \nonumber
     -\oint_C \epsilon \, \grad \varphi \cdot \mathrm d \vec c &= q_l,
 \\
     \label{eq:gauss-final}
@@ -89,11 +90,11 @@ where $C$ is the bounding curve of the area $S$ used in the full form~\ref{eq:ga
 
 \noindent%
 \begin{minipage}{.6\textwidth}
-    The integrand in~\ref{eq:gauss-final} represents the flux of electric field
+    The integrand from equation~\ref{eq:gauss-final} represents the flux of electric field
     \begin{align*}
         \mathrm d \Psi = \epsilon \pder{\varphi}{n} \; \mathrm d c
     \end{align*}
-    through the curve $C$ enclosing the node. This situation is depicted in figure~\ref{fig:cell} and can be expressed as
+    through $C$ enclosing a node in the mesh. This situation is depicted in figure~\ref{fig:cell} and can be expressed as
     \begin{align*}
         \Psi_1 &= \epsilon_1 \frac{\varphi_1-\varphi_0}{h} \frac h2 + \epsilon_2 \frac{\varphi_1-\varphi_0}{h} \frac h2,
     \\
@@ -117,13 +118,13 @@ However, from Gauss's law, we know that $\Psi_1 + \Psi_2 + \Psi_3 + \Psi_4 = 0$ 
     \label{eq:step1}
     \frac{\epsilon_1+\epsilon_2}{2} \varphi_0 = \frac 14 \(\frac{\epsilon_1+\epsilon_2}{2}\varphi_1 + \epsilon_1\varphi_2 + \frac{\epsilon_1+\epsilon_2}{2}\varphi_3 + \epsilon_2\varphi_4\).
 \end{align}
-This final equation serves as the finite-difference approach to solving the electrostatic potential distribution in the \emph{free nodes} of the configuration, i.e., nodes not in the electrodes, including planar dielectric interfaces. In the case of the stripline, $\epsilon_1 = \epsilon_0$, $\epsilon_2 = \epsilon_r \epsilon_0$ and we keep constant feeding voltage connected to the strips (electrodes) in every iteration. The rest of the procedure is successive over-relaxation.
+This final equation serves as the finite-difference approach to solving the electrostatic potential distribution in the \emph{free nodes} of the configuration, i.e., nodes not in the electrodes or planar dielectric interfaces. In our environment, the permittivities are $\epsilon_1 = \epsilon_0$, $\epsilon_2 = \epsilon_r \epsilon_0$ and a constant voltage is connected to the strips. The rest of the procedure is successive over-relaxation.
 
-The second part of our calculation involves charge density from which we can extract information about the capacity per unit length and the characteristic impedance.
+Second part of the calculation yields charge density from which we can extract information about the capacity per unit length and the characteristic impedance.
 
 \noindent%
 \begin{minipage}{.6\textwidth}
-    Again, we utilize the equation~\ref{eq:gauss-final} which has a non-zero right-hand side now because the curve encompasses the charges strips. The situation is similar to a one-electrode problem in figure~\ref{fig:electrode}.
+    Again, we utilize the equation~\ref{eq:gauss-final} which now has a non-zero right-hand side because the curve encompasses the charged strips. The situation is similar to a one-electrode problem in figure~\ref{fig:electrode}.
 \end{minipage}\hfill\begin{minipage}{.35\textwidth}
     \centering
     \captionsetup{type=figure}
@@ -133,7 +134,7 @@ The second part of our calculation involves charge density from which we can ext
 \end{minipage}
 
 \noindent%
-Using this illustration, we can write
+Adapting this knowledge, we can write
 \begin{align}
     \label{eq:step2}
     \Psi = \epsilon_1 \frac{\varphi_2-\varphi_1}{2h} \frac h2 + \epsilon_2 \frac{\varphi_2-\varphi_1}{2h} \frac h2 + \epsilon_2 \frac{\varphi_4-\varphi_3}{2h}h + \epsilon_2 \frac{\varphi_6-\varphi_5}{2h}h + \cdots &= q_l
@@ -141,7 +142,7 @@ Using this illustration, we can write
 which serves as the main computational formula for further results.
 
 \newpage\section{Implementation}
-The code below represents the core computational loop. The first step is to perform the relaxation of electric potential using~\ref{eq:step1} over the whole mesh. Then, for a given iteration, the script computes charge density using~\ref{eq:step2}. Results are saved for every iteration in order to track the evolution of impedance values. This number is highly dependent on the threshold value which breaks the loop once the previous relaxation step hasn't improved the solution by at least the threshold value.
+The code below represents the core computational loop. The first step is to update the values of electric potential over the whole mesh using equation~\ref{eq:step1}. Then, for a given iteration, the script computes charge density using equation~\ref{eq:step2}. Results are saved for every iteration in order to track the evolution of impedance values. The loop breaks once the previous relaxation step hasn't improved the solution more than the threshold value 0.001.
 \begin{lstlisting}[language=Matlab]
 while Rmax > 1e-3
     iter = iter + 1;
@@ -188,7 +189,7 @@ Z = 1./(c*C);
 \end{lstlisting}
 
 \section{Results}
-Figure~\ref{fig:output-field} shows the resultant electric field distribution, whereas in figure~\ref{fig:output-z0-alpha17}, I have inspected the evolution of characteristic throughout the run.
+Figure~\ref{fig:output-field} shows the resultant electric field distribution, whereas in figure~\ref{fig:output-z0-alpha17}, we can inspect the evolution of characteristic impedance throughout the run.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=\textwidth]{src/output_field_alpha1-7.eps}
@@ -202,6 +203,6 @@ Figure~\ref{fig:output-field} shows the resultant electric field distribution, w
     \label{fig:output-z0-alpha17}
 \end{figure}
 
-Numerical determination of the optimal value of $\alpha$ yielded the number $1.91$ which is fairly compliant with the analytical solution of $\alpha_0 = 1.96$.
+Numerical determination of the optimal value of $\alpha$ yielded the number $1.91$ which is compliant with the analytical solution of $\alpha_0 = 1.96$.
 
 \end{document}
