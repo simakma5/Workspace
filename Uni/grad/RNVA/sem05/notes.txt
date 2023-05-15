@@ -1,0 +1,3 @@
+Pseudorandom sequences: Gold codes, "posloupnost maximalni delky"
+	- random because autocorrelation of a random noise is Dirac -> ideal detection
+	- at the same time, we wish to minimize crosscorrelation

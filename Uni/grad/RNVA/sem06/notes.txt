@@ -1,0 +1,4 @@
+Common precision of receiver time base: 1-3 ppm
+
+Ukol 1: CAautocorr_croscorr_multipath
+Ukol 2: CA_doppler_modif

@@ -34,7 +34,7 @@ ylabel('Received power [dBm]')
 title('Uplne zastinene mereni')
 
 %% calculate empirical CDF
-[f13,x13] = ecdf(dataline13(83:141));
+[f13,x13] = ecdf(dataline13(83:141));   % relevant data selected
 x_norm13=x13-median(x13);
 [f14,x14] = ecdf(dataline14);
 x_norm14=x14-median(x14);
