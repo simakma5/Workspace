@@ -1,0 +1,9 @@
+Ionosfericka refrakce je disperzni vliv
+	- driv se modelovala Klobucharovym polynomialnim modelem, kdy se prenasely koeficienty polynomu v navigacni zprave
+	- dnes uz jsou bezne dva civilni kmitocty, coz nam umoznuje odstranit touto diverzitou chybu zpusobenou refrakci v ionosfere
+Multipath problemy vsak pretrvavaji a diverzita nam tady nepomuze
+Choke ring antenna: rezonatorova struktura pro zatlumeni signalu z nulovych/nizkych elevaci. HW nastroj pro zatlumeni prijimanych paprsku odrazenych od Zeme.
+Rozdily mezi civilnim (C) a precision (P) kody:
+	- delka kodu (C - 1023, P radove o dost delsi)
+		-- odhadnuti P kodu je o to slozitejsi, ze na zacatku navigacniho tydne se vzdycky vybere relevantni cast kodu
+	- rychlost kodu

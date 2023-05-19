@@ -1,4 +1,4 @@
-close all; clear; clc
+    close all; clear; clc
 
 %% import the data
 data13=importdata('RecTrace_013.csv');

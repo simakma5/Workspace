@@ -1,0 +1,7 @@
+Soubory pro Matlab s modelem přijímaného signálu obsahují proměnné:
+
+s - vzorky komplexní obálky modelu přijímaného signálu,
+s0 - komplexní obálka repliky vyslaného pulsu,
+fs - vzorkovací kmitočet [Hz],
+fop - opakovací kmitočet vysílání pulsů [Hz],
+Tp -délka pulsu [s].

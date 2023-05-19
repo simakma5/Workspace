@@ -7,6 +7,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+\usepackage[nodayofweek]{datetime}
+\newdate{date}{15}{5}{2023}
+
 \usepackage{stddoc}
 \usepackage{lipsum}
 \usepackage{subcaption}
@@ -30,7 +33,7 @@
     {\LARGE\textbf{B2M17CADA - Project I}}\\[3mm]
     \begin{minipage}{0.4\textwidth}
         \begin{flushleft}
-            \textsc{\today}
+            \textsc{\displaydate{date}}
         \end{flushleft}
     \end{minipage}
     ~
