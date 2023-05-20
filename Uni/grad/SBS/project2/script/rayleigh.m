@@ -1,4 +1,4 @@
-    close all; clear; clc
+close all; clear; clc
 
 %% import the data
 data13=importdata('RecTrace_013.csv');
@@ -48,7 +48,7 @@ yr = cdf('Rayleigh',xr,1);
 kr= find(yr>0.499 & yr<0.501);
 xr_norm=20*log10(xr)-20*log10((xr(1,kr)));
 
-%% plots
+%% results
 figure(1)
 plot(xr_norm,yr,'b--')
 hold on
@@ -64,6 +64,14 @@ axis square
 ylim([.009 1])
 grid on
 
-
+disp(['LoS: min = ' num2str(min(dataline13(83:141))) ...
+    ', max = ' num2str(max(dataline13(83:141))) ...
+    ', median = ' num2str(median(dataline13(83:141)))])
+disp(['Dynamic shadowing: min = ' num2str(min(dataline14)) ...
+    ', max = ' num2str(max(dataline13(83:141))) ...
+    ', median = ' num2str(median(dataline13(83:141)))])
+disp(['Static shadowing: min = ' num2str(min(dataline15)) ...
+    ', max = ' num2str(max(dataline15)) ...
+    ', median = ' num2str(median(dataline15))])
 
 
