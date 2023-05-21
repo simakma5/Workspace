@@ -12,10 +12,8 @@
 \usepackage{subcaption}
 
 \newcommand{\plus}{{\texttt{+}}}
-\renewcommand{\Re}{\operatorname{Re}}
-\renewcommand{\Im}{\operatorname{Im}}
-\newcommand{\fourier}[3]{\mathcal{F}_{#1}\!\left[#2\right]\!\left(#3\right)}
-\newcommand{\ifourier}[3]{\mathcal{F}^{-1}_{#1}\!\left[#2\right]\!\left(#3\right)}
+\renewcommand{\ohm}{{\mathrm{\Omega}}}
+\newcommand{\kiloohm}{{\mathrm{k\Omega}}}
 
 
 \begin{document}
@@ -25,11 +23,12 @@
 % Header
 \noindent\LARGE\textbf{B2M17ANT -- theory}\normalsize\\
 \noindent\rule{12.5cm}{0.4pt}
+\tableofcontents
 
-\section{Linear (wire) antennas}
+\newpage\section{Linear (wire) antennas}
 \begin{enumerate}
     \item \emph{Units of all quantities}\\
-    $[E] = \mathrm V/\mathrm m$, $[H] = \mathrm A/\mathrm m$, $[Z] = \mathrm{\Omega}$, directivity and gain $[D] = [G] = \mathrm{dB}$, $[S] = \mathrm W/\mathrm m^2$
+    $[E] = \mathrm V/\mathrm m$, $[H] = \mathrm A/\mathrm m$, $[Z] = \ohm$, directivity and gain $[D] = [G] = \mathrm{dB}$, $[S] = \mathrm W/\mathrm m^2$
 
     \item \emph{What is the directivity of isotropic antenna (in linear scale and \emph{dBi})?}\\
     $D = 0 \;\mathrm{dBi} = 1$
@@ -178,7 +177,7 @@
     \item \emph{$\lambda/2$ dipole properties (input impedance, pattern), shortening to resonance, bandwidth}\\
     Radiation pattern: omnidirectional in the $H$-plane which is a useful property for many applications including mobile communications.\\
     Directivity: reasonable value (2.15 dBi), larger than of short dipoles.\\
-    Imput impedance: $~73 \; \Omega$ which is pretty much well matched with a standard transmission line of characteristic impedance of $75 \; \Omega$; not sensitive to changes in the radius of the dipole.\\
+    Imput impedance: $~73 \; \ohm$ which is pretty much well matched with a standard transmission line of characteristic impedance of $75 \; \ohm$; not sensitive to changes in the radius of the dipole.\\
     Shortening: the dipole itself is not exactly resonant and hence should be shortened by a little amount depending on the radius.\\
     Bandwidth: 5 to 15 \% from the central frequency depending on the input impedance.
 
@@ -187,8 +186,8 @@
 
     \item \emph{Symmetrization, baluns}\\
     Symmetrization problem arises when connecting an unbalanced transmission line to the antenna. The balanced mode is when there are equal and opposite currents.\\
-    Balun transforms the balanced input impedance of the dipole to the unbalanced impedance of the coaxial line such that there is no net curernt on the outer conductor of the coax.\\
-    Further comments: non-symmetrical feeders are cheaper and simpler but require a symmetrization element (balun) for connection to the symmetrical antenna.
+    A balun (balanced-to-unbalanced transformer) transforms the balanced input impedance of the dipole to the unbalanced impedance of the transmission line or feeding network, e.g., such that there is no net curernt on the outer conductor of the coax. The balun helps achieve efficient power transfer and impedance matching, minimizing reflection losses.\\
+    Further comments: non-symmetrical feeds are cheaper and simpler but require a symmetrization element (balun) for connection to the symmetrical antenna.
 
     \item \emph{Monopole antennas (impedance, pattern compared to dipoles), method of images}\\
     Impedance: roughly half the dipole version\\
@@ -207,7 +206,7 @@
     B: space factor (Fourier transform of the sources)
 \end{enumerate}
 
-\section{Aperture antennas}
+\newpage\section{Aperture antennas}
 \begin{enumerate}
 
     \item \emph{Aperture antennas -- equivalent source approach}\\
@@ -219,7 +218,7 @@
     
     \item \emph{Physical meaning of radiation integrals in near and far field. Far field distance, conditions for far field ($1/r$ dependence, $E/H$ ratio, transversal fields)}\\
     Aperture radiation can be imagined as the radiation of an infinite number of point sources placed in the aperture. The radiation integrals are a superposition of these sources' contributions.\\
-    For nearfield, we need a numerical solution using original sources. Farfield described as distance greater than $2D^2/\lambda$, where $D$ is the maximal dimension of the antenna, allows for approximation which yields analytical solution. In farfield, impedance is equal to the impedance of the free space $Z = E/H = 120\pi \approx 377 \; \Omega$.
+    For nearfield, we need a numerical solution using original sources. Farfield described as distance greater than $2D^2/\lambda$, where $D$ is the maximal dimension of the antenna, allows for approximation which yields analytical solution. In farfield, impedance is equal to the impedance of the free space $Z = E/H = 120\pi \approx 377 \; \ohm$.
     
     \item \emph{Structure of the far field (Fourier transform $\times$ obliquity factors). Relation to array.}\\
     In farfield, the field can be expressed as the Fourier transform of the sources multiplied by obliquity factors, which include projection from Cartesian to spherical coordinates and a relation between $E$ and $H$.
@@ -266,7 +265,7 @@
             \item side-lobe levels rise
             \item minimums rise (filling zeros)
             \item loss in gain (widening of the main lobe)
-            \item due to displacement of the reflector feed from focus, distortion of the reflector or lens, or a non-ideally-spherical wavefront of the feed, curved field in the aperture of a radiator
+            \item due to displacement of the reflector feeding from focus, distortion of the reflector or lens, or a non-ideally-spherical wavefront of the feed, curved field in the aperture of a radiator
         \end{itemize}
     \end{enumerate}
 
@@ -335,7 +334,7 @@
     \end{figure}
 \end{enumerate}
 
-\section{Reflector antennas}
+\newpage\section{Reflector antennas}
 \begin{enumerate}
     \item \emph{Why do we use the parabolic reflector antenna? What is its physical principle?}\\
     There are two big reasons to use parabolic reflector antennas: very high gain and a narrowly-directed beam with low sidelobe levels. The physical principle is that it transforms spherical wave into plane waves and vice versa.
@@ -369,7 +368,7 @@
     
 \end{enumerate}
 
-\section{Antenna arrays}
+\newpage\section{Antenna arrays}
 \begin{enumerate}
     \item \emph{Canonical arrays based on isotropic radiators, basic configurations, wavefront canceling, endfire/broadside arrays}\\
     The arrays are depicted in~\ref{fig:canonical-array-in-phase},~\ref{fig:canonical-array-out-of-phase}~and~\ref{fig:broadside-endfire}.
@@ -405,7 +404,7 @@
 
     \item \emph{What is a canonical minimum scattering antenna, its importance in arrays. Element pattern, embedded pattern, array factor. Mutual coupling, mutual impedance.}\\
     Antennas with identical radiation patterns can differ in the manner and extent to which they modify an incident wave, i.e., in the way they scatter. A canonical minimum-scattering antenna (CSMA) is defined as one which becomes `invisible' when the accessible waveguide terminals are open-circuited. The scattering matrix of such an antenna is shown to be unique once N arbitrary orthogonal radiation patterns have been specified.\\
-    Element pattern is the contribution of a single antenna in the array. It can be measured either isolated or embedded. Embedded means the antenna is placed in the array configuration with just one port excited and others terminated by 50 $\Omega$, i.e. isolated element pattern with scattering from the surrounding array.\\
+    Element pattern is the contribution of a single antenna in the array. It can be measured either isolated or embedded. Embedded means the antenna is placed in the array configuration with just one port excited and others terminated by 50 $\ohm$, i.e. isolated element pattern with scattering from the surrounding array.\\
     Array factor the other part of the total array radiation pattern. It is dependent on the geometry of the configuration. If we use minimum scattering antennas, the array radiation pattern is given as a product of the element pattern and the array factor.\\
     Mutual coupling represents the interaction of antennas in an array. Due to this effect, we define impedances
     \begin{align*}
@@ -462,7 +461,10 @@
         \includegraphics[width=.6\textwidth]{src/two-dipole-array-patterns.png}
         \caption{\label{fig:two-dipole-array-pattern}Array configuration patterns}
     \end{figure}
+\end{enumerate}
 
+\newpage\section{Receiving antennas, Babinet's principle}
+\begin{enumerate}
     \item \emph{Receiving antenna, circuit model}\\
     See figure~\ref{fig:circuit-model-receiving}
     \begin{figure}[!ht]
@@ -545,7 +547,7 @@
     \end{figure}
     
     \item \emph{Feeding of microstrip antennas for linear and circular polarization}\\
-    The most common way to feed a microstrip antenna is by a coaxial line. This can be easily done by `sticking out' the central electrode and using it to excite a mode of electrical field in the microstrip. At the same time, we shouldn't stick the central electrode in the middle of the microstrip because that's the point of zero electric field in a microstrip. Furthermore, sticking out the central electrode introduces a parasitic inductance to the transmission so bending it is a good idea to counterweigh it with a parasitic capacitance.\\
+    The most common way to feed a microstrip antenna is by a coaxial line. This can be easily done by `sticking out' the central electrode and using it to excite a mode of electrical field in the microstrip. At the same time, we shouldn't stick the central electrode in the middle of the microstrip because that's the point of zero electric field. Furthermore, sticking out the central electrode introduces a parasitic inductance to the transmission so bending it is a good idea in order to introduce a parasitic capacitance as a counterweight.\\
     Ways of feeding a microstrip antenna in order to radiate circularly-polarized waves is illustrated in figure~\ref{fig:patch-antenna-circular-polarization}.
     \begin{figure}[!ht]
         \centering
@@ -553,35 +555,259 @@
         \caption{\label{fig:patch-antenna-circular-polarization}Feeding a microstrip antenna to produce a circular polarization}
     \end{figure}
     
-    \item \emph{Frequency independent antennas -- self complementary antennas. By which dimensions are they specified?}
+    \item \emph{Frequency independent antennas -- self complementary antennas. By which dimensions are they specified?}\\
+    The typical examples from self-complementary antennas are shown in figure~\ref{fig:self-complementary-antennas}. Characteristic properties:
+    \begin{itemize}
+        \item constant pattern, impedance, polarization and phase center;
+        \item specified by angles rather than by linear dimensions;
+        \item self-scaling behaviour;
+        \item based on the Babinet's principle -- self-complementary;
+        \item amount of metal equals to the amount of air meaning that impedances of both antennas from Babinet's principle have the same impedance;
+        \item the shortest distance determines the maximal frequency, whereas the longest distance determines the minimal frequency.
+    \end{itemize}
+    \begin{figure}[!ht]
+        \centering
+        \includegraphics[width=.7\textwidth]{src/self-complementary-antennas.png}
+        \caption{\label{fig:self-complementary-antennas}Frequency independent (self-complementary) antennas}
+    \end{figure}
     
-    \item \emph{Log-per antenna properties (directivity, bandwidth, phase center), compare to Yagi-Uda}
+    \item \emph{Log-per antenna properties (directivity, bandwidth, phase center), compare to Yagi-Uda}\\
+    A log-periodic antenna (figure~\ref{fig:log-per-antennas}) cannot be solely specified by angles, thus it's not truly frequency independent. It is defined as a structure whose electrical properties vary periodically with the logarithm of frequency. Characteristic properties:
+    \begin{itemize}
+        \item an antenna used for measurements;
+        \item current distribution is the same for two frequencies separated by the ration of $\ln(1/\tau)$;
+        \item concentrated current is distributed to a specified point for low frequencies, whereas at maximum frequency, the current is spread across the whole structure;
+        \item phase center is moving due to the movement of current towards the feed;
+        \item a Yagi-Uda antenna is different from various perspectives:
+        \begin{itemize}
+            \item it has just one active dipole, the rest are so-called \emph{directors};
+            \item is resonant at a single frequency, whereas a log-per antennas are wideband.
+        \end{itemize}
+    \end{itemize}
+    \begin{figure}[!ht]
+        \centering
+        \includegraphics[width=.6\textwidth]{src/log-per-antennas.png}
+        \caption{\label{fig:log-per-antennas}Log-periodic antennas}
+    \end{figure}
     
-    \item \emph{Helix antenna modes and their radiation and impedance properties}
+    \item \emph{Helix antenna modes and their radiation and impedance properties}\\
+    A helix antenna can be operated in two modes of radiation: normal mode and axial mode, see figure~\ref{fig:helix-antenna}. Characteristic properties of both modes:
+    \begin{itemize}
+        \item The condition on normal mode operation is that the diameter $D \ll \lambda$ and the entire length $L \ll \lambda$. The normal mode produces a broadside radiation similar to that of a small dipole in pattern, standing-wave current and a linear polarization.
+        \item The condition on normal mode operation is that the circumference $C \sim \lambda$. The axial mode of radiation produces an end-fire radiaton, travelling current and a circular polarization. The main beam is narrow with minor sidelobes (gain 10 to 15 dBi), HPBW $\sim 1/N$ and has wide bandwidth (about 30 \%).
+    \end{itemize}
+    \begin{figure}[!ht]
+        \centering
+        \includegraphics[width=.8\textwidth]{src/helix-antenna.png}
+        \caption{\label{fig:helix-antenna}The two modes of a helix antenna}
+    \end{figure}
     
 \end{enumerate}
 
-\section{Characteristic modes}
+\newpage\section{Characteristic modes}
 \begin{enumerate}
-    \item \emph{Antenna as an external resonator -- Characteristic modes (CM). Impedance matrix decomposition. Does CM depend on feeding? What happen with modes when you feed the antenna?}
-    \item \emph{Physical properties of CM -- characteristic currents and eigenvalues, orthogonality, resonance}
-    \item \emph{Are CM important for electrically small or large antennas?}
-    \item \emph{Sketch first few modes on a electric dipole}
-    \item \emph{Excitation of modes, importance of CM for design of mobile antennas}
+    \item \emph{Antenna as an external resonator -- Characteristic modes (CM). Impedance matrix decomposition. Are CM feed-dependent? What happens with modes when you feed the antenna?}\\
+    The impedance matrix $[Z_{mn}] = [R_{mn}] + i[X_{mn}]$ can be calculated using the Method of Moments applied to the solving of the integrals derived from Poynting's theorem. Impedance is a function of geometry, materials and frequency. It is not feeding-dependent.\\
+    Characteristic modes describe the different resonances in which the antenna can be operated, see appendix~\ref{sec:appendix-characteristic-modes} for more detailed description. These modes depend on the geometry and materials of the antenna, as well as its feeding which strongly affects the excitation mode, its strength and coupling.
+
+    \item \emph{Physical properties of CM -- characteristic currents and eigenvalues, orthogonality, resonance}\\
+    Again, refer to appendix~\ref{sec:appendix-characteristic-modes} for full explanation.
+    \begin{itemize}
+        \item \emph{Characteristic current:} each mode corresponds to a specific current distribution on the antenna which determines the radiation pattern and polarization.
+        \item \emph{Eigenvalues} represent each mode's resonant frequency.
+        \item \emph{Orthogonality:} all modes are mutually orthogonal.
+        \item \emph{Resonance:} each mode represents the specific resonance on the antenna.
+    \end{itemize}
+
+    \item \emph{Are CM important for electrically small or large antennas?}\\
+    Small -- again, details in appendix~\ref{sec:appendix-characteristic-modes}
+
+    \item \emph{Sketch first few modes of an electric dipole}
+    \begin{figure}[!ht]
+        \centering
+        \includegraphics[width=.9\textwidth]{src/characteristic-modes-dipole.png}
+        \caption{\label{fig:characteristic-modes-dipole}First three characteristic modes of an electric dipole}
+    \end{figure}
+    \item \emph{Excitation of modes, importance of CM in the design of mobile antennas}\\
+    We excite characteristic modes by applying an appropriate feeding arrangement or signal to selectively activate the desired mode. Some of these arrangements are direct feeding, matching networks, mode-specific excitations etc.\\
+    Characteristic modes are crucial in the design of mobile antennas because it they allow for performance optimization, miniaturization, mode suppression, multiband operation and better integration of the antenna.
+
 \end{enumerate}
 
-\section{Q factor}
-\begin{enumerate}
-    \item \emph{Definition of quality factor Q}
-    \item \emph{Relation between Q and bandwidth of antenna.}
-    \item \emph{Q factor and size of the antenna}
-    \item \emph{Stored energy for antenna in frequency domain -- why is it infinite by definition?}
-    \item \emph{Q factor from input impedance}
-    \item \emph{Q factor for coupled structures, will it be higher for in- or out-of phase currents and why?}
+% \newpage\section{Q factor}
+% \begin{enumerate}
+%     \item \emph{Definition of quality factor Q}
+%     \item \emph{Relation between Q and bandwidth of antenna.}
+%     \item \emph{Q factor and size of the antenna}
+%     \item \emph{Stored energy for antenna in frequency domain -- why is it infinite by definition?}
+%     \item \emph{Q factor from input impedance}
+%     \item \emph{Q factor for coupled structures, will it be higher for in- or out-of phase currents and why?}
+% \end{enumerate}
+
+\appendix
+\newpage\section{\label{sec:appendix-characteristic-modes}Appendix -- Full explanation of characteristic modes}
+When an antenna is used as an external resonator, the characteristic modes, also known as the eigenmodes or resonant modes, describe the different ways in which the antenna can oscillate or resonate at its resonant frequency. These modes depend on the feeding of the antenna, which refers to how the antenna is excited or driven with an electromagnetic signal.
+
+The characteristic modes are determined by the geometry and structure of the antenna, as well as the surrounding environment. They represent the natural resonant frequencies and corresponding field patterns of the antenna system. Each mode has a specific resonant frequency and field distribution associated with it. The feeding of an antenna affects the characteristic modes in a couple of ways:
+\begin{itemize}
+    \item \emph{Excitation Strength:} The strength or amplitude of the excitation signal applied to the antenna can influence the relative amplitudes of the different characteristic modes. By adjusting the amplitude of the feeding signal, you can control the strength of the different modes, which can have an impact on the radiated field pattern and the overall performance of the antenna.
+    \item \emph{Mode Selection:} The specific feeding configuration can influence which characteristic modes are excited or dominant in the antenna. Different feeding techniques, such as using a specific feeding point or employing a matching network, can enhance or suppress certain modes. By selecting an appropriate feeding arrangement, you can tailor the antenna's response to emphasize specific modes or achieve desired radiation characteristics.
+    \item \emph{Mode Coupling:} The feeding of an antenna can lead to mode coupling, where energy is transferred between different characteristic modes. This coupling occurs when the feeding arrangement or signal frequency causes the modes to interact with each other. The coupling between modes can result in complex field distributions and influence the antenna's performance, bandwidth, and radiation patterns.
+\end{itemize}
+In summary, the characteristic modes of an antenna when used as an external resonator depend on the feeding arrangement. The excitation strength, mode selection, and mode coupling induced by the feeding scheme can influence the amplitude, distribution, and interaction of the different modes, ultimately affecting the antenna's radiation characteristics and performance.
+
+When analyzing the characteristic modes of an antenna, several physical properties come into play. Let's explore some of these properties:
+\begin{itemize}
+    \item \emph{Characteristic }Currents: Each characteristic mode of an antenna corresponds to a specific current distribution on the antenna structure. These current distributions represent the spatial variation of currents flowing along the antenna elements when the antenna is excited at its resonant frequency. The amplitude and phase of these characteristic currents determine the radiation pattern and polarization of the antenna.
+    \item \emph{Eigenvalues:} The characteristic modes are associated with eigenvalues, which represent the resonant frequencies of the antenna. Each mode has a unique resonant frequency or eigenvalue, which is determined by the antenna's geometry and the boundary conditions imposed on it. The eigenvalues are usually expressed in terms of wavelength or frequency.
+    \item \emph{Orthogonality:} The characteristic modes of an antenna are orthogonal to each other. Orthogonality implies that the electric fields and magnetic fields associated with different modes are perpendicular to each other and do not interfere. This property is useful because it allows for independent analysis and synthesis of the individual modes.
+    \item \emph{Resonance:} The characteristic modes represent the resonant frequencies at which the antenna efficiently exchanges energy with the surrounding electromagnetic field. At these resonant frequencies, the antenna absorbs energy from the feeding source and radiates it into space. The resonant behavior is typically characterized by high impedance matching, maximum radiation efficiency, and well-defined radiation patterns associated with each mode.
+    \item \emph{Mode Excitation:} Each characteristic mode can be excited independently by applying an appropriate feeding arrangement or signal. The excitation can be achieved by choosing a suitable feeding point, using a matching network, or employing a specific feeding technique. By selectively exciting different modes, the antenna's radiation properties can be controlled and tailored for specific applications.
+\end{itemize}
+It's worth noting that the physical properties of characteristic modes can be analyzed and computed using various techniques, such as method of moments (MoM), finite element method (FEM), or mode-matching techniques. These methods provide insights into the current distributions, eigenvalues, orthogonality, resonance behavior, and other relevant properties associated with the characteristic modes of an antenna system.
+
+Characteristic modes play a significant role in the analysis and understanding of both electrically small and large antennas, but their importance may vary depending on the specific characteristics and goals of the antenna system.
+\begin{itemize}
+    \item \emph{Electrically Small Antennas:} Electrically small antennas are typically compact in size compared to the operating wavelength. In these cases, characteristic modes can help explain the antenna's performance and radiation characteristics. By decomposing the antenna's response into its characteristic modes, it becomes possible to understand the contributions of each mode to the overall radiation pattern, impedance matching, and efficiency. This understanding is particularly valuable for optimizing the design and performance of electrically small antennas, which often face challenges such as limited bandwidth and efficiency.
+    \item \emph{Electrically Large Antennas:} Electrically large antennas are larger in size compared to the operating wavelength. In these cases, the characteristic modes can still provide insights into the antenna behavior, although the analysis becomes more complex due to the presence of a larger number of modes. The characteristic modes can help identify the dominant modes contributing to the far-field radiation pattern and aid in the understanding of the antenna's performance in terms of gain, directivity, and polarization. However, for electrically large antennas, other analysis techniques like physical optics, geometrical theory of diffraction, or numerical methods like the method of moments (MoM) or finite element method (FEM) are often employed to accurately predict the antenna's behavior.
+\end{itemize}
+In both cases, characteristic modes can provide valuable insights into the antenna's resonant behavior, current distributions, mode coupling, radiation patterns, impedance properties, and other performance characteristics. They serve as a framework for understanding and optimizing the antenna's behavior, regardless of whether it is electrically small or large. However, for electrically small antennas, the modes may have a more pronounced impact due to the limited physical size, while for electrically large antennas, the analysis may require considering a larger number of modes and incorporating additional analysis techniques to accurately predict the antenna's performance.
+
+Exciting characteristic modes in an antenna involves applying an appropriate feeding arrangement or signal to selectively activate specific modes. The exact method of exciting characteristic modes depends on the antenna's design, geometry, and the desired mode(s) to be excited. Here are a few common techniques used to excite characteristic modes:
+\begin{itemize}
+    \item Direct Feeding: The simplest method is direct feeding, where the antenna is connected to a signal source through a coaxial cable or a transmission line. The feeding point is chosen based on the desired mode(s) to be excited. For example, feeding at the center of a dipole antenna will primarily excite the fundamental mode, while off-center feeding may activate higher-order modes.
+    \item \emph{Matching Networks:} Matching networks, such as baluns, quarter-wave transformers, or impedance matching circuits, can be used to optimize the power transfer between the source and the antenna. By designing the matching network appropriately, specific characteristic modes can be enhanced or suppressed. These networks are typically used when the impedance of the feeding source does not match the antenna's input impedance.
+    \item \emph{Mode-Specific Excitation:} For antennas with complex geometries or multiple resonant modes, it may be necessary to design specific feeding arrangements to excite desired modes. This can involve using multiple feeding points or combining different excitation techniques. By carefully selecting the excitation scheme, the desired modes can be emphasized while minimizing the excitation of unwanted modes.
+    \item \emph{Antenna Arrays:} Exciting characteristic modes in an antenna array involves controlling the amplitude and phase of the signals applied to each element. By adjusting the excitation parameters, specific radiation patterns and modes can be synthesized. Phased array antennas are a common example where the phase differences between individual elements are used to steer the beam and excite specific modes.
+    \item \emph{Numerical Optimization:} Advanced numerical techniques like optimization algorithms can be employed to determine the optimal feeding arrangement or excitation parameters to achieve specific objectives. These methods use mathematical algorithms to search for the optimal excitation scheme that maximizes certain performance metrics, such as directivity, gain, or radiation pattern shape.
+\end{itemize}
+It's important to note that the excitation of characteristic modes is a complex process and often requires a combination of theoretical analysis, numerical simulations, and practical experimentation to achieve the desired results. The choice of the excitation technique depends on the specific antenna design, the desired modes, and the application requirements.
+
+Characteristic modes play a crucial role in the design of mobile antennas, which are antennas specifically designed for wireless communication applications in mobile devices such as smartphones, tablets, and wearable devices. Here are some key reasons why characteristic modes are important in the design of mobile antennas:
+\begin{itemize}
+    \item \emph{Performance Optimization:} Mobile antennas typically operate in compact and constrained environments. Understanding the characteristic modes helps antenna designers optimize the antenna's performance parameters, such as radiation efficiency, gain, bandwidth, and pattern shape. By analyzing and manipulating the characteristic modes, designers can tailor the antenna's performance to meet the requirements of the specific wireless communication system.
+    \item \emph{Miniaturization:} Mobile devices have limited space for integrating antennas. Characteristic modes analysis aids in designing compact and miniaturized antennas without sacrificing performance. By understanding the dominant characteristic modes and their associated current distributions, designers can create efficient antenna structures that occupy minimal space while maintaining acceptable radiation properties.
+    \item \emph{Mode Suppression:} In mobile antenna design, certain characteristic modes may be undesirable due to their potential to interfere with the desired operating frequencies or radiation patterns. By analyzing the characteristic modes, designers can identify and suppress unwanted modes through appropriate design techniques, such as optimizing the antenna geometry, incorporating filtering structures, or adjusting the feeding arrangements. This helps in reducing potential interference and enhancing the antenna's overall performance.
+    \item \emph{Multiband Operation:} Mobile devices often require support for multiple frequency bands to accommodate various wireless communication standards. Characteristic mode analysis assists in designing antennas that can operate efficiently across different frequency bands. By understanding the characteristic modes associated with each frequency band, designers can design antennas with multiple resonances or employ frequency-selective feeding techniques to achieve wideband or multiband operation.
+    \item \emph{Antenna Integration:} Mobile antennas are integrated into complex systems with various components, such as the device's display, battery, and other electronics. Understanding the characteristic modes helps in optimizing the antenna's integration within the device to minimize mutual coupling and interference. By considering the device's internal structure and analyzing the characteristic modes, designers can mitigate undesired interactions and maintain the antenna's performance.
+\end{itemize}
+Overall, characteristic modes analysis is instrumental in the design of mobile antennas to optimize performance, achieve miniaturization, suppress unwanted modes, support multiband operation, and ensure effective integration within mobile devices. It provides valuable insights for antenna designers to create efficient and reliable wireless communication solutions in the constrained and dynamic environments of mobile applications.
+
+\newpage\section{\label{sec:appendix-antennas}Appendix -- Overview of all concerned antennas and their parameters}
+\paragraph{Last question from the list.} For each antenna from the following list, describe as many parameters as you know: Wire antenna, monopole, folded  dipole, Yagi-Uda, Log per antenna, elementary electric and magnetic dipole, loop antenna, E/H horn pyramidal antenna, reflector antennas, array antennas, receiving antenna, slot antenna, spiral antenna, vivaldi antenna, helix antenna.
+\begin{itemize}
+    \item \emph{Wire Antenna:} A wire antenna is a basic antenna consisting of a straight conductor, such as a dipole or monopole. Parameters associated with wire antennas include length, resonant frequency, radiation pattern, impedance, and bandwidth.
+    \begin{itemize}
+        \item \emph{Radiation Efficiency:} The radiation efficiency of a wire antenna is typically high, often exceeding 90\% or even 95\%. However, the actual radiation efficiency depends on factors such as conductor losses, dielectric losses (if present), and impedance matching. A well-designed and properly matched wire antenna can have a high radiation efficiency.
+    \end{itemize}
     
+    \item \emph{Elementary Electric and Magnetic Dipole:} The directivity of an elementary electric dipole, also known as an Hertzian dipole, is characterized by its radiation pattern, which is toroidal or doughnut-shaped.
+    \begin{itemize}
+        \item \emph{Directivity:} The maximum directivity of an ideal half-wave dipole is approximately 1.76 dBi.
+        \item \emph{Impedance:} In free space, a half-wavelength dipole has an impedance of around 73 $\ohm$. This value is purely resistive, meaning there is no reactive component.
+        \item \emph{Bandwidth:} For a typical half-wavelength dipole antenna, the 2:1 VSWR bandwidth can range from 5\% to 10\% of the center frequency. This means that the dipole can efficiently radiate and maintain good impedance matching within this frequency range.
+    \end{itemize}
+
+    \item \emph{Dipole antenna:} A dipole antenna is a balanced antenna consisting of two equal-length conductors. It can be visualized as a straight wire segment with a feed point in the middle. The radiation pattern of a dipole antenna is typically symmetric and exhibits a doughnut-shaped pattern in the horizontal plane.
+    \begin{itemize}
+        \item \emph{Directivity:} The directivity of a dipole antenna depends on its design and configuration. A simple half-wavelength dipole antenna, oriented vertically, has a maximum directivity of around 2.15 dBi. This directivity is due to the antenna's radiation pattern being roughly toroidal or doughnut-shaped, with equal radiation in all directions perpendicular to its length (broadside direction) and nulls along its axis (end-fire directions).
+        \item \emph{Impedance:} The impedance of a dipole antenna is typically around 73 + j42 ohms for a resonant half-wavelength dipole antenna in free space. However, this can vary depending on factors such as the antenna's length, diameter, proximity to other objects, and frequency of operation. Impedance matching techniques, such as using a balun or matching network, are often employed to match the antenna impedance to the transmission line or feeding network impedance (commonly 50 ohms) for efficient power transfer.
+        \item \emph{Bandwidth:} A resonant half-wavelength dipole antenna typically has a bandwidth of a few percent relative to the center frequency. However, by modifying the dimensions or adding loading elements, the bandwidth can be increased. Various techniques, such as using folded dipoles or employing traps, can be utilized to achieve wider bandwidths for dipole antennas.
+    \end{itemize}
+
+    \item \emph{Monopole antenna:} A monopole antenna is an unbalanced antenna that consists of a single conductor, typically a quarter-wavelength long, over a ground plane. The radiation pattern of a monopole antenna is typically omnidirectional in the horizontal plane, with a toroidal shape.
+    \begin{itemize}
+        \item \emph{Directivity:} Twice (3 dBi over) the directivity of a similar dipole antenna.
+        \item \emph{Impedance:} Half the impedance of a similar dipole. Using arms instead of real ground, input resistance can be brought close to 50 $\ohm$.
+        \item \emph{Bandwidth:} Similar to that of a dipole.
+    \end{itemize}
     
+    \item \emph{Folded Dipole:} A folded dipole antenna is created by folding a dipole element back onto itself. Parameters include length, spacing between the folded elements, resonant frequency, radiation pattern, impedance, and bandwidth.
+    \begin{itemize}
+        \item \emph{Directivity:} Similar to the directivity of a similar dipole antenna.
+        \item \emph{Impedance:} Four times the impedance of a similar dipole antenna.
+        \item \emph{Bandwidth:} Generally higher than that of a similar dipole antenna -- it's the main motivation of building a folded dipole.
+    \end{itemize}
     
+    \item \emph{Yagi-Uda:} A Yagi-Uda antenna is a directional antenna with multiple elements, including a driven element, reflector, and one or more directors. Parameters include element lengths, spacing, resonant frequency, radiation pattern, gain, impedance, and bandwidth.
+    \begin{itemize}
+        \item \emph{Directivity:} Typically, Yagi-Uda antennas are designed to have higher directivities than simple dipole or monopole antennas. Directional Yagi-Uda antennas can achieve directivities in the range of 5-15 dBi or higher, depending on their size, number of elements, and design characteristics.
+        \item \emph{Impedance:} The impedance of a wire antenna is usually in the range of 50 to 75 $\ohm$, which is commonly used for RF transmission and reception. The driven element of a Yagi-Uda antenna is usually designed to have an impedance close to the desired value, such as 50 ohms. This allows for efficient power transfer and impedance matching with the transmission line or feeding network. However, the impedance of the director and reflector elements in a Yagi-Uda antenna may differ from the driven element. The directors typically have slightly higher impedance, while the reflector may have slightly lower impedance. The varying impedances of these elements contribute to the overall antenna performance and radiation pattern.
+        \item \emph{Bandwidth:} The bandwidth of a wire antenna can vary depending on its design and dimensions. Typically, wire antennas can provide bandwidths ranging from a few percent to several tens of percent relative to the center frequency. The bandwidth can be broadened by carefully selecting the antenna's dimensions and design parameters.
+    \end{itemize}
     
-\end{enumerate}
+    \item \emph{Log Periodic Antenna:} A log periodic antenna consists of multiple dipole elements of varying lengths. Parameters include element lengths and spacing, resonant frequency, radiation pattern, gain, impedance, and bandwidth.
+    \begin{itemize}
+        \item \emph{Directivity:} Directional log-periodic antennas can achieve directivities in the range of 5-10 dBi or higher, depending on their size, number of elements, and design characteristics.
+        \item \emph{Impedance:} The typical value of impedance for a log-periodic antenna is around 300-600 ohms. However, it's important to note that the impedance of a log-periodic antenna can vary depending on factors such as the design, dimensions, specific elements used, and frequency range of operation.
+        \item \emph{Bandwidth:} Typically, log-periodic antennas can cover a frequency range of several octaves or more. A well-designed log-periodic antenna can provide a relatively consistent performance and radiation pattern across its entire operating bandwidth. The wide bandwidth of log-periodic antennas makes them suitable for applications such as wideband communications, frequency scanning systems, spectrum monitoring, and broadband signal reception. Their ability to cover a wide frequency range with consistent performance makes log-periodic antennas versatile tools in various fields of RF and wireless communications.
+    \end{itemize}
+    
+    \item \emph{Loop Antenna:} A loop antenna is a closed loop of conductor. Parameters include loop dimensions, shape (e.g., circular or square), resonant frequency, radiation pattern, impedance, and bandwidth.
+    \begin{itemize}
+        \item \emph{Directivity:} Loop antennas are known for their ability to provide high directivity, especially in the direction perpendicular to the plane of the loop. A typical small loop antenna, such as a single-turn circular loop or a small multi-turn loop, can have a directivity ranging from 2 dBi to 6 dBi.
+        \item \emph{Impedance:} A single-turn loop antenna, such as a circular loop or a square loop, typically exhibits a characteristic impedance in the range of 50 to 100 $\ohm$. This impedance value is generally resistive, but it can have a small reactive component depending on the specific design and operating conditions. For multi-turn loop antennas, the characteristic impedance can vary depending on the number of turns and the physical dimensions of the loop. Larger loop antennas with multiple turns can have higher characteristic impedances, ranging from a few hundred $\ohm$ to several $\kiloohm$. The impedance of multi-turn loops may also have a reactive component, such as inductive reactance.
+        \item \emph{Bandwidth:} For a single-turn loop antenna, such as a circular loop or a square loop, the bandwidth can typically range from 5\% to 20\% of the center frequency. Multi-turn loop antennas can have wider bandwidths due to the increased effective electrical size and reduced Q factor. The bandwidth of multi-turn loops can extend up to 30\% or more of the center frequency, depending on the specific design and dimensions.
+    \end{itemize}
+    
+    \item \emph{E/H Horn Pyramidal Antenna:} Parameters associated with an E/H horn pyramidal antenna include horn dimensions, flare angle, aperture size, resonant frequency, radiation pattern, gain, impedance, and bandwidth.
+    \begin{itemize}
+        \item \emph{Directivity:} Pyramidal horn antennas are known for their ability to provide high directivity and efficient radiation characteristics. A typical pyramidal horn antenna can have a directivity ranging from 10 dBi to 20 dBi. The directivity of a horn antenna is advantageous for applications that require focused and directional radiation patterns, such as long-range communication, radar systems, and satellite communication. However, it's important to consider the trade-offs between directivity, size, and complexity of the antenna system when selecting a pyramidal horn antenna for a specific application.
+        \item \emph{Radiation efficiency:} Horn antennas generally have high radiation efficiency due to their well-defined and controlled radiation patterns. However, the exact efficiency can depend on the design, size, material losses, and frequency of operation. Typical values are 70\% to 90\%.
+        \item \emph{Impedance:} In many cases, pyramidal horn antennas are designed to have a characteristic impedance of 50 $\ohm$. However, it could be higher or lower depending on the specific requirements of the system, especially those involving high-power transmissions.
+        \item \emph{Bandwidth:} A well-designed pyramidal horn antenna can exhibit a relatively wide bandwidth compared to other types of antennas. The bandwidth is often determined by the aperture size and the flare angle of the horn. For a typical pyramidal horn antenna, the bandwidth can range from 10\% to 20\% or more of the center frequency. In some cases, pyramidal horn antennas can be designed for wider bandwidths by incorporating additional design techniques such as multi-mode operation, corrugations, or employing frequency-selective surfaces (FSS) or metamaterials.
+    \end{itemize}
+    
+    \item \emph{Reflector Antennas:} Reflector antennas consist of a primary radiator and a reflector to direct and enhance the radiation pattern. Parameters include reflector dimensions, focal length, reflector shape, resonant frequency, radiation pattern, gain, impedance, and bandwidth.
+    \begin{itemize}
+        \item \emph{Directivity:} Reflector antennas, such as parabolic reflector antennas, are known for their ability to provide high directivity and focused radiation patterns. A typical parabolic reflector antenna can have a directivity ranging from 20 dBi to 40 dBi. The directivity of a reflector antenna is primarily determined by the size of the reflector dish or surface. Larger reflectors generally result in higher directivity due to their ability to concentrate the radiated energy into a narrower beam. Additionally, the operating frequency and the design accuracy of the reflector surface can also influence the directivity of the antenna. Higher frequencies and greater design precision often result in higher directivity. The high directivity of reflector antennas makes them suitable for long-range communication, satellite communication, radar systems, and other applications where focused and directional radiation patterns are desired.
+        \item \emph{Radiation efficiency:} The radiation efficiency of a reflector antenna can vary depending on factors such as the quality of the reflector surface, feed design, and losses in the supporting structures. Typical values are 50\% to 70\%.
+        \item \emph{Impedance:} In many cases, reflector antennas are designed to have a characteristic impedance of 50 $\ohm$. However, variations in the design of the feed element, the presence of dielectric materials, or the shape and dimensions of the reflector can affect the impedance.
+        \item \emph{Bandwidth:} A well-designed reflector antenna can exhibit a relatively wide bandwidth compared to other types of antennas. The bandwidth is often determined by the size of the reflector and the feed system used. For a typical reflector antenna, the bandwidth can range from 5\% to 20\% or more of the center frequency. In some cases, reflector antennas can be designed for wider bandwidths by incorporating additional design techniques such as dual or multiband feeds, frequency selective surfaces (FSS), or active feed systems.
+    \end{itemize}
+    
+    \item \emph{Array Antennas:} Array antennas are composed of multiple individual elements arranged in a specific configuration. Parameters include element geometry, spacing, feeding arrangement, resonant frequency, radiation pattern, gain, impedance, and bandwidth.
+    \begin{itemize}
+        \item \emph{Directivity:} The directivity of an array antenna is determined by the constructive and destructive interference of the individual radiating elements. By properly controlling the amplitudes and phases of the signals fed to each element, the array antenna can steer the main lobe of its radiation pattern towards the desired direction, resulting in higher directivity. In general, array antennas can exhibit higher directivity compared to single-element antennas. The directivity of an array antenna can typically range from 10 dBi to 30 dBi or more.
+        \item \emph{Impedance:} In many cases, array antennas are designed to have a characteristic impedance of 50 $\ohm$. The impedance of an array antenna can be influenced by the array's geometry, such as the element spacing, the arrangement of elements (linear, planar, or conformal), and the specific excitation technique employed (e.g., series or parallel feeding, corporate feeding, or beamforming networks).
+        \item \emph{Bandwidth:} In general, array antennas can have wider bandwidths compared to single-element antennas. The bandwidth of an array antenna can typically range from 10\% to 40\% or more of the center frequency. Certain types of array antennas, such as broadband or frequency-scanning arrays, can be designed to achieve even wider bandwidths, extending beyond the typical range mentioned above. These arrays employ techniques such as frequency-independent structures, multi-band or multi-resonant elements, or beamforming algorithms to enhance the bandwidth performance.
+    \end{itemize}
+    
+    \item \emph{Receiving Antenna:} Parameters of a receiving antenna include size, sensitivity, gain, radiation pattern, impedance, bandwidth, and noise figure.
+    \begin{itemize}
+        \item \emph{Directivity:} Receiving antennas are often designed to have directivities that are similar to their transmitting counterparts. However, it's important to note that the directivity of a receiving antenna is typically lower than that of a transmitting antenna due to differences in design considerations and requirements. For a typical receiving antenna, the directivity can range from 0 dBi to 10 dBi. In general, receiving antennas are designed to capture signals effectively from all directions and have a relatively uniform radiation pattern to receive signals from various angles. This often results in lower directivity compared to transmitting antennas, which are designed to focus the transmitted energy into a specific direction or beam.
+    \end{itemize}
+    
+    \item \emph{Slot Antenna:} A slot antenna is a narrow opening or aperture in a conducting surface. Parameters include slot dimensions, resonant frequency, radiation pattern, impedance, bandwidth, and polarization.
+    \begin{itemize}
+        \item \emph{Directivity:} Slot antennas are known for their ability to provide moderate to high directivity depending on their configuration. For a typical slot antenna, the directivity can range from 3 dBi to 10 dBi or more. However, the exact directivity can vary significantly based on factors such as the type of slot antenna (e.g., rectangular, circular, or other shapes), the size of the slot, the feeding technique used, and the desired performance specifications.
+        \item \emph{Radiation efficiency:} The radiation efficiency of a slot antenna can vary depending on factors such as the slot dimensions, substrate material, feed mechanism, and losses in the antenna structure. Typical values are 40\% to 70\%.
+        \item \emph{Impedance:} For a typical slot antenna, the impedance can range from 50 $\ohm$ to higher values. The impedance of a slot antenna can also be influenced by the feeding technique used, such as coaxial feeding, microstrip line feeding, or aperture coupling. Each feeding mechanism can introduce different impedance characteristics to the slot antenna.
+        \item \emph{Bandwidth:} Slot antennas are known for their wide bandwidth characteristics compared to other types of antennas. For a typical slot antenna, the bandwidth can range from a few percent to several tens of percent of the center frequency. Different slot antenna designs, such as rectangular slots, circular slots, or other shapes, can exhibit different bandwidth characteristics. Microstrip slot antennas, which are printed on a substrate, can also offer wide bandwidths due to their design flexibility.
+    \end{itemize}
+    
+    \item \emph{Spiral Antenna:} A spiral antenna consists of a conducting wire wound in a spiral shape. Parameters include number of turns, pitch, diameter, resonant frequency, radiation pattern, impedance, and bandwidth.
+    \begin{itemize}
+        \item \emph{Directivity:} Spiral antennas are known for their ability to provide moderate to high directivity depending on their configuration. For a typical spiral antenna, the directivity can range from 3 dBi to 10 dBi or more.
+        \item \emph{Impedance:} The characteristic impedance of a Vivaldi antenna is often designed to match the impedance of the feeding network or transmission line to achieve efficient power transfer.
+        \item \emph{Bandwidth:} For a typical spiral antenna, the bandwidth can range from a few percent to several tens of percent of the center frequency. However, the exact bandwidth can vary significantly based on the specific design, spiral configuration, and desired performance requirements. Different spiral antenna designs, such as Archimedean or logarithmic spirals, can exhibit different bandwidth characteristics. The bandwidth of a spiral antenna can also be influenced by factors such as the substrate material used, the spacing between the turns, and the presence of impedance matching or tuning structures.
+    \end{itemize}
+    
+    \item \emph{Vivaldi Antenna:} Parameters associated with a Vivaldi antenna include the flare angle, aperture size, taper ratio, resonant frequency, radiation pattern, impedance, and bandwidth. Vivaldi antennas, also known as tapered slot antennas (TSA), are known for their ability to provide \emph{high directivity} and \emph{wide bandwidth}.
+    \begin{itemize}
+        \item \emph{Directivity:} For a typical Vivaldi antenna, the directivity can range from 8 dBi to 15 dBi or more.
+        \item \emph{Impedance:} The characteristic impedance of a Vivaldi antenna is often designed to match the impedance of the feeding network or transmission line to achieve efficient power transfer.
+        \item \emph{Bandwidth:} For a typical Vivaldi antenna, the bandwidth can range from several octaves to multiple octaves, depending on the design and desired performance specifications. Vivaldi antennas are designed to provide wideband coverage, and their bandwidth can be enhanced by properly designing the tapering profile and dimensions of the tapered slot. By carefully selecting the design parameters, such as the slot width and length, the tapering angle, and the substrate material properties, a Vivaldi antenna can achieve a wide frequency bandwidth. The wide bandwidth of a Vivaldi antenna allows it to cover a broad range of frequencies with acceptable performance characteristics, making it suitable for applications where wideband operation is required, such as in radar systems, wireless communication systems, and broadband measurements.
+    \end{itemize}
+    
+    \item \emph{Helix Antenna:} A helix antenna consists of a helical conductor. Parameters include helix dimensions, pitch, turns, resonant frequency, radiation pattern, impedance, and bandwidth.
+    \begin{itemize}
+        \item \emph{Directivity:} Helix antennas are known for their ability to provide moderate to high directivity depending on their configuration. For a typical helix antenna, the directivity can range from 6 dBi to 15 dBi or more. Different helix antenna designs, such as axial mode helix antennas or quadrifilar helix antennas, can exhibit different directivity characteristics. The directivity can also be influenced by the helix diameter, the length of the helix, and the presence of a ground plane or reflector.
+        \item \emph{Impedance:} The characteristic impedance of a helix antenna is often designed to match the impedance of the feeding network or transmission line to achieve efficient power transfer.
+        \item \emph{Bandwidth:} Helix antennas are known for their wide bandwidth characteristics, making them suitable for applications where broad frequency coverage is required. For a typical helix antenna, the bandwidth can range from several octaves to multiple octaves, depending on the design and desired performance specifications. The wide bandwidth of a helix antenna is attributed to its helical structure, which provides inherent frequency-independent characteristics. The pitch, diameter, and number of turns of the helix influence the bandwidth of the antenna. By properly designing these parameters, a helix antenna can achieve a wide frequency bandwidth. The bandwidth of a helix antenna is also influenced by other factors such as the quality factor (Q-factor) of the helix, the ground plane or reflector configuration, and the presence of impedance matching networks. Design considerations such as helix tapering and optimization techniques can be employed to enhance the bandwidth of the antenna.
+    \end{itemize}
+\end{itemize}
+
+
 
 \end{document}
