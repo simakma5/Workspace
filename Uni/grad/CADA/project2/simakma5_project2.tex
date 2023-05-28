@@ -12,6 +12,8 @@
 
 \usepackage{graphicx}
 \usepackage{subcaption}
+\usepackage{hyperref}
+\hypersetup{colorlinks=false}
 
 \usepackage[euler]{textgreek}
 \usepackage[font=footnotesize]{caption}
@@ -204,10 +206,14 @@ Vypočtěte a znázorněte relevantní veličiny: impedanční parametry, rozlo�
 	\end{figure}
 \end{frame}
 \begin{frame}{CST -- S-parametry pro $\{\text{Acc} = -40\ \text{dB}, \text{CpW} = 10, \text{RAE} = 1\}$}
+	\label{sn:s-parameters_1-rae}%
 	\begin{figure}[!ht]
 		\centering
 		\includegraphics[width=.8\textwidth]{src/CST_S-Parameters_40dB_10-cpw_1-cntm.png}
 	\end{figure}
+	\begin{itemize}
+		\item Pozorování: výrazné zhoršení přenosů do dělících ramen ($S_{31}-S_{41} \approx 1.7$)
+	\end{itemize}
 \end{frame}
 \begin{frame}{CST -- S-parametry (fáze) pro $\{\text{Acc} = -40\ \text{dB}, \text{CpW} = 10, \text{RAE} = 1\}$}
     \begin{figure}[!ht]
@@ -231,7 +237,7 @@ Vypočtěte a znázorněte relevantní veličiny: impedanční parametry, rozlo�
 \begin{frame}{Závěr}
 	Cílem tohoto projektu bylo vyzkoušet si základní funkce softwaru CST Studio Suite pro modelování trojrozměrných struktur a jejich následnou elektromagnetickou analýzu.
     
-    V rámci vypracování jsme se seznámili mimo jiné s různými parametry výpočtu, které mají výrazný dopad na přesnost řešení. Dopady perturbací jednotlivých parametrů na významné charakteristiky mikrovlnného obvodu byly ilustrovány na grafech, z nichž je možné posoudit významnost daného parametru ve výpočtu.
+    V rámci vypracování jsme se seznámili mimo jiné s různými parametry komplexity výpočtu, které mohou mít výrazný dopad na přesnost řešení, jak bylo ilustrováno na výstupních grafech. K nejvýraznějšímu zhoršení výsledného chování obvodu dochází na slidu~\ref{sn:s-parameters_1-rae} pro volbu $\text{RAE} = 1$, tj. pro nulové zhuštění výpočetní mříže v okolí hran (v našem případě okrajů pásku). Tento výsledek pouze ilustruje důležitost parametru zhuštění, a tedy fakt, že tato volba není v daném typu struktury vhodná.
 
     Ze srovnání s průběhy S-parametrů vygenerovaných programem AWR Microwave Office specializovaným pro návrh mikrovlnných obvodů můžeme usoudit, že funkcionalita návrhu v programu CST dobře koreluje se zamýšlenou komponentou.
 \end{frame}
