@@ -11,3 +11,20 @@ P_DET = 10.^(P_DET/10)*1e-3;            % dBm to linear
 
 P_LOAD = P_DET.*(S31./S21);             % calculation in linear scale
 disp(round(10*log10(P_LOAD/1e-3),1))    % display in dBm
+
+%% Task 4
+c = 3e8;                                        % speed of light
+D = 3.9e-2;                                     % antenna diagonal
+F = [77.1 78 79 80 80.9];                       % GHz
+Prx = [-25.59 -26.03 -24.73 -22.59 -23.41];     % dBm
+
+d_F = 2*D^2*F(end)*1e9/c;
+disp(['d_F = ' num2str(d_F*1e2) ' cm'])
+
+d = 86.5e-2;                                    % cm, d > d_F
+FSL = 20*log10(4*pi*d*F*1e9/c);
+disp(round(FSL,1))
+
+G = 25;                                         % dB, antenna gain
+EIRP = Prx + FSL - G;
+disp(round(EIRP,1))
