@@ -8,7 +8,7 @@
 \RequirePackage{bbding}             % balíček s nejrůznějšími symboly
 \RequirePackage{bm}                 % tučné symboly (příkaz \bm)
 \RequirePackage{mathtools}          % doplňkový package pro matematiku
-\RequirePackage{gensymb}			% obsahuje generické symboly pro text i mathmode (příkazy \celsius, \ohm, ...)
+\RequirePackage{textcomp,gensymb}	% obsahuje generické symboly pro text i mathmode (příkazy \celsius, \ohm, ...)
 
 \RequirePackage{fancyvrb}           % vylepšené prostředí pro strojové písmo
 \RequirePackage{indentfirst}        % zavede odsazení 1. odstavce kapitoly
@@ -99,6 +99,10 @@
 \newcommand{\C}{{\mathbb C}}
 \newcommand{\Q}{{\mathbb Q}}
 \newcommand{\F}{{\mathbb F}}
+\DeclareMathOperator*{\Argmax}{arg\,max}
+\DeclareMathOperator*{\Argmin}{arg\,min}
+\newcommand{\argmax}{\operatorname{argmax}}
+\newcommand{\argmin}{\operatorname{argmin}}
 
 % Kombinační číslo
 \newcommand{\comb}[2]{

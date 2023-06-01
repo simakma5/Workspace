@@ -1,0 +1,272 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[a4paper,hmargin=1in,vmargin=1in]{geometry}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{stddoc}
+\usepackage{lipsum}
+\usepackage{subcaption}
+\usepackage[normalem]{ulem}
+
+\newcommand{\plus}{{\texttt{+}}}
+\renewcommand{\ohm}{{\mathrm{\Omega}}}
+\newcommand{\kiloohm}{{\mathrm{k\Omega}}}
+
+
+\begin{document}
+
+\pagenumbering{arabic}
+
+% Header
+\noindent\LARGE\textbf{B2M37RNVA -- Otázky ke zkoušce}\normalsize\\
+\noindent\rule{12.5cm}{0.4pt}
+
+\begin{enumerate}
+    \item \textbf{Základní metody rádiové navigace AoA, SS, ToA, TDoA, DS}\\
+    \emph{Angle of Arival (AoA)}
+    \begin{itemize}
+        \item Směrové antény (Radiokompas DF, Radar): Triangulace -- určí se kurs ke dvěma všesměrových majákům NDB a poloha se určí jako průsečík příslušných radiál v navigační mapě.
+        \item Dopplerovský směrový zaměřovač: Rotující anténa/spínané antény na kružnici -- Rotační pohyb způsobí, že v důsledku Dopplerova jevu bude přijímaný signál frekvenčně modulovaný harmonickým signálem s periodou otáčení antén.
+    \end{itemize}
+
+    \emph{Signal Strength (SS)} měří vzdálenost od majáku na základě úrovně přijímaného signálu. Uživatel se nachází na kružnici resp. na povrchu koule o poloměru $R$. Při použití více majáků lze určit polohu jako průsečík příslušných kruhů resp. koulí. Aplikace v měření vzdálenosti k prahu vzletové a přistávací dráhy u systému ILS (nepoužívá se), pokusy o indoor navigaci.
+
+    \emph{Time of Arrival (ToA)} měří vzdálenost od majáku na základě doby šíření signálu. Uživatel se nachází na kružnici resp. na povrchu koule o poloměru $R$. Při použití více majáků lze určit polohu jako průsečík příslušných kruhů resp. koulí.
+    \begin{itemize}
+        \item Aktivní systémy: radar (primárná i sekundární), výškoměr, dálkoměr
+        \item Pasivní systémy: družicové navigační systémy
+    \end{itemize}
+
+    \emph{Time Difference of Arrival (TDoA)} řeší problém přesnosti časové základny uživatele u systémů ToA. Signál vysílán dvěma nebo více synchronizovanými majáky. Uživatel vyhodnocuje rozdíl časů příchodu signálu od majáků. Apliakce např. v Loran C.
+
+    \emph{Doppler Shift (DS)} měří vzájemnou rychlost uživatele a majáku. Aplikace v GNSS pro stanovení vektoru rychlosti.
+    
+    \item \textbf{Dráhy družice LEO, MEO, GEO, IGSO}
+    \begin{itemize}
+        \item \emph{Low Earth Orbit (LEO):} 500 až 1200 km, primárně pro vědecké účely, imaging a telekomunikační služby. Nová generace LEO satelitů je určena pro potřeby komunikačního trhu jako broadband internet.
+        \item \emph{Medium Earth Orbit (MEO):} 5000 až 20000 km, pokrytí pro vysokokapacitní přenosy na těžko dostupných místech, dříve pro GNSS.
+        \item \emph{Geostationary Earth Orbit (GEO):} 36000 km, geostacionární orbita pro TV, nízkokapacitní komunikaci a přenos dat.
+        \item \emph{Inclined Geostationary Earth Orbit (IGSO):} 37000 km, geostacionární s inklinací orbity.
+    \end{itemize}
+    
+    \item \textbf{Dálkoměrná metoda výpočtu polohy.} Neznámá poloha uřivatele $(x_u,y_u,z_u)$, poloha $k$-té družice $(x_k,y_k,z_k)$, která v čase $t_c$ vysílá dálkoměrný signál. Uživatel přijímá signál v čase $t_{r,k}$ v časové základně přijímače, která se liší od časové základny vysílače systému o $\tau_c$. Lze vypočítat zdánlivou vzdálenost $\rho_k = (t_{r,k}-t_t)c$, přičemž skutečná vzdálenost je
+    \begin{align}
+        r_k = (t_{r,k}-t_t+\tau_c)c \overset{!}{=} \sqrt{(x_u-x_k)^2+(y_u-y_k)^2+(z_u-z_k)^2}.
+    \end{align}
+    
+    \item \textbf{Souřadnicové systémy LLH, ECEF, ECI, NEU}
+    \begin{itemize}
+        \item \emph{Longitude, Latitude, Height (LLH):} geodetický souřadnicový systém, kde je zemské těleso reprezentováno rotačním elipsoidem a poloha bodu se udává pomocí geodetické zeměpisné šířky, geodetické zeměpisné délky a geodetické výšky.
+        \item \emph{Earth-Centered Earth-Fixed (ECEF):} Pevně svázán se Zemí
+        \item \emph{Earth-Centered Intertial (ECI):} Inerciální systémy, tj. platí v nich Newtonovy pohybové zákony a je zde známá rychlost šíření signálu.
+        \item \emph{East, North, Up (ENU):} Zástupce lokálních souřadnicových systémů s nutným referenčním bodem. Aplikace: lokální souřadnice, rychlost pohybu v horizontální rovině, stoupání a klesání, azimut a elevace navigačních družic.
+    \end{itemize}
+    
+    \item \textbf{Elipsoid, geoid, výška nad elipsoidem a geoidem}
+    \begin{itemize}
+        \item Elipsoid: rotační těleso eliptické ho průřezu charakterizováno délkami hlavní a vedlejší poloosy, excentricitou a druhou excentricitou.
+        \item Geoid: reálné zemské těleso, které modelujeme referenčním elipsoidem, který nezahrnuje členitost zemského povrchu.
+        \item Výška nad elipsoidem a geoidem: geodetická výška nad elipsoidem je součtem výšky nad geoidem a výšky geoidu, která udává, o kolik je v daném místě geoid vyšší než referenční elipsoid.
+    \end{itemize}
+    Referenční elipsoidy: WGS 84 (GPS, NATO aj.), PZ-90.02 (GLONASS), Besselův aj.
+    
+    \item \textbf{Rovnice dráhy družice} je rovnice rovnováhy gravitační síly a síly podle II. Newtonova pohybového zákona. Jejím řešením jsou dráhy tvaru kuželoseček.
+    \begin{align}
+        \frac{\d^2 \vec r}{\d t^2} &= -\frac{GM\vec r}{r^3}.
+    \end{align}
+    
+    \item \textbf{Keplerovské parametry dráhy družice} je sada 6 parametrů popisujících dráhu družice a rozděluje se do dvou následujících skupin.
+    \begin{enumerate}[label=\Roman*.]
+        \item orientace oběžné roviny vůči Zemi:
+        \begin{itemize}
+            \item inklinace oběžné dráhy družice $k$,
+            \item zeměpisná délka vzestupného uzlu (rektascenze) $\Omega$,
+            \item argument perigea $\omega$.
+        \end{itemize}
+        \item tvar dráhy družice:
+        \begin{itemize}
+            \item délka hlavní poloosy oběžné dráhy $a$,
+            \item excentricita oběžné dráhy $e$,
+            \item čas průchodu perigeem $t_p$.
+        \end{itemize}
+    \end{enumerate}
+    
+    \item \textbf{Časy používané v GNSS, atomový a astronomický čas, přestupná sekunda, čas družice, čas navigačního systému, čas uživatele}
+    \begin{itemize}
+        \item Atomový čas: UTC (Coordinated Universal Time)
+        \item Astronomický čas: GMT (Greenwich Mean Time)
+    \end{itemize}
+    K disparitě časů dochází kvůli tomu, že rotace Země se zpomaluje, a tak se GMT spomaluje za UTC. Řeší se to vkládáním přestupných sekund do UTC, a to podle potřeby o půlnoci z 30. června na 1. července a půnoci z 31. prosince na 1. ledna.\\
+    Družice je vybavena přesnými atomovými hodinami. Odchylku hodin družice měří řídící segment a počítá korekční koeficienty.
+    
+    \item \textbf{Relativistické jevy a jejich řešení.} Podle teorie relativity je navigační úloha zatížena hned třemi následujícími efekty.
+    \begin{itemize}
+        \item \emph{Pohyb družice GNSS} má vůči pozorovateli na Zemi rychlost zhruba $3300\ \mathrm m \cdot \mathrm s^{-1}$, což způsobuje zpomalení toku jejího času.
+        \item \emph{Gravitace,} respektive rozdíl gravitačního potenciálu, je dalším faktorem ovlivňujícím plynutí času. Jelikož gravitační potenciál je na Zemi zhruba 4krát vyšší, čas na Zemi vlivem tohoto efektu plyne pomaleji než na družici.
+        \item \emph{Šíření signálu,} zejména jeho rychlost, je známé pouze v inerciálních vztažných soustavách. Rotace Země způsobuje, že souřadnicová soustava ECEF inerciální není, a tak je nutné výpočet polohy provádět po transformaci do libovolné soustavy ECI.
+    \end{itemize}
+    
+    \item \textbf{Výpočet polohy metodou nejmenších čtverců, váhovnou metodou nejmenších čtverců, Kálmánova filtrace, chyba polohy, koeficienty DOP.} Dálkoměrná metoda nám poskytuje akvizici zdánlivé rychlosti $\rho_k = (t_{r,k}-t_k)c$, kde $t_{r,k}$ je čas příjmu signálu $k$-té družice v časové základně přijímače a $t_k$ je čas vyslání signálu k-té družice v časové základně navigačního systému.
+    
+    Skutečná vzdálenost $r_k = \rho_k + \tau_c c$, kde $\tau_c$ je časový posun mezi časovou základnou přijímače a časem navigačního systému, musí odpovídat geometrii úlohy, a tak můžeme formulovat rovnici měření
+    \begin{align}
+        \rho_k = \sqrt{(x_u-x_k)^2+(y_u-y_k)^2+(z_u-z_k)^2} - \tau_c c,
+    \end{align}
+    kde $k = 1,2,\dots$. Pro tuto metodu existuje neefektivní přímá Bancroftova metoda, ale moderní způsob řešení je zprostředkováván numericky (Newtonova-Gaussova metoda). Pro numerické řešení úlohu linearizujeme v bodě s předpokládanou polohou pomocí rozvoje do Taylorovy řady. Úloha pak nabývá tvaru
+    \begin{align}
+        \Delta \vec \rho = H \Delta \vec x,
+    \end{align}
+    kde $H$ je matice směrových kosinů a $\Delta \vec x$ je čtyřrozměrný vektor odchylky od skutečné polohy. Tato formulace je vhodná pro metodu nejmenších čtverců, která je ve váhované podobě implementována pro efektivní řešení:
+    \begin{align}
+        \Delta \vec x &= (H^TWH)^{-1}H^TW\Delta \vec \rho.
+    \end{align}
+
+    Dokonalejším způsobem řešení navigační úlohy je Kálmánova filtrace využívající stavového modelu a modelu měření. Kálmánův filtr počítá s historií, zohledňuje polohy, které byly vypočítány v předchozích časových okamžicích.
+
+    Koeficienty DOP vyjadřují, kolikrát je směrodatná odchylka chyby polohy větší než je směrodatná odchylka měření zdánlivé vzdálenosti $\sigma$. Dělíme je na \emph{Geometric Dilution of Precision (GDOP)}, \emph{Position Dilution of Precision (PDOP)}, \emph{Horizontal Dilution of Precision (HDOP)}, \emph{Vertical Dilution of Precision (VDOP)} a \emph{Time Dilution of Precision (VDOP)}.
+    
+    \item \textbf{Signály používané v GNSS (BPSK, BOC, spektrum a korelační vlastnosti, datový a pilotní signál, dálkoměrné kódy).}
+    Signál používaný pro navigaci musí být schopen přesného měření doby příchodu (ToA) a mít možnost přenášet navigační zprávu.
+    \begin{itemize}
+        \item BPSK (Binary Phase-Shift Keying) modulace: C/A kódy GPS
+        \begin{itemize}
+            \item Datový signál (komplexní obálka) $s_d(t) = \sqrt Pd(t)c(t)$, kde $d$ je signál přenášející navigační zprávu a $c$ je dálkoměrný kód.
+            \item Pilotní signál $s_p(t) = \sqrt Pc(t)$.
+            \item Autokorelační funkce: trojúhelník kolem nuly, nula jinde.
+            \item Spektrální výkonová hustota: ostrá vzorkovací funkce.
+        \end{itemize}
+
+        \item BOC%
+            \footnote{Centrální myšlenka BOC modulace je redukování interference s BPSK signálem, který má spektrum ve tvaru vzorkovací funkce, tj. většina jeho spektrální energie je soustředěna kolem nosné frekvence. Mezitím BOC signály mají na nosné nízkou energii a dva hlavní spektrální laloky odsunuté mimo nosnou (proto název \emph{split-spectrum}).}
+        (Binary Offset Carrier) modulace: GPS, Galileo
+        \begin{itemize}
+            \item Datový signál (komplexní obálka) $s_d(t) = \sqrt Pd(t)c(t)\operatorname{sign}\(\sin\(\pi f_St\)\)$, kde $d$ je signál přenášející navigační zprávu a $c$ je dálkoměrný kód.
+            \item Pilotní signál asi zase jen bez navigační zprávy.
+            \item Autokorelační funkce: ostrý trojúhelník kolem nuly přesahující pod osu $x$ s následným návratem na nulu jinde.
+            \item Spektrální výkonová hustota: dva BPSK signály zrcadlově kolem nosné, kde je propad mezi hlavními dvěma laloky.
+        \end{itemize}
+    \end{itemize}
+
+    Dálkoměrný kód má charakter tzv. pseudonáhodného šumu PRN (Pseudo Random Noise), což je deterministická posloupnost, jejíž vlastnosti je blíží náhodné posloupnosti. Používají se následující.
+    \begin{itemize}
+        \item Posloupnost maximální délky: posloupnost maximální délky $2^m-1$ generovaná ireducibilním (primitivním) polynomem řádu $m$. Autokorelační funkce nabývá dvou hodnot.
+        \item Goldovy kódy: generované jako součet dvou různých posloupností maximální délky. Lze je použít v CDMA. Vzájemná korelační funkce preferovaných posloupností nabývá tří hodnot.
+    \end{itemize}
+    
+    \item \textbf{Sledování signálu, DLL, PLL, FLL, \sout{chyby měření, stabilita}.} Cílem zpracování navigačních signálů je odhad doby příchodu signálu (zpoždění modulační obálky), odhad frekvence a fáze nosné vlny, demodulace navigační zprávy a odhad kvalitativních parametrů jako je odstup nosné od šumu, intenzitu mnohocestného šíření apod. Tento odhad realizuje modelováním komunikačního kanálu jako ML (Maximum Likelihood) estimátoru, tj.
+    \begin{align}
+        \hat\theta &\in \argmax_{\theta}L,
+    \end{align}
+    kde $\theta$ je uspořádaná $n$-tice odhadovaných parametrů, $\hat\theta$ učiněný odhad a $L$ je věrohodnostní funkce. Opět existují formy přímého odhadu používané pro počáteční synchronizaci či tzv. \emph{snapshot navigation}, ale přední je iterativní forma odhadu pomocí sledovacích smyček DLL, PLL a FLL. Obecně smyčky vytváří odhad předpisem
+    \begin{align}
+        \hat\theta[k+1] &= \hat\theta[k] + C\[\mu\(\hat\theta[k]\)\],
+    \end{align}
+    kde $C$ je filtr smyčky a $\mu$ je detektor smyčky.
+    \begin{itemize}
+        \item \emph{Delay Locked Loop (DLL)} je použita pro odhad a sledování časového zpoždění přijatého signálu oproti lokálně generované replice. Základní princip je porovnávání přijatého signálu s replikou, kterou iterativně časově posouvá, dokud nedosáhne dostatečné shody. Ve smyčce figuruje diskriminátor zpoždění, který vyhodnocuje zpoždění mezi signály, a filtr smyčky, který výstup diskriminátoru použije pro generování řídícího signálu, pomocí něhož upraví zpoždění v generátoru repliky signálu.
+        \item \emph{Phase Locked Loop (PLL)} je využívána pro odhad a sledování fáze přijatého signálu a jejího zpoždění oproti lokálně generované replice. Tento rozdíl je opět kvantifikován v diskriminátoru fáze a nadále použit pro řízení generátoru lokální repliky v další iteraci. V tomto případě se může jednat o klasické PLL jakožto kaskádu fázového detektoru, dolní propusti a VCO.
+        \item \emph{Frequency Locked Loop (FLL)} je použita pro odhad a sledování frekvence přijatého signálu a jejího zpoždění oproti lokálně generované replice. Opět využívá diskriminátoru frekvence a filtru, která řídí generátor příští repliky signálu.
+    \end{itemize}
+    Existuje mnoho druhů jednotlivých diskriminátorů, každý typ přináší jisté výhody i nevýhody, a s tím i aplikovatelnost dle účelu. Filtry smyček lze rozdělit podle jejich řádů. Používají se filtry prvního, druhého a třetího řádu a řád filtru zároveň odpovídá řádu derivace polohy, na který je nejvíce citlivý: Filtry prvního řádu jsou citlivé na rychlost, druhého řádu na zrychlení apod.
+    
+    \item \textbf{Akvizice, sériové a paralelní metody.} Velikost prostoru, který prohledáváme, záleží na apriorní informaci (almanach). V případě, že absentuje např. v případě studeného startu přijímače, je třeba prohledávat celý prostor. Velikost prostoru ve zpoždění je přímo perioda dálkoměrného kódu a ve frekvenci je to závislé na několika faktorech (jako např. maximální radiální rychlost, maximální chyba frekvenčního normálu přijímače aj.), ale běžný mobilní uživatel na L1 se pohybuje cca na 8~kHz. Tento prostor je vzorkován po diskrétních časových a frekvenčních krocích a následně prohledáván.
+    \begin{itemize}
+        \item \emph{Sériové prohledávání:} Využívá standardního IQ korelátoru, porovnávání modulu korelační funkce a pravděpodobnostní analýzy. Tento způsob byl vyvinut v dobách, kdy na paralelní vyhledávání nebyly prostředky, a v dnešní době není používán.
+        \item \emph{Paralelní vyhledávání:} Možnosti paralelního vyhledávání v časové doméně, frekvenční doméně či 2D paralelní vyhledávání v obou doménách zároveň.
+    \end{itemize}
+    \item \textbf{Navigační systémy GPS, GLONASS, Galileo, Compass, podpůrné systémy WAAS, EGNOS, QZSS.}
+    \begin{itemize}
+        \item \emph{Global Positioning System (GPS):} Projekt zprvu začal jako sloučení navigačních projektů letectva, námořnictva a armády USA. Později se uvolnila služba i pro civilní sektor. Systém je rozložen do následujících tří segmentů.
+        \begin{itemize}
+            \item Kosmický segment: konstelace 32 družic v 6 oběžných rovinách.
+            \item Řídící segment: Tento segment, složený z hlavní řídící stanice, záložní řídící stanice, pozemních antén a monitorovací stanice, slouží především k měření drah navigačních družic, monitorování a údržba jejich funkčnosti, udržování GPS času, výpočet a nahrávání navigační zprávy, omezené manévrování aj.
+            \item Uživatelský segment
+        \end{itemize}
+        Navigační zpráva GPS obsahuje efemeridy vyjadřující přesné parametry dráhy družice, přesný čas a parametry pro korekci hodin družice, servisní parametry jako je stav družice, parametry ionosférického modelu a almanach systémů, ve kterém jsou obsaženy nepřesné parametry drah všech družic systému.
+
+        \item \emph{GLONASS:} Ruská varianta GPS, která během vývoje trpěla na neduhy vývoji ruských technologií blízké jako například \uv{úpadek systému v důsledku ekonomických potíží Ruska}, naivní investive do kvantity nad kvalitu technologie apod.\\
+        Konstelace GLONASS sestává ze 24 družic v 3 oběžných rovinách.
+
+        \item \emph{Galileo:} GPS variant Evropské unie. Zpočátku financována soukromými investory, což o pár let později zkrachovalo, a o rok později se EU rozhodla projekt financovat z vlastních zdrojů.\\
+        Konstelace Galileo sestává ze 30 družic v 3 oběžných rovinách. Hovoří se o rozšíření konstelace o geostacionární družice podpůrného systému EGNOS.
+
+        \item \emph{Compass (dříve BeiDou):} Čínská varianta GPS, která v plné konstelaci čítá 3 družice na IGSO a 27 družic na MEO.
+        
+        \item \emph{Rozšiřující navigační systémy:} Navigační systémy navržené pro vylepšení přesnosti, dostupnosti a spolehlivosti navigační informace od globálních systémů. Využívají diferenčních metod měření (DGNSS) pro korekci korelovaných chyb pomocí signálů od referenční stanice a uživatelského přijímače. Mezi nejznámnější \emph{Satellite-Based Augmentation System (SBAS)} patří WAAS, EGNOS a QZSS.
+    \end{itemize}
+    
+    \item \textbf{Principy fázových měření, RTK, PPP.}
+    \begin{itemize}
+        \item \emph{Precision Point Positioning (PPP):} dvoufrekvenční měření s dokonalým fyzikálním modelem šíření signálu pro zpřesňování informací o polohách navigačních družic a jejich časových základen. Data nejsou k dispozici v reálném čase, nýbrž jsou zpožděny od několika minut až po dny. Fázových měření může využívat, ale nemusí.
+        \item \emph{Real Time Kinematic (RTK):} relativní měření využívající fázových měření.
+    \end{itemize}
+    
+    \item \textbf{Aplikace softwarového rádia v GNSS, GNSS simulátory.}
+    \begin{itemize}
+        \item \emph{GNSS simulátory:} generátor GNSS signálu pro účely testování a vývoje GNSS přijímačů a jejich aplikací. Lze konstruovat jednokanálové simulátory, které dokáží generovat signál jedné družice, což je využitelné pro testování smyček DLL a PLL, vyhledávání signálu apod. Existuje však i možnost konstrukce vícekanálových simulátorů, kterými generujeme signály od více/všech viditelných družic a které nám tedy umožňují kompletní funkční testy GNSS přijímačů.
+        \item \emph{Věda, výzkum a vývoj} 
+        \item \emph{Studium GNSS} 
+    \end{itemize}
+    
+    \item \textbf{Terestriální navigační systémy, traťová, prostorová navigace, LORAN C, NDB, VOR, DME, ILS, kategorie ILS.} Terestriální navigační systémy dělíme na \emph{hyperbolické} a \emph{letecké}. Jediným dosud dýchajícím zástupcem hyperbolických navigačních systémů je systém Long RAnge Navigation vesion C (LORAN-C), což je systém pracující na frekvenci 100~kHz, původně určen pro námočnictvo, ale později používán v letectví. Nadále se budeme bavit o leteckých navigačních systémech.
+    \begin{itemize}
+        \item \emph{Traťová navigace (En Route Navigation):} Systém pevných letových tratí, v jejíž uzlech jsou umístěny navigační radiomajáky buď NDB, nebo VOR (DME). V dnešní době nahrazeno prostorovou navigací.
+        \begin{itemize}
+            \item \emph{Non-Directional Beacon (NDB):} všesměrový maják určený k měření směru k radiomajáku. Použití pro Automatic Directional Finder (ADF) pro zaměření kurzu k radiomajáku podle směrové antény. Letová trasa je vyznačena majáky NDB a letadlo letí od majáku k majáku.
+            \item \emph{VHF Omnidirectional Range (VOR):} VKV radiomaják vytyčující radiály, které umožňují let k majáku po jakékoliv radiále. VOR radiomaják vysílá dva signály (referenční a variabilní), které pak navigační přijímač vyhodnocuje pro jejich vzájemný fázový posuv.
+            \item \emph{Distance Measuring Equipment (DME):} měřič vzdálenosti na základě měření doby šíření signálu. Letadlo (dotazovač) vyšle dva pulzy, pozemní stanice vyčká časový interval a odpoví také dvojící pulzů. Palubní stanice měří čas mezi vysláním a příjmem. Častá je tzv. koaxiální instalace majáků VOR v kombinaci s majákem DME, což dává dohromady kompletní navigační informaci radiála + vzdálenost.
+            \item \emph{Instrument Landing System (ILS):} Skládá se ze směrového majáku, sestupového majáku a 2 až 3 markerů.
+            \begin{itemize}
+                \item Směrový maják: Zajišťuje směrové vedení letadla v ose přistávací dráhy. Signál se snadno odráží od překážek, což vyžaduje kalibraci majáku.
+                \item Sestupový maják: Zajišťuje výškové vedení letadla po sestupové ose.
+                \item Marker (vnější, střední a vnitřní): indikátor vzdálenosti od přistávací dráhy.
+            \end{itemize}
+        \end{itemize}
+        \item \emph{Prostorová navigace RNAV (Area Navigation):} Trať je definovaná posloupností bodů, které jsou nezávislé na umístění radiomajáků. Vyžaduje navigační počítač FMS.
+    \end{itemize}
+    
+    \item \textbf{FMS, Primary flight display.}
+    \begin{itemize}
+        \item \emph{Flight Management System (FMS):} navigační počítač na palubě letadla. Umožňuje zadání a modifikaci letového plánu a následně na základě VOR, DME, GPS apod. odhaduje polohu. Dále počítá odchylku od plánované trasy, určuje nový kurz a zadává jej do autopilota.
+        \item \emph{Primary flight display} obashuje rychloměr, zatáčkoměr, umělý horizont, břevna ILS, výškoměr, variometr a směrový indikátor.
+    \end{itemize}
+    
+    \item \textbf{Primární, sekundární a pasivní radar, pulzní a CW radar, radarová rovnice, závoj (clutter), Dopplerovská filtrace, sekundární radar \sout{modů A, C a S, squitter, extended squitter}, ACAS/TCAS.}\\
+    Základní klasifikace radaru:
+    \begin{itemize}
+        \item Primární radar: aktivní vysílač, pasivní cíl;
+        \item Sekundární radar: aktivní vysílač i cíl;
+        \item Pasivní radar: aktivní cíl, pasivní příjem.
+    \end{itemize}
+    \begin{itemize}
+        \item Monostatický radar: vysílač i přijímač jsou na jenom místě (společná anténa);
+        \item Bistatický radar: vysílač a pijímač jsou na vzdálené bázi;
+        \item Radarová síť.
+    \end{itemize}
+    \begin{itemize}
+        \item \emph{Continuous Wave (CW) radar,} neboli Doppler radar, pracuje s VF kontinuálním signálem. Nemodulovaná varianta má konstantní amplitudu i frekvenci, a tak nelze měřit vzdálenost, pouze rychlost.
+        \item \emph{Frequency Modulated CW (FMCW) radar} má konstantní amplitudu a modulovanou frekvenci (frequency sweep), což Umožňuje současné měření vzdálenosti a rychlosti. Není nutné vysílat vysokovýkonný pulz a přijatý signál se směšuje do NF.
+        \item \emph{Frequency Modulated interrupted CW (FMiCW) radar} umožňuje během vysílání přerušit FM, ale ponechat funkční pro potřeby příjmu. To v okamžicích vypnutí zvyšuje citlivost přijímače a umožňuje tak vyšší provozní dosah než klasický FMCW radar.
+        \item \emph{Pulse radar}
+    \end{itemize}
+    Základní princip radaru je popsán radarovou rovnicí:
+    \begin{align}
+        P_{\mathrm{RX}} = \frac{P_{\mathrm{TX}}G\sigma_{\mathrm{RCS}}}{\(4\pi R^2\)^2} \frac{\lambda^2}{4\pi}G = \frac{P_{\mathrm{TX}}G^2\sigma_{\mathrm{RCS}}\lambda^2}{(4\pi)^3R^4}
+    \end{align}
+    za předpokladu primárního radaru (stejný zisk vysílací a přijímací antény, stejné vzdálenosti).\\
+    Vzdálenost následně určíme jako tzv. \emph{slant range}, neboli vzdálenost přímé spojnice, z časového rozdílu příchodu a vyslání signálu.\\
+    Určení směru je relativní vzhledem k referenčnímu natočení antény.\\
+    Radar má daný maximální dosah (Maximum Unambiguous Range), který je daný jako vzdálenost, z níž dorazí odraz před dalším vysílaním pulzu.\\
+    Primární radar zároveň trpí naduhem zvaným \emph{blind range}, neboli minimální detekovatelná vzdálenost, která je způsobena konečnou rychlostí přepnutí (a tedy nenulovým časem zotavení) duplexeru z vysílání na příjem.\\
+    \emph{Clutter:} zdroj nežádoucích příjmů. Může se jednat o \emph{surface clutter} jako např. odraz od Země či od mořské hladiny, \emph{volume clutter} jako např. meteorologické objekty nebo prostředky pro rušení radaru, \emph{point clutter} jako např. ptáci, větrné elektrárny aj.\\
+    \emph{Dopplerovská filtrace:} odlišení pohyblivého cíle od fixního odrazu na základě Dopplerova posuvu. Mluvíme o \emph{Moving Target Indication (MTI)} a \emph{Moving Target Detection (MTD)}. Dopplerovská filtrace má jednu výraznou nevýhodu, a to fakt, že vždy existuje tzv. \emph{slepá rychlost (blind speed)}, a níž dochází k nejednoznačnosti určení.\\
+    \emph{Sekundární radar:} Pracuje na bázi obousměrné aktivity dotaz--odpověď. Musí se vypořádávat s mnoha problémy jako je více odpovědí, garbling apod.\\
+    \emph{Mód S sekundárního radaru:} Zvýšení bezpečnosti (mód A - jen 4096 kódů), selektivní adresace konkrétního letadla, zvýšení integrity dat pomocí redundance (parity check).\\
+    \emph{ACAS/TCAS (Airborne Collision Avoidance System/Traffic advisory and Collision Avoidance System):} Odvozené systémy od sekundárního radaru módu S, kdy dotazovač je na palubě letadel a vyhodnocuje se poloha okolních letadel a rizika kolize. Systém případně doporučí manévr.
+\end{enumerate}
+
+\end{document}
