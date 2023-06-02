@@ -8,7 +8,7 @@
 \usepackage[T1]{fontenc}
 
 \usepackage[nodayofweek]{datetime}
-\newdate{date}{15}{5}{2023}
+\newdate{date}{2}{6}{2023}
 
 \usepackage{stddoc}
 \usepackage{lipsum}
@@ -60,10 +60,9 @@ Determine the properties of a shielded coplanar stripline depicted in figure~\re
     \item Plot the value of $Z_0$ as a function of number of iterations.
     \item Find the charge density on a strip.
     \item Determine numerically optimal value of the relaxation coefficient $\alpha$. Compare with the analytical solution
-    \begin{align}
-        \label{eq:alpha-analytical-solution}
+    \begin{align*}
         \alpha = \frac{8-\sqrt{64-16r^2}}{r^2},
-    \end{align}
+    \end{align*}
     where $r = \cos(\pi/N_x) + \cos(\pi/N_y)$ and $N_x \times N_y$ are the dimensions of the discrete mesh.
 \end{enumerate}
 
@@ -145,13 +144,11 @@ Adapting this knowledge, we can write
 which serves as the main computational formula for further results.
 
 \newpage\section{Implementation}
-The code below represents the core computational loop. The first step is to update the values of electric potential over the whole mesh using equation~\ref{eq:step1}. Then, for a given iteration, the script computes charge density using equation~\ref{eq:step2}. Results are saved for every iteration in order to track the evolution of impedance values. The loop breaks once the previous relaxation step hasn't improved the solution more than the threshold value 0.001.
+The code below represents the core computational loop. The first step is to update the values of electric potential over the whole mesh using equation~\ref{eq:step1}. Then, for a given iteration, the script computes charge density using equation~\ref{eq:step2}. Results are saved for every iteration in order to track the evolution of impedance values. The loop breaks once the previous relaxation step hasn't improved the solution more than the threshold value $10^{-3}$.
 \begin{lstlisting}[language=Matlab]
 while Rmax > 1e-3
-    iter = iter + 1;
     % Step 1: SOR method
-    for j = 2:Nx-1
-    for i = 2:Ny-1
+    for j = 2:Nx-1 for i = 2:Ny-1
         if i == IF1
             R(i,j) = (eps_r*V(i+1,j)+1*V(i-1,j)+er_avg*V(i,j-1)+ ...
                 er_avg*V(i,j+1))/4/er_avg-V(i,j); 
@@ -160,12 +157,14 @@ while Rmax > 1e-3
                 er_avg*V(i,j+1))/4/er_avg-V(i,j); 
         else
             R(i,j) = (V(i+1,j)+V(i-1,j)+V(i,j-1)+V(i,j+1))/4-V(i,j);
+        elseif i == IF1-1 && (...
+                (j >= Nx/2-g/2-w/2 && j <= Nx/2-g/2+w/2) || ...
+                (j >= Nx/2+g/2-w/2 && j <= Nx/2+g/2+w/2))
+            R(i,j)= R(i,j);
+            V(i,j)= V(i,j);
         end
             V(i,j) = V(i,j)+alpha*R(i,j);
-        V(IF1-1,Nx/2-g/2-w/2:Nx/2-g/2+w/2) = V0;
-        V(IF1-1,Nx/2+g/2-w/2:Nx/2+g/2+w/2) = V0;
-    end
-    end
+    end end
     Rmax = max(max(R));
     % Step 2: numerical evaluation of the intergral
     qA = 0; qB = 0; qC = 0; qD = 0;
@@ -185,27 +184,48 @@ while Rmax > 1e-3
             qB = qB + (V(bottom+1,j) - V(bottom-1,j))/2;
             qD = qD + eps_r*(V(top-1,j) - V(top+1,j))/2;
     end
-    Q(iter) = eps_0*(qA + qB + qC + qD);
+    Q = eps_0*(qA + qB + qC + qD);
 end
 C = Q/(V0-Vgnd);
 Z = 1./(c*C);
 \end{lstlisting}
 
 \section{Results}
-Figure~\ref{fig:output-field} shows the resultant electric field distribution, whereas in figure~\ref{fig:output-z0-alpha17}, we can inspect the evolution of characteristic impedance throughout the run.
+\begin{enumerate}[label=(\alph*)]
+    \item Figure~\ref{fig:output-field} shows the resultant electric field distribution.
+    \item The final value of characteristic impedance is close to $50\ \Omega$ can be seen in the title of figure~\ref{fig:output-field} along with the capacity per unit length.
+    \item In figure~\ref{fig:impedance}, we can inspect the evolution of characteristic impedance throughout the run.
+    \item Charge density can be inspected in figure~\ref{fig:charge-density}.
+    \item Numerical solution for the optimal value of $\alpha$ is $1.94$ which is a clear global minimum in figure~\ref{fig:iterations} and which is compliant with the analytical value of $\alpha_0 = 1.96$.
+\end{enumerate}
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=\textwidth]{src/output_field_alpha1-7.eps}
+    \includegraphics[width=\textwidth]{src/electric_field.eps}
     \caption{Output field}
     \label{fig:output-field}
 \end{figure}
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=\textwidth]{src/output_z0_alpha1-7.eps}
+    \includegraphics[width=\textwidth]{src/impedance.eps}
     \caption{Evolution of the characteristic impedance over iterations}
-    \label{fig:output-z0-alpha17}
+    \label{fig:impedance}
+\end{figure}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{src/charge_density.eps}
+    \caption{Charge density of the left (positively charged) strip}
+    \label{fig:charge-density}
+\end{figure}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{src/iterations.eps}
+    \caption{Number of iterations as a function of the SOR coefficient $\alpha$}
+    \label{fig:iterations}
 \end{figure}
 
-Numerical determination of the optimal value of $\alpha$ yielded the number $1.91$ which is compliant with the analytical solution of $\alpha_0 = 1.96$.
+\section{Conclusion}
+The main goal of this project was to get a hands-on experience with solving an electromagnetic problem. To achieve that, we have utilized the method of finite differences, which we have implemented in Matlab. Although quite time-consuming, I consider this project a valuable challenge and a lesson for my future work. During implementation, I encountered a handful of issues which I was capable of resolving with a tad bit of guidance from doc. Polívka.
+
+
 
 \end{document}
