@@ -7,6 +7,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+\usepackage[nodayofweek]{datetime}
+\newdate{date}{10}{2}{1999}
+
 \usepackage{stddoc}
 \usepackage{lipsum}
 \usepackage{subcaption}
@@ -16,6 +19,11 @@
 \renewcommand{\Im}{\operatorname{Im}}
 \newcommand{\fourier}[3]{\mathcal{F}_{#1}\!\left[#2\right]\!\left(#3\right)}
 \newcommand{\ifourier}[3]{\mathcal{F}^{-1}_{#1}\!\left[#2\right]\!\left(#3\right)}
+\newcommand{\dB}{\mathrm{dB}}
+\newcommand{\dBm}{\mathrm{dBm}}
+\newcommand{\MHz}{\mathrm{MHz}}
+\newcommand{\GHz}{\mathrm{GHz}}
+\newcommand{\kHz}{\mathrm{kHz}}
 
 
 \begin{document}
@@ -27,7 +35,7 @@
     {\LARGE\textbf{Laboratorní úloha č.}}\\[3mm]
     \begin{minipage}{0.4\textwidth}
         \begin{flushleft}
-            \textsc{\today}
+            \textsc{\displaydate{date}}
         \end{flushleft}
     \end{minipage}
     ~
