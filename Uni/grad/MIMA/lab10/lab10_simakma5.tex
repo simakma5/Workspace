@@ -8,7 +8,7 @@
 \usepackage[T1]{fontenc}
 
 \usepackage[nodayofweek]{datetime}
-\newdate{date}{14}{6}{2023}
+\newdate{date}{15}{6}{2023}
 
 \usepackage{stddoc}
 \usepackage{lipsum}
@@ -65,13 +65,13 @@
 \end{itemize}
 
 \subsection*{Popis měření}
-Při měření na VNA je naprosto nezbytné se vždy vyhnout elektrostatickému výboji na středním vodiči testovacích kabelů či na vodičích s nimi spojenými. Je proto nutno vyloučit dotyk ruky s těmito vodiči a používat zemněný náramek.
+\paragraph*{Teoretický úvod} Při měření na VNA je naprosto nezbytné se vždy vyhnout elektrostatickému výboji na středním vodiči testovacích kabelů či na vodičích s nimi spojenými. Je proto nutno vyloučit dotyk ruky s těmito vodiči a používat zemněný náramek.
 
 V rámci měření určujeme celkem tři činitele jakosti: \emph{nezatížený} činitel jakosti $Q_u$, \emph{zatížený} činitel jakosti $Q_L$ a \emph{externí} činitel jakosti $Q_{\mathrm{ext}}$. Mezi těmito činiteli platí relace
 \begin{align*}
     Q_u = Q_L(1+\beta)=\beta Q_{\mathrm{ext}},
 \end{align*}
-kde $\beta$ je koeficient vazby rezonátoru na vedení. Jak pojednává článek~\cite{tysl:mereni-pri-velmi-vysokych-kmitoctech}, pro určení všech tří činitelů jakosti je nutné určit postupně frekvence $f_1$ a $f_2$ popisující stav $\Re(Z) = \Im(Z)$, frekvence $f_3$ a $f_4$, kdy $\Im(Z) = \Re(Z) + 20\ \mathrm{mS}$, a frekvence $f_5$ a $f_6$ jakožto body průsečíků rezonanční smyčky a jednotkové kružnice. Všechny tyto významné frekvence jsou ilustrovány na obrázku~\ref{fig:smitak-kruznice}.
+kde $\beta$ je koeficient vazby rezonátoru na vedení. Jak pojednává článek~\cite{tysl:mereni-pri-velmi-vysokych-kmitoctech}, pro určení všech tří činitelů jakosti je nutné určit postupně frekvence $f_1$ a $f_2$ popisující stav $\Re(Z) = \Im(Z)$, frekvence $f_3$ a $f_4$, kdy $\Im(Z) = \Re(Z) + 50\ \Ohm$, a frekvence $f_5$ a $f_6$ jakožto body průsečíků rezonanční smyčky a jednotkové kružnice. Všechny tyto významné frekvence jsou ilustrovány na obrázku~\ref{fig:smitak-kruznice}.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=.5\textwidth]{src/smitak-kruznice.png}
@@ -85,11 +85,17 @@ Pro činitele jakosti potom platí
     &
     Q_{\mathrm{ext}} &= \frac{f_0}{f_5-f_6},
 \end{align}
-kde $f_0$ je rezonanční frekvence. Za znalosti nezatíženého činitele jakosti $Q_u$ lze kapacitu kondenzátoru v náhradním obvodu rezonátoru spočíat ze vztahu
+kde $f_0$ je rezonanční frekvence.
+
+Za znalosti nezatíženého činitele jakosti $Q_u$ lze spočítat kapacitu kondenzátoru a indukčnost cívky v náhradním obvodu rezonátoru. V případě paralelní rezonance platí vztah
 \begin{align}
-    Q_u = 2\pi f_0RC.
+    Q_u = 2\pi f_0RC,
 \end{align}
-Indukčnost cívky náhradního obvodu potom dopočítáme z Thomsonova vztahu pro rezonanci ve tvaru
+zatímco pro sériovou rezonanci plati
+\begin{align}
+    Q_u = \frac{2\pi f_0 L}{R}.
+\end{align}
+Hodnotu druhého reaktančního prvku vždy určíme z Thomsonova vztahu pro rezonanci ve tvaru
 \begin{align}
     f_0 = \frac{1}{2\pi\sqrt{LC}}.
 \end{align}
@@ -142,9 +148,9 @@ a nastavíme užší frekvenční pásmo pokrývající její nejbližší okol�
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
     \hline
-    $Q_u\ [-]$ & $Q_L\ [-]$ & $Q_{\mathrm{ext}}\ [-]$ & $R\ [\mathrm{\Omega}]$ & $C\ [\mathrm{pF}]$ & $L\ [\mathrm{pH}$]\\
+    $Q_u\ [-]$ & $Q_L\ [-]$ & $Q_{\mathrm{ext}}\ [-]$ & $R\ [\mathrm{\Omega}]$ & $C\ [\mathrm{fF}]$ & $L\ [\mathrm{nH}$]\\
     \hline\hline
-    285 & 121 & 193 & 32.2 & 135.9 & 1.7\\
+    285 & 121 & 193 & 32.2 & 1.7 & 140.9\\
     \hline
 \end{tabular}
 \caption{\label{table:mikropaskovy-rezonator-hodnoty}Činitelé jakosti a parametry náhradního obvodu mikropáskového rezonátoru}
