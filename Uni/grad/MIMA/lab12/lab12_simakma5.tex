@@ -8,7 +8,7 @@
 \usepackage[T1]{fontenc}
 
 \usepackage[nodayofweek]{datetime}
-\newdate{date}{16}{6}{2023}
+\newdate{date}{17}{6}{2023}
 
 \usepackage{stddoc}
 \usepackage{lipsum}
@@ -98,7 +98,9 @@ Pro verifikaci kalibrace využijeme tzv. Beatty line, což je typicky $25\Ohm$ n
     \includegraphics[width=.9\textwidth]{src/beatty-line.png}
     \caption{\label{fig:beatty-line}Porovnání naměřených S-parametrů Beatty line se simulačním modelem}
 \end{figure}
-\subparagraph*{Úkol} \emph{Diskutujte rozdíly mezi měřením a v simulací.} Jak je vidět z obrázku~\ref{fig:beatty-line}, kalibrace byla provedena s přijatelnou přesností. Experimentální data dobře sedí na S-parametry simlovaného obvodu, zejména na nižších frekvencích, kde byla kalibrace provedena metodou TRM. Jediné značnější deviace od simulace jsme naměřili diskrétně na frekvencích $~1.9\ \GHz$ a $~11.85\ \GHz$, kde očividně dochází během přepínané kalibrace ke změně kalibru: první přechod je zřejmě z match na kratší line a druhý z kratší line na delší line. Lze usoudit, že vyšší přesnosti bychom v tomto scénáři dosáhli jedině dokonalejší kalibrační metodou nebo použitím více kalibrů line u různých (vhodně zvolených) délkách.
+\subparagraph*{Úkol} \emph{Diskutujte rozdíly mezi měřením a v simulací.} Jak je vidět z obrázku~\ref{fig:beatty-line}, kalibrace byla provedena s přijatelnou přesností. Experimentální data dobře sedí na S-parametry simlovaného obvodu, zejména na nižších frekvencích, kde byla kalibrace provedena metodou TRM. Jediné značnější deviace od simulace jsme naměřili diskrétně na frekvencích $~1.9\ \GHz$ a $~11.85\ \GHz$, kde očividně dochází během přepínané kalibrace ke změně kalibru: první přechod je zřejmě z dělší line na kratší a druhý z kratší line na match.%
+    \footnote{Kalibr match je totiž ekvivalentem nekonečně dlouhého přizpůsobeného vedení.}
+Lze usoudit, že vyšší přesnosti bychom v tomto scénáři dosáhli jedině dokonalejší kalibrační metodou nebo použitím více kalibrů line u různých (vhodně zvolených) délkách.
 
 % Task 2
 \paragraph*{Měření kondenzátorů} Kondenzátor od ATC (\href{https://rfs.kyocera-avx.com/millimeter-wave-surface-mount-capacitors}{datasheet}) je v pouzdru velikosti 0603 (zhruba $1.5 \times 0.8\ \mathrm{mm}$), zatímco kondenzátor od Johanson Technology (\href{https://www.johansontechnology.com/r07s}{datasheet}) je v pouzdru velikosti 0402 (zhruba $1 \times 0.5\ \mathrm{mm}$). S-parametry obou kondenzátorů dodané výrobcem jsou dostupné pro simulace v knihovnách softwaru AWR.
