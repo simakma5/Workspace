@@ -8,7 +8,7 @@
 \usepackage[T1]{fontenc}
 
 \usepackage[nodayofweek]{datetime}
-\newdate{date}{30}{5}{2023}
+\newdate{date}{14}{6}{2023}
 
 \usepackage{stddoc}
 \usepackage{lipsum}
@@ -90,7 +90,7 @@
 V rámci měření bylo demonstrováno, že zatímco pro měření nemodulovaného signálu jsou možnosti obou detektorů srovnatelné, po zapnutí ASK modulace umožňuje diodový detektor oproti termálnímu více flexibility. Termální detektor totiž vykazuje pouze průměrnou hodnotu výkonu $-10+10\log(0.05)\ \dBm$, kde $-10\ \dBm$ je výkon nemodulovaného signálu generátoru ELSY a $0.05$ je střída modulačního ASK signálu, kdežto diodový detektor umožňuje díky rychlejší reakci na změnu výkonové hladiny signálu analyzovat i pulzy s náhodnou periodou a délkou (režim \emph{Burst Avg}). Krom toho diodový detektor umožňuje též změřit i překmit výkonu v pulzu oproti průměrné hodnotě výkonu v pulzu, neboli tzv. \emph{crest factor}. Tento faktor je ovlivněn jak překmity, tak i rychlostí hran pulzu.
 
 % Task 2
-\paragraph*{Měření dodaného výkonu do zátěže přes směrovou odbočnici} Cílem této úlohy bylo ukázat, jak lze měřit výkon dodaný do zátěže nepřímo přes směrovou odbočnici. Ve vysílací technice, kde jsou k anténě dodávány minimálně jednotky wattů výkonu, nelze často měřit výkon přímo, protože běžné mikrovlnné detektory nemají dostatečně velký rozsah měřených výkonů. Zároveň se vysílaný výkon průběžně monitoruje a je součástí smyčky ALC (automatic levelling control). Schéma zapojení úlohy je na obrázku~\ref{fig:task2-zapojeni}.
+\paragraph*{Měření dodaného výkonu do zátěže přes směrovou odbočnici} Cílem této úlohy bylo ukázat, jak lze měřit výkon dodaný do zátěže nepřímo přes směrovou odbočnici. Ve vysílací technice, kde jsou k anténě dodávány minimálně jednotky wattů výkonu, nelze často měřit výkon přímo, protože běžné mikrovlnné detektory nemají dostatečně velký rozsah měřených výkonů. Zároveň se vysílaný výkon průběžně monitoruje a je součástí smyčky ALC (automatic leveling control). Schéma zapojení úlohy je na obrázku~\ref{fig:task2-zapojeni}.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=.8\textwidth]{src/task2-zapojeni.png}
@@ -140,7 +140,7 @@ Výkon dodávaný do zátěže se dá pak spočítat jako
 \begin{align}
     P_{\mathrm{LOAD}} = P_{\mathrm{in}} \left|S_{31}\right| = P_{\mathrm{DET}} \frac{\left|S_{31}\right|}{\left|S_{21}\right|},
 \end{align}
-tedy bez potřeby znát skutečnou hodnot výkonu $P_{\mathrm{in}}$ generovaného přímo generátorem. Hodnoty $P_{\mathrm{LOAD}}$ v tabulce~\ref{table:task2-data} jsme získali touto metodou, kde S-parametry byly získány simulací obvodu~\ref{fig:task2-sparametry}. Grafy těchto hodnot jsou znázorněny na obrázku~\ref{fig:task2-sparameter-data}.
+tedy bez potřeby znát skutečnou hodnot výkonu $P_{\mathrm{in}}$ generovaného signálu. Hodnoty $P_{\mathrm{LOAD}}$ v tabulce~\ref{table:task2-data} jsme získali touto metodou, kde S-parametry byly získány simulací obvodu~\ref{fig:task2-sparametry}. Grafy těchto hodnot jsou znázorněny na obrázku~\ref{fig:task2-sparameter-data}.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=.8\textwidth]{src/task2-sparameter_data.png}
@@ -160,7 +160,7 @@ Pro měření byly přístroje v následujícím nastavení:
     \item do mixéru vpuštěn signál LO ze spektrálního analyzátoru o výkonové hladině 14 dBm jako při kalibraci výrobcem,
     \item zapnutá identifikace zrcadlových příjmů.
 \end{itemize}
-Zdrojem harmonického signálu o frekvenci 82~GHz je \emph{integrovaná milimetrová jednotka} (IMJ) sestávající ze směšovače a antény. IMJ je na vstupu LO buzena z generátoru Agilent signálem o frekvenci 41~GHz a v IMJ dojde ke zdvojnásobení této frekvence. Na vstupu IF není připojeno nic, a tak z antény IMJ se vysílá pouze prosakující signál LO.
+Zdrojem harmonického signálu o frekvenci 82~GHz je \emph{integrovaná milimetrová jednotka} (IMJ) sestávající ze směšovače a antény. IMJ je na vstupu LO buzena z generátoru Agilent signálem o frekvenci 41~GHz a dojde v ní ke zdvojnásobení této frekvence. Na vstupu IF není připojeno nic, a tak z antény IMJ se vysílá pouze prosakující signál LO.
 
 Spektrální analyzátor posílá do vstupu LO mixéru silný signál o frekvenci $f_{\mathrm{LO}}/n$, kde $n=6$, a přijímá mezifrekvenční signál IF na frekvenci $f_{\mathrm{IF}} = 1300\ \MHz$. Spektrální analyzátor jakožto heterodynní přijímač obecně přijímá všechny RF signály splňující relaci $|nf_{\mathrm{LO}}\pm f_{\mathrm{RF}}| = f_{\mathrm{IF}}$, kde $n \in \N$. V běžném režimu spektrální analyzátor používá frekvenci $f_{\mathrm{LO}} = (f_{\mathrm{RF}}+f_{\mathrm{IF}})/6$, tj. $f_{\mathrm{LO}} \in \{10.22\ \GHz,15.22\ \GHz\}$. Pro identifikaci zrcadlového příjmu je ale střídavě používána i frekvence $f_{\mathrm{LO}} = (f_{\mathrm{RF}} - f_{\mathrm{IF}})/6$, tj. $f_{\mathrm{LO}} \in \{9.78\ \GHz, 14.78\ \GHz\}$.
 
@@ -169,17 +169,17 @@ Ve změřeném spektru se bez automatické detekce falešných příjmů zobrazu
 Po nasatvení automatického potlačování falešných příjmů (\emph{Auto ID} na \emph{On}) zůstává vidět jen signál $f_{\mathrm{RF}}$. Tato selekce je prováděna na základě toho, že jakmile je nějaký signál detekován v obou variantách příjmu, je považován za reálný.
 
 % Task 4
-\paragraph*{Měření EIRP radaru} Zapojení je ponecháno z předchozí úlohy, tj. identické obrázku~\ref{fig:task3-zapojeni}. Zdrojen signálu je nyní radarový modul TI AWR1642BOOTS.
+\paragraph*{Měření EIRP radaru} Zapojení je ponecháno z předchozí úlohy, tj. zapojení na obrázku~\ref{fig:task3-zapojeni}. Zdrojem signálu je nyní radarový modul TI AWR1642BOOTS.
 
 Měření je třeba provádět ve vzdálené zóně vyzařování, k čemuž využijeme známý vzorec z teorie antén pro aproximaci hranice Fraunhoferovy zóny
 \begin{align}
     \label{eq:farfield}
     d_{\mathrm F} = \frac{2D^2}{\lambda} = \frac{2D^2f}{c},
 \end{align}
-kde $D$ je nejdelší rozměr apertury vysílací antény -- v našem případě diagonála trychtýře -- a $c$ je rychlost světla. Tato hodnota $d_{\mathrm F}$ je pro nejvyšší měřenou frekvenci 80.9~GHz rovna zhruba 82~cm. S jistou rezervou jsme tedy zvolili výslednou vzdálenost jako $d = 86.5\ \mathrm{cm}$.
+kde $D$ je nejdelší rozměr apertury vysílací antény -- v našem případě diagonála trychtýře -- a $c$ je rychlost světla. Tato hodnota $d_{\mathrm F}$ je pro nejvyšší měřenou frekvenci 80.9~GHz rovna zhruba 82~cm. S jistou rezervou jsme tedy zvolili výslednou vzdálenost $d = 86.5\ \mathrm{cm}$.
 
 Samotné měření probíhá zapomoci markerů umístěných na okrajích pásma radarového signálu 77~GHz a 81~GHz, s frekvenčním rozsahem 76~GHz až 82~GHz%
-    \footnote{Prohlížíme-li si spektrum, které analyzátor měří standardně v celém pásmu 60~GHz až 90~GHz, můžeme pozorovat téměř všude občasně detekované části radarem vysílaných čirpů. Jelikož totiž signál přijímáme harmonickým mixérem, přijímané RF frekvence mohou po směšování obecně s $n$-tou harmonickou $nf_{\mathrm{LO}}$ padnout do mezifrekvenčního pásma, což vede na detekci frekvenčně posunuté \uv{kopie} přijímaného signálu.}
+    \footnote{Prohlížíme-li si spektrum, které analyzátor měří standardně v celém pásmu 60~GHz až 90~GHz, můžeme pozorovat téměř všude občasně detekované části radarem vysílaných čirpů. Jelikož totiž signál přijímáme harmonickým mixérem, přijímané RF frekvence mohou po směšování obecně s $n$-tou harmonickou na frekvenci $nf_{\mathrm{LO}}$ padnout do mezifrekvenčního pásma, což vede na detekci frekvenčně posunuté \uv{kopie} přijímaného signálu.}
 a nastavením sweepu přes pásmo trvající 1~s. Přes toto měření je vhodné dále nastavit trace, která si bude pamatovat maximum přijatého výkonu (\emph{Trace Mode} na \emph{Max Hold, Detector Positive Peak}).
 
 Pomocí nastaveného markeru s volbou \emph{Marker to Trace} je možné odečítat přijatý výkon $P_{\mathrm{RX}}$ a z něho následně spočítat $\mathit{EIRP}$ radaru pomocí Friisovy přenosové rovnice jako
@@ -209,11 +209,11 @@ Takto naměřené a následně zpracované výsledky jsou k nahlédnutí v tabul
 \end{table}
 
 % Task 5
-\paragraph*{Měření rychlých dějů pomocí real-time spektra - demonstrace} Tato úloha sloužila jako demonstrace možnosti spektrálního analyzátoru vzorkovat signál s šířkou pásma 160~MHz. Z těchto vzorků v časové oblasti lze pak vypočítat spektrum pomocí Fourierovy transformace a zobrazit spektrum přijatého signálu. Tímto způsobem lze detekovat i rychlé děje, které by přelaďovaný heterodynní přijímač změřil jen náhodou.
+\paragraph*{Měření rychlých dějů pomocí real-time spektra - demonstrace} Tato úloha sloužila k demonstraci možnosti spektrálního analyzátoru vzorkovat signál s šířkou pásma 160~MHz. Z těchto vzorků v časové oblasti lze pak vypočítat spektrum pomocí Fourierovy transformace a zobrazit spektrum přijatého signálu. Tímto způsobem lze detekovat i rychlé děje, které by přelaďovaný heterodynní přijímač změřil jen náhodou.
 
 
 \subsection*{Závěr}
-V rámci laboratorní úlohy jsme se seznámili s možnostmi měření mikrovlnných výkonů, a to jak výkonu přenášeného po vedení pomocí termálního a diodového detektoru, tak i výkonu vysílaného pulzním radarovým senzorem. Měření proběhlo bez výraznějších potíží, a byli jsme tak schopni si vyzkoušet metody, jak nám byly teoreticky uvedeny na přednáškách.
+V rámci laboratorní úlohy jsme se seznámili s možnostmi měření mikrovlnných výkonů, a to jak výkonu přenášeného po vedení pomocí termálního a diodového detektoru, tak i výkonu vysílaného pulzním radarovým senzorem. Měření proběhlo bez výraznějších potíží, a byli jsme tak schopni si vyzkoušet metody, které nám byly teoreticky uvedeny na přednáškách.
 
 
 \end{document}

@@ -55,9 +55,9 @@
     \item Generátor R\&S SMF 100A (1~GHz až 43,5~GHz)
     \item Generátor Agilent E8257D (250~kHz až 50~GHz)
     \item Generátor ELSY SG3000 (100~kHz až 3~GHz)
-    \item Koaxiální dolní propust Mini-Circuits VLF-1800\plus (0~MHz až 1,8~GHz)
-    \item Koaxiální dolní propust Mini-Circuits VLF-1500\plus (0~MHz až 1,5~GHz)
-    \item Dělič výkonu/slučovač Mini-Circuits ZX10-2-20-S\plus (200~MHz až 2~GHz)
+    \item Koaxiální dolní propust Mini-Circuits VLF-1500\plus~(0~MHz až 1,5~GHz)
+    \item Koaxiální dolní propust Mini-Circuits VLF-1800\plus~(0~MHz až 1,8~GHz)
+    \item Dělič výkonu/slučovač Mini-Circuits ZX10-2-20-S\plus~(200~MHz až 2~GHz)
     \item Propojovací SMA a BNC kabely
 \end{itemize}
 
@@ -70,9 +70,9 @@
 \end{itemize}
 
 \subsection*{Popis měření}
-\paragraph*{Nastavení přístrojů před měřením} Jako první krok je třeba vyresetovat nastavení genetátorů a spektrálního analyzátoru. U generátoru ELSY tak provedeme deaktivací FM modulace výstupního signálu, u ostatních přístrojů tlačítkem \emph{PRESET}. Jak je vidět ze schématu zapojení na obrázku~\ref{fig:task0-zapojeni}, všechny generátory jsou spojeny se spektrálním analyzátorem BNC kabely přenášejícími referenční 10MHz signál ze spektrálního analyzátoru. Dále je třeba tedy nastavit, aby generátory braly tento externí signál jako svou referenci. Dále lze zapnout korekci měřeného výkonu na spektrálním analyzátoru o útlum použitého kabelu Pasternack PE300-12.
+\paragraph*{Nastavení přístrojů před měřením} Jako první krok je třeba vyresetovat nastavení genetátorů a spektrálního analyzátoru. U generátoru ELSY tak provedeme deaktivací FM modulace výstupního signálu, u ostatních přístrojů tlačítkem \emph{PRESET}. Jak je vidět ze schématu zapojení na obrázku~\ref{fig:task0-zapojeni}, všechny generátory jsou spojeny se spektrálním analyzátorem BNC kabely přenášejícími referenční 10MHz signál ze spektrálního analyzátoru. Dále je třeba tedy nastavit, aby generátory braly tento externí signál jako svou referenci. Také lze s výhodou zapnout korekci měřeného výkonu na spektrálním analyzátoru o útlum použitého kabelu Pasternack PE300-12.
 
-Generátor R\&S je slouží jako zdroj LO, generátor Agilent jako RF1 a generátor ELSY jako RF2. Oba generátory RF jsou spojeny pomocí slučovače RPS-2-30\plus a na jeho výstupu je dolní propust VLF-1800\plus. Na výstupu generátoru LO je dolní propust VLF-1500\plus. Filtry mají zajistit potlačení vyšších harmonických složek z generátorů.
+Generátor R\&S slouží jako zdroj LO, generátor Agilent jako RF1 a generátor ELSY jako RF2. Oba generátory RF jsou spojeny pomocí slučovače RPS-2-30\plus~a na jeho výstupu je dolní propust VLF-1800\plus. Na výstupu generátoru LO je dolní propust VLF-1500\plus. Filtry mají zajistit potlačení vyšších harmonických složek z generátorů.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=.65\textwidth]{src/task0-zapojeni.png}
@@ -108,9 +108,9 @@ Za rozmítání výkonu LO v rozsahu -10~dBm až 10~dBm pomocí markerů odečí
 \end{table}
 
 % Task 2
-\paragraph*{Bod zahrazení IP3 směšovače} Schéma zapojení i měřený směšovač pozůstavají stejné z předchozí úlohy. Tentokrát budeme mít zapnuté oba generátory vstupního signálu, přičemž simulujeme příjem radiových signálů rozmístěných v sousedních kanálech po 10~MHz. Nastavení generátorů:
+\paragraph*{Bod zahrazení IP3 směšovače} Schéma zapojení i měřený směšovač jsou ponechány z předchozí úlohy s tim, že tentokrát budeme mít zapnuté oba generátory vstupního signálu, čímž simulujeme příjem rádiových signálů rozmístěných v sousedních kanálech po 10~MHz. Nastavení generátorů:
 \begin{itemize}
-    \item signál LO ponechat na hladině 10~dBm a frekvenci 1,2~GHz,
+    \item signál LO na hladině 10~dBm a frekvenci 1,2~GHz,
     \item frekvence generátoru RF1 1,1~GHz,
     \item frekvence generátoru RF2 1,11~GHz.
 \end{itemize}
@@ -118,7 +118,7 @@ Jako poslední krok na spektrálním analyzátoru nastavíme výkon obou RF sign
 \begin{align*}
     f_3 \in \{80,110\} = \{f_{\mathrm{LO}} - (2f_{\mathrm{RF2}} - f_{\mathrm{RF1}}), f_{\mathrm{LO}} - (2f_{\mathrm{RF1}} - f_{\mathrm{RF2}})\},
 \end{align*}
-kdy pro měření jsme zaznamenali vždy významnější ze spektrálních čar. V tabulce~\ref{table:task2-data} jsou také zaneseny naměřené hodnoty výkonů $P_{\mathrm{IF}}$ mezifrekvenčního signálu na frekvenci $f_{\mathrm{IF}} = 100 \ \mathrm{MHz}$ a vypočítaný odstup $O_{\mathrm{IF3}}$ mezifrekvenčního signálu od intermodulačních produktů 3. řádu.
+přičemž pro měření jsme zaznamenali vždy významnější ze spektrálních čar. V tabulce~\ref{table:task2-data} jsou také zaneseny naměřené hodnoty výkonů $P_{\mathrm{IF}}$ mezifrekvenčního signálu na frekvenci $f_{\mathrm{IF}} = 100 \ \mathrm{MHz}$ a vypočítaný odstup $O_{\mathrm{IF3}}$ mezifrekvenčního signálu od intermodulačních produktů 3. řádu.
 \begin{table}[!ht]
     \centering
     \begin{tabular}{| l || c | c | c | c | c | c |}
@@ -145,11 +145,11 @@ kdy pro měření jsme zaznamenali vždy významnější ze spektrálních čar.
 \end{figure}
 
 % Task 3
-\paragraph*{Potlačení zrcadlového kmitočtu směšovače} Schéma zapojení je stejné jako v předchozích dvou úlohách a měřených přístrojem postupně budou oba uvedené směšovače.
+\paragraph*{Potlačení zrcadlového kmitočtu směšovače} Schéma zapojení je stejné jako v předchozích dvou úlohách a měřených přístrojem jsou postupně oba uvedené směšovače.
 
-Při použití směšovačů jako \emph{down-converteru} v radiovém přijímači, kde mezifrekvence $f_{\mathrm{IF}}$ i frekvence LO $f_{\mathrm{LO}}$ jsou pevné, existují dva kmitočty $f_{\mathrm{RF1,2}} = f_{\mathrm{LO}}\pm f_{\mathrm{IF}}$, které po směšování padnou do mezifrekvenčního pásma $f_{\mathrm{IF}}$. Běžné směšovače zrcadlový kmitočet nepotlačují a koverzní ztráty signálů RF1 a RF2 jsou prakticky totožné, pokud je mezifrekvence nízká. Onen nechtěný RF signál je potřeba potlačit buď filtrací, nebo volbou směšovače konstrukčně zabraňujícímu příjmu zrcadlového kmitočtu, nebo ideálně obojím, přičemž při použití směšovače s potlačením zrcadla jsou nároky na následnou filtraci nižší.
+Při použití směšovačů jako \emph{down-converteru} v rádiovém přijímači, kde mezifrekvence $f_{\mathrm{IF}}$ i frekvence LO $f_{\mathrm{LO}}$ jsou pevné, existují dva kmitočty $f_{\mathrm{RF1,2}} = f_{\mathrm{LO}}\pm f_{\mathrm{IF}}$, které po směšování padnou do mezifrekvenčního pásma $f_{\mathrm{IF}}$. Běžné směšovače zrcadlový kmitočet nepotlačují a konverzní ztráty signálů RF1 a RF2 jsou prakticky totožné, pokud je mezifrekvence nízká. Onen nechtěný RF signál je potřeba potlačit buď filtrací, nebo volbou směšovače konstrukčně zabraňujícímu příjmu zrcadlového kmitočtu, nebo ideálně obojím, přičemž při použití směšovače s potlačením zrcadla jsou nároky na následnou filtraci nižší.
 
-Signály RF1 a RF2 nastavíme shodně na -10~dBm, frekvence všech generátorů používáme z tabulek níže pro jednotlivá měření a výkon LO nastavujeme dle potřeb měřených směšovačů: 10~dBm pro SYM-30DLHW a 18~dBm pro JCIR-152H\plus. Měření spočívá v nastavení správných frekvencí generátorů a následného odečítání hodnot výkonů $P_{\mathrm{IF1}}$ a $P_{\mathrm{IF2}}$ korespondujících \emph{hornímu} a \emph{spodnímu} RF signálu. Jako výsledek dále v tabulkách~\ref{table:task3-data_SYM-30DLHW}~a~\ref{table:task3-data_JCIR-152H+} uvádíme koverzní ztráty $L_{\mathrm L}$ pro spodní signál, konverzní ztráty $L_{\mathrm U}$ pro horní signál a potlačení zrcadlového příjmu $L_{\mathrm M} = L_{\mathrm U} - L_{\mathrm L} = P_{\mathrm{IF1}} - P_{\mathrm{IF2}}$, kde poslední rovnost platí díky naší konfiguraci, kde jsou totožné výkony signálů RF1 a RF2.
+Signály RF1 a RF2 nastavíme shodně na -10~dBm, frekvence všech generátorů nastavujeme dle tabulek níže pro jednotlivá měření a výkon LO nastavujeme dle potřeb měřených směšovačů: 10~dBm pro SYM-30DLHW a 18~dBm pro JCIR-152H\plus. Měření spočívá v nastavení správných frekvencí generátorů a následného odečítání hodnot výkonů $P_{\mathrm{IF1}}$ a $P_{\mathrm{IF2}}$ korespondujících \emph{hornímu} a \emph{spodnímu} RF signálu. Jako výsledek dále v tabulkách~\ref{table:task3-data_SYM-30DLHW}~a~\ref{table:task3-data_JCIR-152H+} uvádíme konverzní ztráty $L_{\mathrm L}$ pro spodní signál, konverzní ztráty $L_{\mathrm U}$ pro horní signál a potlačení zrcadlového příjmu $L_{\mathrm M} = L_{\mathrm U} - L_{\mathrm L} = P_{\mathrm{IF1}} - P_{\mathrm{IF2}}$, kde poslední rovnost platí díky naší konfiguraci, kde jsou totožné výkony signálů RF1 a RF2.
 \begin{table}[!ht]
     \centering
     \begin{tabular}{| c | c | c || c | c || c | c | c |}
@@ -190,7 +190,7 @@ Signály RF1 a RF2 nastavíme shodně na -10~dBm, frekvence všech generátorů 
 \end{table}
 
 % Task 4
-\paragraph*{Konverzní ztráty a harmonické složky násobičů} Schéma zapojení je patrné z obrázku~\ref{fig:task4-zapojeni}. Násobiče jsou nelineární prvky, které na svém výstupu produkují vyšší harmonické složky vstupního signálu. Násobiče bývají optimalizovány tak, aby měly co nejnižší konverzní ztráty pro jednu konkrétní harmonickou složku. Nejběžnější jsou dvojnásobiče až pětinásobiče.
+\paragraph*{Konverzní ztráty a harmonické složky násobičů} Schéma zapojení je patrné z obrázku~\ref{fig:task4-zapojeni}. Násobiče jsou nelineární obvody, které na svém výstupu produkují vyšší harmonické složky vstupního signálu. Násobiče bývají optimalizovány tak, aby měly co nejnižší konverzní ztráty pro jednu konkrétní harmonickou složku. Nejběžnější jsou dvojnásobiče až pětinásobiče.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=.65\textwidth]{src/task4-zapojeni.png}
@@ -198,7 +198,7 @@ Signály RF1 a RF2 nastavíme shodně na -10~dBm, frekvence všech generátorů 
     \label{fig:task4-zapojeni}
 \end{figure}
 
-Na vstup násobiče připojíme generátor R\&S opět s dolní propustí VLF-1500\plus pro potlačení vyšších harmonických složek. Frekvence generovaného signálu nechť je $f_1 = 1,2 \ \mathrm{GHz}$. Za rozmítání výkonu vstupního signálu v rozsahu 0~dBm až 10~dBm měříme výkony vyšších harmonických složek na výstupu násobiče. Z naměřených dat lze následně dopočítat konverzní ztráty $L_{\mathrm k}$ a odstup $O_{\mathrm{OUT}}$ výstupního signálu od nejvýkonnější nechtěné harmonické složky. Všechna tato data jsou souhrnně uvedeny v tabulkách~\ref{table:task4-data_ZX90-2-19+}~a~\ref{table:task4-data_ZX90-3-452+}
+Na vstup násobiče připojíme generátor R\&S opět s dolní propustí VLF-1500\plus~pro potlačení vyšších harmonických složek. Frekvence generovaného signálu nechť je $f_1 = 1,2 \ \mathrm{GHz}$. Za rozmítání výkonu vstupního signálu v rozsahu 0~dBm až 10~dBm měříme výkony vyšších harmonických složek na výstupu násobiče. Z naměřených dat lze následně dopočítat konverzní ztráty $L_{\mathrm k}$ a odstup $O_{\mathrm{OUT}}$ výstupního signálu od nejvýkonnější nechtěné harmonické složky. Všechna tato data jsou souhrnně uvedeny v tabulkách~\ref{table:task4-data_ZX90-2-19+}~a~\ref{table:task4-data_ZX90-3-452+}.
 \begin{table}[!ht]
     \centering
     \begin{tabular}{| l || c | c | c | c | c | c |}
@@ -244,7 +244,7 @@ Na vstup násobiče připojíme generátor R\&S opět s dolní propustí VLF-150
 \subsection*{Závěr}
 V rámci laboratorní úlohy jsme si byli schopni udělat představu o parametrech a vlastnostech mikrovlnných směšovačů a násobičů a metodice jejich měření pomocí spektrálního analyzátoru.
 
-Jak je vidět z tabulky~\ref{table:task4-data_ZX90-2-19+}, měření posledního úkolu pro násobič ZX90-2-19\plus~bylo zatíženo chybou, neboť daný násobič by měl mít konverzní ztráty kolem 10~dB. Jinak měření proběhlo bez větších problémů a výsledky odpovídají znalostem nabitým během teoretických přednášek.
+Jak je vidět z tabulky~\ref{table:task4-data_ZX90-2-19+}, měření posledního úkolu pro násobič ZX90-2-19\plus~bylo zatíženo chybou, neboť daný násobič by měl mít konverzní ztráty kolem 10~dB. Jinak měření proběhlo bez větších problémů a výsledky odpovídají znalostem nabitým z teoretických přednášek.
 
 
 \end{document}

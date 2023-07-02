@@ -65,7 +65,7 @@
 \end{itemize}
 
 \subsection*{Popis měření}
-\paragraph*{Nastavení spektrálního analyzátoru před měřením} Ještě před měření první úlohy je samozřejmě zapotřebí nastavit parametry spektrálního analyzátoru tak, aby měření probíhalo s co největší přesností. Toho dosáhneme nastavením hned několika parametrů:
+\paragraph*{Nastavení spektrálního analyzátoru před měřením} Ještě před měřením první úlohy je samozřejmě zapotřebí nastavit spektrální analyzátor tak, aby měření probíhalo s co největší přesností. Toho dosáhneme nastavením hned několika parametrů:
 \begin{itemize}
     \item vhodného rozsahu frekvencí (10 MHz až 5 GHz) s počtem bodů měření (sweep points) 501;
     \item šířky mezifrekvenčního filtru RBW na maximální hodnotu 10 MHz;%
@@ -78,7 +78,7 @@
 \end{itemize}
 
 % Task 1
-\paragraph*{Měření šumového čísla spektrálního analyzátoru} První měření šumového čísla musíme provést na samotném spektrálním analyzátoru, neboť ten též k šumovému zkreslení nezanedbatelně přispívá. Měření provádíme metodou HOT/COLD s využitím šumivky, jíž zapnutím (\emph{Noise Src} na \emph{On}) se změní její ekvivalentní šumová teplota z $T_{\mathrm{COLD}} = T_0$ na $T_{\mathrm{HOT}} = T_0(ENR + 1)$, kde hodnota $ENR$ je na šumivce uvedena pro danou pracovní frekvenci a $T_0$ je nominální termodynamická teplota $290 \ \mathrm K$.
+\paragraph*{Měření šumového čísla spektrálního analyzátoru} První měření šumového čísla musíme provést na samotném spektrálním analyzátoru, n   eboť ten též k šumovému zkreslení nezanedbatelně přispívá. Měření provádíme metodou HOT/COLD s využitím šumivky, jíž zapnutím (\emph{Noise Src} na \emph{On}) se změní její ekvivalentní šumová teplota z $T_{\mathrm{COLD}} = T_0$ na $T_{\mathrm{HOT}} = T_0(\mathit{ENR} + 1)$, kde hodnota $\mathit{ENR}$ je na šumivce uvedena pro danou pracovní frekvenci a $T_0$ je nominální termodynamická teplota $290 \ \mathrm K$.
 
 \begin{figure}[!ht]
     \centering
@@ -90,9 +90,9 @@ Zobrazované průběhy lze ze spektrálního analyzátoru exportovat do textové
 \begin{align}
     Y_{\mathrm{SPA}} &= \frac{N_{\mathrm{HOT}}}{N_{\mathrm{COLD}}},
 &
-    F_{\mathrm{SPA}} &= \frac{ENR}{Y-1},
+    F_{\mathrm{SPA}} &= \frac{\mathit{ENR}}{Y-1},
 \end{align}
-popřípadě lze dopočítat i ekvivalentní šumovou teplotu pomocí vztahu $T_e = T_0(F-1)$. V našem případě jsme takto postupovali pro dvě různé konfigurace: měření šumového čísla samotného spektrálního analyzátoru (1) a šumového čísla analyzátoru s předřazeným zesilovačem (2). Zpracované výsledky obou měření jsou graficky znázorněny na obrázcích~\ref{fig:task1-figures}~a~\ref{fig:task1-temperatures}.
+popřípadě lze dopočítat i ekvivalentní šumovou teplotu pomocí vztahu $T_e = T_0(F-1)$. V našem případě jsme takto postupovali pro dvě různé konfigurace: měření šumového čísla samotného spektrálního analyzátoru (dolní index 1) a šumového čísla analyzátoru s předřazeným zesilovačem (dolní index 2). Zpracované výsledky z obou měření jsou graficky znázorněny na obrázcích~\ref{fig:task1-figures}~a~\ref{fig:task1-temperatures}.
 \begin{figure}[!ht]
 \centering
 \begin{subfigure}{.45\textwidth}
@@ -112,33 +112,34 @@ popřípadě lze dopočítat i ekvivalentní šumovou teplotu pomocí vztahu $T_
 
 \subparagraph*{Úkol} \emph{Zdůvodněte rozdíl mezi změřeným šumovým číslem samotného spektrálního analyzátoru a analyzátoru se zesilovačem.} Z obrázků~\ref{fig:task1-figures}~a~\ref{fig:task1-temperatures} jsou patrné hned dvě výrazné odlišnosti:
 \begin{itemize}
-    \item Průběhy se vzájemně liší zhruba o 5 dB, což je způsobeno tím, jak funguje kaskádování RF bloků z hlediska šumu, což je dáno Friisovým vztahem
+    \item Průběhy se vzájemně liší zhruba o 5 dB, což lze jednoduše vysvětlit Friisovým vztahem pro šumové číslo kaskády RF bloků, které pro naši kaskádu o dvou blocích nabývá tvaru
     \begin{align}
+        \label{eq:friis}
         F_{\mathrm{AMP+SPA}} = F_{\mathrm{AMP}} + \frac{F_{\mathrm{SPA}}-1}{G_{\mathrm{AMP}}}.
     \end{align}
     To má za následek, že předřazení nízkošumového zesilovače před spektrální analyzátor značně snižuje šumové číslo měřící soustavy.
-    \item Soustava s předřazeným zesilovačem má na specifických frekvencích značně vyšší hodnotu šumového čísla. To je způsobeno nedokonalým stínením předřazeného zesilovače, což má za následek průnik všudypřítomného rušivého signálu komunikačních služeb do obvodu zesilovače a tedy superpozici frekvenčně selektivního šumu na měřený signál.
+    \item Soustava s předřazeným zesilovačem má na specifických frekvencích výrazně vyšší hodnotu šumového čísla. To je způsobeno nedokonalým stínením předřazeného zesilovače, což má za následek průnik všudypřítomného rušivého signálu komunikačních služeb do obvodu zesilovače a tedy superpozici frekvenčně selektivního šumu na měřený signál.
 \end{itemize}
 
 
 % Task 2
-\paragraph*{Měření šumového čísla Y-metodou pomocí spektrálního analyzátoru} Tato metoda je založena na Friisově vztahu pro výpočet šumového čísla kaskády RF bloků.
+\paragraph*{Měření šumového čísla Y-metodou pomocí spektrálního analyzátoru} Tato metoda je založena na vztahu~\ref{eq:friis} pro výpočet šumového čísla kaskády RF bloků.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=.65\textwidth]{src/task2-zapojeni.png}
     \caption{Zapojení úlohy měření šumového čísla Y-metodou}
     \label{fig:task2-zapojeni}
 \end{figure}
-Pro měření byla použita konfigurace na obrázku~\ref{fig:task2-zapojeni}, kde je zařazen zesilovač AMP před spektrálním analyzátorem pro zlešení přesnosti měření šumového čísla obvodu DUT. Zjištění šumového čísla kaskády AMP+SPA je tedy nutný kalibrační krok, jemuž bylo věnováno druhé měření v předchozí úloze. Pro uvedenou konfiguraci lze psát vztah
+Pro měření byla použita konfigurace na obrázku~\ref{fig:task2-zapojeni}, kde je zařazen zesilovač AMP před spektrální analyzátor SpA pro zlepšení přesnosti měření šumového čísla obvodu DUT. Zjištění šumového čísla kaskády AMP+SPA je tedy nutný kalibrační krok, jemuž bylo věnováno druhé měření v předchozí úloze. Pro uvedenou konfiguraci lze psát vztah
 \begin{align}
     Y_{\mathrm{DUT+SPA}} = \frac{N_{\mathrm{HOT}}}{N_{\mathrm{COLD}}}.
 \end{align}
 Dosazením do vztahu pro výpočet šumového čísla dostáváme
 \begin{align}
     \label{eq:F_DUT+SPA}
-    F_{\mathrm{DUT+SPA}} = \frac{ENR}{Y_{\mathrm{DUT+SPA}}-1} = F_{\mathrm{DUT}} + \frac{F_{\mathrm{SPA}} - 1}{G_{\mathrm{DUT}}},
+    F_{\mathrm{DUT+SPA}} = \frac{\mathit{ENR}}{Y_{\mathrm{DUT+SPA}}-1} = F_{\mathrm{DUT}} + \frac{F_{\mathrm{SPA}} - 1}{G_{\mathrm{DUT}}},
 \end{align}
-kde poslední rovnost plyne právě z Friisova vztahu. Ve výše uvedených vztazích přirozeně platí, že index SPA značí příslušnost veličiny spektrálnímu analyzátoru, index DUT měřenému zařízení a index SPA+DUT jejich kaskádě. Z rovnice~\ref{eq:F_DUT+SPA} tedy můžeme psát
+kde poslední rovnost plyne opět ze vztahu~\ref{eq:friis}. Ve výše uvedených vztazích přirozeně platí, že index SPA značí příslušnost veličiny spektrálnímu analyzátoru, index DUT měřenému zařízení a index SPA+DUT jejich kaskádě. Z rovnice~\ref{eq:F_DUT+SPA} tedy můžeme psát
 \begin{align}
     F_{\mathrm{DUT}} = F_{\mathrm{DUT+SPA}} - \frac{F_{\mathrm{SPA}}-1}{G_{\mathrm{DUT}}},
 \end{align}
@@ -154,7 +155,7 @@ přičemž veličiny s horním indexem $\mathrm{DUT}$ odpovídají měřením š
     \begin{subfigure}{.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{src/task2-powers.eps}
-        \caption{Šumové výkony za stavů HOT a COLD}
+        \caption{Šumové výkony}
         \label{fig:task2-powers}
     \end{subfigure}
     \begin{subfigure}{.45\textwidth}
@@ -185,7 +186,7 @@ Výsledky zpracování dat (výpočet šumových čísel a ekvivalentních šumo
 \end{figure}
 
 % Task 3
-\paragraph*{Měření šumového čísla pomocí měřiče HP 8970A} V rámci této úlohy měříme šumové číslo a zisk DUT přímo pomocí specializovaného měřiče šumového čísla. Nejprve je potřeba měřič zkalibrovat, čehož lze dosáhnout připojením šumivky a zmáčknutím tlačítka \emph{Calibrate}. Na přístroji proběhne rutina spočívající ve změření šumového čísla měřícího přístroje v defaultním frekvenčním rozsahu 30 MHz až 1,5 GHz po kroku 20 MHz. Pomocí tlačítek v sekci
+\paragraph*{Měření šumového čísla pomocí měřiče HP 8970A} V rámci této úlohy měříme šumové číslo a zisk DUT přímo pomocí specializovaného měřiče šumového čísla. Nejprve je potřeba měřič zkalibrovat, čehož lze dosáhnout připojením šumivky a zmáčknutím tlačítka \emph{Calibrate}. Na přístroji proběhne rutina spočívající ve změření šumového čísla měřícího přístroje v defaultním frekvenčním rozsahu 30 MHz až 1,5 GHz s krokem 20 MHz. Laděním parametrů v sekci
 \emph{Smoothing} se dá měnit počet průměrovaných změřených hodnot na každé frekvenci. Měření i kalibrace ovšem potom probíhá pomaleji, nicméně změřené hodnoty jsou stabilnější. Defaultně průměrování neprobíhá.
 
 Výsledky měření šumového čísla a zisku DUT (zesilovač a atenuátor) připojeného mezi šumivku a měřič jsou zaneseny v tabulkách~\ref{table:task3-amp}~a~\ref{table:task3-att}.

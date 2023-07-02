@@ -71,13 +71,7 @@ V rámci měření určujeme celkem tři činitele jakosti: \emph{nezatížený}
 \begin{align*}
     Q_u = Q_L(1+\beta)=\beta Q_{\mathrm{ext}},
 \end{align*}
-kde $\beta$ je koeficient vazby rezonátoru na vedení. Jak pojednává článek~\cite{tysl:mereni-pri-velmi-vysokych-kmitoctech}, pro určení všech tří činitelů jakosti je nutné určit postupně frekvence $f_1$ a $f_2$ popisující stav $\Re(Z) = \Im(Z)$, frekvence $f_3$ a $f_4$, kdy $\Im(Z) = \Re(Z) + 50\ \Ohm$, a frekvence $f_5$ a $f_6$ jakožto body průsečíků rezonanční smyčky a jednotkové kružnice. Všechny tyto významné frekvence jsou ilustrovány na obrázku~\ref{fig:smitak-kruznice}.
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=.5\textwidth]{src/smitak-kruznice.png}
-    \caption{\label{fig:smitak-kruznice}Vyznamné frekvenční body pro výpočet činitelů jakosti}
-\end{figure}
-Pro činitele jakosti potom platí
+kde $\beta$ je koeficient vazby rezonátoru na vedení. Jak pojednává článek~\cite{tysl:mereni-pri-velmi-vysokych-kmitoctech}, pro určení všech tří činitelů jakosti je nutné určit postupně frekvence $f_1$ a $f_2$, kdy platí rovnost $\Re(Z) = \pm\Im(Z)$; frekvence $f_3$ a $f_4$, kdy $\Im(Z) = \pm(\Re(Z) + 50\ \Ohm)$; frekvence $f_5$ a $f_6$, kdy $\Im(Z) = \pm1$. Všechny tyto významné frekvence jsou ilustrovány na obrázku~\ref{fig:smitak-kruznice} a pro činitele jakosti potom platí
 \begin{align}
     Q_u &= \frac{f_0}{f_1-f_2},
     &
@@ -86,12 +80,17 @@ Pro činitele jakosti potom platí
     Q_{\mathrm{ext}} &= \frac{f_0}{f_5-f_6},
 \end{align}
 kde $f_0$ je rezonanční frekvence.
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=.5\textwidth]{src/smitak-kruznice.png}
+    \caption{\label{fig:smitak-kruznice}Vyznamné frekvenční body pro výpočet činitelů jakosti}
+\end{figure}
 
 Za znalosti nezatíženého činitele jakosti $Q_u$ lze spočítat kapacitu kondenzátoru a indukčnost cívky v náhradním obvodu rezonátoru. V případě paralelní rezonance platí vztah
 \begin{align}
     Q_u = 2\pi f_0RC,
 \end{align}
-zatímco pro sériovou rezonanci plati
+zatímco pro sériovou rezonanci platí
 \begin{align}
     Q_u = \frac{2\pi f_0 L}{R}.
 \end{align}
@@ -157,14 +156,14 @@ a nastavíme užší frekvenční pásmo pokrývající její nejbližší okol�
 \end{table}
 
 % Task 3
-\paragraph*{Určení typu rezonančnho obvodu dielektrického rezonátoru} Dielektrický rezonátor měříme navázaný na bezodrazově zakončené mikropáskové vedení. Nejprve je třeba rozšířit frekvenční pásmo na 8~Ghz až 12~GHz, kde lze očekávat rezonanční frekvenci rezonátoru. Dále odpojííme výstupní adaptér s $50\Ohm$ zátěží a nastavíme frekvenční rovinu měření na konec mikropásku pomocí nastavení \emph{Scale/Electrical Delay}. Následně zmenšíme \emph{Electrical delay} tak, aby sbalené klubíčko a tím i referenční rovina byla v místě zkratu. Potřebnou hodnotu \emph{Electrical delay} si poznamenáme. Do této referenční roviny, která je $\lambda/4$ od otevřeného konce a která je bodem maxima magnetického pole, umístíme dielektrický rezonátor. Z charakteru rezonanční smyčku lze určit typ rezonančního obvodu.
+\paragraph*{Určení typu rezonančnho obvodu dielektrického rezonátoru} Dielektrický rezonátor měříme navázaný na bezodrazově zakončené mikropáskové vedení. Nejprve je třeba rozšířit frekvenční pásmo na 8~GHz až 12~GHz, kde lze očekávat rezonanční frekvenci rezonátoru. Dále odpojííme výstupní adaptér s $50\Ohm$ zátěží a nastavíme frekvenční rovinu měření na konec mikropásku pomocí nastavení \emph{Scale/Electrical Delay}. Následně zmenšíme \emph{Electrical delay} tak, aby sbalené klubíčko a tím i referenční rovina byla v místě zkratu. Potřebnou hodnotu \emph{Electrical delay} si poznamenáme. Do této referenční roviny, která je $\lambda/4$ od otevřeného konce a která je bodem maxima magnetického pole, umístíme dielektrický rezonátor. Z charakteru rezonanční smyčku lze určit typ rezonančního obvodu.
 
 \subparagraph*{Výsledky měření} Během měření jsme pozorovali smyčku paralelní rezonance.
 
 % Task 4
 \paragraph*{Určení vlastností dielektrického rezonátoru} Tento úkol přímo na navazuje na předchozí s tím, že připojíme zpět výstupní adaptér $50\Ohm$ zátěže k přípravku a odpojíme vstupní adaptér SMA-mikropásek spolu s testovacím kabelem. Pomocí zvětšení hodnoty \emph{Scale/Electrical Delay} o poznamenanou hodnotu posuneme referenční rovinu o $\lambda/4$ dovnitř mikropásku. V této referenční rovině pak umišťujeme dielektrický rezonátor. Mechanickým přemístněním nebo jemnou změnou \emph{Electrical delay} nastavíme smyčku tak, aby byla symetrická vzhledem k imaginární ose.
 
-Dle metody popsané v článcích~\cite{khanna-garault:determination-of-q}~a~\cite{khanna:q-measurement-of-coupled-microstrips} je nyní třeba smyčku $2\times$ zvětšit a posunout o hodnotu~$-1$. Dále určíme reálnou složku impedance na rezonanční frekvenci v impedančním Smithově diagramu pomocí markerů. Určená impdance odpovídá sériovému rezonančnímu odporu rezonátoru a $50\Ohm$ zátěže. Nyní již můžeme přepnout zobrazení do Smithova admitančního diagramu a odečíst hodnoty významných frekvencí pro určení činitelů jakosti.
+Dle metody popsané v článcích~\cite{khanna-garault:determination-of-q}~a~\cite{khanna:q-measurement-of-coupled-microstrips} je nyní třeba smyčku $2\times$ zvětšit a posunout o hodnotu~$-1$. Dále určíme reálnou složku impedance na rezonanční frekvenci v impedančním Smithově diagramu pomocí markerů. Určená impdance odpovídá sériovému rezonančnímu odporu rezonátoru a $50\Ohm$ zátěže. Nyní již můžeme přepnout zobrazení do admitančního Smithova diagramu a odečíst hodnoty významných frekvencí pro určení činitelů jakosti.
 
 \subparagraph*{Výsledky měření s terčíkem} Během měření jsme pozorovali smyčku paralelní rezonance s odporem v rezonanci $R = 461\ \Ohm$. Naměřené hodnoty frekvencí významných pro určení činitelů jakosti jsou zaneseny v tabulce~\ref{table:dielektricky-rezonator-s-tercikem-frekvence}. Z těchto dat jsou vypočtené hodnoty parametrů náhradního obvodového zapojení rezonátoru v tabulce~\ref{table:dielektricky-rezonator-s-tercikem-hodnoty}.
 \begin{table}[!ht]
@@ -215,7 +214,7 @@ Dle metody popsané v článcích~\cite{khanna-garault:determination-of-q}~a~\ci
 \end{table}
 
 \subsection*{Závěr}
-V rámci laboratorní úlohy jsme se seznámili s možnostmi vektorového měření při určování jakosti rezonátorů a definování rovnic ve vektorovém analyzátoru. K určení jednotlivých činitelů jakosti a parametrů náhracního obvodového zapojení měřených rezonátorů jsme využívali metod, které jsou popsány v odkazované literatuře a vuyžvajíí impedančního měření. Měření proběhlo bez větších potíží a byli jsme tak schopni vyhodnotit a srovnat jakost jednotlivých rezonátorů. Jako nejkvalitnější se z hlediska činitelů jakosti jednoznačně jeví dutinový rezonátor, jehož hodnoty jsou mnohem vyšší než u ostatních typů.
+V rámci laboratorní úlohy jsme se seznámili s možnostmi vektorového měření při určování jakosti rezonátorů a definování rovnic ve vektorovém analyzátoru. K určení jednotlivých činitelů jakosti a parametrů náhradního obvodového zapojení měřených rezonátorů jsme využívali metod, které jsou popsány v odkazované literatuře a využvají impedančního měření. Měření proběhlo bez větších potíží a byli jsme tak schopni vyhodnotit a srovnat jakost jednotlivých rezonátorů. Jako nejkvalitnější se z hlediska činitelů jakosti jednoznačně jeví dutinový rezonátor, jehož hodnoty jsou mnohem vyšší než u ostatních typů.
 
 \begin{thebibliography}{3}
     \bibitem{tysl:mereni-pri-velmi-vysokych-kmitoctech} Tysl V., \emph{Měření při velmi vysokých kmitočtech}, skriptum ČVUT FEL, listopad 1976, str. 90--96.

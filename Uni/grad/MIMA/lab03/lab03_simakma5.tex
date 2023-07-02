@@ -45,7 +45,7 @@ Cílem této úlohy bylo seznámit se s měřením velkosignálových vlastnost�
 
 
 \subsection*{Úkoly měření}
-\begin{enumerate}%[label=\arabic*.]
+\begin{enumerate}%[label=\arabic*.]z
     \item Bod decibelové komprese $P_{1\mathrm{dB}}$ zesilovačů.
     \item Bod zahrazení IP3 pro složky $2a+b$ zeilovačů.
 \end{enumerate}
@@ -72,7 +72,7 @@ Cílem této úlohy bylo seznámit se s měřením velkosignálových vlastnost�
 \end{itemize}
 
 \subsection*{Postup měření}
-Zapojení úlohy vhodné pro tato měření je patrné z obrázku \ref{fig:connection-scheme}. Spektrální analyzátor je s oběma generátory spojen pomocí BNC kabelů s referenčním signálem o frekvenci 10~MHz, aby generátory generovaly koherentní signál a analyzátor detekoval signály s přesnou frekvencní. Zdrojem reference je v tomto zapojení spektrální analyzátor R\&S a generátory jsou nastaveny, aby tento externí signál braly jako referenční místo svého interního zdroje.
+Zapojení úlohy je patrné z obrázku \ref{fig:connection-scheme}. Spektrální analyzátor je s oběma generátory spojen pomocí BNC kabelů s referenčním signálem o frekvenci 10~MHz za účelem zajištění koherence generovaných signálů a detekce signálu v analyzátoru s přesnou frekvencní. Zdrojem reference je v tomto zapojení spektrální analyzátor R\&S a generátory jsou nastaveny tak, aby tento externí signál braly jako referenční místo svého interního zdroje.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -84,7 +84,7 @@ Zapojení úlohy vhodné pro tato měření je patrné z obrázku \ref{fig:conne
 
 Pro měření intermodulačních produktů zesilovačů je potřeba zajistit co nejčistší výstupní signál generátorů. Na výstup externích atenuátorů je proto připojena koaxiální dolní propust VLFX-1050\plus. Kaskáda použitch kabelů, slučovače, atenuátorů (s útlumem nastaveným na 0~dB) a filtru je zhruba 6~dB, což kompenzujeme dostavením výkonů obou generátorů.
 
-Jelikož měření decibelové komprese a intermodulačních produktů zesilovačů probíhá v režimu blízko saturace měřeního zesilovače, vyžaduje úloha měření relativně velkých výkonů. Lze předpokládat, že maximální měřený výkon bude 10~dBm. Analyzátor je proto potřeba nastavit tak, aby takový výkon nepřebudil vstupní obvody, zejména první směšovač. V opačném případě by vstupní obvod analyzátoru sám generoval intermodulační produkty nerozeznatelné od těch, které generuje měřený zesilovač. Takové nastavení lze dosáhnout zapnutím obou generátorů zároveň, což způsobí výskyt intermodulačních produktů 3. řádu na obrazovce spektrálního anayzátoru. Jelikož všechny externí komponenty jsou obvody lineární a intermodulační produkty na nich tedy nevznikají, utlumíme je pomocí vstupního atenuátoru spektrálního analyzátoru. V tuto chvíli máme jistotu, že i při měření signálů o výkonu 10~dBm bude přijímač spektrálního analyzátoru provozován v lineárním řežimu, a tak budeme decibelovou kompresi i intermodulační produkty zesilovačů měřit přesně.
+Jelikož měření decibelové komprese a intermodulačních produktů zesilovačů probíhá v režimu blízko saturace měřeního zesilovače, vyžaduje úloha měření relativně velkých výkonů. Lze předpokládat, že maximální měřený výkon bude 10~dBm. Analyzátor je proto potřeba nastavit tak, aby takový výkon nepřebudil vstupní obvody, zejména první směšovač. V opačném případě by vstupní obvod analyzátoru sám generoval intermodulační produkty nerozeznatelné od těch, které generuje měřený zesilovač. Jelikož všechny externí komponenty jsou obvody lineární a intermodulační produkty na nich tedy nevznikají, utlumíme je pomocí vstupního atenuátoru spektrálního analyzátoru. V tuto chvíli máme jistotu, že i při měření signálů o výkonu 10~dBm bude přijímač spektrálního analyzátoru provozován v lineárním řežimu, a tak budeme decibelovou kompresi i intermodulační produkty zesilovačů měřit přesně.
 
 \paragraph*{Bod decibelové komprese zesilovačů}
 Nejprve je třeba nastavit na obou generátorech výkony tak, aby spektrální analyzátor měřil výkony 0~dBm. Útlum atenutárorů zatím ponecháváme na 0~dB. Jen tak si můžeme být jisti, že na vstup měřených zesilovačů bude přiváděn výkon číselně roven $-L_{\mathrm{att}}$, kde $L_{\mathrm{att}}$ je nastavený útlum externích atenuátorů.
@@ -121,7 +121,7 @@ Nejprve je třeba nastavit na obou generátorech výkony tak, aby spektrální a
 \end{center}
 \end{table}
 
-Necháme zapnutý pouze generátor s frekvencí 1~GHz a za počátečního útlumu externích atenutárorů 30~dB připojíme jeden z měřených zesilovačů. Napájecí napětí zesilovače je 12~V a proudová pojistka 100~mA. Pomocí markeru na spektrálním analyzátoru s dostatečně širokým nastaveným rozsahem frekvenční (0,5~GHz až 3,5~GHz) čteme hodnoty výkonu výstupního signálu zesilovače na frekvenci 1~GHz a jsou zřetelné i vyšší harmonické složky. Další měření spočívá v postupném snižování útlumu externích atenutárorů tak, abychom proměřili závislst výstupního výkonu zesilovače $P_{\mathrm{out}}$ na vstupním výkonu $P_{\mathrm{in}}$ až k saturaci zesilovače. Naměřené hodnoty jsou zaznamenané v tabulkách~\ref{table:ERA3SM-compression}~a~\ref{table:BFU760F-compression} pro jednotlivé zesilovače. Grafické znázornění nejprve lineárního chování dynamického rozsahu zesilovačů i následný bod decibelové komprese $P_{1\mathrm{dB}}$ a saturace jsou znázorněny na obrázcích~\ref{fig:ERA3SM-compression}~a~\ref{fig:BFU760F-compression}.
+Necháme zapnutý pouze generátor s frekvencí 1~GHz a za počátečního útlumu externích atenutárorů 30~dB připojíme jeden z měřených zesilovačů. Napájecí napětí zesilovače je 12~V a proudová pojistka 100~mA. Pomocí markeru na spektrálním analyzátoru s dostatečně širokým nastaveným rozsahem frekvencí (0,5~GHz až 3,5~GHz) čteme hodnoty výkonu výstupního signálu zesilovače na frekvenci 1~GHz a zřetelné jsou i vyšší harmonické složky. Další měření spočívá v postupném snižování útlumu externích atenutárorů tak, abychom proměřili závislost výstupního výkonu zesilovače $P_{\mathrm{out}}$ na vstupním výkonu $P_{\mathrm{in}}$ až k saturaci zesilovače. Naměřené hodnoty jsou zaznamenané v tabulkách~\ref{table:ERA3SM-compression}~a~\ref{table:BFU760F-compression} pro jednotlivé zesilovače. Grafické znázornění nejprve lineárního chování zesilovačů i následné body decibelové komprese $P_{1\mathrm{dB}}$ a saturace jsou znázorněny na obrázcích~\ref{fig:ERA3SM-compression}~a~\ref{fig:BFU760F-compression}.
 
 \begin{figure}[!ht]
 \begin{subfigure}{0.5\textwidth}
@@ -144,7 +144,7 @@ Vztaženo k výstupu zesilovačů je hodnota $P_{1\mathrm{dB}} = 11,1~\mathrm{dB
 \paragraph*{Bod zahrazení intermodulačními produkty třetího řádu}
 Schéma zapojení a nastavení vstupních obvodů spektrálního analyzátoru je ponecháno z předchozího úkolu.
 
-Po zapnutí výstupů z obou generátorů a počátečním nastavením útlumu externích atenuátorů na 25~dB%
+Po zapnutí výstupů z obou generátorů a počátečním nastavení útlumu externích atenuátorů na 25~dB%
     \footnote{Na doporučených 30~dB nebyly intermodulační produkty ještě dostatečně čitelné z šumového pozadí.}
 lze na obrazovce spektrálního analyzátoru číst hodnoty výkonů základní harmonické $P_a$ a intermodulačních produktů $P_{2a\pm b}$. Z toho lze dále spočítat výkonový odstup intermodulačních produktů od základní harmonické $O_{2a\pm b}$. Změřené a výpočtené hodnoty měření jsou zaznamenané v tabulkách~\ref{table:ERA3SM-intercept}~a~\ref{table:BFU760F-intercept} pro jednotlivé zesilovače. Vývoj hodnot výkonů a následný bod zahrazení IP3 pro složky $2a \pm b$ jsou znázorněny na obrázcích~\ref{fig:ERA3SM-intercept}~a~\ref{fig:BFU760F-intercept}.
 
@@ -204,10 +204,10 @@ lze na obrazovce spektrálního analyzátoru číst hodnoty výkonů základní 
 Vztaženo k výstupu zesilovačů je hodnota $P_{\mathrm{IP3}} = 20~\mathrm{dBm}$ pro zesilovač ERA-3SM\plus~a pro nízkošumový zesilovač s tranzistorem BFU-760F je $P_{\mathrm{IP3}} = 13,4~\mathrm{dBm}$.
 
 \subsection*{Závěr}
-V rámci úlohy jsme se seznámili se základy měření velkosignálových vlastností mikrovlnných zesilovačů jako jsou bod decibelové komprese a bod zahrazení IP3. Během úlohy jsme nenarazili na žádné výrazné překážky, a tak se nám podařilo si ověřit teoretické znalosti dynamického rozsahu mikrovlnných systémů.
+V rámci úlohy jsme se seznámili se základy měření velkosignálových vlastností mikrovlnných zesilovačů jako jsou bod decibelové komprese a bod zahrazení IP3. Během úlohy jsme nenarazili na žádné výrazné překážky, a tak se nám podařilo ověřit teoretické poznatky o dynamickém rozsahu mikrovlnných systémů.
 
-Měřením byly zjištěny hodnoty $P_{1\mathrm{dB}} = 11,1~\mathrm{dBm}$, $P_{\mathrm{IP3}} = 20~\mathrm{dBm}$ pro zesilovač ERA-3SM\plus~a pro LNA s tranzistorem BFU-760F $P_{1\mathrm{dB}} = 10,1~\mathrm{dBm}$, $P_{\mathrm{IP3}} = 13,4~\mathrm{dBm}$.
+Měřením byly zjištěny hodnoty $P_{1\mathrm{dB}} = 11,1~\mathrm{dBm}$, $P_{\mathrm{IP3}} = 20~\mathrm{dBm}$ pro zesilovač ERA-3SM\plus~a pro LNA s tranzistorem BFU-760F hodnoty $P_{1\mathrm{dB}} = 10,1~\mathrm{dBm}$, $P_{\mathrm{IP3}} = 13,4~\mathrm{dBm}$.
 
-Dlužno podotknout, že v případě bodu decibelové komprese se jedná přímo o reálné hodnoty výstupního výkonu zesilovačů, zatímco bod IP3 je samozřejmě pouze teoretickou hodnotou, která byla získána jako průsečík prodloužení lineárních tendencí závislosti výstupního výkonu žádoucího signálu a intermodulačních produktů 3. řádu před jejich deklinací.
+Dlužno podotknout, že v případě bodu decibelové komprese se jedná přímo o reálné hodnoty výstupního výkonu zesilovačů, zatímco bod IP3 je samozřejmě pouze teoretickou hodnotou, která byla získána jako průsečík extrapolovaných lineárních tendancí zesilovače na cílové frekvenci a na frekvenci intermodulačního produktu 3. řádu před jejich deklinacemi.
 
 \end{document}

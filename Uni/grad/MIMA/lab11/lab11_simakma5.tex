@@ -68,7 +68,7 @@
 \subsection*{Popis měření}
 
 % Task 1
-\paragraph*{Měření frekvenčního průběhu efektivní permitivity mikropáskového vedení pomocí přímkového rezonátoru} Subjektem měření je mikropáskové vedení šířky 0.7~mm a délky 34~mm, které je umístěno do kovové krabičky a má otevřené konce, které jsou jen přiblížené k pinům SMA konektorů. Použitý substrát je CuClad\textregistered\ 233 od firmy Rogers s tloušťkou 0.254~mm. Podél délky vedení $L$ je možné rozmístit celé násobky $\lambda/2$ stojaté vlny, která má kmitny elektrického pole na otevřených koncích vedení. Vlnová délka na mikropáskovém vedení je dáva vztahem
+\paragraph*{Měření frekvenčního průběhu efektivní permitivity mikropáskového vedení pomocí přímkového rezonátoru} Subjektem měření je mikropáskové vedení šířky 0.7~mm a délky 34~mm, které je umístěno do kovové krabičky a má otevřené konce, které jsou jen přiblížené k pinům SMA konektorů. Použitý substrát je CuClad\textregistered\ 233 od firmy Rogers s tloušťkou 0.254~mm. Podél délky vedení $L$ je možné rozmístit celé násobky $\lambda/2$ stojaté vlny, která má kmitny elektrického pole na otevřených koncích vedení. Vlnová délka na mikropáskovém vedení je dána vztahem
 \begin{align}
     \lambda &= \frac{c}{f\sqrt{\epsilon_{\mathrm{eff}}}},
 \end{align}
@@ -84,9 +84,9 @@ Pro nastavení vektorového analyzátoru volíme frekvenční pásmo 20~MHz až 
 
 Pro všechny odečtené rezonanční frekvence jsou vypočtené hodnoty permitivity zaneseny v tabulce~\ref{table:primkovy-rezonator} a jejich průběh graficky znázorněn na obrázku~\ref{fig:primkovy-rezonator-permitivita}. Zpracování bylo provedeno formou porovnání vlnové délky ve volném prostoru ($\lambda_0 = c/f$) s délkou měřeného vedení tak, aby jednotlivé rezonance odpovídaly rovnosti
 \begin{align}
-    L &= m\lambda/2, \text{ kde } m = 1,2,\dots.
+    L &= m\lambda/2,
 \end{align}
-Očividnou diskuzí je volba násobku $m$ vlnové délky pro první zobrazovanou rezonanci, ale jelikož pro volbu $m=1$ vychází frekvenční disperze permitivity v rámci očekávatelných mezí, byla posouzena jako správná.
+kde $m \in \N$. Očividnou diskuzí je volba násobku $m$ vlnové délky pro první zobrazovanou rezonanci, ale jelikož pro volbu $m=1$ vychází frekvenční disperze permitivity v rámci očekávatelných mezí, byla posouzena jako správná.
 \begin{table}[!ht]
     \centering
     \begin{tabular}{|l||c|c|c|c|c|c|c|}
@@ -110,7 +110,7 @@ Očividnou diskuzí je volba násobku $m$ vlnové délky pro první zobrazovanou
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\textwidth]{src/prstencovy-rezonator.png}
-\caption{Modul a fáze vedení s přímkovým rezonátorem}
+\caption{Modul a fáze vedení s prstencovým rezonátorem}
 \label{fig:prstencovy-rezonator}
 \end{figure}
 
@@ -118,7 +118,7 @@ Pro všechny odečtené rezonanční frekvence jsou vypočtené hodnoty permitiv
 \begin{align}
     2\pi\(R-\frac w2\) &= m\lambda,
 \end{align}
-kde $m = 1,2,\dots$, $R$ je vnější průměr a $w$ je šířka pásku rezonátoru.
+kde $m \in \N$, $R$ je vnější průměr a $w$ je šířka pásku rezonátoru.
 \begin{table}[!ht]
     \centering
     \begin{tabular}{|l||c|c|c|c|c|c|c|}
@@ -142,9 +142,9 @@ kde $m = 1,2,\dots$, $R$ je vnější průměr a $w$ je šířka pásku rezonát
 \end{figure}
 
 % Task 3
-\paragraph*{Měření relativní permitivity materiálu ABS ve vlnovodu} Pro měření na vlnovodu R100 je nutné upravit frekvenčn pásmo na jednovidové pásmo vlnovodu (8.2~GHz až 12.4~GHz) a provést příslušnou kalibraci TRL. Pro kalibraci připojujeme mezi vlnovodné přechody rovné úseky vlnovodu vyplněné kvádry materiálu ABS vytisknuté na 3D tiskárně. Pro každý vzorek ukládáme frekvenční průběh změřených S-parametrů ve formátu Touchstone a následne analyzujeme v softwaru AWR.
+\paragraph*{Měření relativní permitivity materiálu ABS ve vlnovodu} Pro měření na vlnovodu R100 je nutné upravit frekvenční pásmo na jednovidové pásmo vlnovodu (8.2~GHz až 12.4~GHz) a provést příslušnou kalibraci TRL. Pro kalibraci připojujeme mezi vlnovodné přechody rovné úseky vlnovodu vyplněné kvádry materiálu ABS vytisknuté na 3D tiskárně. Pro každý vzorek ukládáme frekvenční průběh změřených S-parametrů ve formátu Touchstone a následně analyzujeme v softwaru AWR.
 
-Analýza v AWR probíhá tak, že si nejprve sestavíme ekvivalentní obvodové schéma jako je na obrázku~\ref{fig:r100-schematic}. Pro ostatní délky postupujeme analogicky. Proměnné $\mathit{ER}$ a $\mathit{TAND}$ jsou hodnoty efektivní permitivity a ztrátového faktoru $\tan(\delta)$, které jsou předmětem následné optimalizace.
+Analýza v AWR probíhá tak, že si nejprve sestavíme ekvivalentní obvodové schéma jako je na obrázku~\ref{fig:r100-schematic}. Pro ostatní délky postupujeme analogicky. Proměnné $\mathit{ER}$ a $\mathit{TAND}$ jsou hodnoty efektivní permitivity $\epsilon_{\mathrm{eff}}$ a ztrátového faktoru $\tan(\delta)$, které jsou předmětem následné optimalizace.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=.7\textwidth]{src/r100-schematic.png}
