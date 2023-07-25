@@ -21,7 +21,8 @@ venv/
 Taiwan/
 Texts/
 CST projects/
-Uni/research/
+Uni/research/Texts
+Uni/research/*.mp4
 Uni/grad/SBS/project1/script/*.txt
 Uni/grad/CADA/sem08/patch/
 Uni/grad/CADA/sem09/LearningEdition_version/DualPatch_mainproject/
