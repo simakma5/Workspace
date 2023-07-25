@@ -1,6 +1,4 @@
-clear
-close all
-clc
+clear; close all; clc
 
 %% initialization
 MEASUREMENT = ["metal" "ceramics" "absorber"];
@@ -61,8 +59,8 @@ SIdealLine5 = transmLineSPar(shiftdim(1j*2*pi*freq*Line5Delay, -2), 1, Z0, Z0);
 
 %% calibration on metal - phase error inspection
 figure(1)
-for num = 1:3
-    measurement = sprintf('%s', MEASUREMENT(num));
+for m = 1:3
+    measurement = sprintf('%s', MEASUREMENT(m));
     [~, P1MeasMetal, P2MeasMetal, ThruMeasMetal, SLineMeasMetal] = loadData(measurement);
     
     [EaMetal, EbMetal] = UOSM(P1MeasMetal, P2MeasMetal, ThruMeasMetal, ...
@@ -75,7 +73,7 @@ for num = 1:3
     Line4CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeasMetal(:, :, :, 4));
     Line5CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeasMetal(:, :, :, 5));
     
-    subplot(str2double(strcat(num2str(13),num2str(num))))
+    subplot(str2double(strcat(num2str(13), num2str(m))))
     plot(freq/1e9, wrapTo180(squeeze(angle(ThruCalMetal(2, 1, :)) - angle(SIdealThru(2, 1, :)))/pi*180))
     hold on
     plot(freq/1e9, wrapTo180(squeeze(angle(Line1CalMetal(2, 1, :)) - angle(SIdealLine1(2, 1, :)))/pi*180))
@@ -83,6 +81,9 @@ for num = 1:3
     plot(freq/1e9, wrapTo180(squeeze(angle(Line3CalMetal(2, 1, :)) - angle(SIdealLine3(2, 1, :)))/pi*180))
     plot(freq/1e9, wrapTo180(squeeze(angle(Line4CalMetal(2, 1, :)) - angle(SIdealLine4(2, 1, :)))/pi*180))
     plot(freq/1e9, wrapTo180(squeeze(angle(Line5CalMetal(2, 1, :)) - angle(SIdealLine5(2, 1, :)))/pi*180))
+    xline(36.75)
+%     ax = gca;
+%     ax.XTick = sort([ax.XTick 36.75]);
     title(['Measurement on ' measurement])
     grid on
     grid minor
@@ -95,12 +96,11 @@ end
 sgtitle('Transmission phase error of calibrated lines')
 
 %% calibration on metal - standards, error boxes, 
-% num = 1;
-% measurement = sprintf('%s', MEASUREMENT(num));
+% m = 1;
+% measurement = sprintf('%s', MEASUREMENT(m));
 % [~, P1MeasMetal, P2MeasMetal, ThruMeasMetal, SLineMeasMetal] = loadData(measurement);
 % 
-% [EaMetal, EbMetal] = UOSM(P1MeasMetal, P2MeasMetal, ThruMeasMetal, ...
-%     Port1Model, Port2Model, squeeze(SIdealThru(2, 1, :)), freq);
+% [EaMetal, EbMetal] = UOSM(P1MeasMetal, P2MeasMetal, ThruMeasMetal, Port1Model, Port2Model, squeeze(SIdealThru(2, 1, :)), freq);
 % 
 % ThruCalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, ThruMeasMetal);
 % Line1CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeasMetal(:, :, :, 1));
@@ -125,16 +125,16 @@ sgtitle('Transmission phase error of calibrated lines')
 %    'LineWidth', [2 2], 'LegendText', {'Meas (S_{@@})', 'Ideal (S_{@@})'})
 % 
 % figure(5)
-% showXPortParameters({freq}, convert4DSparToCell(Line1CalMetal), 'Title', ['Calibrated Line 1 ' measurement], 'Polar', true)
+% showXPortParameters({freq}, convert4DSparToCell(Line1CalMetal), 'Title', ['Calibrated Line 1 on ' measurement], 'Polar', true)
 % 
 % figure(6)
-% showXPortParameters({freq}, convert4DSparToCell(Line2CalMetal), 'Title', ['Calibrated Line 2 ' measurement], 'Polar', true)
+% showXPortParameters({freq}, convert4DSparToCell(Line2CalMetal), 'Title', ['Calibrated Line 2 on ' measurement], 'Polar', true)
 % 
 % figure(7)
-% showXPortParameters({freq}, convert4DSparToCell(Line3CalMetal), 'Title', ['Calibrated Line 3 ' measurement], 'Polar', true)
+% showXPortParameters({freq}, convert4DSparToCell(Line3CalMetal), 'Title', ['Calibrated Line 3 on ' measurement], 'Polar', true)
 % 
 % figure(8)
-% showXPortParameters({freq}, convert4DSparToCell(Line4CalMetal), 'Title', ['Calibrated Line 4 ' measurement], 'Polar', true)
+% showXPortParameters({freq}, convert4DSparToCell(Line4CalMetal), 'Title', ['Calibrated Line 4 on ' measurement], 'Polar', true)
 % 
 % figure(9)
-% showXPortParameters({freq}, convert4DSparToCell(Line5CalMetal), 'Title', ['Calibrated Line 5 ' measurement], 'Polar', true)
+% showXPortParameters({freq}, convert4DSparToCell(Line5CalMetal), 'Title', ['Calibrated Line 5 on ' measurement], 'Polar', true)
