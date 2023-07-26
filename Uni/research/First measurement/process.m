@@ -1,4 +1,6 @@
-clear; close all; clc
+clear
+close all
+clc
 
 %% initialization
 MEASUREMENT = ["metal" "ceramics" "absorber"];
@@ -58,7 +60,6 @@ SIdealLine4 = transmLineSPar(shiftdim(1j*2*pi*freq*Line4Delay, -2), 1, Z0, Z0);
 SIdealLine5 = transmLineSPar(shiftdim(1j*2*pi*freq*Line5Delay, -2), 1, Z0, Z0);
 
 %% calibration on metal - phase error inspection
-figure(1)
 for m = 1:3
     measurement = sprintf('%s', MEASUREMENT(m));
     [~, P1MeasMetal, P2MeasMetal, ThruMeasMetal, SLineMeasMetal] = loadData(measurement);
@@ -73,17 +74,15 @@ for m = 1:3
     Line4CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeasMetal(:, :, :, 4));
     Line5CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeasMetal(:, :, :, 5));
     
+    figure(1)
     subplot(str2double(strcat(num2str(13), num2str(m))))
-    plot(freq/1e9, wrapTo180(squeeze(angle(ThruCalMetal(2, 1, :)) - angle(SIdealThru(2, 1, :)))/pi*180))
+    plot(freq/1e9, unwrapPhase(squeeze(angle(ThruCalMetal(2, 1, :)./SIdealThru(2, 1, :)))/pi*180))
     hold on
-    plot(freq/1e9, wrapTo180(squeeze(angle(Line1CalMetal(2, 1, :)) - angle(SIdealLine1(2, 1, :)))/pi*180))
-    plot(freq/1e9, wrapTo180(squeeze(angle(Line2CalMetal(2, 1, :)) - angle(SIdealLine2(2, 1, :)))/pi*180))
-    plot(freq/1e9, wrapTo180(squeeze(angle(Line3CalMetal(2, 1, :)) - angle(SIdealLine3(2, 1, :)))/pi*180))
-    plot(freq/1e9, wrapTo180(squeeze(angle(Line4CalMetal(2, 1, :)) - angle(SIdealLine4(2, 1, :)))/pi*180))
-    plot(freq/1e9, wrapTo180(squeeze(angle(Line5CalMetal(2, 1, :)) - angle(SIdealLine5(2, 1, :)))/pi*180))
-    xline(36.75)
-%     ax = gca;
-%     ax.XTick = sort([ax.XTick 36.75]);
+    plot(freq/1e9, unwrapPhase(squeeze(angle(Line1CalMetal(2, 1, :)./SIdealLine1(2, 1, :)))/pi*180))
+    plot(freq/1e9, unwrapPhase(squeeze(angle(Line2CalMetal(2, 1, :)./SIdealLine2(2, 1, :)))/pi*180))
+    plot(freq/1e9, unwrapPhase(squeeze(angle(Line3CalMetal(2, 1, :)./SIdealLine3(2, 1, :)))/pi*180))
+    plot(freq/1e9, unwrapPhase(squeeze(angle(Line4CalMetal(2, 1, :)./SIdealLine4(2, 1, :)))/pi*180))
+    plot(freq/1e9, unwrapPhase(squeeze(angle(Line5CalMetal(2, 1, :)./SIdealLine5(2, 1, :)))/pi*180))
     title(['Measurement on ' measurement])
     grid on
     grid minor
@@ -92,8 +91,35 @@ for m = 1:3
     axis tight
     legend('Thru', 'Line1', 'Line2', 'Line3', 'Line4', 'Line5', 'Location', 'northwest')
     hold off
+
+    figure(2)
+    subplot(str2double(strcat(num2str(13), num2str(m))))
+    plot(freq/1e9, squeeze(20*log10(abs(ThruCalMetal(2, 1, :)))))
+    hold on
+    plot(freq/1e9, squeeze(20*log10(abs(Line1CalMetal(2, 1, :)))))
+    plot(freq/1e9, squeeze(20*log10(abs(Line2CalMetal(2, 1, :)))))
+    plot(freq/1e9, squeeze(20*log10(abs(Line3CalMetal(2, 1, :)))))
+    plot(freq/1e9, squeeze(20*log10(abs(Line4CalMetal(2, 1, :)))))
+    plot(freq/1e9, squeeze(20*log10(abs(Line5CalMetal(2, 1, :)))))
+    yline(0)
+    title(['Measurement on ' measurement])
+    grid on
+    grid minor
+    xlabel('Frequency [GHz]')
+    ylabel('|S_{21}| [dB]')
+    axis tight
+    legend('Thru', 'Line1', 'Line2', 'Line3', 'Line4', 'Line5', 'Location', 'southwest')
+    hold off
 end
+figure(1)
+hold on
 sgtitle('Transmission phase error of calibrated lines')
+hold off
+
+figure(2)
+hold on
+sgtitle('Transmission module of calibrated lines')
+hold off
 
 %% calibration on metal - standards, error boxes, 
 % m = 1;
