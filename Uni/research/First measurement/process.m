@@ -47,12 +47,18 @@ LineVelocity = [
 LineEpsilon = (c./LineVelocity).^2;
 
 % effective parameters accounting for referance plane shift by overtravel
-ThruLength =  ThruLength - 95e-6;
-Line1Length = Line1Length - 95e-6;
-Line2Length = Line2Length - 105e-6;
-Line3Length = Line3Length - 110e-6;
-Line4Length = Line4Length - 130e-6;
-Line5Length = Line5Length - 140e-6;
+% ThruLength =  ThruLength - 95e-6;
+% Line1Length = Line1Length - 95e-6;
+% Line2Length = Line2Length - 105e-6;
+% Line3Length = Line3Length - 110e-6;
+% Line4Length = Line4Length - 130e-6;
+% Line5Length = Line5Length - 140e-6;
+ThruLength =  ThruLength - 100e-6;
+Line1Length = Line1Length - 100e-6;
+Line2Length = Line2Length - 100e-6;
+Line3Length = Line3Length - 100e-6;
+Line4Length = Line4Length - 100e-6;
+Line5Length = Line5Length - 100e-6;
 
 % arbitrarily chosen measurement only to obtain frequency points
 freq = SXPParse(fullfile('metal', 'Open.s2p'));
@@ -138,22 +144,37 @@ for m = 1:3
     Line4CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeasMetal(:, :, :, 4));
     Line5CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeasMetal(:, :, :, 5));
     
+    ThruTransmPhaseErr = unwrapPhase(angle(squeeze(ThruCalMetal(2, 1, :)./ThruModel.Parameters(2, 1, :)))/pi*180);
+    Line1TransmPhaseErr = unwrapPhase(angle(squeeze(Line1CalMetal(2, 1, :)./Line1Model.Parameters(2, 1, :)))/pi*180);
+    Line2TransmPhaseErr = unwrapPhase(angle(squeeze(Line2CalMetal(2, 1, :)./Line2Model.Parameters(2, 1, :)))/pi*180);
+    Line3TransmPhaseErr = unwrapPhase(angle(squeeze(Line3CalMetal(2, 1, :)./Line3Model.Parameters(2, 1, :)))/pi*180);
+    Line4TransmPhaseErr = unwrapPhase(angle(squeeze(Line4CalMetal(2, 1, :)./Line4Model.Parameters(2, 1, :)))/pi*180);
+    Line5TransmPhaseErr = unwrapPhase(angle(squeeze(Line5CalMetal(2, 1, :)./Line5Model.Parameters(2, 1, :)))/pi*180);
+
     figure(1)
     subplot(str2double(strcat(num2str(13), num2str(m))))
-    plot(freq/1e9, unwrapPhase(angle(squeeze(ThruCalMetal(2, 1, :)./ThruModel.Parameters(2, 1, :)))/pi*180))
+    plot(freq/1e9, ThruTransmPhaseErr)
     hold on
-    plot(freq/1e9, unwrapPhase(angle(squeeze(Line1CalMetal(2, 1, :)./Line1Model.Parameters(2, 1, :)))/pi*180))
-    plot(freq/1e9, unwrapPhase(angle(squeeze(Line2CalMetal(2, 1, :)./Line2Model.Parameters(2, 1, :)))/pi*180))
-    plot(freq/1e9, unwrapPhase(angle(squeeze(Line3CalMetal(2, 1, :)./Line3Model.Parameters(2, 1, :)))/pi*180))
-    plot(freq/1e9, unwrapPhase(angle(squeeze(Line4CalMetal(2, 1, :)./Line4Model.Parameters(2, 1, :)))/pi*180))
-    plot(freq/1e9, unwrapPhase(angle(squeeze(Line5CalMetal(2, 1, :)./Line5Model.Parameters(2, 1, :)))/pi*180))
+    plot(freq/1e9, Line1TransmPhaseErr)
+    plot(freq/1e9, Line2TransmPhaseErr)
+    plot(freq/1e9, Line3TransmPhaseErr)
+    plot(freq/1e9, Line4TransmPhaseErr)
+    plot(freq/1e9, Line5TransmPhaseErr)
     title(['Measurement on ' measurement])
     grid on
     grid minor
     xlabel('Frequency [GHz]')
     ylabel('\Delta(\angle S_{21}) [deg]')
     axis tight
-    legend('Thru', 'Line1', 'Line2', 'Line3', 'Line4', 'Line5', 'Location', 'northwest')
+    legend( ...
+        strcat('Thru, mean: ', num2str(round(mean(ThruTransmPhaseErr), 2)), ', var: ', num2str(round(var(ThruTransmPhaseErr), 2))), ...
+        strcat('Line1, mean: ', num2str(round(mean(Line1TransmPhaseErr), 2)), ', var: ', num2str(round(var(Line1TransmPhaseErr), 2))), ...
+        strcat('Line2, mean: ', num2str(round(mean(Line2TransmPhaseErr), 2)), ', var: ', num2str(round(var(Line2TransmPhaseErr), 2))), ...
+        strcat('Line3, mean: ', num2str(round(mean(Line3TransmPhaseErr), 2)), ', var: ', num2str(round(var(Line3TransmPhaseErr), 2))), ...
+        strcat('Line4, mean: ', num2str(round(mean(Line4TransmPhaseErr), 2)), ', var: ', num2str(round(var(Line4TransmPhaseErr), 2))), ...
+        strcat('Line5, mean: ', num2str(round(mean(Line5TransmPhaseErr), 2)), ', var: ', num2str(round(var(Line5TransmPhaseErr), 2))), ...
+        'Location', 'northwest' ...
+    )
     hold off
 
     figure(2)
@@ -184,6 +205,8 @@ figure(2)
 hold on
 sgtitle('Transmission module of calibrated lines')
 hold off
+
+disp(LineEpsilon')
 
 %% calibration on metal - standards, error boxes, 
 % m = 1;
