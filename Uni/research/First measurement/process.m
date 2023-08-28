@@ -8,10 +8,10 @@ c = 299792458;
 MEASUREMENT = ["metal" "ceramics" "absorber"];
 
 % ISS CPW parameters
-ConductorWidth = 55e-6;         % measured 45 um
+ConductorWidth = 60e-6;         % measured 45 um
 EpsilonR = 9.9;                 % nominal
 Height = 0.254e-3;              % nominal
-SlotWidth = 30e-6;              % measured 30 um
+SlotWidth = 33e-6;              % measured 30 um
 Thickness = 3e-6;               % estimated (tune)
 
 % models of calibration standards
