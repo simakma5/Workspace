@@ -58,7 +58,7 @@ LineVelocity = [
 LineEpsilon = (c./LineVelocity).^2;
 
 % arbitrarily chosen measurement only to obtain frequency points
-freq = SXPParse(fullfile('metal', 'Open.s2p'));
+freq = cat(1, SXPParse(fullfile('metal', 'Open_DC_to_67_GHz.s2p')), SXPParse(fullfile('metal', 'Open_67_to_110_GHz.s2p')));
 
 %% models of standards
 ShortImp = 1j*2*pi*freq*ShortL;
