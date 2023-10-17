@@ -134,7 +134,7 @@ Line5ModelSparam = sparameters(Line5Model, freq, MatchR);
 % imepdance of models (same for all lines)
 LineImpedance = getZ0(ThruModel);
 
-%% calibration on metal -- phase error inspection for best pad material determination
+%% calibration on metal -- phase error inspection for best material determination
 ax1 = matlab.graphics.axis.Axes.empty(3,0);
 ax2 = matlab.graphics.axis.Axes.empty(3,0);
 for m = 1:3
