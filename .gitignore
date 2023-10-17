@@ -18,10 +18,9 @@
 *.nav
 .vscode/
 venv/
-CST projects/
+IDE projects/
 Taiwan/
 Texts/
-Vivado projects/
 Uni/research/Datasheets
 Uni/research/Images
 Uni/research/Notes
