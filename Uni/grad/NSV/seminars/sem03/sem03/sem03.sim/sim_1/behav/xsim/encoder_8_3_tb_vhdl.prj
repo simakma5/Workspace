@@ -1,7 +1,0 @@
-# compile vhdl design source files
-vhdl xil_defaultlib  \
-"../../../../sem03.srcs/sources_1/new/encoder_8_3.vhd" \
-"../../../../sem03.srcs/sim_1/new/encoder_8_3_tb.vhd" \
-
-# Do not sort compile order
-nosort

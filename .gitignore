@@ -21,14 +21,12 @@ venv/
 CST projects/
 Taiwan/
 Texts/
+Vivado projects/
 Uni/research/Datasheets
 Uni/research/Images
 Uni/research/Notes
 Uni/research/Texts
 Uni/research/*.mp4
-Uni/grad/SBS/project1/script/*.txt
-Uni/grad/ANT/books/
-Uni/grad/ANT/zkouska/
 
 # Packages #
 ############
