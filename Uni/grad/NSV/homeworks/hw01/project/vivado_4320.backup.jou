@@ -1,0 +1,62 @@
+#-----------------------------------------------------------
+# Vivado v2023.1 (64-bit)
+# SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+# IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+# SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+# Start of session at: Mon Oct 16 21:26:35 2023
+# Process ID: 4320
+# Current directory: C:/Workspace/Uni/grad/NSV/homeworks/hw01/project
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent6288 C:\Workspace\Uni\grad\NSV\homeworks\hw01\project\hw01.xpr
+# Log file: C:/Workspace/Uni/grad/NSV/homeworks/hw01/project/vivado.log
+# Journal file: C:/Workspace/Uni/grad/NSV/homeworks/hw01/project\vivado.jou
+# Running On: martin-msi, OS: Windows, CPU Frequency: 2304 MHz, CPU Physical cores: 8, Host memory: 16866 MB
+#-----------------------------------------------------------
+start_gui
+open_project C:/Workspace/Uni/grad/NSV/homeworks/hw01/project/hw01.xpr
+update_compile_order -fileset sources_1
+launch_simulation
+open_wave_config C:/Workspace/Uni/grad/NSV/homeworks/hw01/project/task1_tb_behav.wcfg
+source task1_tb.tcl
+save_wave_config {C:/Workspace/Uni/grad/NSV/homeworks/hw01/project/task1_tb_behav.wcfg}
+close_sim
+close [ open C:/Workspace/Uni/grad/NSV/homeworks/hw01/project/hw01.srcs/sources_1/new/task2.vhd w ]
+add_files C:/Workspace/Uni/grad/NSV/homeworks/hw01/project/hw01.srcs/sources_1/new/task2.vhd
+update_compile_order -fileset sources_1
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+close [ open C:/Workspace/Uni/grad/NSV/homeworks/hw01/project/hw01.srcs/sim_1/new/task2_tb.vhd w ]
+add_files -fileset sim_1 C:/Workspace/Uni/grad/NSV/homeworks/hw01/project/hw01.srcs/sim_1/new/task2_tb.vhd
+update_compile_order -fileset sim_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top task2 [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+launch_simulation
+open_wave_config C:/Workspace/Uni/grad/NSV/homeworks/hw01/project/task1_tb_behav.wcfg
+source task1_tb.tcl
+close_sim
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top task2_tb [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sim_1
+launch_simulation
+open_wave_config C:/Workspace/Uni/grad/NSV/homeworks/hw01/project/task1_tb_behav.wcfg
+source task2_tb.tcl
+close_sim
+launch_simulation
+source task2_tb.tcl
+close_sim
+launch_simulation
+source task2_tb.tcl
+save_wave_config {C:/Workspace/Uni/grad/NSV/homeworks/hw01/project/task2_tb_behav.wcfg}
+add_files -fileset sim_1 -norecurse C:/Workspace/Uni/grad/NSV/homeworks/hw01/project/task2_tb_behav.wcfg
+set_property xsim.view {C:/Workspace/Uni/grad/NSV/homeworks/hw01/project/task1_tb_behav.wcfg C:/Workspace/Uni/grad/NSV/homeworks/hw01/project/task2_tb_behav.wcfg} [get_filesets sim_1]
+close_sim
+launch_simulation
+open_wave_config C:/Workspace/Uni/grad/NSV/homeworks/hw01/project/task2_tb_behav.wcfg
+source task2_tb.tcl
+close_sim

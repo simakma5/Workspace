@@ -1,0 +1,12 @@
+Konvence:
+* Mezi "architecture" a "begin" definujeme vsechny promenne pro citelnost.
+* Promenne vystupujici se zarizeni piseme upper case, interni lower case.
+* Interni instance promennych v podsouborech s podtrzitkem _i
+
+VHDL:
+* Behavioralni popis pro kombinacni obvody, process architektura pro sekvencni logiku.
+* Dva zpusoby definice promenne pro sekvencni logiku (architektura process):
+	(a) klasicky jako "signal" mezi "architecture" a "begin",
+	(b) jako "variable" mezi "process()" a "begin";
+  pricemz v techto definicich je velky rozdil:
+	"Variables are used when you want to create serialized code, unlike the normal parallel code. (Serialized means that the commands are executed in their order, one after the other instead of together). A variable can exist only inside a process, and the assignment of values is not parallel."
