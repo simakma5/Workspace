@@ -1,17 +1,14 @@
-close all
-clear
-clc
-addpath(genpath(fileparts(which(mfilename))))
+close all; clear; clc; addpath(genpath(fullfile([pwd '\Uni' '\research' '\ISS 104-783 measurement'])))
 
 %% initialization
 c = 299792458;
 MEASUREMENT = ["metal" "ceramics" "absorber"];
 
 % ISS CPW parameters
-ConductorWidth = 60e-6;         % measured 45 um
+ConductorWidth = 45e-6;         % measured 45 um
 EpsilonR = 9.9;                 % nominal
 Height = 0.254e-3;              % nominal
-SlotWidth = 33e-6;              % measured 30 um
+SlotWidth = 30e-6;              % measured 30 um
 Thickness = 3e-6;               % estimated (tune)
 
 % models of calibration standards
@@ -137,7 +134,7 @@ Line5ModelSparam = sparameters(Line5Model, freq, MatchR);
 % imepdance of models (same for all lines)
 LineImpedance = getZ0(ThruModel);
 
-%% calibration on metal -- phase error inspection for best material determination
+%% calibration on metal -- phase error inspection for best material determination (unused, inconsistent files)
 % ax1 = matlab.graphics.axis.Axes.empty(3,0);
 % ax2 = matlab.graphics.axis.Axes.empty(3,0);
 % for m = 1:3

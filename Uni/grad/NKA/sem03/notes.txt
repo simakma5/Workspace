@@ -1,0 +1,10 @@
+* Simulation -> Mesh view -> Global properties
+	- Aspon 15 (rika se 10, ale radsi 15) Cells per wavelength. Klidne i 20 pred vyrobou pro presnost.
+* Simulation -> Field monitor
+	- Hromada nastaveni, co chci sledovat; field monitory ve frequency atd.
+* Solver settings
+	- Accuracy
+	- Source type: volba toho, co ma mou strukturu budit
+* Post-processing -> Result templates
+	- Silena fura custom resultu pro ruzna uziti, napr. pro nas nejzajimavejsi sada Farfield and Antenna Properties a tam treba Farfield results, tam dalsi veci
+	- Vyberem v seznamu a kliknutim na Evaluate se to pro aktualni vysledky simulatoru dopocita a ulozi se do Tables

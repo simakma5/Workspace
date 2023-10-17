@@ -1,0 +1,13 @@
+NKA, uloha c.1
+
+Rozmery patche
+h = 7(5) mm, horni(spodni) stena patche
+L = 58,0 mm
+W = 61,0 mm
+
+poloha napajeciho bodu (od hrany patche)
+L1#1 =  4 mm
+L1#2 = 10 mm
+L1#3 = 16 mm (nejlepsi prizpusobeni)
+L1#4 = 22 mm
+L1#5 = 28 mm

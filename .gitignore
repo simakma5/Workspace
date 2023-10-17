@@ -18,18 +18,15 @@
 *.nav
 .vscode/
 venv/
+CST projects/
 Taiwan/
 Texts/
-CST projects/
 Uni/research/Datasheets
 Uni/research/Images
 Uni/research/Notes
 Uni/research/Texts
 Uni/research/*.mp4
 Uni/grad/SBS/project1/script/*.txt
-Uni/grad/CADA/sem08/patch/
-Uni/grad/CADA/sem09/LearningEdition_version/DualPatch_mainproject/
-Uni/grad/CADA/project2/TwoBranchCoupler
 Uni/grad/ANT/books/
 Uni/grad/ANT/zkouska/
 
