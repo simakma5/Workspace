@@ -64,7 +64,7 @@ LineEpsilon = (c./LineVelocity).^2;
 % arbitrarily chosen measurement only to obtain frequency points
 freq = cat(1, SXPParse(fullfile('metal', 'Open_DC_to_67_GHz.s2p')), SXPParse(fullfile('metal', 'Open_67_to_110_GHz.s2p')));
 
-%% models of standards
+%% calibration and verification standards models
 Z0 = 50;                        % measurement reference impedance
 
 ShortImp = 1j*2*pi*freq*ShortL;
@@ -74,7 +74,7 @@ OpenRefl = (OpenImp - Z0)./(OpenImp + Z0);
 MatchImp = MatchR + 1j*2*pi*freq*MatchL;
 MatchRefl = (MatchImp - Z0)./(MatchImp + Z0);
 
-% reflection coeficient of ports
+% ports reflection coeficient
 Port1Model = struct( ...
     'open', OpenRefl, ...
     'short', ShortRefl, ...
@@ -83,7 +83,7 @@ Port1Model = struct( ...
 Port2Model = Port1Model;
 
 % CPW models of standards
-ThruModel = txlineCPW( ...
+ThruCPWModel = txlineCPW( ...
     'ConductorWidth', ConductorWidth, ...
     'EpsilonR', EpsilonR, ...
     'Height', Height, ...
@@ -91,7 +91,7 @@ ThruModel = txlineCPW( ...
     'Thickness', Thickness, ...
     'LineLength', ThruLength ...
 );
-Line1Model = txlineCPW( ...
+Line1CPWModel = txlineCPW( ...
     'ConductorWidth', ConductorWidth, ...
     'EpsilonR', EpsilonR, ...
     'Height', Height, ...
@@ -99,7 +99,7 @@ Line1Model = txlineCPW( ...
     'Thickness', Thickness, ...
     'LineLength', Line1Length ...
 );
-Line2Model = txlineCPW( ...
+Line2CPWModel = txlineCPW( ...
     'ConductorWidth', ConductorWidth, ...
     'EpsilonR', EpsilonR, ...
     'Height', Height, ...
@@ -107,7 +107,7 @@ Line2Model = txlineCPW( ...
     'Thickness', Thickness, ...
     'LineLength', Line2Length ...
 );
-Line3Model = txlineCPW( ...
+Line3CPWModel = txlineCPW( ...
     'ConductorWidth', ConductorWidth, ...
     'EpsilonR', EpsilonR, ...
     'Height', Height, ...
@@ -115,7 +115,7 @@ Line3Model = txlineCPW( ...
     'Thickness', Thickness, ...
     'LineLength', Line3Length ...
 );
-Line4Model = txlineCPW( ...
+Line4CPWModel = txlineCPW( ...
     'ConductorWidth', ConductorWidth, ...
     'EpsilonR', EpsilonR, ...
     'Height', Height, ...
@@ -123,7 +123,7 @@ Line4Model = txlineCPW( ...
     'Thickness', Thickness, ...
     'LineLength', Line4Length ...
 );
-Line5Model = txlineCPW( ...
+Line5CPWModel = txlineCPW( ...
     'ConductorWidth', ConductorWidth, ...
     'EpsilonR', EpsilonR, ...
     'Height', Height, ...
@@ -133,15 +133,15 @@ Line5Model = txlineCPW( ...
 );
 
 % S-parameters of models
-ThruModelSparam = sparameters(ThruModel, freq, MatchR);
-Line1ModelSparam = sparameters(Line1Model, freq, MatchR);
-Line2ModelSparam = sparameters(Line2Model, freq, MatchR);
-Line3ModelSparam = sparameters(Line3Model, freq, MatchR);
-Line4ModelSparam = sparameters(Line4Model, freq, MatchR);
-Line5ModelSparam = sparameters(Line5Model, freq, MatchR);
+ThruModel = sparameters(ThruCPWModel, freq, MatchR);
+Line1Model = sparameters(Line1CPWModel, freq, MatchR);
+Line2Model = sparameters(Line2CPWModel, freq, MatchR);
+Line3Model = sparameters(Line3CPWModel, freq, MatchR);
+Line4Model = sparameters(Line4CPWModel, freq, MatchR);
+Line5Model = sparameters(Line5CPWModel, freq, MatchR);
 
 % imepdance of models (same for all lines)
-[LineImpedance, EpsEff] = getZ0(ThruModel, freq);
+[LineImpedance, EpsEff] = getZ0(ThruCPWModel, freq);
 
 %% Phase error inspection on various pads for best pad material determination
 % ax1 = matlab.graphics.axis.Axes.empty(3,0);
@@ -150,22 +150,22 @@ Line5ModelSparam = sparameters(Line5Model, freq, MatchR);
 %     measurement = sprintf('%s', MEASUREMENT(m));
 %     [~, P1Meas, P2Meas, ThruMeas, SLineMeas] = loadData(measurement);
 % 
-%     [EaMetal, EbMetal] = UOSM(P1Meas, P2Meas, ThruMeas, ...
-%         Port1Model, Port2Model, squeeze(ThruModelSparam.Parameters(2, 1, :)), freq);
+%     [Ea, Eb] = UOSM(P1Meas, P2Meas, ThruMeas, ...
+%         Port1Model, Port2Model, squeeze(ThruModel.Parameters(2, 1, :)), freq);
 % 
-%     ThruCalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, ThruMeas);
-%     Line1CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeas(:, :, :, 1));
-%     Line2CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeas(:, :, :, 2));
-%     Line3CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeas(:, :, :, 3));
-%     Line4CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeas(:, :, :, 4));
-%     Line5CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeas(:, :, :, 5));
+%     ThruCal = calibrate2PortSParDUT(Ea, Eb, ThruMeas);
+%     Line1Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 1));
+%     Line2Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 2));
+%     Line3Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 3));
+%     Line4Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 4));
+%     Line5Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 5));
 % 
-%     ThruTransmPhaseErr = abs(unwrapPhase(angle(squeeze(ThruCalMetal(2, 1, :)./ThruModelSparam.Parameters(2, 1, :)))/pi*180));
-%     Line1TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line1CalMetal(2, 1, :)./Line1ModelSparam.Parameters(2, 1, :)))/pi*180));
-%     Line2TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line2CalMetal(2, 1, :)./Line2ModelSparam.Parameters(2, 1, :)))/pi*180));
-%     Line3TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line3CalMetal(2, 1, :)./Line3ModelSparam.Parameters(2, 1, :)))/pi*180));
-%     Line4TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line4CalMetal(2, 1, :)./Line4ModelSparam.Parameters(2, 1, :)))/pi*180));
-%     Line5TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line5CalMetal(2, 1, :)./Line5ModelSparam.Parameters(2, 1, :)))/pi*180));
+%     ThruTransmPhaseErr = abs(unwrapPhase(angle(squeeze(ThruCal(2, 1, :)./ThruModel.Parameters(2, 1, :)))/pi*180));
+%     Line1TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line1Cal(2, 1, :)./Line1Model.Parameters(2, 1, :)))/pi*180));
+%     Line2TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line2Cal(2, 1, :)./Line2Model.Parameters(2, 1, :)))/pi*180));
+%     Line3TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line3Cal(2, 1, :)./Line3Model.Parameters(2, 1, :)))/pi*180));
+%     Line4TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line4Cal(2, 1, :)./Line4Model.Parameters(2, 1, :)))/pi*180));
+%     Line5TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line5Cal(2, 1, :)./Line5Model.Parameters(2, 1, :)))/pi*180));
 % 
 %     figure(1)
 %     ax1(m) = subplot(str2double(strcat(num2str(13), num2str(m))));
@@ -176,7 +176,7 @@ Line5ModelSparam = sparameters(Line5Model, freq, MatchR);
 %     plot(freq/1e9, Line3TransmPhaseErr, 'Parent', ax1(m))
 %     plot(freq/1e9, Line4TransmPhaseErr, 'Parent', ax1(m))
 %     plot(freq/1e9, Line5TransmPhaseErr, 'Parent', ax1(m))
-%     title(['Measurement on ' measurement])
+%     hold off
 %     grid on
 %     grid minor
 %     xlabel('Frequency (GHz)')
@@ -191,50 +191,47 @@ Line5ModelSparam = sparameters(Line5Model, freq, MatchR);
 %         strcat('Line5, mean: ', num2str(round(mean(Line5TransmPhaseErr), 2)), ', var: ', num2str(round(var(Line5TransmPhaseErr), 2))), ...
 %         'Location', 'northwest' ...
 %     )
-%     hold off
+%     title(['Measurement on ' measurement])
 % 
 %     figure(2)
 %     ax2(m) = subplot(str2double(strcat(num2str(13), num2str(m))));
-%     plot(freq/1e9, 20*log10(abs(squeeze(ThruCalMetal(2, 1, :)))), 'Parent', ax2(m))
+%     plot(freq/1e9, 20*log10(abs(squeeze(ThruCal(2, 1, :)))), 'Parent', ax2(m))
 %     hold on
-%     plot(freq/1e9, 20*log10(abs(squeeze(Line1CalMetal(2, 1, :)))), 'Parent', ax2(m))
-%     plot(freq/1e9, 20*log10(abs(squeeze(Line2CalMetal(2, 1, :)))), 'Parent', ax2(m))
-%     plot(freq/1e9, 20*log10(abs(squeeze(Line3CalMetal(2, 1, :)))), 'Parent', ax2(m))
-%     plot(freq/1e9, 20*log10(abs(squeeze(Line4CalMetal(2, 1, :)))), 'Parent', ax2(m))
-%     plot(freq/1e9, 20*log10(abs(squeeze(Line5CalMetal(2, 1, :)))), 'Parent', ax2(m))
+%     plot(freq/1e9, 20*log10(abs(squeeze(Line1Cal(2, 1, :)))), 'Parent', ax2(m))
+%     plot(freq/1e9, 20*log10(abs(squeeze(Line2Cal(2, 1, :)))), 'Parent', ax2(m))
+%     plot(freq/1e9, 20*log10(abs(squeeze(Line3Cal(2, 1, :)))), 'Parent', ax2(m))
+%     plot(freq/1e9, 20*log10(abs(squeeze(Line4Cal(2, 1, :)))), 'Parent', ax2(m))
+%     plot(freq/1e9, 20*log10(abs(squeeze(Line5Cal(2, 1, :)))), 'Parent', ax2(m))
 %     yline(0)
-%     title(['Measurement on ' measurement])
+%     hold off
 %     grid on
 %     grid minor
 %     xlabel('Frequency (GHz)')
 %     ylabel('|S_{21}| (dB)')
 %     linkaxes(ax2, 'xy')
 %     legend(ax2(m), 'Thru', 'Line1', 'Line2', 'Line3', 'Line4', 'Line5', 'Location', 'southwest')
-%     hold off
+%     title(['Measurement on ' measurement])
 % end
 % figure(1)
-% hold on
 % sgtitle('Transmission phase error of calibrated lines')
-% hold off
 % 
 % figure(2)
-% hold on
 % sgtitle('Transmission module of calibrated lines')
-% hold off
 
-%% Calibration on metal: standards, error boxes (obsolete)
-% m = 1;
+%% Calibration on metal: standards, error boxes
+% m = 1;                          % choose metal for calibration
 % measurement = sprintf('%s', MEASUREMENT(m));
-% [~, P1MeasMetal, P2MeasMetal, ThruMeasMetal, SLineMeasMetal] = loadData(measurement);
+% [~, P1Meas, P2Meas, ThruMeas, SLineMeas] = loadData(measurement);
 % 
-% [EaMetal, EbMetal] = UOSM(P1MeasMetal, P2MeasMetal, ThruMeasMetal, Port1Model, Port2Model, squeeze(ThruModelSparam(2, 1, :)), freq);
+% [Ea, Eb] = UOSM(P1Meas, P2Meas, ThruMeas, ...
+%     Port1Model, Port2Model, squeeze(ThruModel.Parameters(2, 1, :)), freq);
 % 
-% ThruCalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, ThruMeasMetal);
-% Line1CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeasMetal(:, :, :, 1));
-% Line2CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeasMetal(:, :, :, 2));
-% Line3CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeasMetal(:, :, :, 3));
-% Line4CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeasMetal(:, :, :, 4));
-% Line5CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeasMetal(:, :, :, 5));
+% ThruCal = calibrate2PortSParDUT(Ea, Eb, ThruMeas);
+% Line1Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 1));
+% Line2Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 2));
+% Line3Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 3));
+% Line4Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 4));
+% Line5Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 5));
 % 
 % figure(3)
 % smithplot(freq, OpenRefl, 'LineWidth', 2, 'TitleTop', 'Calibration standards models')
@@ -244,48 +241,48 @@ Line5ModelSparam = sparameters(Line5Model, freq, MatchR);
 % legend('Open', 'Short', 'Match')
 % 
 % figure(4)
-% showXPortParameters({freq}, {EaMetal, EbMetal}, 'Title', ['Error boxes ' measurement], ...
+% showXPortParameters({freq}, {Ea, Eb}, 'Title', ['Error boxes ' measurement], ...
 %    'LineWidth', [2 2], 'LegendText', {'Ea (S_{@@})', 'Eb (S_{@@})'})
 % 
 % figure(5)
-% showXPortParameters({freq}, {ThruCalMetal, ThruModelSparam}, 'Title', ['Calibrated Thru ' measurement], ...
+% showXPortParameters({freq}, {ThruCal, ThruModel.Parameters}, 'Title', ['Calibrated Thru ' measurement], ...
 %    'LineWidth', [2 2], 'LegendText', {'Meas (S_{@@})', 'Ideal (S_{@@})'})
 % 
 % figure(6)
-% showXPortParameters({freq}, convert4DSparToCell(Line1CalMetal), 'Title', ['Calibrated Line 1 on ' measurement], 'Polar', true)
+% showXPortParameters({freq}, convert4DSparToCell(Line1Cal), 'Title', ['Calibrated Line 1 on ' measurement], 'Polar', true)
 % 
 % figure(7)
-% showXPortParameters({freq}, convert4DSparToCell(Line2CalMetal), 'Title', ['Calibrated Line 2 on ' measurement], 'Polar', true)
+% showXPortParameters({freq}, convert4DSparToCell(Line2Cal), 'Title', ['Calibrated Line 2 on ' measurement], 'Polar', true)
 % 
 % figure(8)
-% showXPortParameters({freq}, convert4DSparToCell(Line3CalMetal), 'Title', ['Calibrated Line 3 on ' measurement], 'Polar', true)
+% showXPortParameters({freq}, convert4DSparToCell(Line3Cal), 'Title', ['Calibrated Line 3 on ' measurement], 'Polar', true)
 % 
 % figure(9)
-% showXPortParameters({freq}, convert4DSparToCell(Line4CalMetal), 'Title', ['Calibrated Line 4 on ' measurement], 'Polar', true)
+% showXPortParameters({freq}, convert4DSparToCell(Line4Cal), 'Title', ['Calibrated Line 4 on ' measurement], 'Polar', true)
 % 
 % figure(10)
-% showXPortParameters({freq}, convert4DSparToCell(Line5CalMetal), 'Title', ['Calibrated Line 5 on ' measurement], 'Polar', true)
+% showXPortParameters({freq}, convert4DSparToCell(Line5Cal), 'Title', ['Calibrated Line 5 on ' measurement], 'Polar', true)
 
 %% Results from the measurement on absorber for the tuning of match calibration standard
 [~, P1Meas, P2Meas, ThruMeas, SLineMeas] = loadData('absorber');
 
-[EaMetal, EbMetal] = UOSM(P1Meas, P2Meas, ThruMeas, ...
-    Port1Model, Port2Model, squeeze(ThruModelSparam.Parameters(2, 1, :)), freq);
+[Ea, Eb] = UOSM(P1Meas, P2Meas, ThruMeas, ...
+    Port1Model, Port2Model, squeeze(ThruModel.Parameters(2, 1, :)), freq);
 
-ThruCalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, ThruMeas);
-Line1CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeas(:, :, :, 1));
-Line2CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeas(:, :, :, 2));
-Line3CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeas(:, :, :, 3));
-Line4CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeas(:, :, :, 4));
-Line5CalMetal = calibrate2PortSParDUT(EaMetal, EbMetal, SLineMeas(:, :, :, 5));
+ThruCal = calibrate2PortSParDUT(Ea, Eb, ThruMeas);
+Line1Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 1));
+Line2Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 2));
+Line3Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 3));
+Line4Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 4));
+Line5Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 5));
 
-ThruTransmPhaseErr = abs(unwrapPhase(angle(squeeze(ThruCalMetal(2, 1, :)./ThruModelSparam.Parameters(2, 1, :)))/pi*180));
-Line1TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line1CalMetal(2, 1, :)./Line1ModelSparam.Parameters(2, 1, :)))/pi*180));
-Line2TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line2CalMetal(2, 1, :)./Line2ModelSparam.Parameters(2, 1, :)))/pi*180));
-Line3TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line3CalMetal(2, 1, :)./Line3ModelSparam.Parameters(2, 1, :)))/pi*180));
-Line4TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line4CalMetal(2, 1, :)./Line4ModelSparam.Parameters(2, 1, :)))/pi*180));
-Line5TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line5CalMetal(2, 1, :)./Line5ModelSparam.Parameters(2, 1, :)))/pi*180));
-
+% ThruTransmPhaseErr = abs(unwrapPhase(angle(squeeze(ThruCal(2, 1, :)./ThruModel.Parameters(2, 1, :)))/pi*180));
+% Line1TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line1Cal(2, 1, :)./Line1Model.Parameters(2, 1, :)))/pi*180));
+% Line2TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line2Cal(2, 1, :)./Line2Model.Parameters(2, 1, :)))/pi*180));
+% Line3TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line3Cal(2, 1, :)./Line3Model.Parameters(2, 1, :)))/pi*180));
+% Line4TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line4Cal(2, 1, :)./Line4Model.Parameters(2, 1, :)))/pi*180));
+% Line5TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line5Cal(2, 1, :)./Line5Model.Parameters(2, 1, :)))/pi*180));
+% 
 % figure(11)
 % plot(freq/1e9, ThruTransmPhaseErr)
 % hold on
@@ -294,12 +291,12 @@ Line5TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line5CalMetal(2, 1, :)./Line
 % plot(freq/1e9, Line3TransmPhaseErr)
 % plot(freq/1e9, Line4TransmPhaseErr)
 % plot(freq/1e9, Line5TransmPhaseErr)
-% title('Transmission phase error of calibrated lines')
-% axis tight
+% hold off
 % grid on
 % grid minor
 % xlabel('Frequency (GHz)')
 % ylabel('|\Delta(\angle S_{21})| (deg)')
+% axis tight
 % legend( ...
 %     strcat('Thru, mean: ', num2str(round(mean(ThruTransmPhaseErr), 2)), ', var: ', num2str(round(var(ThruTransmPhaseErr), 2))), ...
 %     strcat('Line1, mean: ', num2str(round(mean(Line1TransmPhaseErr), 2)), ', var: ', num2str(round(var(Line1TransmPhaseErr), 2))), ...
@@ -309,55 +306,56 @@ Line5TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line5CalMetal(2, 1, :)./Line
 %     strcat('Line5, mean: ', num2str(round(mean(Line5TransmPhaseErr), 2)), ', var: ', num2str(round(var(Line5TransmPhaseErr), 2))), ...
 %     'Location', 'northwest' ...
 % )
-% hold off
-% 
+% title('Transmission phase error of calibrated lines')
+
 % figure(12)
-% plot(freq/1e9, 20*log10(abs(squeeze(ThruCalMetal(2, 1, :)))))
+% plot(freq/1e9, 20*log10(abs(squeeze(ThruCal(2, 1, :)))))
 % hold on
-% plot(freq/1e9, 20*log10(abs(squeeze(Line1CalMetal(2, 1, :)))))
-% plot(freq/1e9, 20*log10(abs(squeeze(Line2CalMetal(2, 1, :)))))
-% plot(freq/1e9, 20*log10(abs(squeeze(Line3CalMetal(2, 1, :)))))
-% plot(freq/1e9, 20*log10(abs(squeeze(Line4CalMetal(2, 1, :)))))
-% plot(freq/1e9, 20*log10(abs(squeeze(Line5CalMetal(2, 1, :)))))
+% plot(freq/1e9, 20*log10(abs(squeeze(Line1Cal(2, 1, :)))))
+% plot(freq/1e9, 20*log10(abs(squeeze(Line2Cal(2, 1, :)))))
+% plot(freq/1e9, 20*log10(abs(squeeze(Line3Cal(2, 1, :)))))
+% plot(freq/1e9, 20*log10(abs(squeeze(Line4Cal(2, 1, :)))))
+% plot(freq/1e9, 20*log10(abs(squeeze(Line5Cal(2, 1, :)))))
 % yline(0)
-% title('Transmission module of calibrated lines')
-% axis tight
+% hold off
 % grid on
 % grid minor
 % xlabel('Frequency (GHz)')
 % ylabel('|S_{21}| (dB)')
+% axis tight
 % legend('Thru', 'Line1', 'Line2', 'Line3', 'Line4', 'Line5', 'Location', 'southwest')
-% hold off
+% title('Transmission module of calibrated lines')
 
 figure(13)
-plot(freq/1e9, 20*log10(abs(squeeze(ThruCalMetal(1, 1, :)))))
+plot(freq/1e9, 20*log10(abs(squeeze(ThruCal(1, 1, :)))))
 hold on
-plot(freq/1e9, 20*log10(abs(squeeze(Line1CalMetal(1, 1, :)))))
-plot(freq/1e9, 20*log10(abs(squeeze(Line2CalMetal(1, 1, :)))))
-plot(freq/1e9, 20*log10(abs(squeeze(Line3CalMetal(1, 1, :)))))
-plot(freq/1e9, 20*log10(abs(squeeze(Line4CalMetal(1, 1, :)))))
-plot(freq/1e9, 20*log10(abs(squeeze(Line5CalMetal(1, 1, :)))))
+plot(freq/1e9, 20*log10(abs(squeeze(Line1Cal(1, 1, :)))))
+plot(freq/1e9, 20*log10(abs(squeeze(Line2Cal(1, 1, :)))))
+plot(freq/1e9, 20*log10(abs(squeeze(Line3Cal(1, 1, :)))))
+plot(freq/1e9, 20*log10(abs(squeeze(Line4Cal(1, 1, :)))))
+plot(freq/1e9, 20*log10(abs(squeeze(Line5Cal(1, 1, :)))))
 yline(0)
-title('Reflection module of calibrated lines')
-axis tight
+hold off
 grid on
 grid minor
 xlabel('Frequency (GHz)')
 ylabel('|S_{11}| (dB)')
+axis tight
+ylim([-70 0])
 legend('Thru', 'Line1', 'Line2', 'Line3', 'Line4', 'Line5', 'Location', 'southeast')
-hold off
+title(['Reflection module of calibrated lines (MatchL = ' num2str(MatchL*1e12) ' pF)'])
 
 % figure(14)
 % plot(freq/1e9, LineImpedance)
-% title('CPW impedance according to txlineCPW')
 % ylabel('Z (Ohm)')
 % xlabel('Frequency (GHz)')
+% title('CPW impedance according to txlineCPW')
 % 
 % figure(15)
 % plot(freq/1e9, EpsEff)
-% title('Effective permittivity of CPW according to txlineCPW')
 % ylabel('\epsilon_{eff} (-)')
 % xlabel('Frequency (GHz)')
+% title('Effective permittivity of CPW according to txlineCPW')
 
 %% Text outputs
 LineVelocity = sprintf('%.2f, ', LineVelocity*1e-8);
