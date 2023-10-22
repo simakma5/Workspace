@@ -215,29 +215,21 @@ title('Normalized azimuthal field pattern')
 
 %% 2 Patch antenna measurement
 patch4mm = sparameters(fullfile('data', '01 PATCH.S1P'));
-patch10mm = sparameters(fullfile('data', '02 PATCH.S1P'));
 patch16mm = sparameters(fullfile('data', '03 PATCH.S1P'));
-patch22mm = sparameters(fullfile('data', '04 PATCH.S1P'));
 patch28mm = sparameters(fullfile('data', '05 PATCH.S1P'));
 % fMeas = patch4mm.Frequencies;
 % NfpointsMeas = length(fMeas);
 
 L4mm = find(round(L1(:,f==f_r),3)==4e-3);
 L4mm = L4mm(ceil(end/2));
-L10mm = find(round(L1(:,f==f_r),3)==1e-2);
-L10mm = L10mm(ceil(end/2));
 L16mm = find(round(L1(:,f==f_r),3)==16e-3);
 L16mm = L16mm(ceil(end/2));
-L22mm = find(round(L1(:,f==f_r),3)==22e-3);
-L22mm = L22mm(ceil(end/2));
 L26mm = find(round(L1(:,f==f_r),3)==26e-3);
 L26mm = L26mm(ceil(end/2));
 
 figure(11)
 rfplot(patch4mm)
-% rfplot(patch10mm)
 % rfplot(patch16mm)
-% rfplot(patch22mm)
 % rfplot(patch28mm)
 hold on
 plot(f*1e-9, 20*log10(abs((50-Z_in(L4mm,:))./(50+Z_in(L4mm,:)))))
