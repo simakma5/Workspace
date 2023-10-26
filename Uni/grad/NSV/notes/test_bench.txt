@@ -1,3 +1,4 @@
 * Test bench pro projekt s top filem {top} se pojmenovava {top}_tb.
 * Okno simulace (debug): Klikanim na veci ve Scope (jednotlive fily) se mi zobrazi jednotlive promenne v okne hned napravo. Ve waveform okne (uplne napravo) se mi defaultne zobrazuji pouze promenne definovane v test benchi, ale proklikanim a drag&dropem do wf okna si tam muzu dat i dalsi interni promenne v komponentach atd. Useful for debugging!
 * V simulaci lze i krokovat pro debugging.
+* Pro zobrazeni interniho portu/signalu, ktery neni ve waveform window pri simulaci, musim kyzene parametry najit v instanci, pridat do waveform window a relaunchnout simulaci tlacitkem nekde vpravo.

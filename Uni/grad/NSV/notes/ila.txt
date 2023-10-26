@@ -1,0 +1,3 @@
+Integrated Logic Analyzer
+----
+Umoznuje definovat proby (a samplovani na nich), ktere mi budou sledovat nejaky veci v FPGA interne. Pomoci toho mohu testovat funkcionalitu sveho projektu. Je to jako test bench, ale TB umoznuje testovani bez syntezy, generovani bitstreamu atd.

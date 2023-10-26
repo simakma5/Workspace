@@ -10,3 +10,4 @@ VHDL:
 	(b) jako "variable" mezi "process()" a "begin";
   pricemz v techto definicich je velky rozdil:
 	"Variables are used when you want to create serialized code, unlike the normal parallel code. (Serialized means that the commands are executed in their order, one after the other instead of together). A variable can exist only inside a process, and the assignment of values is not parallel."
+* Generics: Moznost parametrizace projektu/VHD souboru. Ve cviceni 5 jsme to pouzili pro parametrizaci maximalniho countu stopek. Da se to pouzit napriklad pro to, aby si clovek pomoci `generic map(... => ...)` assignul jinou hodnotu toho parametru.
