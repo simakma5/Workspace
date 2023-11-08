@@ -16,6 +16,7 @@
 *.toc
 *.snm
 *.nav
+*.asv
 .vscode/
 venv/
 IDE projects/

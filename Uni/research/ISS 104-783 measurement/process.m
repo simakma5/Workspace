@@ -1,8 +1,8 @@
 close all; clear; clc; addpath(genpath(fullfile([pwd '\Uni' '\research' '\ISS 104-783 measurement'])))
 
-%% initialization
+%% Initialization
 c = 299792458;
-MEASUREMENT = ["metal" "ceramics" "absorber"];
+MEASUREMENT = ["metal", "ceramics", "absorber"];
 
 % ISS CPW parameters
 ConductorWidth = 45e-6;         % measured
@@ -64,7 +64,7 @@ LineEpsilon = (c./LineVelocity).^2;
 % arbitrarily chosen measurement only to obtain frequency points
 freq = cat(1, SXPParse(fullfile('metal', 'Open_DC_to_67_GHz.s2p')), SXPParse(fullfile('metal', 'Open_67_to_110_GHz.s2p')));
 
-%% calibration and verification standards models
+%% Calibration and verification standards models
 Z0 = 50;                        % measurement reference impedance
 
 ShortImp = 1j*2*pi*freq*ShortL;
@@ -143,22 +143,22 @@ Line5Model = sparameters(Line5CPWModel, freq, MatchR);
 % imepdance of models (same for all lines)
 [LineImpedance, EpsEff] = getZ0(ThruCPWModel, freq);
 
-%% Phase error inspection on various pads for best pad material determination
+%% Lines on various pads: phase error inspection for best pad material determination
 % ax1 = matlab.graphics.axis.Axes.empty(3,0);
 % ax2 = matlab.graphics.axis.Axes.empty(3,0);
 % for m = 1:3
 %     measurement = sprintf('%s', MEASUREMENT(m));
-%     [~, P1Meas, P2Meas, ThruMeas, SLineMeas] = loadData(measurement);
+%     [~, P1Meas, P2Meas, ThruMeas, LineMeas, ~] = loadData(measurement);
 % 
 %     [Ea, Eb] = UOSM(P1Meas, P2Meas, ThruMeas, ...
 %         Port1Model, Port2Model, squeeze(ThruModel.Parameters(2, 1, :)), freq);
 % 
 %     ThruCal = calibrate2PortSParDUT(Ea, Eb, ThruMeas);
-%     Line1Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 1));
-%     Line2Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 2));
-%     Line3Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 3));
-%     Line4Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 4));
-%     Line5Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 5));
+%     Line1Cal = calibrate2PortSParDUT(Ea, Eb, LineMeas(:, :, :, 1));
+%     Line2Cal = calibrate2PortSParDUT(Ea, Eb, LineMeas(:, :, :, 2));
+%     Line3Cal = calibrate2PortSParDUT(Ea, Eb, LineMeas(:, :, :, 3));
+%     Line4Cal = calibrate2PortSParDUT(Ea, Eb, LineMeas(:, :, :, 4));
+%     Line5Cal = calibrate2PortSParDUT(Ea, Eb, LineMeas(:, :, :, 5));
 % 
 %     ThruTransmPhaseErr = abs(unwrapPhase(angle(squeeze(ThruCal(2, 1, :)./ThruModel.Parameters(2, 1, :)))/pi*180));
 %     Line1TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line1Cal(2, 1, :)./Line1Model.Parameters(2, 1, :)))/pi*180));
@@ -218,20 +218,20 @@ Line5Model = sparameters(Line5CPWModel, freq, MatchR);
 % figure(2)
 % sgtitle('Transmission module of calibrated lines')
 
-%% Calibration on metal: standards, error boxes
+%% Lines on metal: standards, error boxes
 % m = 1;                          % choose metal for calibration
 % measurement = sprintf('%s', MEASUREMENT(m));
-% [~, P1Meas, P2Meas, ThruMeas, SLineMeas] = loadData(measurement);
+% [~, P1Meas, P2Meas, ThruMeas, LineMeas, ~] = loadData(measurement);
 % 
 % [Ea, Eb] = UOSM(P1Meas, P2Meas, ThruMeas, ...
 %     Port1Model, Port2Model, squeeze(ThruModel.Parameters(2, 1, :)), freq);
 % 
 % ThruCal = calibrate2PortSParDUT(Ea, Eb, ThruMeas);
-% Line1Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 1));
-% Line2Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 2));
-% Line3Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 3));
-% Line4Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 4));
-% Line5Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 5));
+% Line1Cal = calibrate2PortSParDUT(Ea, Eb, LineMeas(:, :, :, 1));
+% Line2Cal = calibrate2PortSParDUT(Ea, Eb, LineMeas(:, :, :, 2));
+% Line3Cal = calibrate2PortSParDUT(Ea, Eb, LineMeas(:, :, :, 3));
+% Line4Cal = calibrate2PortSParDUT(Ea, Eb, LineMeas(:, :, :, 4));
+% Line5Cal = calibrate2PortSParDUT(Ea, Eb, LineMeas(:, :, :, 5));
 % 
 % figure(3)
 % smithplot(freq, OpenRefl, 'LineWidth', 2, 'TitleTop', 'Calibration standards models')
@@ -263,19 +263,19 @@ Line5Model = sparameters(Line5CPWModel, freq, MatchR);
 % figure(10)
 % showXPortParameters({freq}, convert4DSparToCell(Line5Cal), 'Title', ['Calibrated Line 5 on ' measurement], 'Polar', true)
 
-%% Results from the measurement on absorber for the tuning of match calibration standard
-[~, P1Meas, P2Meas, ThruMeas, SLineMeas] = loadData('absorber');
-
-[Ea, Eb] = UOSM(P1Meas, P2Meas, ThruMeas, ...
-    Port1Model, Port2Model, squeeze(ThruModel.Parameters(2, 1, :)), freq);
-
-ThruCal = calibrate2PortSParDUT(Ea, Eb, ThruMeas);
-Line1Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 1));
-Line2Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 2));
-Line3Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 3));
-Line4Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 4));
-Line5Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 5));
-
+%% Lines on absorber: calibration match tuning
+% [~, P1Meas, P2Meas, ThruMeas, LineMeas, ~] = loadData('absorber');
+% 
+% [Ea, Eb] = UOSM(P1Meas, P2Meas, ThruMeas, ...
+%     Port1Model, Port2Model, squeeze(ThruModel.Parameters(2, 1, :)), freq);
+% 
+% ThruCal = calibrate2PortSParDUT(Ea, Eb, ThruMeas);
+% Line1Cal = calibrate2PortSParDUT(Ea, Eb, LineMeas(:, :, :, 1));
+% Line2Cal = calibrate2PortSParDUT(Ea, Eb, LineMeas(:, :, :, 2));
+% Line3Cal = calibrate2PortSParDUT(Ea, Eb, LineMeas(:, :, :, 3));
+% Line4Cal = calibrate2PortSParDUT(Ea, Eb, LineMeas(:, :, :, 4));
+% Line5Cal = calibrate2PortSParDUT(Ea, Eb, LineMeas(:, :, :, 5));
+% 
 % ThruTransmPhaseErr = abs(unwrapPhase(angle(squeeze(ThruCal(2, 1, :)./ThruModel.Parameters(2, 1, :)))/pi*180));
 % Line1TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line1Cal(2, 1, :)./Line1Model.Parameters(2, 1, :)))/pi*180));
 % Line2TransmPhaseErr = abs(unwrapPhase(angle(squeeze(Line2Cal(2, 1, :)./Line2Model.Parameters(2, 1, :)))/pi*180));
@@ -307,7 +307,7 @@ Line5Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 5));
 %     'Location', 'northwest' ...
 % )
 % title('Transmission phase error of calibrated lines')
-
+% 
 % figure(12)
 % plot(freq/1e9, 20*log10(abs(squeeze(ThruCal(2, 1, :)))))
 % hold on
@@ -325,26 +325,26 @@ Line5Cal = calibrate2PortSParDUT(Ea, Eb, SLineMeas(:, :, :, 5));
 % axis tight
 % legend('Thru', 'Line1', 'Line2', 'Line3', 'Line4', 'Line5', 'Location', 'southwest')
 % title('Transmission module of calibrated lines')
-
-figure(13)
-plot(freq/1e9, 20*log10(abs(squeeze(ThruCal(1, 1, :)))))
-hold on
-plot(freq/1e9, 20*log10(abs(squeeze(Line1Cal(1, 1, :)))))
-plot(freq/1e9, 20*log10(abs(squeeze(Line2Cal(1, 1, :)))))
-plot(freq/1e9, 20*log10(abs(squeeze(Line3Cal(1, 1, :)))))
-plot(freq/1e9, 20*log10(abs(squeeze(Line4Cal(1, 1, :)))))
-plot(freq/1e9, 20*log10(abs(squeeze(Line5Cal(1, 1, :)))))
-yline(0)
-hold off
-grid on
-grid minor
-xlabel('Frequency (GHz)')
-ylabel('|S_{11}| (dB)')
-axis tight
-ylim([-70 0])
-legend('Thru', 'Line1', 'Line2', 'Line3', 'Line4', 'Line5', 'Location', 'southeast')
-title(['Reflection module of calibrated lines (MatchL = ' num2str(MatchL*1e12) ' pF)'])
-
+% 
+% figure(13)
+% plot(freq/1e9, 20*log10(abs(squeeze(ThruCal(1, 1, :)))))
+% hold on
+% plot(freq/1e9, 20*log10(abs(squeeze(Line1Cal(1, 1, :)))))
+% plot(freq/1e9, 20*log10(abs(squeeze(Line2Cal(1, 1, :)))))
+% plot(freq/1e9, 20*log10(abs(squeeze(Line3Cal(1, 1, :)))))
+% plot(freq/1e9, 20*log10(abs(squeeze(Line4Cal(1, 1, :)))))
+% plot(freq/1e9, 20*log10(abs(squeeze(Line5Cal(1, 1, :)))))
+% yline(0)
+% hold off
+% grid on
+% grid minor
+% xlabel('Frequency (GHz)')
+% ylabel('|S_{11}| (dB)')
+% axis tight
+% ylim([-70 0])
+% legend('Thru', 'Line1', 'Line2', 'Line3', 'Line4', 'Line5', 'Location', 'southeast')
+% title(['Reflection module of calibrated lines (MatchL = ' num2str(MatchL*1e12) ' pF)'])
+% 
 % figure(14)
 % plot(freq/1e9, LineImpedance)
 % ylabel('Z (Ohm)')
@@ -356,6 +356,51 @@ title(['Reflection module of calibrated lines (MatchL = ' num2str(MatchL*1e12) '
 % ylabel('\epsilon_{eff} (-)')
 % xlabel('Frequency (GHz)')
 % title('Effective permittivity of CPW according to txlineCPW')
+
+%% Open on absorber: crosstalk in transmission module verification
+% UOSM uses only Open S11 for calibration => transmission measurement can
+% help determine crosstalk to be accounted for in other measurement cosiderations
+[~, P1Meas, P2Meas, ThruMeas, ~, OpenMeas] = loadData('absorber');
+
+[Ea, Eb] = UOSM(P1Meas, P2Meas, ThruMeas, ...
+    Port1Model, Port2Model, squeeze(ThruModel.Parameters(2, 1, :)), freq);
+
+OpenCal = calibrate2PortSParDUT(Ea, Eb, OpenMeas);
+ThruTransmPhaseErr = abs(unwrapPhase(angle(squeeze(OpenCal(2, 1, :)))/pi*180));
+
+% figure(16)
+% plot(freq/1e9, ThruTransmPhaseErr)
+% grid on
+% grid minor
+% xlabel('Frequency (GHz)')
+% ylabel('|\Delta(\angle S_{21})| (deg)')
+% axis tight
+% title('Transmission phase of calibrated open (crosstalk phase)')
+
+figure(17)
+plot(freq/1e9, 20*log10(abs(squeeze(OpenCal(2, 1, :)))))
+hold on
+yline(0)
+hold off
+grid on
+grid minor
+xlabel('Frequency (GHz)')
+ylabel('|S_{21}| (dB)')
+axis tight
+title('Transmission module of calibrated open (crosstalk module)')
+
+figure(18)
+plot(freq/1e9, 20*log10(abs(squeeze(OpenCal(1, 1, :)))))
+hold on
+yline(0)
+hold off
+grid on
+grid minor
+xlabel('Frequency (GHz)')
+ylabel('|S_{11}| (dB)')
+axis tight
+% ylim([-70 0])
+title('Reflection module of calibrated open')
 
 %% Text outputs
 LineVelocity = sprintf('%.2f, ', LineVelocity*1e-8);
