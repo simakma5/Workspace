@@ -1,4 +1,4 @@
-close all; clear; clc; addpath(genpath(fullfile([pwd '\Uni' '\grad' '\NKA' '\sem01'])))
+close all; clear; clc; addpath(genpath(fullfile([pwd '\Uni' '\grad' '\NKA' '\project01'])))
 
 %% 1 Patch antenna TLM (Transmission Line Model) design
 % universal constants
@@ -29,7 +29,7 @@ deltaL = 0.412*h.*(((epsR_eff+0.3).*(W/h+0.264))./((epsR_eff-0.258).*(W/h+0.813)
 L_eff = c./(2*f.*sqrt(epsR_eff));
 L = L_eff-2*deltaL;
 fprintf('1.1\n----\n')
-fprintf('f_r = %.2 GHz\n', f_r*1e-9)
+fprintf('f_r = %.2f GHz\n', f_r*1e-9)
 fprintf('W(f=f_r) = %.2f mm\n', W(f==f_r)*1e3)
 fprintf('L(f=f_r) = %.2f mm\n', L(f==f_r)*1e3)
 
@@ -205,12 +205,26 @@ theta = linspace(-pi/2, pi/2, 180);
 F_E = sin(k0*h/2.*cos(theta))./(k0*h/2.*cos(theta)).*cos(k0*L_eff(f==f_r)/2.*sin(theta));
 F_H = cos(theta).*sin(k0*h/2.*cos(theta))./(k0*h/2.*cos(theta)).*sin(k0*W(f==f_r)/2.*sin(theta))./(k0*W(f==f_r)/2.*sin(theta));
 
-figure(8)
-polarplot(theta, F_E)
+figure(81)
+polaraxes( ...
+    'RLim', [-40 0], ...
+    'ThetaLim', [-90 90], ...
+    'thetadir', 'clockwise', ...
+    'thetazerolocation', 'top');
+hold on
+polarplot(theta, 10*log10(F_E)/max(F_E))
+hold off
 title('Normalized elevation field pattern')
 
-figure(9)
-polarplot(theta, F_H)
+figure(91)
+polaraxes( ...
+    'RLim', [-40 0], ...
+    'ThetaLim', [-90 90], ...
+    'thetadir', 'clockwise', ...
+    'thetazerolocation', 'top');
+hold on
+polarplot(theta, 10*log10(F_H)/max(F_H))
+hold off
 title('Normalized azimuthal field pattern')
 
 %% 2 Patch antenna measurement
