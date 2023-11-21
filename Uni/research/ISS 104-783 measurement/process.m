@@ -1,4 +1,6 @@
 close all; clear; clc; addpath(genpath(fullfile([pwd '\Uni' '\research' '\ISS 104-783 measurement'])))
+s = settings;
+s.matlab.appearance.figure.GraphicsTheme.TemporaryValue = "light";
 
 %% Initialization
 c = 299792458;
