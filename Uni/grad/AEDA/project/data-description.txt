@@ -1,0 +1,59 @@
+============================================
+AEDA project (assignment K) data description
+============================================
+
+Classificaion
+-------------
+Group			Multiple sclerosis/Health control
+
+ANOVA parameters
+----------------
+Sex
+Age
+DiseaseDuration
+
+Disability severity
+-------------------
+Expanded Disability Status Scale (ranging from 1.0 to 6.5)
+	EDSS		1.0-1.5 ... minimal symptoms, no subjective difficulties
+			6.0-6.5 ... patient's mobility limited to walking with a cane
+Multiple Sclerosis Functional Composite
+	MSFC_PASAT3
+	MSFC_T25FW
+	MSFC_9HPT
+Others
+	BDI
+
+MRI scan
+--------
+Whole brain
+	WholeBrainTissue
+	WhiteMatter
+	GreyMatter
+Cerebellum
+	CerebellarWhiteMatter
+	CerebellarGreyMatter
+
+Speech parameters
+-----------------
+Syllable repetition
+	DDKR		Articulation
+	DDKI		Articulation
+Sustained phonation
+	stdF0		Phonation
+	jitter		Phonation
+	HNR		Phonation
+Connected speech
+	DUS		Articulation
+	RFA		Articulation
+	IntSD		Prosody
+	F0SD		Prosody
+
+Unknown	parameters
+------------------
+SDMT
+AR			Probably NSR (Speech parameter -> Connected speech (Prosody))
+
+
+
+
