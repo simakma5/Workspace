@@ -1,0 +1,31 @@
+Spiral length
+----
+Let $f$ be a function whose derivative is continuous on an interval $\alpha \leq \theta \leq \beta$. The arc length of the graph of $r=f(\theta)$ from $\theta=\alpha$ to $\theta=\beta$ is
+\begin{align}
+	l &= \int_\alpha^\beta \sqrt{|f(\theta)|^2 + |f'(theta)|^2} \d\theta\\
+	  &= \int_\alpha^\beta \sqrt{r^2 + \(\dfrac{\d r}{\d\theta}\)^2} \d\theta.
+\end{align}
+
+Therefore since
+* radiusChange = 1.46 mm per turn,
+* TxSpiral: $r(\theta) = 10+\frac{radiusChange}{2\pi} \theta, \quad 0 \leq theta \leq 10\cdot2pi$,
+* RxSpiral: $r(\theta) = 10+\frac{radiusChange}{2\pi} \theta, \quad 0 \leq theta \leq 5 \cdot2pi$,
+we obtain
+* l_TxSpiral = \int_0^{10*2\pi} \sqrt{(10+\frac{1.46}{2\pi} \theta)^2+(\frac{1.46}{2\pi})^2} d\theta mm,
+* l_RxSpiral = \int_0^{5*2\pi} \sqrt{(10+\frac{1.46}{2\pi} \theta)^2+(\frac{1.46}{2\pi})^2} d\theta mm,
+which can be evaluated e.g. by Wolfram Alpha.
+
+DC resistance R = rho*l/A
+----
+* rho = 1/sigma = 1.72413793e-8 Ohm*m
+* A = 1 mm^2
+** l_TxSpiral = 1087.1 mm
+** l_TxTerminal1 = [90.5 + ((3+1.5)+(2+0.5))/2] mm = 94.0 mm
+** l_TxTerminal2 = [83.2 + ((3+1.5)+(2+0.5))/2] mm = 86.7 mm
+* l_Tx = l_TxSpiral + l_TxTerminal1 + l_TxTerminal2 = 1.268 m
+** l_RxSpiral = 428.9 mm
+** l_RxTerminal1 = [90.5 + ((3+1.5)+(2+0.5))/2] mm = 94.0 mm
+** l_RxTerminal2 = [76.0 + ((3+1.5)+(2+0.5))/2] mm = 79.5 mm
+* l_Rx = l_RxSpiral + l_RxTerminal1 + l_RxTerminal2 = 0.602 m
+R_Tx = 21.9 mOhm (Ansys: 21.7 mOhm)
+R_Rx = 10.4 mOhm (Ansys: 10.5 mOhm)

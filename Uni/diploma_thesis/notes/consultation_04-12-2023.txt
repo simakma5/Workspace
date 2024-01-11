@@ -1,0 +1,12 @@
+To-do's:
+- Porovnat vysledky frekvencne zavisle indukcnosti Eddy current solveru s vysledky ziskanymi jinymi metodami:
+	-- Magnetostatic solver,
+	-- Pankracova vypocetni aplikace.
+- Porovnat vysledky frekvencne zavisleho odporu Eddy current solveru s vysledky ziskanymi jinymi metodami:
+	-- Magnetostatic solver (nenasel jsem),
+	-- Vypocet R = rho*l/A
+- Sledovat take vysledky vzajemnych indukcnosti a odporu.
+
+Detaily:
+- Az budu delat vypocty a ruzne simulace, muzu pro zjednoduseni pouzit treba jenom jednu civku, popr. u te jedne civky treba jeden zavit.
+- Kdyz mi vysledky nebudou moc konvergovat a nebudu si moct najit chybu ve vypoctech, zkusit se podivat na nastaveni vypoctu v Maxwellu, zejmena Mesh settings, Mesh feedback nebo velikost Bounding box, aby prilis neinteragovala.
