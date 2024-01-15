@@ -235,6 +235,9 @@ Z_in_meas = [
     impedanceTLM(epsR_meas, h_meas, W_meas, L_meas, L1_meas(3), S11_meas(3))
 ];
 
+% continue from editing the following line and on
+z_meas = ((1 + s11(:, 2:4))./(1 - s11(:, 2:4)))*z0;
+
 % figure(11)
 % rfplot(S11_4mm)
 % hold on
