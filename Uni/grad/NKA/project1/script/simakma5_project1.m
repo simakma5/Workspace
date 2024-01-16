@@ -1,17 +1,17 @@
-close all; clear; clc; addpath(genpath(fullfile([pwd '\Uni' '\grad' '\NKA' '\project1'])))
-% s = settings;
-% s.matlab.appearance.figure.GraphicsTheme.TemporaryValue = "light";
+close all; clear; clc; addpath(genpath(fullfile([pwd, '\Uni', '\grad', '\NKA', '\project1', '\script'])))
+s = settings;
+s.matlab.appearance.figure.GraphicsTheme.TemporaryValue = "light";
 % universal constants
 c = 299792458;
 mu0 = 4*pi*1e-7;
-% resonant frequency
-f_r = 1.8e9;
-lambda0 = c/f_r;
-k0 = 2*pi/lambda0;
 % reference impedance
 Z0 = 50;
 
 %% 1 Patch antenna TLM (Transmission Line Model) design
+% resonant frequency
+f_r = 1.8e9;
+lambda0 = c/f_r;
+k0 = 2*pi/lambda0;
 % copper cladding
 t = 35e-6;
 sigma = 5.6e7;
@@ -23,7 +23,7 @@ tand = 0.0022;
 fSpan = 1e9;                                    % frequency plots span
 Nfpoints = 5e3+1;                               % number of freq. points
 f = linspace(f_r-fSpan/2, f_r+fSpan/2, Nfpoints);
-NLpoints = 1e3;                                 % number of length points
+NLpoints = 5e3;                                 % number of length points
 
 %% 1.1 Antenna dimensions
 W = c/(2*f_r)*sqrt(2/(epsR+1));
@@ -39,7 +39,7 @@ fprintf('L(f=f_r) = %.2f mm\n', L*1e3)
 %% 1.2 Input impedance and reflection coefficient frequency dependence
 % input impedance and reflection coefficient frequency plot for feed offset of 0 mm
 Z_in = impedanceTLM(epsR, h, W, L, 0, f);
-figure('Name', 'Edge-fed antenna (zero feed offset) input impedance and reflection coefficient')
+figure('Name', 'Edge-fed antenna (zero feed offset) input impedance and reflection coefficient', 'Units', 'normalized', 'Position', [0, 0, 1, 1])
 tiledlayout(1,2)
 nexttile;
     plot(f*1e-9, real(Z_in))
@@ -62,9 +62,11 @@ nexttile;
     grid on
     grid minor
     xlim([f(1)*1e-9, f(end)*1e-9])
-    ylim([-40, 0])
+    ylim([-30, 0])
     xlabel('Frequency [GHz]')
     ylabel('|\Gamma| [dB]')
+set(findall(gcf, '-property', 'FontSize'), 'FontSize', 26)
+saveas(gcf, fullfile([pwd, '\Uni', '\grad', '\NKA', '\project1', '\report', '\src', '\edge-fed-antenna']), 'epsc')
 
 %% 1.3 Feed-offset antenna matching
 % input impedance for L1 == 0 mm && f == f_r
@@ -74,11 +76,11 @@ fprintf('Z_in(L1=0,f=f_r) = %.2f%+.2fi Ohm\n', real(Z_in(f==f_r)), imag(Z_in(f==
 % input impedance and reflection coefficient feed-offset plot for f == f_r
 L1 = linspace(0, L, NLpoints);
 Z_in = impedanceTLM(epsR, h, W, L, L1, f_r);
-figure('Name', 'Input impedance at resonance of an offset-fed antenna')
+figure('Name', 'Input impedance at resonance of an offset-fed antenna', 'Units', 'normalized', 'Position', [0, 0, 1, 1])
 plot(L1/L, real(Z_in))
 hold on
 plot(L1/L, imag(Z_in))
-line = yline(Z0, '--', 'Z0');
+line = yline(Z0, '--', '50');
 line.LabelVerticalAlignment = 'bottom';
 hold off
 grid on
@@ -86,16 +88,19 @@ grid minor
 xlabel('L_1/L [-]')
 ylabel('Z_{in} [\Omega]')
 legend('R_{in}', 'X_{in}', 'Location', 'southeast')
+set(findall(gcf, '-property', 'FontSize'), 'FontSize', 26)
+saveas(gcf, fullfile([pwd, '\Uni', '\grad', '\NKA', '\project1', '\report', '\src', '\feed-offset-impedance-plot']), 'epsc')
 
 % find L for which R_in is approx. 50 Ohm at f == f_r
-[R_match, L1_match] = min(abs(real(Z_in)-Z0));
+[R_match, L1_matchIdx] = min(abs(real(Z_in)-Z0));
 R_match = R_match + Z0;
-disp(['L_match = ' num2str(round(L1(L1_match)*1e3, 2)) ' mm'])
-% disp(['R_match = ' num2str(round(R_match, 2)) ' Ohm'])
+disp(['L_match = ' num2str(round(L1(L1_matchIdx)*1e3, 2)) ' mm'])
+disp(['R_match = ' num2str(round(R_match, 2)) ' Ohm'])
 
 % input impedance and reflection coefficient frequency plot for feed offset of 0 mm
-Z_in = impedanceTLM(epsR, h, W, L, L1(L1_match), f);
-figure('Name', 'Matched antenna input impedance and reflection coefficient')
+Z_in = impedanceTLM(epsR, h, W, L, L1(L1_matchIdx), f);
+fprintf('Z_in(L1=L_match,f=f_r) = %.2f%+.2fi Ohm\n', real(Z_in(f==f_r)), imag(Z_in(f==f_r)))
+figure('Name', 'Matched antenna input impedance and reflection coefficient', 'Units', 'normalized', 'Position', [0, 0, 1, 1])
 tiledlayout(1,2)
 nexttile;
     plot(f*1e-9, real(Z_in))
@@ -117,9 +122,11 @@ nexttile;
     grid on
     grid minor
     xlim([f(1)*1e-9, f(end)*1e-9])
-    ylim([-40, 0])
+    ylim([-30, 0])
     xlabel('Frequency [GHz]')
     ylabel('|\Gamma| [dB]')
+set(findall(gcf, '-property', 'FontSize'), 'FontSize', 26)
+saveas(gcf, fullfile([pwd, '\Uni', '\grad', '\NKA', '\project1', '\report', '\src', '\matched-antenna']), 'epsc')
 
 %% 1.4 Antenna bandwidth of VSWR < 2
 % Q-factor defined as the ratio of energy accumulated in cavity over
@@ -154,7 +161,7 @@ end
 Q_t = 1./(1/Q_d+1/Q_c+1./Q_r);
 BW_analytic = 1./(Q_t*sqrt(2))*100;
 
-figure('Name', 'Antenna bandwidth of VSWR < 2')
+figure('Name', 'Antenna bandwidth of VSWR < 2', 'Units', 'normalized', 'Position', [0, 0, 1, 1])
 tiledlayout(1,2)
 nexttile;
     plot(hRange*1e3, BW_analytic(epsRRange==epsR,:))
@@ -162,6 +169,7 @@ nexttile;
     line.LabelVerticalAlignment = 'bottom';
     grid on
     grid minor
+    axis tight
     xlabel('h [mm]')
     ylabel('BW(VSWR<2) [%]')
     title(['epsR = ' num2str(epsR)])
@@ -171,16 +179,19 @@ nexttile;
     line.LabelVerticalAlignment = 'bottom';
     grid on
     grid minor
+    axis tight
     xlabel('epsR [-]')
     ylabel('BW(VSWR<2) [%]')
     title(['h = ' num2str(h*1e3) ' mm'])
+set(findall(gcf, '-property', 'FontSize'), 'FontSize', 26)
+saveas(gcf, fullfile([pwd, '\Uni', '\grad', '\NKA', '\project1', '\report', '\src', '\bandwidth-material-dependence']), 'epsc')
 
 %% 1.6 Antenna field patterns
 theta = linspace(-pi/2, pi/2, 180);
 F_E = sin(k0*h/2.*cos(theta))./(k0*h/2.*cos(theta)).*cos(k0*L_eff/2.*sin(theta));
 F_H = cos(theta).*sin(k0*h/2.*cos(theta))./(k0*h/2.*cos(theta)).*sin(k0*W/2.*sin(theta))./(k0*W/2.*sin(theta));
 
-figure('Name', 'Normalized field patterns')
+figure('Name', 'Normalized field patterns', 'Units', 'normalized', 'Position', [0, 0, 1, 1])
 tiles = tiledlayout(1,2);
     pax = polaraxes(tiles);
     pax.RLim = [-40, 0];
@@ -205,6 +216,8 @@ tiles = tiledlayout(1,2);
     polarplot(theta, 10*log10(F_H)/max(F_H))
     hold off
     title('H-plane (elevation)')
+set(findall(gcf, '-property', 'FontSize'), 'FontSize', 26)
+saveas(gcf, fullfile([pwd, '\Uni', '\grad', '\NKA', '\project1', '\report', '\src', '\field-patterns']), 'epsc')
 
 %% 2 Patch antenna measurement
 % measurement parameters
@@ -217,7 +230,6 @@ tand = 0;
 h_meas = 5e-3;
 L_meas = 58e-3;
 W_meas = 61e-3;
-t_meas = 35e-6;
 
 %% Measured vs TLM input impedance and reflection coefficient
 % measurement #1
@@ -230,7 +242,7 @@ Z_TLM = impedanceTLM(epsR_meas, h_meas, W_meas, L_meas, L1_meas, f_meas);
 Gamma_TLM = (Z_TLM-Z0)./(Z_TLM+Z0);
 
 % plot
-figure('Name', 'Measurement 1 input impedance and reflection coefficient')
+figure('Name', 'Measurement 1 input impedance and reflection coefficient', 'Units', 'normalized', 'Position', [0, 0, 1, 1])
 tiledlayout(1,2)
 nexttile;
     plot(f_meas*1e-9, real(Z_meas))
@@ -240,19 +252,23 @@ nexttile;
     plot(f_meas*1e-9, imag(Z_TLM))
     yline([50 0], '--')
     hold off
+    grid on
     grid minor
-    legend('R_{in} (meas.)', 'X_{in} (meas.)', 'R_{in} (TLM)', 'X_{in} (TLM)', 'location', 'best')
     xlabel('Frequency [GHz]')
     ylabel('Z_{in} [\Omega]')
+    legend('R_{in} (meas.)', 'X_{in} (meas.)', 'R_{in} (TLM)', 'X_{in} (TLM)', 'location', 'best')
 nexttile;
     plot(f_meas*1e-9, 20*log10(abs(Gamma_meas)))
     hold on
     plot(f_meas*1e-9, 20*log10(abs(Gamma_TLM)))
     hold off
+    grid on
+    grid minor
     xlabel('Frequency [GHz]')
     ylabel('|\Gamma| [dB]')
-    grid on
     legend('Measurement', 'TLM', 'location', 'best')
+set(findall(gcf, '-property', 'FontSize'), 'FontSize', 26)
+saveas(gcf, fullfile([pwd, '\Uni', '\grad', '\NKA', '\project1', '\report', '\src', '\measurement1']), 'epsc')
 
 % measurement #2 (best match)
 L1_meas = 16e-3;
@@ -264,7 +280,7 @@ Z_TLM = impedanceTLM(epsR_meas, h_meas, W_meas, L_meas, L1_meas, f_meas);
 Gamma_TLM = (Z_TLM-Z0)./(Z_TLM+Z0);
 
 % plot
-figure('Name', 'Measurement 2 input impedance and reflection coefficient')
+figure('Name', 'Measurement 2 input impedance and reflection coefficient', 'Units', 'normalized', 'Position', [0, 0, 1, 1])
 tiledlayout(1,2)
 nexttile;
     plot(f_meas*1e-9, real(Z_meas))
@@ -274,19 +290,23 @@ nexttile;
     plot(f_meas*1e-9, imag(Z_TLM))
     yline([50 0], '--')
     hold off
+    grid on
     grid minor
-    legend('R_{in} (meas.)', 'X_{in} (meas.)', 'R_{in} (TLM)', 'X_{in} (TLM)', 'location', 'best')
     xlabel('Frequency [GHz]')
     ylabel('Z_{in} [\Omega]')
+    legend('R_{in} (meas.)', 'X_{in} (meas.)', 'R_{in} (TLM)', 'X_{in} (TLM)', 'location', 'best')
 nexttile;
     plot(f_meas*1e-9, 20*log10(abs(Gamma_meas)))
     hold on
     plot(f_meas*1e-9, 20*log10(abs(Gamma_TLM)))
     hold off
+    grid on
+    grid minor
     xlabel('Frequency [GHz]')
     ylabel('|\Gamma| [dB]')
-    grid on
     legend('Measurement', 'TLM', 'location', 'best')
+set(findall(gcf, '-property', 'FontSize'), 'FontSize', 26)
+saveas(gcf, fullfile([pwd, '\Uni', '\grad', '\NKA', '\project1', '\report', '\src', '\measurement2']), 'epsc')
 
 % measurement #3
 L1_meas = 28e-3;
@@ -298,7 +318,7 @@ Z_TLM = impedanceTLM(epsR_meas, h_meas, W_meas, L_meas, L1_meas, f_meas);
 Gamma_TLM = (Z_TLM-Z0)./(Z_TLM+Z0);
 
 % plot
-figure('Name', 'Measurement 3 input impedance and reflection coefficient')
+figure('Name', 'Measurement 3 input impedance and reflection coefficient', 'Units', 'normalized', 'Position', [0, 0, 1, 1])
 tiledlayout(1,2)
 nexttile;
     plot(f_meas*1e-9, real(Z_meas))
@@ -308,19 +328,23 @@ nexttile;
     plot(f_meas*1e-9, imag(Z_TLM))
     yline([50 0], '--')
     hold off
+    grid on
     grid minor
-    legend('R_{in} (meas.)', 'X_{in} (meas.)', 'R_{in} (TLM)', 'X_{in} (TLM)', 'location', 'best')
     xlabel('Frequency [GHz]')
     ylabel('Z_{in} [\Omega]')
+    legend('R_{in} (meas.)', 'X_{in} (meas.)', 'R_{in} (TLM)', 'X_{in} (TLM)', 'location', 'best')
 nexttile;
     plot(f_meas*1e-9, 20*log10(abs(Gamma_meas)))
     hold on
     plot(f_meas*1e-9, 20*log10(abs(Gamma_TLM)))
     hold off
+    grid on
+    grid minor
     xlabel('Frequency [GHz]')
     ylabel('|\Gamma| [dB]')
-    grid on
     legend('Measurement', 'TLM', 'location', 'best')
+set(findall(gcf, '-property', 'FontSize'), 'FontSize', 26)
+saveas(gcf, fullfile([pwd, '\Uni', '\grad', '\NKA', '\project1', '\report', '\src', '\measurement3']), 'epsc')
 
 %% 2.2 Measured and TLM resonant frequencies and BW of VSWR < 2
 % find resonant frequency from the measurement data
@@ -383,7 +407,7 @@ function Z_in = impedanceTLM(epsR, h, W, L, feedOffset, f)
 
     % radiating slot admittance Y_s = G + iB
     G = W./(120*lambda0).*(1-(k0*h).^2/24);             % for h/lambda0 < 1/10
-    B = W./(120*lambda0).*(1-0.636*log(k0*h));          % for 0.35 < W/lambda0 < 2
+    B = W./(120*lambda0).*(1-0.636*log(k0*h));          % for h/lambda0 < 1/10
     Y_s = G + 1i*B;
     Z_s = 1./Y_s;
     
