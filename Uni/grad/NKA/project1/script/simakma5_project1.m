@@ -1,4 +1,6 @@
 close all; clear; clc; addpath(genpath(fullfile([pwd, '\Uni', '\grad', '\NKA', '\project1', '\script'])))
+%% Initialization
+close all; clear; clc; addpath(genpath(fullfile(pwd, 'Uni', 'grad', 'NKA', 'project1', 'script')));
 s = settings;
 s.matlab.appearance.figure.GraphicsTheme.TemporaryValue = "light";
 % universal constants
@@ -46,7 +48,8 @@ nexttile;
     hold on
     plot(f*1e-9, imag(Z_in))
     xline(f_r*1e-9, '-.')
-    yline(0)
+    line = yline(Z0, '--', num2str(Z0));
+    line.LabelVerticalAlignment = 'bottom';
     hold off
     grid on
     grid minor
@@ -80,14 +83,14 @@ figure('Name', 'Input impedance at resonance of an offset-fed antenna', 'Units',
 plot(L1/L, real(Z_in))
 hold on
 plot(L1/L, imag(Z_in))
-line = yline(Z0, '--', '50');
+line = yline(Z0, '--', num2str(Z0));
 line.LabelVerticalAlignment = 'bottom';
 hold off
 grid on
 grid minor
 xlabel('L_1/L [-]')
 ylabel('Z_{in} [\Omega]')
-legend('R_{in}', 'X_{in}', 'Location', 'southeast')
+legend('R_{in}', 'X_{in}', 'location', 'best')
 set(findall(gcf, '-property', 'FontSize'), 'FontSize', 26)
 saveas(gcf, fullfile([pwd, '\Uni', '\grad', '\NKA', '\project1', '\report', '\src', '\feed-offset-impedance-plot']), 'epsc')
 
@@ -107,6 +110,8 @@ nexttile;
     hold on
     plot(f*1e-9, imag(Z_in))
     xline(f_r*1e-9, '-.')
+    line = yline(Z0, '--', num2str(Z0));
+    line.LabelVerticalAlignment = 'bottom';
     hold off
     grid on
     grid minor
@@ -165,8 +170,10 @@ figure('Name', 'Antenna bandwidth of VSWR < 2', 'Units', 'normalized', 'Position
 tiledlayout(1,2)
 nexttile;
     plot(hRange*1e3, BW_analytic(epsRRange==epsR,:))
+    hold on
     line = xline(h*1e3, '--', 'h');
     line.LabelVerticalAlignment = 'bottom';
+    hold off
     grid on
     grid minor
     axis tight
@@ -175,8 +182,10 @@ nexttile;
     title(['epsR = ' num2str(epsR)])
 nexttile;
     plot(epsRRange, BW_analytic(:,hRange==h))
+    hold on
     line = xline(epsR, '--', 'epsR');
     line.LabelVerticalAlignment = 'bottom';
+    hold off
     grid on
     grid minor
     axis tight
@@ -250,7 +259,8 @@ nexttile;
     plot(f_meas*1e-9, imag(Z_meas))
     plot(f_meas*1e-9, real(Z_TLM))
     plot(f_meas*1e-9, imag(Z_TLM))
-    yline([50 0], '--')
+    line = yline(Z0, '--', num2str(Z0));
+    line.LabelVerticalAlignment = 'bottom';
     hold off
     grid on
     grid minor
@@ -288,7 +298,8 @@ nexttile;
     plot(f_meas*1e-9, imag(Z_meas))
     plot(f_meas*1e-9, real(Z_TLM))
     plot(f_meas*1e-9, imag(Z_TLM))
-    yline([50 0], '--')
+    line = yline(Z0, '--', num2str(Z0));
+    line.LabelVerticalAlignment = 'bottom';
     hold off
     grid on
     grid minor
@@ -326,7 +337,8 @@ nexttile;
     plot(f_meas*1e-9, imag(Z_meas))
     plot(f_meas*1e-9, real(Z_TLM))
     plot(f_meas*1e-9, imag(Z_TLM))
-    yline([50 0], '--')
+    line = yline(Z0, '--', num2str(Z0));
+    line.LabelVerticalAlignment = 'bottom';
     hold off
     grid on
     grid minor
