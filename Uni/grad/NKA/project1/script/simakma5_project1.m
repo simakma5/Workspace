@@ -153,8 +153,6 @@ BW_numeric = abs(f_r-f(fIdx))/(f_r+f(fIdx))*100;
 fprintf('Numerically:  BW(VSWR<2) = %.2f %%\n', BW_numeric)
 
 %% 1.5 Analytical BW of VSWR < 2 for different substrates
-% evaluate BW(VSWR<2) according to the analytical formula for commonly
-% manufactured ranges of values of h and epsR
 hRange = 0.5e-3:0.1e-3:5e-3;
 epsRRange = 1:0.1:10;
 Q_d = 1/tand;
