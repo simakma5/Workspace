@@ -1,34 +1,66 @@
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
 
-%% Matematika
-\RequirePackage{amsmath}            	% rozšíření pro sazbu matematiky
-\RequirePackage{amssymb}            	% rozšíření zásoby symbolů v matematice
-\RequirePackage{amsfonts}           	% matematické fonty
-\RequirePackage{amsthm}             	% sazba vět, definic apod.
-\RequirePackage{bbding}             	% balíček s nejrůznějšími symboly
-\RequirePackage{bm}                 	% tučné symboly (příkaz \bm)
-\RequirePackage{mathtools}          	% doplňkový package pro matematiku
-\RequirePackage{textcomp,gensymb}		% obsahuje generické symboly pro text i mathmode (příkazy \celsius, \ohm, ...)
+%====================================
+%========== Package import ==========
+%====================================
 
-\RequirePackage{fancyvrb}           	% vylepšené prostředí pro strojové písmo
-\RequirePackage{indentfirst}        	% zavede odsazení 1. odstavce kapitoly
-\RequirePackage{yfonts}					% Staroněmecký fancy fonty
+%===== General typesetting =====
+\RequirePackage{datetime}                   % Custom date formats
+\RequirePackage{bm}                 	    % Bold-face command \bm
+\RequirePackage{dashrule}                   % Dashed lines
+\RequirePackage{paralist}           	    % Improved enumerate and itemize formatting
+\RequirePackage{enumitem}           	    % Enumerate customization
+\RequirePackage{indentfirst}        	    % First paragraph of a chapter indentation
+\RequirePackage{epigraph}					% Epigraphs typesetting such as quotations at the start of a chapter
+\RequirePackage{imakeidx}				    % One or more indexes typesetting (must be put prior to hyperref)
+\RequirePackage[square,numbers]{natbib}	    % Numbered references and overall bibliography support
+\RequirePackage[nottoc]{tocbibind}  	    % Addition of bibliography/index/contents to the table of contents
+\RequirePackage[pagebackref]{hyperref}      % Hypertext links and cross-referencing commands
 
-\RequirePackage{dcolumn}            	% lepší zarovnání sloupců v tabulkách
-\RequirePackage{booktabs}           	% lepší vodorovné linky v tabulkách
-\RequirePackage{paralist}           	% lepší enumerate a itemize
-\RequirePackage{enumitem}           	% umožňuje customizaci enumerate
-\RequirePackage{xcolor}             	% barevná sazba
-\RequirePackage{tcolorbox}				% nastavitelný colorbox
+%===== Mathematical typesetting =====
+\RequirePackage{amsmath}            	    % Fundamental package
+\RequirePackage{amsthm}                     % Theorem styling
+\RequirePackage{mathtools}          	    % Auxilliary mathematical package
+\RequirePackage{chngcntr}                   % Ability to control the equation counter
 
-\RequirePackage{graphicx}           	% vkládání obrázků
+%===== Fonts =====
+\RequirePackage{amsfonts}           	    % Mathematical fonts
+\RequirePackage{fancyvrb}           	    % Improved typewritter fonts
+\RequirePackage{yfonts}					    % Old-german fonts
+\RequirePackage{lettrine}                   % Outline dropped capitals described in the French typographic books
 
-\RequirePackage[square,numbers]{natbib}	% zajištuje možnost odkazovat na literaturu
-\RequirePackage[nottoc]{tocbibind}  	% zajistí přidání seznamu literatury,
+%===== Symbols =====
+\RequirePackage{amssymb}            	    % Mathematical symbols
+\RequirePackage{bbding}             	    % More symbols
+\RequirePackage{textcomp,gensymb}		    % Generic symbols for text and mathmode (\celsius, \ohm, etc.)
+\RequirePackage{wasysym}                    % Support for the Waldi symbol font with glyphs
+
+%===== Colours =====
+\RequirePackage{xcolor}     	            % Advanced colour control
+\RequirePackage{tcolorbox}				    % Coloured boxes
+
+%===== Tables =====
+\RequirePackage{booktabs}           	    % Higher table quality
+\RequirePackage{dcolumn}            	    % Alignment of numerical column by decimal point
+\RequirePackage{multirow}                   % Multi-row cells
+
+%===== SI units typesetting =====
+\RequirePackage{siunitx}		            % SI typesetting standard package
+
+%===== Graphical interface =====
+\RequirePackage{graphicx}           	    % Picture import
+\RequirePackage{pdfpages}	                % PDF import
+\RequirePackage{pgfplots}                   % High-quality function plotting
+\RequirePackage{tikz}                       % Vector drawing
+\RequirePackage{circuitikz}                 % Vector circuit drawing
+\RequirePackage[all]{xy}                    % Drawing using the xypic package
 
 
-\RequirePackage{wasysym}            	% balíček s nejrůznějšími symboly
-\RequirePackage{hyperref}           	% umožňuje hypertextové reference 
+%======================================
+%========== Package settings ==========
+%======================================
+
+%===== Hyperlinks (hyperref) =====
 \hypersetup{
 	colorlinks,
 	citecolor=blue,
@@ -37,15 +69,63 @@
 	urlcolor=blue
 }
 
-%% ==================================================================
-%% ======================== NASTAVENÍ DÉLEK =========================
-%% ==================================================================
-\setlength\parskip{1em}
+%===== Equation counter by sections (chngcntr) =====
+\counterwithin{equation}{section}
+
+%===== Theorem styling (amsthm) =====
+\makeatletter
+\def\thmheadbrackets#1#2#3{%
+	\thmname{#1}\thmnumber{\@ifnotempty{#1}{ }\@upn{#2}}%
+	\thmnote{{ \the\thm@notefont[#3]}}}
+\makeatother
+% Theorem style definition
+\newtheoremstyle{my-theorem}	            % Name
+{\topsep}						            % Space abovetommy
+{\topsep}						            % Space below
+{\slshape}						            % Body font
+{}								            % Indent amount
+{\bfseries}						            % Theorem header font
+{.}								            % Punctuation after theorem header
+{1em}							            % Space after theorem header
+{\thmheadbrackets{#1}{#2}{\bfseries#3}}     % Theorem header spec
+% Theorem style application
+\theoremstyle{my-theorem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+% Non-theorem style definition
+\newtheoremstyle{non-theorem}{\topsep}{\topsep}{\normalfont}{}{\bfseries}{.}{1em}{\thmheadbrackets{#1}{#2}{#3}}
+% Non-theorem style application
+\theoremstyle{non-theorem}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{note}[theorem]{Note}
+% Proofs
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\renewenvironment{proof}[1][\proofname]{{\scshape #1. }}{\qed}
+
+%===== Plotting (pgfplots) =====
+\pgfplotsset{compat=1.17}
+
+%===== Vector graphics (tikz) =====
+\usetikzlibrary{patterns}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
 
 
-%% ==================================================================
-%% ====================== NASTAVENÍ HLAVIČEK ========================
-%% ==================================================================
+%=======================================
+%========== Document settings ==========
+%=======================================
+
+%===== Indentation settings =====
+\setlength\parskip{0.5em}
+
+%===== Header settings =====
 \makeatletter
 \def\@makechapterhead#1{
 	{\parindent \z@ \raggedright \normalfont
@@ -61,50 +141,38 @@
 }}
 \makeatother
 
-
-\RequirePackage{epigraph}					% Citáty na začátku kapitoly
 \setlength{\epigraphwidth}{0.8\textwidth}	% Nastavení širší pole citátů
 \renewcommand{\textflush}{flushright}
 \renewcommand{\sourceflush}{flushright}
-\let\originalepigraph\epigraph 
+\let\originalepigraph\epigraph
 \renewcommand\epigraph[2]{\originalepigraph{\textit{#1}}{\textsc{#2}}}
 
-\RequirePackage{lettrine}
 
+%==================================================
+%========== Macros for effective writing ==========
+%==================================================
 
-%% ==================================================================
-%% ====================== VEKTOROVÉ KRESLENÍ ========================
-%% ==================================================================
-\RequirePackage{tikz}
-\usetikzlibrary{patterns}
-\usetikzlibrary{shapes.geometric}
-\usetikzlibrary{arrows.meta}
-\usetikzlibrary{calc}
-\RequirePackage{pgfplots}
-\newcommand{\legenda}[1]{\addlegendentry{#1}}
+%===== Blank page =====
+\newcommand\blankpage{%
+	\clearpage
+	\vspace*{\fill}
+	\begin{center}
+		\begin{minipage}{.6\textwidth}
+			\center
+			\textsc{[This page intentionally left blank.]}
+		\end{minipage}
+	\end{center}
+	\vfill % equivalent to \vspace{\fill}
+	\clearpage
+}
 
-
-%% ==================================================================
-%% ==================== DEFINICE A NOVÉ PŘÍKAZY =====================
-%% ==================================================================
-
-% Efektivnější psaní
+%===== Adaptive-size delimiters =====
 \def\({\left(}
 \def\){\right)}
 \def\[{\left[}
 \def\]{\right]}
-\newcommand{\R}{{\mathbb R}}
-\newcommand{\Z}{{\mathbb Z}}
-\newcommand{\N}{{\mathbb N}}
-\newcommand{\C}{{\mathbb C}}
-\newcommand{\Q}{{\mathbb Q}}
-\newcommand{\F}{{\mathbb F}}
-\DeclareMathOperator*{\Argmax}{arg\,max}
-\DeclareMathOperator*{\Argmin}{arg\,min}
-\newcommand{\argmax}{\operatorname{argmax}}
-\newcommand{\argmin}{\operatorname{argmin}}
 
-% Kombinační číslo
+%===== Binomial coefficient =====
 \newcommand{\comb}[2]{
 	\left( \begin{matrix}
 		#1 \\
@@ -112,106 +180,135 @@
 	\end{matrix} \right)
 }
 
-% Diskrétní matematika
-\renewcommand{\mod}[3]{#1 \equiv #2 \, (\mathrm{mod} \, #3)}
+%===== Column vector =====
+\newcount\colveccount
+\newcommand*\colvec[1]{
+	\global\colveccount#1
+	\begin{pmatrix}
+		\colvecnext
+	}
+	\def\colvecnext#1{
+		#1
+		\global\advance\colveccount-1
+		\ifnum\colveccount>0
+		\\
+		\expandafter\colvecnext
+		\else
+	\end{pmatrix}
+	\fi
+}
 
-% Komplexní kalkulus
-\newcommand{\res}[2]{\mathrm{res}_{#1}\(#2\)}
+%==========================================
+%========== Mathematical symbols ==========
+%==========================================
 
-% Hezké symboly
+%===== General mathematics =====
+\renewcommand{\iff}{\Leftrightarrow}
+\renewcommand{\tilde}{\widetilde}
+\newcommand{\restr}{\!\!\upharpoonright}
+\renewcommand{\vec}{\boldsymbol}
+
+%===== Double-struck letters =====
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\C}{{\mathbb C}}
+\newcommand{\Q}{{\mathbb Q}}
+\newcommand{\F}{{\mathbb F}}
+\newcommand{\E}{{\mathbb E}}
+
+%===== Differentials =====
+\renewcommand{\d}{{\mathrm d}}
+\newcommand{\p}{\partial}
+
+%===== Standard symbols =====
 \renewcommand{\l}{\ell}
 \newcommand{\e}{\mathrm e}
 \renewcommand{\i}{\mathrm i}
-\renewcommand{\iff}{\Leftrightarrow}
 
-% Vektory
-\renewcommand{\vec}{\boldsymbol}
-\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
-
-
-%% ---- Totální a parciální derivace ----
-\renewcommand{\d}{{\mathrm d}}
-\newcommand{\p}{\partial}
-\newcommand{\Cov}{\nabla}
-
-\newcommand{\nder}[3]{ \frac{\d^{#1} #2}{\d #3^{#1}} }
-\newcommand{\dder}[2]{ \nder{2}{#1}{#2} }
-\newcommand{\der} [2]{ \nder{}{#1}{#2}  }
-\newcommand{\vnder}[2]{ \frac{\d^{#1}}{\d #2^{#1}} }
-\newcommand{\vdder}[1]{ \vnder {2}{#1} }
-\newcommand{\vder}[1]{ \vnder {}{#1} }
-
-\newcommand{\npder}[3]{\frac{\p^{#1} #2}{\p #3^{#1}}}
-\newcommand{\pder} [2]{\npder{}{#1}{#2}}
-\newcommand{\pdder}[2]{\npder{2}{#1}{#2}}
-\newcommand{\ppder}[3]{\frac{\p^2 #1}{\p #2 \, \p #3}}
-
-
-% Vektorové diferenciální operátory
-\newcommand{\grad}{\mathrm{grad}\,}
-\renewcommand{\div}{\mathrm{div}\,}
-\newcommand{\rot}{\mathrm{rot}\,}
-
-\newcommand{\Grad}{\nabla}
-\newcommand{\Div}{\nabla\cdot}
-\newcommand{\Rot}{\nabla\times}
-\newcommand{\Lap}{\Delta}
-\newcommand{\Dal}{\square}
-
-%% ---- Kvantová mechanika ---- 
+%===== Quantum mechanics =====
 \newcommand{\h}{\hbar}
 
-% Diracova notace
+
+%============================================
+%========== Mathematical operators ==========
+%============================================
+
+%===== RedeclareOperator definition =====
+\makeatletter
+\newcommand\RedeclareMathOperator{%
+  \@ifstar{\def\rmo@s{m}\rmo@redeclare}{\def\rmo@s{o}\rmo@redeclare}%
+}
+% this is taken from \renew@command
+\newcommand\rmo@redeclare[2]{%
+  \begingroup \escapechar\m@ne\xdef\@gtempa{{\string#1}}\endgroup
+  \expandafter\@ifundefined\@gtempa
+     {\@latex@error{\noexpand#1undefined}\@ehc}%
+     \relax
+  \expandafter\rmo@declmathop\rmo@s{#1}{#2}}
+% This is just \@declmathop without \@ifdefinable
+\newcommand\rmo@declmathop[3]{%
+  \DeclareRobustCommand{#2}{\qopname\newmcodes@#1{#3}}%
+}
+\@onlypreamble\RedeclareMathOperator
+\makeatother
+
+%===== General mathematics =====
+\DeclareMathOperator{\argmax}{argmax}
+\DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\Argmax}{arg\,max}
+\DeclareMathOperator{\Argmin}{arg\,min}
+\DeclareMathOperator{\res}{res}
+
+%===== Derivatives =====
+\newcommand{\nder}[3]{\frac{\d^{#1} #2}{\d #3^{#1}}}
+\newcommand{\der}[2]{\nder{}{#1}{#2}}
+\newcommand{\npder}[3]{\frac{\p^{#1} #2}{\p #3^{#1}}}
+\newcommand{\pder}[2]{\npder{}{#1}{#2}}
+
+%===== Statistics =====
+\newcommand{\mean}[1]{{\left\langle #1\right\rangle}}
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\covar}{Cov}
+\DeclareMathOperator{\cor}{Cor}
+
+%===== Mappings =====
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\Iso}{Iso}
+\DeclareMathOperator{\Lin}{Lin}
+\DeclareMathOperator{\Hom}{Hom}
+
+%===== Linear algebra =====
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\rank}{rank}
+\RedeclareMathOperator{\ker}{ker}
+\DeclareMathOperator{\defect}{def}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+%===== Vector differential operators =====
+\DeclareMathOperator{\grad}{\nabla}
+\RedeclareMathOperator{\div}{\nabla\cdot}
+\DeclareMathOperator{\curl}{\nabla\times}
+\DeclareMathOperator{\Laplace}{\Delta}
+\DeclareMathOperator{\Dalembert}{\square}
+\DeclareMathOperator{\Grad}{grad}
+\DeclareMathOperator{\Div}{div}
+\DeclareMathOperator{\Curl}{curl}
+
+%===== Dirac notation =====
 \newcommand{\ket}[1]{\left|#1\right\rangle}
 \newcommand{\bra}[1]{\left\langle#1\right|}
 \newcommand{\bracket}[2]{\langle#1\,|\,#2\rangle}
 \newcommand{\braopket}[3]{\langle#1|#2|#3\rangle}
 \newcommand{\str}[2]{\langle#1\rangle_{#2}}
 
-%% ---- Speciální funkce ----
-
-% Válcové Hankelovy funkce
+%===== Cylindrical Hankel functions =====
 \newcommand{\Hankel}[2]{{H^{(#1)}_{#2}}}
-\newcommand{\Hankelhat}[2]{ {\hat{H}^{(#1)}_{#2}}  }
-\newcommand{\Hankeltilde}[2]{ {\tilde{H}^{(#1)}_{#2}}  }
+\newcommand{\Hankelhat}[2]{{\hat{H}^{(#1)}_{#2}}}
+\newcommand{\Hankeltilde}[2]{{\tilde{H}^{(#1)}_{#2}}}
 
-% Sférické Hankelovy funkce
+%===== Spherical Hankel functions =====
 \newcommand{\hankel}[2]{{h^{(#1)}_{#2}}}
-\newcommand{\hankelhat}[2]{ {\hat{h}^{(#1)}_{#2}}  }
-\newcommand{\hankeltilde}[2]{ {\tilde{h}^{(#1)}_{#2}}  }
-
-
-% ---- Statistická fyzika ---- 
-\newcommand{\stred}[1]{{\left\langle #1\right\rangle}}
-\newcommand{\Var}{{\text{Var}}}
-\newcommand{\CoVar}{{\text{Cov}}}
-\newcommand{\Cor}{{\text{Cor}}}
-
-
-% ---- Matice ----
-\newcommand{\vektor}[1]{\begin{pmatrix} #1 \end{pmatrix}}
-
-
-%% ==================================================================
-%% ============================= KOKOTINKY ==========================
-%% ==================================================================
-
-
-\newcommand{\defcard}[3]{
-	\vspace{.5cm}\noindent
-	\fcolorbox{black}{black!15!white}{{
-			\vspace{.5cm}\noindent
-			\begin{minipage}{0.08\textwidth}
-				\begin{center}
-					{\Huge #1}
-				\end{center}
-			\end{minipage}
-			\hfil
-			\fcolorbox{black}{white}{
-				\begin{minipage}{0.85\textwidth}
-					\paragraph{#2}
-					#3
-			\end{minipage}}
-	}}
-	\vspace{.5cm}
-}
+\newcommand{\hankelhat}[2]{{\hat{h}^{(#1)}_{#2}}}
+\newcommand{\hankeltilde}[2]{{\tilde{h}^{(#1)}_{#2}}}

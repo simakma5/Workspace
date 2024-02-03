@@ -20,6 +20,11 @@
 *.xdv
 *.nav
 *.snm
+*.bib
+*.brf
+*.idx
+*.ilg
+*.ind
 
 # Packages #
 ############
