@@ -5,55 +5,57 @@
 %====================================
 
 %===== General typesetting =====
-\RequirePackage{datetime}                   % Custom date formats
-\RequirePackage{bm}                 	    % Bold-face command \bm
-\RequirePackage{dashrule}                   % Dashed lines
-\RequirePackage{paralist}           	    % Improved enumerate and itemize formatting
-\RequirePackage{enumitem}           	    % Enumerate customization
-\RequirePackage{indentfirst}        	    % First paragraph of a chapter indentation
-\RequirePackage{epigraph}					% Epigraphs typesetting such as quotations at the start of a chapter
-\RequirePackage{imakeidx}				    % One or more indexes typesetting (must be put prior to hyperref)
-\RequirePackage[square,numbers]{natbib}	    % Numbered references and overall bibliography support
-\RequirePackage[nottoc]{tocbibind}  	    % Addition of bibliography/index/contents to the table of contents
-\RequirePackage[pagebackref]{hyperref}      % Hypertext links and cross-referencing commands
+\RequirePackage{datetime}                           % Custom date formats
+\RequirePackage{bm}                 	            % Bold-face command \bm
+\RequirePackage{dashrule}                           % Dashed lines
+\RequirePackage{paralist}           	            % Improved enumerate and itemize formatting
+\RequirePackage{enumitem}           	            % Enumerate customization
+\RequirePackage{indentfirst}        	            % First paragraph of a chapter indentation
+\RequirePackage{epigraph}					        % Epigraphs typesetting such as quotations at the start of a chapter
+\RequirePackage{imakeidx}				            % One or more indexes typesetting (must be put prior to hyperref)
+\RequirePackage[square,numbers]{natbib}	            % Numbered references and overall bibliography support
+\RequirePackage[nottoc]{tocbibind}  	            % Addition of bibliography/index/contents to the table of contents
+\RequirePackage[pagebackref=false]{hyperref}        % Hypertext links and cross-referencing commands
 
 %===== Mathematical typesetting =====
-\RequirePackage{amsmath}            	    % Fundamental package
-\RequirePackage{amsthm}                     % Theorem styling
-\RequirePackage{mathtools}          	    % Auxilliary mathematical package
-\RequirePackage{chngcntr}                   % Ability to control the equation counter
+\RequirePackage{amsmath}            	            % Fundamental package
+\RequirePackage{amsthm}                             % Theorem styling
+\RequirePackage{mathtools}          	            % Auxilliary mathematical package
+\RequirePackage{chngcntr}                           % Ability to control the equation counter
 
 %===== Fonts =====
-\RequirePackage{amsfonts}           	    % Mathematical fonts
-\RequirePackage{fancyvrb}           	    % Improved typewritter fonts
-\RequirePackage{yfonts}					    % Old-german fonts
-\RequirePackage{lettrine}                   % Outline dropped capitals described in the French typographic books
+\RequirePackage{amsfonts}           	            % Mathematical fonts
+\RequirePackage{fancyvrb}           	            % Improved typewritter fonts
+\RequirePackage{yfonts}					            % Old-german fonts
+\RequirePackage{lettrine}                           % Outline dropped capitals described in the French typographic books
 
 %===== Symbols =====
-\RequirePackage{amssymb}            	    % Mathematical symbols
-\RequirePackage{bbding}             	    % More symbols
-\RequirePackage{textcomp,gensymb}		    % Generic symbols for text and mathmode (\celsius, \ohm, etc.)
-\RequirePackage{wasysym}                    % Support for the Waldi symbol font with glyphs
+\RequirePackage{amssymb}            	            % Mathematical symbols
+\RequirePackage{bbding}             	            % More symbols
+\RequirePackage{textcomp,gensymb}		            % Generic symbols for text and mathmode (\celsius, \ohm, etc.)
+\RequirePackage{wasysym}                            % Support for the Waldi symbol font with glyphs
 
 %===== Colours =====
-\RequirePackage{xcolor}     	            % Advanced colour control
-\RequirePackage{tcolorbox}				    % Coloured boxes
+\RequirePackage{xcolor}     	                    % Advanced colour control
+\RequirePackage{tcolorbox}				            % Coloured boxes
 
 %===== Tables =====
-\RequirePackage{booktabs}           	    % Higher table quality
-\RequirePackage{dcolumn}            	    % Alignment of numerical column by decimal point
-\RequirePackage{multirow}                   % Multi-row cells
+\RequirePackage{booktabs}           	            % Higher table quality
+\RequirePackage{dcolumn}            	            % Alignment of numerical column by decimal point
+\RequirePackage{multirow}                           % Multi-row cells
 
 %===== SI units typesetting =====
-\RequirePackage{siunitx}		            % SI typesetting standard package
+\RequirePackage{siunitx}		                    % SI typesetting standard package
+\sisetup{input-digits = 0123456789\pi\mitpi}
 
 %===== Graphical interface =====
-\RequirePackage{graphicx}           	    % Picture import
-\RequirePackage{pdfpages}	                % PDF import
-\RequirePackage{pgfplots}                   % High-quality function plotting
-\RequirePackage{tikz}                       % Vector drawing
-\RequirePackage{circuitikz}                 % Vector circuit drawing
-\RequirePackage[all]{xy}                    % Drawing using the xypic package
+\RequirePackage{graphicx}           	            % Picture import
+\RequirePackage{subcaption}                         % Subfigures and subcaptions
+\RequirePackage{pdfpages}	                        % PDF import
+\RequirePackage{pgfplots}                           % High-quality function plotting
+\RequirePackage{tikz}                               % Vector drawing
+\RequirePackage{circuitikz}                         % Vector circuit drawing
+\RequirePackage[all]{xy}                            % Drawing using the xypic package
 
 
 %======================================
@@ -79,15 +81,15 @@
 	\thmnote{{ \the\thm@notefont[#3]}}}
 \makeatother
 % Theorem style definition
-\newtheoremstyle{my-theorem}	            % Name
-{\topsep}						            % Space abovetommy
-{\topsep}						            % Space below
-{\slshape}						            % Body font
-{}								            % Indent amount
-{\bfseries}						            % Theorem header font
-{.}								            % Punctuation after theorem header
-{1em}							            % Space after theorem header
-{\thmheadbrackets{#1}{#2}{\bfseries#3}}     % Theorem header spec
+\newtheoremstyle{my-theorem}	                    % Name
+{\topsep}						                    % Space abovetommy
+{\topsep}						                    % Space below
+{\slshape}						                    % Body font
+{}								                    % Indent amount
+{\bfseries}						                    % Theorem header font
+{.}								                    % Punctuation after theorem header
+{1em}							                    % Space after theorem header
+{\thmheadbrackets{#1}{#2}{\bfseries#3}}             % Theorem header spec
 % Theorem style application
 \theoremstyle{my-theorem}
 \newtheorem{theorem}{Theorem}[section]
@@ -141,7 +143,7 @@
 }}
 \makeatother
 
-\setlength{\epigraphwidth}{0.8\textwidth}	% Nastavení širší pole citátů
+\setlength{\epigraphwidth}{0.8\textwidth}	            % Quotation width setting
 \renewcommand{\textflush}{flushright}
 \renewcommand{\sourceflush}{flushright}
 \let\originalepigraph\epigraph
