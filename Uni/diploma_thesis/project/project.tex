@@ -30,6 +30,13 @@
 %========== Abstract ==========
 \newcommand\abstractpage{\input{abstractpage.tex}}
 
+%========== Bibliography ==========
+\bibliographystyle{abbrvnat}
+
+%========== Custom commands ==========
+\newcommand{\Tx}{\mathrm{Tx}}
+\newcommand{\Rx}{\mathrm{Rx}}
+
 %========== Draft settings ==========
 \usepackage{lipsum}
 
@@ -78,90 +85,28 @@
     \label{chap:introduction}
     \addcontentsline{toc}{chapter}{\nameref{chap:introduction}}
     
-    In recent years, the landscape of wireless power transfer (WPT) has undergone a significant transformation, fueled by the growing demand for convenient and efficient energy transfer methods in various industries. Among the plethora of wireless power transfer technologies, inductive wireless power transfer (IWPT) has emerged as a promising solution, particularly in the automotive sector. This project aims to delve into the fundamentals of inductive wireless power transfer, focusing on key aspects such as basic configuration, simulation of resistance and inductance, and a comparative analysis of simulation results against analytical formulas. The investigation also extends to the simulation of coils commonly employed in the automotive industry for mobile phone charging, utilizing exemplar coils provided by the esteemed collaboration with STMicroelectronics.
+    In recent years, the landscape of wireless power transfer (WPT) has undergone a significant transformation, fueled by the growing demand for convenient and efficient energy transfer methods in various industries. Among the plethora of wireless power transfer technologies, inductive wireless power transfer (IWPT) has emerged as a promising solution, particularly in the automotive sector. This project aims to delve into the fundamentals of inductive wireless power transfer, focusing on key aspects such as basic configuration, simulation of resistance and inductance, and a comparative analysis of simulation results against analytical formulae.
 
-    The automotive industry is undergoing a paradigm shift towards electric vehicles (EVs) and the integration of advanced technologies. As vehicles become more electrified, the demand for efficient and seamless methods of charging electronic devices within the vehicle, such as mobile phones, has intensified. Inductive wireless power transfer, characterized by the transmission of energy through magnetic fields, has garnered attention for its potential to provide a convenient and cable-free charging experience. This project addresses the burgeoning need for a deeper understanding of IWPT systems, their design parameters, and their application in the automotive domain.
+    The automotive industry is undergoing a paradigm shift towards electric vehicles (EVs) and the integration of advanced technologies. As vehicles become more electrified, the demand for efficient and seamless methods of charging electronic devices within the vehicle, such as mobile phones, has intensified. Inductive wireless power transfer, characterized by the transmission of energy through magnetic fields, has garnered attention for its potential to provide a convenient and cable-free charging experience. This project addresses the burgeoning need for a deeper understanding of IWPT systems and their design parameters.
 
-    \paragraph*{Synopsis of the thesis.} In \textbf{Chapter~\ref{chap:introduction-to-iwpt}}, we aim to explore the basic configuration of inductive wireless power transfer systems. This chapter also introduces the tools for analysis of IWPT systems, such as equivalent circuit models.
+    \paragraph*{Synopsis.} In \textbf{Chapter~\ref{chap:introduction-to-iwpt}}, we aim to explore the basic configuration of inductive wireless power transfer systems. This chapter also introduces the tools for analysis of IWPT systems, such as equivalent circuit models.
 
-    \textbf{Chapter~\ref{chap:simulation-of-iwpt-systems}} conducts simulations of resistance and inductance using ANSYS Maxwell software, with a particular focus on zero frequency (DC) scenarios. Further on, we compare simulation results with analytical formulas to validate the accuracy and reliability of the simulation model.
+    \textbf{Chapter~\ref{chap:simulation-of-iwpt-systems}} conducts simulations of resistance and inductance using ANSYS Maxwell software, with a particular focus on zero frequency (DC) scenarios. Further on, we compare simulation results with analytical formulae to validate the accuracy and reliability of the simulation model.
 
-    In conclusion, this thesis project represents a comprehensive investigation into the evolving field of inductive wireless power transfer, with a specific emphasis on its application within the automotive industry. The combination of theoretical exploration, simulation studies, and collaboration with industry leaders is poised to contribute valuable insights that will propel the advancement of wireless power transfer technologies in the automotive sector.
-
-    \paragraph*{Methodology.} The research methodology involves a step-by-step exploration of inductive wireless power transfer, starting with a theoretical foundation and progressing to detailed simulations using ANSYS Maxwell software. The comparison of simulation results with analytical formulas will provide a rigorous validation process. Additionally, the project will leverage the expertise and resources of STMicroelectronics for the simulation and analysis of coils relevant to automotive applications.
+    \paragraph*{Methodology.} The research methodology involves a step-by-step exploration of inductive wireless power transfer, starting with a theoretical foundation and progressing to detailed simulations using ANSYS Maxwell software. The comparison of simulation results with analytical formulae will provide a rigorous validation process.
 
 
     %========== Chapter 1: Introduction to inductive wireless power transfer ==========
     \chapter{Introduction to inductive wireless power transfer}
     \label{chap:introduction-to-iwpt}
 
-    Chapter intro text\dots
+    Wireless power transfer (WPT) in general is a mechanism which can be intermediated by the means of various technologies operating at different power levels and feasible distances. These technologies include far-field WPT which can be implemented by adopting an acoustic, optical or electromagnetic wave as the energy carrier. On the other hand, there are various near-field techniques utilizing the inductive coupling effects of non-radiative electromagnetic fields. The emphasis of this document is on the inductive variant due to its higher efficiency and thus industrial applicability.
+
+    This chapter delves into the foundational aspects of IWPT systems. The primary objective is to elucidate the basic configurations employed in IWPT technology. Furthermore, this chapter introduces crucial analytical tools essential for understanding and optimizing IWPT systems, notably equivalent circuit models.
 
     \section{Equivalent circuit analysis}
 
-        Section intro text\dots
-
-        % Parametrize, adjust horizontal and vertical distances, add coupling arrow, scale down
-        \begin{figure}[!ht]
-            \centering
-            \begin{circuitikz}[american]
-                % Source
-                \draw (0,0) to[generic, l_=$X_{\mathrm{M}}$] (3,0)
-                to[short] (4,0)
-                to[generic, l_=$R_{\mathrm{S}}$] (6,0)
-                to[L, l_=$L_{\mathrm{S}}$] (6,-3)
-                to[short, -*] (0,-3);
-                \draw (6.2,-2.3) node {$\bullet$};
-                % Voltage arrow
-                \draw[-Latex] (0,-0.2) -- (0,-2.8) node[midway,right] {$U_{\mathrm{S}}$};
-                % Current arrow
-                \draw[-Latex] (2,-0.7) arc[start angle=120,delta angle=-330,x radius = 2,y radius = 1];
-                \draw (1.5,-1.5) node {$I_{\mathrm{S}}$};
-                % Power lost
-                \draw[-Latex] (5,0.3) -- (6,1.3) node[midway,above left] {$P_{\mathrm{S}}$};
-                % Matching network block
-                \draw (-0.3,-3.3) rectangle +(3.3,4);
-                \node[below] at (-0.3+0.5*3.3,-3.3) {MN};
-                % Coupling element block
-                \draw (3.1,-3.3) rectangle +(3.5,4);
-                \node[below] at (3.1+0.5*3.5,-3.3) {CE};
-                % Source + FC block
-                \draw (-1.5,-3.3) rectangle +(1,4);
-                \node[rotate=90] at (-1.5+0.5*1,-3.3+0.5*4) {Source + FC};
-                \draw (-1.5+1,0) to[short] (0,0);
-                \draw (-1.5+1,-3) to[short] (0,-3);
-                \draw[dashed] (-1.5+1+0.1,-3.3) to (-1.5+1+0.1,1.3);
-                % Power supplied
-                \draw[-Latex] (-1.5+0.5*1,1.1) -- (-1.5+1+0.1,1.1) node[at start,left] {$P_{\mathrm{T}}$};
-                % Side of source block
-                \draw (-1.9,-4) rectangle +(8.7,5.5);
-                \node[below] at (-1.9+0.5*8.7,-4) {Side of source};
-
-                % Appliance
-                \draw (8,0) to[generic, l_=$R_{\mathrm{A}}$] (10,0)
-                to[short] (12,0)
-                to[generic, l_=$Z_{\mathrm{L}}$] (12,-3)
-                to[short] (8,-3)
-                to[L, l_=$L_{\mathrm{A}}$] (8,0);
-                \draw (7.8,-2.3) node {$\bullet$};
-                % Current arrow
-                \draw[-Latex] (9.5,-0.7) arc[start angle=120, delta angle=-330, x radius = 1, y radius = 1];
-                \draw (9.5,-1.5) node {$I_{\mathrm{A}}$};
-                % Power lost
-                \draw[-Latex] (9,0.3) -- (10,1.3) node[midway,above left] {$P_{\mathrm{A}}$};
-                % Coupling element block
-                \draw (7.5,-3.3) rectangle +(2.5,4);
-                \node[below] at (7.5+0.5*2.5,-3.3) {CE};
-                % Complex load block
-                \draw (10.1,-3.3) rectangle +(2.5,4);
-                \node[below] at (10.1+0.5*2.5,-3.3) {CL};
-                % Side of appliance block
-                \draw (7.3,-4) rectangle +(5.5,5.5);
-                \node[below] at (7.3+0.5*5.5,-4) {Side of appliance};
-            \end{circuitikz}
-            \caption{\label{fig:circuit}Circuit}
-        \end{figure}
-
+        In general, a wireless power transmission chain from source to appliance can be rather complex and its in-depth investigations have been published, such as the power balance in~\cite{kracek-mazanek:power-balance-of-inductive-wireless-power-transfer}. The circuit model of the inductive transmission chain is depicted in Figure~\ref{fig:circuit-model-of-a-transmission-chain} along with the matching network on the side of the source and complex load representing the appliance energy sink.
         \begin{figure}[!ht]
             \centering
             \resizebox{\textwidth}{!}{%
@@ -172,13 +117,32 @@
                 \def\CircuitXMargin{.5}
                 \def\CircuitYMargin{.5}
                 \def\SourceFCWidth{1}
-                \def\SourceLoopXRadius{2}
-                \def\SourceLoopYRadius{1}
                 \def\InnerBlockHeight{2*\CircuitYMargin+\ComponentLength}
                 \def\InnerBlockXMargin{.4}
                 \def\InnerBlockYMargin{.7}
                 \def\InnerBlockGap{.2}
-                \def\OuterBlockGap{.5}
+                \def\OuterBlockGap{.7}
+
+                % Source coordinates
+                \coordinate (SourceCircuitBottomLeft) at (\InnerBlockXMargin+\SourceFCWidth+\InnerBlockGap+\CircuitXMargin,\InnerBlockYMargin+\CircuitYMargin) {};
+                \coordinate (SourceCircuitBottomRight) at (\InnerBlockXMargin+\SourceFCWidth+2*\InnerBlockGap+3*\CircuitXMargin+2*\ComponentLength,\InnerBlockYMargin+\CircuitYMargin) {};
+                \coordinate (SourceCircuitCentre) at (\InnerBlockXMargin+\SourceFCWidth+1.5*\InnerBlockGap+2*\CircuitXMargin+\ComponentLength,\InnerBlockYMargin+\CircuitYMargin+.5*\ComponentLength) {};
+                \coordinate (MatchingNetworkBottomLeft) at ($(SourceCircuitBottomLeft)-(\CircuitXMargin,\CircuitYMargin)$) {};
+                \coordinate (MatchingNetworkBottomRight) at ($(SourceCircuitCentre)-(.5*\InnerBlockGap,.5*\ComponentLength+\CircuitYMargin)$) {};
+                \coordinate (SourceCouplingElementBottomLeft) at ($(SourceCircuitCentre)+(.5*\InnerBlockGap,-.5*\ComponentLength-\CircuitYMargin)$) {};
+                \coordinate (SourceCouplingElementBottomRight) at ($(SourceCircuitBottomRight)+(\CircuitXMargin,-\CircuitYMargin)$) {};
+                \coordinate (SourceBlockBottomLeft) at (0,0) {};
+                \coordinate (SourceBlockBottomRight) at ($(SourceCouplingElementBottomRight)+(\InnerBlockXMargin,-\InnerBlockYMargin)$) {};
+                % Appliance coordinates
+                \coordinate (ApplianceCircuitBottomLeft) at ($(SourceCircuitBottomRight)+(2*\CircuitXMargin+2*\InnerBlockXMargin+\OuterBlockGap,0)$) {};
+                \coordinate (ApplianceCircuitBottomRight) at ($(ApplianceCircuitBottomLeft)+(1.5*\ComponentLength+2*\CircuitXMargin+\InnerBlockGap,0)$) {};
+                \coordinate (ApplianceCircuitCentre) at ($.5*(ApplianceCircuitBottomLeft)+.5*(ApplianceCircuitBottomRight)+(0,.5*\ComponentLength)$) {};
+                \coordinate (ApplianceCouplingElementBottomLeft) at ($(ApplianceCircuitBottomLeft)-(\CircuitXMargin,\CircuitYMargin)$) {};
+                \coordinate (ApplianceCouplingElementBottomRight) at ($(ApplianceCircuitCentre)-(.5*\InnerBlockGap,.5*\ComponentLength+\CircuitYMargin)$) {};
+                \coordinate (ComplexLoadBottomLeft) at ($(ApplianceCircuitCentre)+(.5*\InnerBlockGap,-.5*\ComponentLength-\CircuitYMargin)$) {};
+                \coordinate (ComplexLoadBottomRight) at ($(ApplianceCircuitBottomRight)+(\CircuitXMargin,-\CircuitYMargin)$) {};
+                \coordinate (ApplianceBlockBottomLeft) at ($(ApplianceCouplingElementBottomLeft)-(\InnerBlockXMargin,\InnerBlockYMargin)$) {};
+                \coordinate (ApplianceBlockBottomRight) at ($(ComplexLoadBottomRight)+(\InnerBlockXMargin,-\InnerBlockYMargin)$) {};
 
                 % Source + FC block
                 \draw (\InnerBlockXMargin,\InnerBlockYMargin) rectangle ++(\SourceFCWidth,\InnerBlockHeight);
@@ -186,9 +150,6 @@
                 \draw[dashed] (\InnerBlockXMargin+\SourceFCWidth+.5*\InnerBlockGap,0) -- ++(0,2*\InnerBlockYMargin+\InnerBlockHeight);
                 \draw[->] (\InnerBlockXMargin+.5*\SourceFCWidth,1.5*\InnerBlockYMargin+\InnerBlockHeight) -- ++(.5*\SourceFCWidth+.5*\InnerBlockGap,0) node[at start, left] {$P_{\mathrm{T}}$};
                 % Source circuit
-                \node (SourceCircuitBottomLeft) at (\InnerBlockXMargin+\SourceFCWidth+\InnerBlockGap+\CircuitXMargin,\InnerBlockYMargin+\CircuitYMargin) {};
-                \node (SourceCircuitBottomRight) at (\InnerBlockXMargin+\SourceFCWidth+2*\InnerBlockGap+3*\CircuitXMargin+2*\ComponentLength,\InnerBlockYMargin+\CircuitYMargin) {};
-                \node (SourceCircuitCentre) at (\InnerBlockXMargin+\SourceFCWidth+1.5*\InnerBlockGap+2*\CircuitXMargin+\ComponentLength,\InnerBlockYMargin+\CircuitYMargin+.5*\ComponentLength) {};
                 \draw ($(SourceCircuitBottomLeft)-(\InnerBlockGap+\CircuitXMargin,0)$)
                     to[short, -*] ++(\InnerBlockGap+\CircuitXMargin,0)
                     to[short] ++(\ComponentLength+\CircuitXMargin+\InnerBlockGap+\CircuitXMargin+\ComponentLength,0)
@@ -197,152 +158,241 @@
                     to[short] ++(-2*\CircuitXMargin-\InnerBlockGap,0)
                     to[generic, l^=$X_{\mathrm{M}}$] ++(-\ComponentLength,0)
                     to[short, *-] ++(-\CircuitXMargin-\InnerBlockGap,0);
-                \draw (SourceCircuitBottomRight)+(.5*\ComponentHeight,.2*\ComponentLength) node {$\bullet$};
+                \draw (SourceCircuitBottomRight)+(.5*\ComponentHeight,.2*\ComponentLength) node (SourceCouplingDot) {$\bullet$};
                 % Source voltage arrow
                 \draw[<-] (SourceCircuitBottomLeft) -- ++(0,.95*\ComponentLength) node[midway, right] {$U_{\mathrm{S}}$};
                 % Loop current arrow
-                \draw[-Latex] ($(SourceCircuitCentre)+({\SourceLoopXRadius*cos(120)},{\SourceLoopYRadius*sin(120)})$) arc[start angle=120,delta angle=-330,x radius = \SourceLoopXRadius,y radius = \SourceLoopYRadius];
+                \draw[->] ($(SourceCircuitCentre)+({2*cos(120)},{1*sin(120)})$) arc[start angle=120, delta angle=-330, x radius = 2, y radius = 1];
                 \draw ($(SourceCircuitCentre)+(-1.5,0)$) node {$I_{\mathrm{S}}$};
                 % Active power lost
                 \draw[->] ($(SourceCircuitBottomRight)+(-.5*\ComponentLength,\ComponentLength+.5*\ComponentHeight)$) -- ++(-.5*\ComponentHeight+\CircuitYMargin+.5*\InnerBlockYMargin,-.5*\ComponentHeight+\CircuitYMargin+.5*\InnerBlockYMargin) node[at end, right] {$P_{\mathrm{S}}$};
                 % Matching network block
-                \draw ($(SourceCircuitBottomLeft)+(-\CircuitXMargin,-\CircuitYMargin)$) rectangle ++(2*\CircuitXMargin+\ComponentLength,\InnerBlockHeight);
-                \node[below] at ($(SourceCircuitBottomLeft)+(.5*\ComponentLength,-\CircuitYMargin)$) {MN};
+                \draw (MatchingNetworkBottomLeft) rectangle ($(MatchingNetworkBottomRight)+(0,\InnerBlockHeight)$);
+                \node[below] at ($.5*(MatchingNetworkBottomLeft)+.5*($(MatchingNetworkBottomRight)$)$) {Matching network};
                 % Coupling element block
-                \draw ($(SourceCircuitBottomRight)-(\ComponentLength+\CircuitXMargin,\CircuitYMargin)$) rectangle ++(2*\CircuitXMargin+\ComponentLength,\InnerBlockHeight);
-                \node[below] at ($(SourceCircuitBottomRight)-(.5*\ComponentLength,\CircuitYMargin)$) {CE};
+                \draw (SourceCouplingElementBottomLeft) rectangle ($(SourceCouplingElementBottomRight)+(0,\InnerBlockHeight)$);
+                \node[below] at ($.5*(SourceCouplingElementBottomLeft)+.5*(SourceCouplingElementBottomRight)$) {Coupling Element};
                 % Side of source block
-                \draw (0,0) rectangle ++(2*\InnerBlockXMargin+\SourceFCWidth+2*\InnerBlockGap+4*\CircuitXMargin+2*\ComponentLength,2*\InnerBlockYMargin+2*\CircuitYMargin+\ComponentLength);
-                \node[below] at (\InnerBlockXMargin+.5*\SourceFCWidth+\InnerBlockGap+2*\CircuitXMargin+\ComponentLength,0) {Side of source};
+                \draw (SourceBlockBottomLeft) rectangle ($(SourceBlockBottomRight)+(0,2*\InnerBlockYMargin+\InnerBlockHeight)$);
+                \node[below] at ($.5*(SourceBlockBottomLeft)+.5*(SourceBlockBottomRight)$) {Side of source};
 
                 % Appliance circuit
-                \node (ApplianceCircuitBottomLeft) at ($(SourceCircuitBottomRight)+(2*\CircuitXMargin+2*\InnerBlockXMargin+\OuterBlockGap,0)$) {};
-                \node (ApplianceCircuitBottomRight) at ($(ApplianceCircuitBottomLeft)+(2*\ComponentLength+2*\CircuitXMargin+\InnerBlockGap,0)$) {};
-                \node (ApplianceCircuitCentre) at ($.5*(ApplianceCircuitBottomLeft)+.5*(ApplianceCircuitBottomRight)$) {};
                 \draw (ApplianceCircuitBottomLeft)
-                    to[short] ++(2*\ComponentLength+2*\CircuitXMargin+\InnerBlockGap,0)
-                    to[generic, l_=$Z_{\mathrm{L}}$] ++(0,\ComponentLength)
-                    to[short] ++(-\ComponentLength-2*\CircuitXMargin-\InnerBlockGap,0)
+                    to[short] ++(1.5*\ComponentLength+2*\CircuitXMargin+\InnerBlockGap,0)
+                    to[generic, l^=$Z_{\mathrm{L}}$] ++(0,\ComponentLength)
+                    to[short] ++(-2*\CircuitXMargin-.5*\ComponentLength-\InnerBlockGap,0)
                     to[generic, l^=$R_{\mathrm{A}}$] ++(-\ComponentLength,0)
-                    to[L, l^=$L_{\mathrm{A}}$, mirror] ++(0,-\ComponentLength);
-                \draw (ApplianceCircuitBottomLeft)+(-.5*\ComponentHeight,.2*\ComponentLength) node {$\bullet$};
+                    to[L, l^=$L_{\mathrm{A}}$, mirror] ++(0,-\ComponentLength) -- cycle;
+                \draw (ApplianceCircuitBottomLeft)+(-.5*\ComponentHeight,.2*\ComponentLength) node (ApplianceCouplingDot) {$\bullet$};
+                % Loop current arrow
+                \draw[<-] ($(ApplianceCircuitCentre)+({1.6*cos(120)},{.8*sin(120)})$) arc[start angle=120, delta angle=-330, x radius = 1.6, y radius = .8];
+                \draw ($(ApplianceCircuitCentre)+(-1.1,0)$) node {$I_{\mathrm{S}}$};
+                % Active power lost
+                \draw[->] ($(ApplianceCircuitBottomRight)+(-2*\CircuitXMargin-.5*\ComponentLength-\InnerBlockGap-.5*\ComponentLength,\ComponentLength+.5*\ComponentHeight)$) -- ++(-.5*\ComponentHeight+\CircuitYMargin+.5*\InnerBlockYMargin,-.5*\ComponentHeight+\CircuitYMargin+.5*\InnerBlockYMargin) node[at end, right] {$P_{\mathrm{A}}$};
+                % Coupling element block
+                \draw (ApplianceCouplingElementBottomLeft) rectangle ($(ApplianceCouplingElementBottomRight)+(0,\InnerBlockHeight)$);
+                \node[below] at ($.5*(ApplianceCouplingElementBottomLeft)+.5*(ApplianceCouplingElementBottomRight)$) {Coupling Element};
+                % Complex load block
+                \draw (ComplexLoadBottomLeft) rectangle ($(ComplexLoadBottomRight)+(0,\InnerBlockHeight)$);
+                \node[below] at ($.5*(ComplexLoadBottomLeft)+.5*(ComplexLoadBottomRight)$) {Complex Load};
+                % Side of appliance
+                \draw (ApplianceBlockBottomLeft) rectangle ($(ApplianceBlockBottomRight)+(0,2*\InnerBlockYMargin+\InnerBlockHeight)$);
+                \node[below] at ($.5*(ApplianceBlockBottomLeft)+.5*(ApplianceBlockBottomRight)$) {Side of appliance};
+
+                % Mutual coupling arrow
+                \draw[<->, rounded corners=5mm] (SourceCouplingDot) to ($.5*(SourceCouplingDot)+.5*(ApplianceCouplingDot)+(0,.5)$) to (ApplianceCouplingDot);
+                \node[anchor=south] at ($.5*(SourceCouplingDot)+.5*(ApplianceCouplingDot)+(0,.5)$) {$\kappa_{\mathrm{M}}$};
             \end{circuitikz}%
             }
-            \caption{\label{fig:circuit2}Circuit2}
+            \caption{\label{fig:circuit-model-of-a-transmission-chain}Circuit model of a transmission chain}
         \end{figure}
 
+        The mutually coupled inductors in the centre of Figure~\ref{fig:circuit-model-of-a-transmission-chain} can be redrawn using an equivalent circuit model as depicted in Figure~\ref{fig:mutually-coupled-inductors-equivalent-circuit}. Here, the coupling coefficient between the transmitting and receiving coils $\kappa_{\mathrm{M}}$ is represented by the mutual inductance:
+        \begin{align}
+            \kappa_{\mathrm{M}} &= \frac{M}{\sqrt{L_{\mathrm{S}}L_{\mathrm{A}}}}.
+        \end{align}
+        \begin{figure}[!ht]
+            \centering
+            \begin{circuitikz}[american, >=Latex]
+                % Parameters
+                \def\ComponentLength{3}
+                \def\ComponentHeight{.5}
+
+                \draw (0,0)
+                    to[short, o-] ++(\ComponentLength,0)
+                    to[L, l_=$M$] ++(0,\ComponentLength)
+                    to[L, l_=$L_{\mathrm{S}}-M$, mirror] ++(-\ComponentLength,0)
+                    to[short, -o] ++(0,0);
+                \draw (\ComponentLength,0)
+                    to[short, -o] ++(\ComponentLength,0);
+                \draw (\ComponentLength,\ComponentLength)
+                    to[L, l^=$L_{\mathrm{A}}-M$] ++(\ComponentLength,0)
+                    to[short, -o] ++(0,0);
+
+                \draw[<-] (0,.05*\ComponentLength) -- ++(0,.9*\ComponentLength) node[midway, right] {$U_1$};
+                \draw[<-] (2*\ComponentLength,.05*\ComponentLength) -- ++(0,.9*\ComponentLength) node[midway, right] {$U_2$};
+            \end{circuitikz}
+            \caption{\label{fig:mutually-coupled-inductors-equivalent-circuit}Mutually coupled inductors -- equivalent circuit}
+        \end{figure}
+        
+        Understanding inductive coupling in IWPT systems is paramount due to its pivotal role in enabling efficient energy transfer between coils. As depicted in Figure~\ref{fig:circuit-model-of-a-transmission-chain}, the mutual electromagnetic induction between the transmitter and receiver coils forms the core mechanism of IWPT. This coupling phenomenon determines the efficiency and reliability of power transfer, making it imperative for thorough investigation.
+
+        Furthermore, Figure~\ref{fig:circuit-model-of-a-transmission-chain} highlights the significance of equivalent circuit analysis in comprehending inductive coupling. By abstracting the intricate interactions between coils into simplified models, equivalent circuits, such as the model in Figure~\ref{fig:mutually-coupled-inductors-equivalent-circuit}, provide a systematic framework for analyzing IWPT systems. Parameters such as impedance matching, resonance frequency, and power transfer efficiency, depicted in the equivalent circuit representation, offer crucial insights into system performance.
+
+        In the following chapter, we perform a 3D CAD simulation applied to the basic configuration of coupled inductors, providing an approach for determining the values of resistances and inductances crucial to Figure~\ref{fig:circuit-model-of-a-transmission-chain}.
 
     %========== Chapter 2: Simulation of IWPT systems ==========
     \chapter{Simulation of IWPT systems}
     \label{chap:simulation-of-iwpt-systems}
 
-    In the first chapter of this thesis, we introduce the concept of a smooth manifold. To readers experienced in topology, definition of the aforementioned might come across as trivial, but we consider it very important to specify how exactly we approach manifolds in general, since the underlying definitions might differ from text to text.
+    In this chapter, we delve into the simulation aspects of IWPT systems using \emph{Maxwell ANSYS} software. The focus of this investigation is on the simulation of basic coupled inductors, serving as a fundamental model for IWPT systems. Through these simulations, we aim to extract key parameters such as self and mutual inductance, as well as the DC resistance of both the transmitting and receiving coils.
 
-    Apart from the smooth manifold itself, we will also introduce other key concepts of differential topology, such as charts, atlases, paracompactness, etc.
+    One of the primary objectives of this simulation study is to validate the accuracy of the simulated parameters against analytical formulae. By comparing the simulated values of self and mutual inductance, as well as DC resistance, with their analytically derived counterparts, we aim to assess the fidelity of the simulation model and its ability to capture the behavior of IWPT systems.
 
-    \section{Charts and atlases}
+    \section{Simulation results}
 
-        Before we begin, let us discuss the goal of this section. We would like to introduce a structure on a set that endows it with the property of ``looking like'' $\mathbb R^n$ locally. In general, this will not be necessarily achievable globally on the whole set, but we will manage to arrive at a reasonable compromise using charts and atlases.
+        The simulation process involves setting up the geometries and material properties of the coils within the software environment, accurately representing the physical characteristics of the inductive components. By applying appropriate boundary conditions and excitation sources, we replicate the operational conditions of IWPT systems to obtain realistic results.
 
-        \begin{definition}
-            \index{chart}
-            Let $M$ be a set. A \emph{chart} on $M$ is a pair $(U,\mathbf x)$ consisting of $U \subseteq M$ and an injective map $\mathbf x:U \to \mathbb R^n$ such that $\mathbf x[U] = \{\mathbf x(a) \mid a \in U\}$ is an open set in $\mathbb R^n$. The composite $x^i = \mathrm{pr}_i \circ \mathbf x: M \to \mathbb R$ is often called the \emph{$i$-th coordinate function}.
-        \end{definition}
-        
-        \begin{note}
-            Since $\mathbf x$, by definition, has $\R^n$ as a codomain, we can always write its action upon a point $p \in M$ as $\mathbf x: p \mapsto \mathbf x(p) = \big( x^1(p),\dots,x^n(p) \big)$. Whenever we wish to emphasize the individual coordinate functions, we write $\big( x^1,\dots,x^n \big)$ or $\big( x^i \big)$ instead of $\mathbf x$.
-        \end{note}
-        
-        \begin{remark}
-            Note that we have defined charts on a plain set $M$. Therefore, we do not require $U$ in $(U,\mathbf x)$ to be open since we do not have the topological structure on $M$ just yet.
-        \end{remark}
+        For the validation of simulation results, we can construct a 3D CAD model of the basic IWPT configuration: coupled inductors. This model can be seen in Figure~\ref{fig:basic-coupled-inductors} with terminals reaching outside the figure to the edge of the simulation space. The bounding box dimensions must always be chosen great enough to encompass the vast majority of the excited field in order to minimize the numerical error caused by cutting off the simulation space. For the excitation of $\qty{1}{\A}$ applied to the terminals, a bounding cube with an edge of $\qty{200}{\mm}$ is sufficient for practical compliance with reality.
+        \begin{figure}[!ht]
+            \centering
+            \includegraphics[width=.9\textwidth]{src/basic-coupled-inductors-isometric.png}
+            \caption{\label{fig:basic-coupled-inductors}Basic coupled inductors}
+        \end{figure}
 
-    \section{Theoretical analysis}
+        Performing analysis of the 3D CAD model in \emph{Maxwell ANSYS}, we can extract the values of resistance along with self and mutual inductance.%
+            \footnote{The inductance values can be computed for DC excitation in the \emph{Magnetostatic solver} or for an arbitrary number of frequency points using the \emph{EddyCurrent solver}. These two solvers were found to yield identical results in the DC case.}
+        In more detail, the simulation results of the DC resistance are
+        \begin{align}
+            \label{eq:dc-parameters-resistance-simulation}
+            R_{\Tx} &= \qty{21.7}{\mohm},
+        &
+            R_{\Rx} &= \qty{10.5}{\mohm}.
+        \end{align}
+        Furthermore, the simulated DC inductance values are
+        \begin{align}
+        \label{eq:dc-parameters-inductance-simulation}
+            L_{\Tx} &= \qty{3.8}{\uH},
+        &
+            L_{\Rx} &= \qty{1.0}{\uH},
+        &
+            M &= \qty{0.6}{\uH}.
+        \end{align}
 
-        Some general talk\dots
+    \section{Analytical results}
 
-        \subsection{Length of the coils}
-            \paragraph{Underlying theorem.} Let $f$ be a function whose derivative is continuous on an interval $\alpha \leq \theta \leq \beta$. The arc length of the graph of $r=f(\theta)$ from $\theta=\alpha$ to $\theta=\beta$ is
+        In this section, we aim to validate the simulation results using analytical formulae. Therefore, let us assume geometry identical to the 3D CAD model depicted in Figure~\ref{fig:basic-coupled-inductors}. This model features two inductors made of annealed copper, both with the same initial radius $\qty{10}{\mm}$ and linear radius change of $\qty{1.46}{\mm}$ per turn, and differring only in the number of turns. The transmitting coil has got $N_{\Tx} = 10$ turns, whereas the receiving coil has got only $N_{\Rx} = 5$ turns.
+
+        \subsection{Resistance}
+
+            The DC resistance $R$ of a wire of uniform cross-sectional area $A$, length $\l$ and resistivity $\rho$, can be calculated using the renowned formula
             \begin{align}
-                \l &= \int_\alpha^\beta \sqrt{|f(\theta)|^2 + |f'(\theta)|^2} \d\theta = \int_\alpha^\beta \sqrt{r^2 + \(\frac{\partial r}{\partial \theta}\)^2} \,\d\theta.
+                \label{eq:dc-resistance-of-a-wire}
+                R &= \frac{\rho \l}{A} = \frac{\l}{\sigma A},
             \end{align}
-            
-            \paragraph{Application.} Since the \emph{radius change} of the created spirals is 1.46 mm per turn, we can write the following formulas for the spiral curves of the transmitting and receiving coils:
+            where $\sigma$ is conductivity, the reciprocal of resistivity. Thus, in order to calculate this value, we need to find the lengths of the wires constituting the respective coils. Since we already know their spiral geometry parameters, we can write their corresponding formulas using the spiral equation
             \begin{align}
+                \label{eq:spiral-equation}
                 r(\theta) &= 10+\frac{1.46}{2\pi} \theta, \quad 0 \leq \theta \leq N\cdot 2 \pi,
             \end{align}
-            where $N$ is the number of turns of the respective coil. For such curves, we obtain
-            \begin{align}
-                \l_{\mathrm{TxSpiral}} &= \int_0^{10 \cdot 2\pi} \sqrt{\(10+\frac{1.46}{2\pi} \theta\)^2+\(\frac{1.46}{2\pi}\)^2} \d\theta\ \mathrm{mm},
-            \\
-                \l_{\mathrm{RxSpiral}} &= \int_0^{5 \cdot 2\pi} \sqrt{\(10+\frac{1.46}{2\pi} \theta\)^2+\(\frac{1.46}{2\pi}\)^2} \d\theta\ \mathrm{mm}.
-            \end{align}
-            These formulas can then be evaluated, e.g. using \emph{Wolfram Alpha}. The results are
-            \begin{align}
-                \l_{\mathrm{TxSpiral}} &= \SI{1087.1}{\milli\metre},
-            &
-                \l_{\mathrm{RxSpiral}} &= \SI{428.9}{\milli\metre}.
-            \end{align}
+            where $N$ is the number of turns of the individual spiral. Following this, we can recall the theorem from real analysis for calculating the arc length of a graph in a polar coordinate system which goes as follows:
+            \begin{theorem}
+                \label{theorem:length-of-a-graph}
+                Let $f$ be a real function of class~$C^1$ on $\(\alpha, \beta\)$, where $\alpha < \beta$. The arc length of the graph of $r=f(\theta)$ from $\theta=\alpha$ to $\theta=\beta$ is
+                \begin{align}
+                    \label{eq:length-of-a-graph}
+                    \l &= \int_\alpha^\beta \sqrt{|f(\theta)|^2 + |f'(\theta)|^2} \,\d\theta = \int_\alpha^\beta \sqrt{r^2 + \(\frac{\partial r}{\partial \theta}\)^2} \,\d\theta.
+                \end{align}
+            \end{theorem}
             
-            \paragraph{Result.} For the total length of a coil, the feeding terminals must be taken into account:
+            Substituting $N = 10$ for the transmitting coil and $N = 5$ for the receiving coil into Equation~\ref{eq:spiral-equation}, we obtain the spiral equations
             \begin{align}
-                \l_{\mathrm{TxTerminal1}} &= \SI{94.0}{\milli\metre},
-            &
-                \l_{\mathrm{RxTerminal1}} &= \SI{94.0}{\milli\metre},
+                \label{eq:tx-spiral-equation}
+                r_{\Tx}(\theta) &= 10+\frac{1.46}{2\pi} \theta, \quad 0 \leq \theta \leq 10\cdot 2 \pi
+            \end{align}
+            and
+            \begin{align}
+                r_{\Rx}(\theta) &= 10+\frac{1.46}{2\pi} \theta, \quad 0 \leq \theta \leq 5\cdot 2 \pi,
+            \end{align}
+            Furthermore, applying Theorem~\ref{theorem:length-of-a-graph}, we can calculate the lengths of the spirals as
+            \begin{align}
+                \l_{\mathrm{TxS}} &= \int_0^{10 \cdot 2\pi} \sqrt{\(10+\frac{1.46}{2\pi} \theta\)^2+\(\frac{1.46}{2\pi}\)^2} \,\d\theta \,\unit{\mm} \approx \qty{1087.1}{\mm},
             \\
-                \l_{\mathrm{TxTerminal2}} &= \SI{86.7}{\milli\metre},
+                \l_{\mathrm{RxS}} &= \int_0^{5 \cdot 2\pi} \sqrt{\(10+\frac{1.46}{2\pi} \theta\)^2+\(\frac{1.46}{2\pi}\)^2} \,\d\theta \,\unit{\mm} \approx \qty{428.9}{\mm}.
+            \end{align}
+            For the total length of a coil, the feeding terminals must be taken into account:
+            \begin{align}
+                \l_{\mathrm{TxT1}} &= \qty{94.0}{\mm},
             &
-                \l_{\mathrm{RxTerminal2}} &= \SI{79.5}{\milli\metre}.
+                \l_{\mathrm{RxT1}} &= \qty{94.0}{\mm},
+            \\
+                \l_{\mathrm{TxT2}} &= \qty{86.7}{\mm},
+            &
+                \l_{\mathrm{RxT2}} &= \qty{79.5}{\mm}.
             \end{align}
             Hence, the final length of the transmitting and receiving coils are
             \begin{align}
-                \l_{\mathrm{Tx}} &= l_{\mathrm{TxSpiral}} + l_{\mathrm{TxTerminal1}} + l_{\mathrm{TxTerminal2}} = \SI{1.268}{\metre},
+                \label{eq:tx-length}
+                \l_{\Tx} &= \l_{\mathrm{TxS}} + \l_{\mathrm{TxT1}} + \l_{\mathrm{TxT2}} = \qty{1267.8}{\mm},
             \\
-                l_{\mathrm{Rx}} &= l_{\mathrm{RxSpiral}} + l_{\mathrm{RxTerminal1}} + l_{\mathrm{RxTerminal2}} = \SI{0.602}{\metre}.
+                \label{eq:rx-length}
+                \l_{\Rx} &= \l_{\mathrm{RxS}} + \l_{\mathrm{RxT1}} + \l_{\mathrm{RxT2}} = \qty{602.4}{\mm}.
             \end{align}
 
-        \subsection{DC resistance of the coils}
-            The DC resistance $R$ of a wire of uniform cross-sectional area $A$, length $\l$ and resistivity $\rho = \sigma^{-1}$, where $\sigma$ is conductivity, can be calculated using the formula
+            At last, we can apply Equation~\ref{eq:dc-resistance-of-a-wire} to our case of the IWPT coils which consist of copper wire of cross-sectional area $A = \qty{1}{\mm\squared}$. The conductivity of annealed copper is $\sigma = \qty{5.8001e7}{\siemens\per\metre}$. With lengths given by Equations~\ref{eq:tx-length}~and~\ref{eq:rx-length}, we obtain the values of DC resistance
             \begin{align}
-                R &= \frac{\rho \l}{A} = \frac{\l}{\sigma A}.
+                \label{eq:dc-parameters-resistance-analytical}
+                R_{\Tx} &= \qty{21.9}{\mohm},
+            &
+                R_{\Rx} &= \qty{10.4}{\mohm}.
             \end{align}
 
-            We can apply this formula to our case of the aforementioned transmitting and receiving coils which consist of copper wire of cross-sectional area $A = \SI{1}{\milli\metre\squared}$. The conductivity of annealed copper is $\sigma = \SI{5.8001e7}{\siemens\per\metre}$. Altogether, we obtain the values of DC resistance
+            Comparing these values with the simulation results contained in Equation~\ref{eq:dc-parameters-resistance-simulation}, we can confirm the accuracy of the simulation to $\approx\qty{0.2}{\mohm}$.
+        
+        \subsection{Inductance}
+            
+            The values of DC inductances, both self and mutual, are subject to complex computations using elliptic integrals. Luckily, we can utilize the astounding work~\cite{pankrac:power-inductors-part-3} which provides us with an elaborate guide on how to determine the self and mutual inductance of coaxial coils in air. Furthermore, the aforementioned work was supplemented with numerical software~\cite{pankrac-software:self-and-mutual-inductance-calculation-of-coaxial-coils-in-air} which performs all the complex calculations in response to simple input. This input is the task geometry:
+            \begin{center}
+                \begin{minipage}{.45\textwidth}
+                    \paragraph{Transmitting coil:} \begin{itemize}
+                        \item inner diameter: $\qty{20}{\mm}$,
+                        \item outer diameter: $\qty{51}{\mm}$,
+                        \item coil height: $\qty{1}{\mm}$,
+                        \item number of turns: $\qty{10}{}$.
+                    \end{itemize}
+                \end{minipage}
+                ~
+                \begin{minipage}{.45\textwidth}
+                    \paragraph{Receiving coil:} \begin{itemize}
+                        \item inner diameter: $\qty{20}{\mm}$,
+                        \item outer diameter: $\qty{36}{\mm}$,
+                        \item coil height: $\qty{1}{\mm}$,
+                        \item number of turns: $\qty{5}{}$.
+                    \end{itemize}
+                \end{minipage}
+            \end{center}
+            The axial coil distance is $\qty{10}{\mm}$. Using the fifth Romberg extrapolation $R(n,5)$ for estimation of the elliptic integrals, we obtain the values of inductance
             \begin{align}
-                R_{\mathrm{Tx}} &= \frac{1.268}{5.8001 \cdot 10^7 \cdot 1 \cdot 10^{-6}} = \SI{21.9}{\milli\ohm},
-            \\
-                R_{\mathrm{Rx}} &= \frac{0.602}{5.8001 \cdot 10^7 \cdot 1 \cdot 10^{-6}} = \SI{10.4}{\milli\ohm}.
+                \label{eq:dc-parameters-inductance-analytical}
+                L_{\Tx} &= \qty{3.8}{\uH},
+            &
+                L_{\Rx} &= \qty{0.9}{\uH},
+            &
+                M &= \qty{0.6}{\uH}.
             \end{align}
-            These results, compared with the simulation results of $R_{\mathrm{Tx}} = \SI{21.7}{\milli\ohm}$ and $R_{\mathrm{Tx}} = \SI{10.5}{\milli\ohm}$, verify the computational credibility of \emph{ANSYS Maxwell}.
+
+            Again, comparing these values with the simulation results in Equation~\ref{eq:dc-parameters-inductance-simulation}, we can confirm the accuracy of the simulation to $\approx\qty{0.1}{\uH}$.
+
     
+    %========== Conclusion ==========
+    \chapter*{Conclusion}
+    \label{chap:conclusion}
+    \addcontentsline{toc}{chapter}{\nameref{chap:conclusion}}
+    
+    In summary, this thesis project has effectively demonstrated the capabilities of Maxwell ANSYS software in simulating and analyzing Inductive Wireless Power Transfer (IWPT) systems. Beginning with an introductory overview of IWPT systems and equivalent circuit models in Chapter~\ref{chap:introduction-to-iwpt}, followed by a detailed simulation of basic coupled inductors in Chapter~\ref{chap:simulation-of-iwpt-systems}, we have established the software's reliability in capturing the electromagnetic behavior of such systems. The satisfactory agreement between simulated results and analytical formulas reaffirms the accuracy and robustness of Maxwell ANSYS, particularly in modeling IWPT systems with frequency dependencies and complex structures. These findings highlight the software's potential for designing and optimizing wireless power transfer technologies for practical applications. As we continue to refine simulation techniques and explore more sophisticated system configurations, the insights gained from this project will serve as a valuable foundation for future developments in the field.
 
-    % %========== Bibliography ==========
-	% \newpage
-	% \begin{thebibliography}{20}
-	% 	\bibitem{cartan:differential-calculus} Henri Cartan, \emph{Differential calculus}, Hermann, 1983.
-		
-	% 	\bibitem{dieudonne:treatise-on-analysis} Jean Dieudonn\'{e}, \emph{Treatise on analysis}, volume 3, Academic Press, 1972.
-		
-	% 	\bibitem{engelking:general-topology} Ryszard Engelking, \emph{General topology}, Heldermann, Berlin, 1989.
-		
-	% 	\bibitem{frankel:the-geometry-of-physics-an-introduction} Theodore Frankel, \textit{The geometry of physics: an introduction}, 3rd ed, Cambridge University Press, 2011.
-		
-	% 	\bibitem{gauld:nonmetrisable-manifolds} David Gauld, \emph{Non-metrisable manifolds}, Springer, Singapore, 2014.
-		
-	% 	\bibitem{hartman:orginary-differential-equations} Philip Hartman, \emph{Ordinary differential equations}, John Wiley \& Sons, New York, 1964.
-		
-	% 	\bibitem{lee:manifolds-and-differential-geometry} Jeffrey M. Lee, \emph{Manifolds and differential geometry}, volume 107, American Mathematical Society, Rhode Island, 2009.
-		
-	% 	\bibitem{lee:intro-to-smooth-manifolds} John M. Lee, \emph{Introduction to smooth manifolds}, Springer, New York, 2012.
-		
-	% 	\bibitem{lucyshyn-wright:on-geometric-noton-of-connection-and-its-expression-in-tangent-categories} Rory B. B. Lucyshyn-Wright, On the geometric notion of connection and its expression in tangent categories, \emph{Theory Appl. Categ.} 33 (2018), 832-866. \url{http://www.tac.mta.ca/tac/volumes/33/28/33-28.pdf}, Accessed: \monthyeardate\today.
-		
-	% 	\bibitem{rosicky:abstract-tangent-functors} Jiří Rosický, Abstract tangent functors, \emph{Diagrammes} 12 (1984): JR1-JR11. \url{http://eudml.org/doc/91746}, Accessed: \monthyeardate\today.
-		
-	% 	\bibitem{szilasi-kertesz-lovas:connections-sprays-and-finsler-structures} J\'{o}zsef Szilasi, D\'{a}vid Cs Kert\'{e}sz, Rezs\H{o} L. Lovas, \emph{Connections, sprays and Finsler structures}, World Scientific Publishing
-	% 	Company, 2013.
-		
-	% \end{thebibliography}
+    %========== Bibliography ==========
+    \bibliography{bibliography}
 	
     % %========== Index ==========
 	% \printindex
