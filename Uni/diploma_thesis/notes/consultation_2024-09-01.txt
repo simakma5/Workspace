@@ -1,6 +1,5 @@
 To-do:
 * podivat se, co psal kolega z STM - jak vypadaj realny civky - a zkusit je odsimulovat
-* mozna provest VF srovnani, ale to je slozitejsi a spis to za to asi nestoji
 * rozmyslet nejakou zpravu pro zapocet z projektu
 	** porovnani vypoctu (kalkulace + Pankrac) a vysledku Maxwellu
 	** zahrnout do toho realny civky z STM
