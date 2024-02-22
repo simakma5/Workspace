@@ -93,7 +93,6 @@ Thumbs.db
 # Intentionally excluded files #
 ################################
 .vscode/
-venv/
 IDE projects/
 Texts/
 Uni/diploma_thesis/texts
