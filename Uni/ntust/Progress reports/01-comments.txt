@@ -1,0 +1,3 @@
+* Analyze the efficiency of the whole transmission chain, not just parameters of the coupled inductors
+* Read the professor's paper on resonant coupling IWPT. The possibility of the principles' adoption is a matter of debate but it excludes the collaboration with STMicroelectronics. Discuss with Kracek after reading the papers.
+* Focus on maximizing transmission efficiency if we decide to stick with the LF non-resonant configuration.
